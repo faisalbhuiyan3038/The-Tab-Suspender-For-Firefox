@@ -1,0 +1,23 @@
+{
+  "manifest_version": 2,
+  "name": "Firefox Tab Suspender",
+  "version": "1.0",
+  "description": "Suspends inactive tabs after a set time by replacing them with a custom suspended page.",
+  "permissions": [
+    "tabs",
+    "storage",
+    "webNavigation"
+  ],
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
+  "browser_action": {
+    "default_popup": "popup.html",
+    "default_title": "Tab Suspender Settings"
+  },
+  "web_accessible_resources": [
+    "suspended.html"
+  ]
+}
