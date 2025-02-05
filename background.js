@@ -1,10 +1,11 @@
 // background.js
 
-// Replace the constant SUSPEND_TIME with a variable
+// State management
 let SUSPEND_TIME = 5 * 60 * 1000; // Default 5 minutes
-
-// Add isEnabled variable at the top with other state variables
 let isEnabled = true; // Enabled by default
+let activeTabId = null;
+let suspendedTabs = {};
+let tabTimers = {};
 
 // Load saved settings when extension starts
 browser.storage.local.get(['suspendTime', 'isEnabled']).then(result => {
@@ -16,16 +17,6 @@ browser.storage.local.get(['suspendTime', 'isEnabled']).then(result => {
   }
 });
 
-// An object to keep track of timers per tab.
-let tabTimers = {};
-
-// (Optional) A mapping of suspended tab IDs to their original URL.
-// You could also encode this in the suspended page's URL.
-let suspendedTabs = {};
-
-// Add activeTabId variable to track the currently active tab
-let activeTabId = null;
-
 /**
  * Resets (or creates) the suspension timer for a given tab.
  */
@@ -33,10 +24,11 @@ function resetTabTimer(tabId) {
   // Clear any existing timer
   if (tabTimers[tabId]) {
     clearTimeout(tabTimers[tabId]);
+    delete tabTimers[tabId];
   }
 
-  // Only set new timer if the extension is enabled
-  if (isEnabled) {
+  // Only set timer if the extension is enabled and it's not the active tab
+  if (isEnabled && tabId !== activeTabId) {
     tabTimers[tabId] = setTimeout(() => {
       suspendTab(tabId);
     }, SUSPEND_TIME);
@@ -48,25 +40,20 @@ function resetTabTimer(tabId) {
  * to a local suspended page.
  */
 function suspendTab(tabId) {
-  // Don't suspend the active tab
-  if (tabId === activeTabId) {
-    return;
-  }
+  if (tabId === activeTabId) return;
 
   browser.tabs.get(tabId).then((tab) => {
-    // If the tab is already showing our suspended page, do nothing
+    // Skip if already suspended or not http(s)
     if (tab.url.startsWith(browser.runtime.getURL("suspended.html"))) {
       return;
     }
 
-    // Only suspend http/https URLs
     try {
       const url = new URL(tab.url);
       if (!['http:', 'https:'].includes(url.protocol)) {
         return;
       }
     } catch (e) {
-      // Invalid URL, don't suspend
       return;
     }
 
@@ -76,7 +63,7 @@ function suspendTab(tabId) {
       title: tab.title
     };
 
-    // Update the tab to load the suspended page
+    // Update to suspended page
     const suspendedPageURL = browser.runtime.getURL("suspended.html") +
       "?origUrl=" + encodeURIComponent(tab.url) +
       "&title=" + encodeURIComponent(tab.title);
@@ -84,52 +71,79 @@ function suspendTab(tabId) {
   });
 }
 
-// When a tab is updated (e.g. navigated to a new URL), reset its timer.
+// Track tab state changes
 browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-  // If the tab isn't our suspended page, reset the timer.
-  if (!tab.url.startsWith(browser.runtime.getURL("suspended.html"))) {
-    resetTabTimer(tabId);
+  // If this is not the active tab and the tab has completed loading
+  if (tabId !== activeTabId && changeInfo.status === 'complete') {
+    // Don't set timer for suspended pages
+    if (!tab.url.startsWith(browser.runtime.getURL("suspended.html"))) {
+      resetTabTimer(tabId);
+    }
   }
 });
 
-// Update the active tab tracking
+// Track active tab changes
 browser.tabs.onActivated.addListener((activeInfo) => {
+  const previousActiveTab = activeTabId;
   activeTabId = activeInfo.tabId;
-  // Clear any existing timer for the newly activated tab
+
+  // Clear timer for newly activated tab
   if (tabTimers[activeTabId]) {
     clearTimeout(tabTimers[activeTabId]);
     delete tabTimers[activeTabId];
   }
-});
 
-// Also track active tab across windows
-browser.windows.onFocusChanged.addListener((windowId) => {
-  if (windowId !== browser.windows.WINDOW_ID_NONE) {
-    browser.tabs.query({ active: true, windowId }).then(tabs => {
-      if (tabs[0]) {
-        activeTabId = tabs[0].id;
+  // Start timer for previously active tab
+  if (previousActiveTab && previousActiveTab !== activeTabId) {
+    browser.tabs.get(previousActiveTab).then(tab => {
+      if (!tab.url.startsWith(browser.runtime.getURL("suspended.html"))) {
+        resetTabTimer(previousActiveTab);
       }
+    }).catch(() => {
+      // Tab might have been closed, ignore error
     });
   }
 });
 
-// Listen for messages from the suspended page.
+// Track window focus changes
+browser.windows.onFocusChanged.addListener((windowId) => {
+  if (windowId === browser.windows.WINDOW_ID_NONE) return;
+
+  // Get the active tab in the newly focused window
+  browser.tabs.query({ active: true, windowId }).then(tabs => {
+    if (tabs[0]) {
+      const previousActiveTab = activeTabId;
+      activeTabId = tabs[0].id;
+
+      // Clear timer for newly activated tab
+      if (tabTimers[activeTabId]) {
+        clearTimeout(tabTimers[activeTabId]);
+        delete tabTimers[activeTabId];
+      }
+
+      // Start timer for previously active tab
+      if (previousActiveTab && previousActiveTab !== activeTabId) {
+        browser.tabs.get(previousActiveTab).then(tab => {
+          if (!tab.url.startsWith(browser.runtime.getURL("suspended.html"))) {
+            resetTabTimer(previousActiveTab);
+          }
+        }).catch(() => {
+          // Tab might have been closed, ignore error
+        });
+      }
+    }
+  });
+});
+
+// Listen for messages from the suspended page
 browser.runtime.onMessage.addListener((message, sender) => {
   if (message.action === "resumeTab" && sender.tab) {
-    // When the user clicks the suspended page, update the tab back to its original URL.
     const origUrl = message.origUrl;
-    // Remove the timer since the tab is resuming.
-    if (tabTimers[sender.tab.id]) {
-      clearTimeout(tabTimers[sender.tab.id]);
-      delete tabTimers[sender.tab.id];
-    }
-    // Optionally, remove from suspendedTabs mapping.
     delete suspendedTabs[sender.tab.id];
-    // Update the tab to reload the original URL.
     browser.tabs.update(sender.tab.id, { url: origUrl });
   } else if (message.action === "updateSuspendTime") {
     SUSPEND_TIME = message.minutes * 60 * 1000;
-    // Reset all existing timers with the new time
+    // Reset all timers with new time
     Object.keys(tabTimers).forEach(tabId => {
       resetTabTimer(parseInt(tabId, 10));
     });
@@ -144,14 +158,30 @@ browser.runtime.onMessage.addListener((message, sender) => {
         }
       });
     } else {
-      // Reset timers for all tabs when enabled
+      // Start timers for all inactive tabs when enabled
       browser.tabs.query({}).then(tabs => {
         tabs.forEach(tab => {
-          if (!tab.url.startsWith(browser.runtime.getURL("suspended.html"))) {
+          if (!tab.active && !tab.url.startsWith(browser.runtime.getURL("suspended.html"))) {
             resetTabTimer(tab.id);
           }
         });
       });
     }
   }
+});
+
+// Initialize timers for existing tabs when extension starts
+browser.tabs.query({}).then(tabs => {
+  // Find the active tab
+  const activeTab = tabs.find(tab => tab.active);
+  if (activeTab) {
+    activeTabId = activeTab.id;
+  }
+
+  // Set timers for inactive tabs
+  tabs.forEach(tab => {
+    if (!tab.active && !tab.url.startsWith(browser.runtime.getURL("suspended.html"))) {
+      resetTabTimer(tab.id);
+    }
+  });
 });
