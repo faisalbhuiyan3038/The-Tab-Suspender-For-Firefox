@@ -33,6 +33,13 @@ browser.storage.local.get([
   };
 });
 
+// Load suspended tabs state when extension starts
+browser.storage.local.get('suspendedTabs').then(result => {
+  if (result.suspendedTabs) {
+    suspendedTabs = result.suspendedTabs;
+  }
+});
+
 /**
  * Resets (or creates) the suspension timer for a given tab.
  */
@@ -87,6 +94,9 @@ async function suspendTab(tabId) {
       title: tab.title
     };
 
+    // Save state to storage
+    saveSuspendedTabsState();
+
     // Update to suspended page
     const suspendedPageURL = browser.runtime.getURL("suspended.html") +
       "?origUrl=" + encodeURIComponent(tab.url) +
@@ -104,6 +114,19 @@ browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     // Don't set timer for suspended pages
     if (!tab.url.startsWith(browser.runtime.getURL("suspended.html"))) {
       resetTabTimer(tabId);
+    }
+  }
+
+  // If this is a new tab load and we have stored state for it
+  if (changeInfo.status === 'complete' && suspendedTabs[tabId]) {
+    const originalTab = suspendedTabs[tabId];
+
+    // Only restore suspended state if the current URL matches the original
+    if (tab.url === originalTab.url) {
+      const suspendedPageURL = browser.runtime.getURL("suspended.html") +
+        "?origUrl=" + encodeURIComponent(originalTab.url) +
+        "&title=" + encodeURIComponent(originalTab.title);
+      browser.tabs.update(tabId, { url: suspendedPageURL });
     }
   }
 });
@@ -166,6 +189,7 @@ browser.runtime.onMessage.addListener((message, sender) => {
   if (message.action === "resumeTab" && sender.tab) {
     const origUrl = message.origUrl;
     delete suspendedTabs[sender.tab.id];
+    saveSuspendedTabsState(); // Save state after resuming
     browser.tabs.update(sender.tab.id, { url: origUrl });
   } else if (message.action === "updateSuspendTime") {
     SUSPEND_TIME = message.minutes * 60 * 1000;
@@ -249,3 +273,30 @@ async function shouldProtectTab(tab) {
     return true;
   }
 }
+
+// Add function to save suspended tabs state
+function saveSuspendedTabsState() {
+  browser.storage.local.set({ suspendedTabs });
+}
+
+// Add listeners for tab removal and window removal
+browser.tabs.onRemoved.addListener((tabId) => {
+  if (suspendedTabs[tabId]) {
+    delete suspendedTabs[tabId];
+    saveSuspendedTabsState();
+  }
+});
+
+// Add startup listener to check all tabs
+browser.runtime.onStartup.addListener(() => {
+  browser.tabs.query({}).then(tabs => {
+    tabs.forEach(tab => {
+      if (suspendedTabs[tab.id] && suspendedTabs[tab.id].url === tab.url) {
+        const suspendedPageURL = browser.runtime.getURL("suspended.html") +
+          "?origUrl=" + encodeURIComponent(suspendedTabs[tab.id].url) +
+          "&title=" + encodeURIComponent(suspendedTabs[tab.id].title);
+        browser.tabs.update(tab.id, { url: suspendedPageURL });
+      }
+    });
+  });
+});

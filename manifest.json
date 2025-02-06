@@ -1,8 +1,16 @@
 {
   "manifest_version": 2,
-  "name": "The Firefox Suspender",
+  "name": "The Tab Suspender",
   "version": "1.0",
   "description": "Suspends inactive tabs after a set time by replacing them with a custom suspended page.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "64": "icons/icon64.png",
+    "96": "icons/icon96.png",
+    "128": "icons/icon128.png"
+  },
   "permissions": [
     "tabs",
     "storage",
@@ -17,7 +25,13 @@
   },
   "browser_action": {
     "default_popup": "popup.html",
-    "default_title": "Tab Suspender Settings"
+    "default_title": "Tab Suspender Settings",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "96": "icons/icon96.png"
+    }
   },
   "web_accessible_resources": [
     "suspended.html"

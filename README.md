@@ -1,6 +1,16 @@
-# The Firefox Suspender
+# The Tab Suspender
 
 A Firefox extension that automatically suspends inactive tabs after a specified time to save memory. Unlike Firefox's native tab discarding, and popular addons like Auto Tab Discard, this extension shows a custom suspended page that you need to click to reload - preventing accidental tab reloads when you mistakenly click on a tab.
+
+## Firefox Addons Store Link
+- Currently in review.
+
+## Screenshots
+
+<div align="center">
+  <p><img src="screenshots/popup.png" alt="Extension Popup Settings" width="800"/></p>
+  <p><img src="screenshots/suspended_state.png" alt="Suspended Tab State" width="800"/></p>
+</div>
 
 ## Features
 
@@ -14,6 +24,7 @@ A Firefox extension that automatically suspends inactive tabs after a specified 
   - Option to prevent suspension of tabs playing audio/video
   - Option to prevent suspension of tabs with unsaved form changes
   - Option to prevent suspension of tabs with notification permissions
+- Persistent suspension state across browser restarts
 - Remembers your settings between browser restarts
 - Lightweight and efficient
 
@@ -29,6 +40,8 @@ Key behaviors:
   - Audio/video playback using Firefox's native audio detection
   - Unsaved form changes by comparing form input values with their defaults
   - Granted notification permissions using the Notifications API
+- Suspended tabs remain suspended after browser restart until explicitly restored
+- Suspension state is saved locally and restored when browser restarts
 
 ## Usage
 
@@ -42,7 +55,7 @@ Key behaviors:
 5. Toggle suspension on/off as needed
 6. That's it! Inactive tabs will be suspended automatically
 
-When a tab is suspended, you'll see a simple page showing the original URL. Click anywhere on the page to restore the tab to its original state.
+When a tab is suspended, you'll see a simple page showing the original URL. Click anywhere on the page to restore the tab to its original state. This behavior persists even after browser restarts - suspended tabs stay suspended until you choose to restore them.
 
 ## Future Improvements
 
