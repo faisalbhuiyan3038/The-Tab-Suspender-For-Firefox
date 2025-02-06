@@ -1,11 +1,37 @@
 // Load saved settings when popup opens
-browser.storage.local.get(['suspendTime', 'isEnabled']).then(result => {
-  const defaultTime = 5; // 5 minutes default
+browser.storage.local.get([
+  'suspendTime',
+  'isEnabled',
+  'ignoreAudio',
+  'ignoreFormInput',
+  'ignoreNotifications'
+]).then(result => {
+  const defaultTime = 40; // 40 minutes default
   const suspendTime = result.suspendTime || defaultTime;
-  const isEnabled = result.isEnabled ?? true; // Enabled by default
+  const isEnabled = result.isEnabled ?? true;
 
   document.getElementById('suspendTime').value = suspendTime;
   document.getElementById('enableSwitch').checked = isEnabled;
+  document.getElementById('ignoreAudio').checked = result.ignoreAudio ?? true;
+  document.getElementById('ignoreFormInput').checked = result.ignoreFormInput ?? true;
+  document.getElementById('ignoreNotifications').checked = result.ignoreNotifications ?? true;
+});
+
+// Save changes for checkboxes
+['ignoreAudio', 'ignoreFormInput', 'ignoreNotifications'].forEach(id => {
+  document.getElementById(id).addEventListener('change', (e) => {
+    const setting = { [id]: e.target.checked };
+    browser.storage.local.set(setting);
+    browser.runtime.sendMessage({
+      action: 'updateSettings',
+      settings: setting
+    });
+
+    // Show saved message
+    const status = document.getElementById('status');
+    status.classList.add('visible');
+    setTimeout(() => status.classList.remove('visible'), 2000);
+  });
 });
 
 // Save changes when enable switch is toggled

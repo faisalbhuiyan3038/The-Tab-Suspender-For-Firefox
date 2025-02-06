@@ -1,20 +1,36 @@
 // background.js
 
 // State management
-let SUSPEND_TIME = 5 * 60 * 1000; // Default 5 minutes
+let SUSPEND_TIME = 40 * 60 * 1000; // Default 40 minutes
 let isEnabled = true; // Enabled by default
 let activeTabId = null;
 let suspendedTabs = {};
 let tabTimers = {};
+let settings = {
+  ignoreAudio: true,
+  ignoreFormInput: true,
+  ignoreNotifications: true
+};
 
-// Load saved settings when extension starts
-browser.storage.local.get(['suspendTime', 'isEnabled']).then(result => {
+// Load all settings
+browser.storage.local.get([
+  'suspendTime',
+  'isEnabled',
+  'ignoreAudio',
+  'ignoreFormInput',
+  'ignoreNotifications'
+]).then(result => {
   if (result.suspendTime) {
     SUSPEND_TIME = result.suspendTime * 60 * 1000;
   }
   if (result.isEnabled !== undefined) {
     isEnabled = result.isEnabled;
   }
+  settings = {
+    ignoreAudio: result.ignoreAudio ?? true,
+    ignoreFormInput: result.ignoreFormInput ?? true,
+    ignoreNotifications: result.ignoreNotifications ?? true
+  };
 });
 
 /**
@@ -39,10 +55,12 @@ function resetTabTimer(tabId) {
  * Suspends the tab by saving its original URL and updating it
  * to a local suspended page.
  */
-function suspendTab(tabId) {
+async function suspendTab(tabId) {
   if (tabId === activeTabId) return;
 
-  browser.tabs.get(tabId).then((tab) => {
+  try {
+    const tab = await browser.tabs.get(tabId);
+
     // Skip if already suspended or not http(s)
     if (tab.url.startsWith(browser.runtime.getURL("suspended.html"))) {
       return;
@@ -57,6 +75,12 @@ function suspendTab(tabId) {
       return;
     }
 
+    // Check if tab should be protected
+    const shouldProtect = await shouldProtectTab(tab);
+    if (shouldProtect) {
+      return;
+    }
+
     // Save the original URL and title
     suspendedTabs[tabId] = {
       url: tab.url,
@@ -68,7 +92,9 @@ function suspendTab(tabId) {
       "?origUrl=" + encodeURIComponent(tab.url) +
       "&title=" + encodeURIComponent(tab.title);
     browser.tabs.update(tabId, { url: suspendedPageURL });
-  });
+  } catch (e) {
+    console.error('Error suspending tab:', e);
+  }
 }
 
 // Track tab state changes
@@ -167,6 +193,8 @@ browser.runtime.onMessage.addListener((message, sender) => {
         });
       });
     }
+  } else if (message.action === "updateSettings") {
+    settings = { ...settings, ...message.settings };
   }
 });
 
@@ -185,3 +213,39 @@ browser.tabs.query({}).then(tabs => {
     }
   });
 });
+
+// Add this function to check if a tab should be protected
+async function shouldProtectTab(tab) {
+  try {
+    // Check for audio
+    if (settings.ignoreAudio && tab.audible) {
+      return true;
+    }
+
+    // We'll need to execute content scripts to check for form changes and notifications
+    const results = await browser.tabs.executeScript(tab.id, {
+      code: `
+        {
+          const formProtection = ${settings.ignoreFormInput} &&
+            Array.from(document.getElementsByTagName('form')).some(form => {
+              const inputs = form.querySelectorAll('input, textarea, select');
+              return Array.from(inputs).some(input => input.value !== input.defaultValue);
+            });
+
+          const notificationProtection = ${settings.ignoreNotifications} &&
+            'Notification' in window &&
+            Notification.permission === 'granted';
+
+          ({ formProtection, notificationProtection })
+        }
+      `
+    });
+
+    const { formProtection, notificationProtection } = results[0];
+    return formProtection || notificationProtection;
+
+  } catch (e) {
+    // If we can't execute the script (e.g., on about: pages), don't suspend
+    return true;
+  }
+}

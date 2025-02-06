@@ -6,7 +6,9 @@
   "permissions": [
     "tabs",
     "storage",
-    "webNavigation"
+    "webNavigation",
+    "<all_urls>",
+    "notifications"
   ],
   "background": {
     "scripts": [

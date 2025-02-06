@@ -92,6 +92,24 @@
       align-items: flex-end;
       gap: 10px;
     }
+    .checkbox-group {
+      margin-top: 20px;
+      border-top: 1px solid #ddd;
+      padding-top: 20px;
+    }
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .checkbox-item input[type="checkbox"] {
+      margin-right: 8px;
+    }
+    .checkbox-item label {
+      font-size: 14px;
+      margin-bottom: 0;
+      font-weight: normal;
+    }
   </style>
 </head>
 <body>
@@ -107,6 +125,20 @@
     <div class="time-input-group">
       <input type="number" id="suspendTime" min="1" max="1440">
       <button id="saveButton">Save</button>
+    </div>
+  </div>
+  <div class="checkbox-group">
+    <div class="checkbox-item">
+      <input type="checkbox" id="ignoreAudio">
+      <label for="ignoreAudio">Don't suspend tabs playing media</label>
+    </div>
+    <div class="checkbox-item">
+      <input type="checkbox" id="ignoreFormInput">
+      <label for="ignoreFormInput">Don't suspend tabs with unsaved form changes</label>
+    </div>
+    <div class="checkbox-item">
+      <input type="checkbox" id="ignoreNotifications">
+      <label for="ignoreNotifications">Don't suspend tabs with notifications</label>
     </div>
   </div>
   <div id="status" class="status">Settings saved!</div>
