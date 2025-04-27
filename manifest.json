@@ -16,7 +16,8 @@
     "storage",
     "webNavigation",
     "<all_urls>",
-    "notifications"
+    "notifications",
+    "contextMenus"
   ],
   "background": {
     "scripts": [
