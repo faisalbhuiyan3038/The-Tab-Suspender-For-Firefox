@@ -5,25 +5,25 @@
   <title>Tab Suspended</title>
   <style>
     :root {
-      --bg-color: #f5f5f5;
-      --text-color: #333;
-      --url-bg: #fff;
-      --url-text: #666;
-      --url-border: #ddd;
-      --message-color: #2196F3;
+      --bg-color: #f8f9fa;
+      --text-color: #212529;
+      --url-bg: #ffffff;
+      --url-text: #495057;
+      --url-border: #e9ecef;
+      --message-color: #0d6efd;
+      --shadow-color: rgba(0, 0, 0, 0.05);
     }
-
     :root[data-theme="dark"] {
-      --bg-color: #1a1a1a;
-      --text-color: #ffffff;
-      --url-bg: #2d2d2d;
-      --url-text: #cccccc;
-      --url-border: #404040;
-      --message-color: #64b5f6;
+      --bg-color: #212529;
+      --text-color: #f8f9fa;
+      --url-bg: #343a40;
+      --url-text: #ced4da;
+      --url-border: #495057;
+      --message-color: #6ea8fe;
+      --shadow-color: rgba(0, 0, 0, 0.2);
     }
-
     body {
-      font-family: system-ui, -apple-system, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -36,32 +36,81 @@
       cursor: pointer;
       color: var(--text-color);
       transition: background-color 0.3s, color 0.3s;
+      line-height: 1.5;
     }
     .container {
       text-align: center;
       max-width: 600px;
+      background-color: var(--url-bg);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px var(--shadow-color);
+      transition: background-color 0.3s, box-shadow 0.3s;
     }
     h1 {
       color: var(--text-color);
-      margin-bottom: 10px;
+      margin-bottom: 20px;
+      font-weight: 600;
+      font-size: 2rem;
     }
     .url {
       color: var(--url-text);
       word-break: break-all;
       margin: 20px 0;
-      padding: 10px;
+      padding: 15px;
       background: var(--url-bg);
-      border-radius: 4px;
+      border-radius: 8px;
       border: 1px solid var(--url-border);
+      font-family: 'SF Mono', SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+      font-size: 0.9rem;
     }
     .message {
       color: var(--message-color);
-      font-size: 1.1em;
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin-top: 20px;
+    }
+    .logo {
+      margin-bottom: 25px;
+      width: 50%;
+      height: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .logo img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+    }
+    .light-mode-img {
+      display: block;
+    }
+    .dark-mode-img {
+      display: none;
+    }
+    :root[data-theme="dark"] .light-mode-img {
+      display: none;
+    }
+    :root[data-theme="dark"] .dark-mode-img {
+      display: block;
+    }
+    @media (hover: hover) {
+      .container:hover {
+        box-shadow: 0 8px 30px var(--shadow-color);
+      }
     }
   </style>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.min.css" rel="stylesheet">
 </head>
 <body>
   <div class="container">
+    <div class="logo">
+      <img class="light-mode-img" src="/images/light-mode.png" alt="Tab suspended - light mode">
+      <img class="dark-mode-img" src="/images/dark-mode.png" alt="Tab suspended - dark mode">
+    </div>
     <h1>Tab Suspended</h1>
     <div class="url" id="page-url"></div>
     <p class="message">Click anywhere to restore this tab</p>

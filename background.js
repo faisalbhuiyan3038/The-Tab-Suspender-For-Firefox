@@ -1,7 +1,7 @@
 // background.js
 
 // State management
-let SUSPEND_TIME = 40 * 60 * 1000; // 30 seconds for testing (will be overridden by storage)
+let SUSPEND_TIME = 40 * 60 * 1000;
 let isEnabled = true; // Enabled by default
 let activeTabId = null;
 let suspendedTabs = {};
@@ -24,8 +24,8 @@ browser.storage.local.get([
   'whitelistedDomains',
   'whitelistedUrls'
 ]).then(result => {
-  if (result.suspendTime !== undefined) {
-    SUSPEND_TIME = result.suspendTime * 1000; // Convert seconds to milliseconds
+  if (result.suspendTime) {
+    SUSPEND_TIME = result.suspendTime * 60 * 1000; // Convert seconds to milliseconds
   }
   if (result.isEnabled !== undefined) {
     isEnabled = result.isEnabled;
@@ -59,7 +59,7 @@ async function resetTabTimer(tabId) {
   try {
     // Get tab info
     const tab = await browser.tabs.get(tabId);
-    
+
     // Don't set timer for suspended pages
     if (tab.url.startsWith(browser.runtime.getURL("suspended.html"))) {
       // //console.log(`Tab ${tabId} is already suspended, not setting timer`);
@@ -68,16 +68,16 @@ async function resetTabTimer(tabId) {
 
     // Only set timer if the extension is enabled and it's not the active tab
     if (isEnabled && tabId !== activeTabId) {
-    // Clear any existing timer for this tab
-    if (tabTimers[tabId]) {
-      clearTimeout(tabTimers[tabId]);
-    }
-    
-    // Set new timer
-    tabTimers[tabId] = setTimeout(() => {
-      suspendTab(tabId);
-    }, SUSPEND_TIME);
-    
+      // Clear any existing timer for this tab
+      if (tabTimers[tabId]) {
+        clearTimeout(tabTimers[tabId]);
+      }
+
+      // Set new timer
+      tabTimers[tabId] = setTimeout(() => {
+        suspendTab(tabId);
+      }, SUSPEND_TIME);
+
       //console.log(`Timer set for tab ${tabId}, will suspend in ${SUSPEND_TIME/1000} seconds`);
     }
   } catch (error) {
@@ -263,7 +263,7 @@ browser.runtime.onMessage.addListener((message, sender) => {
   } else if (message.action === "updateSettings") {
     const oldSettings = { ...settings };
     settings = { ...settings, ...message.settings };
-    
+
     // If whitelist settings changed, reset timers for all tabs
     if (
       message.settings.whitelistedDomains !== undefined ||
@@ -275,7 +275,7 @@ browser.runtime.onMessage.addListener((message, sender) => {
         clearTimeout(tabTimers[tabId]);
         delete tabTimers[tabId];
       });
-      
+
       // Then reset timers for all non-suspended tabs
       browser.tabs.query({}).then(tabs => {
         tabs.forEach(tab => {
@@ -323,7 +323,7 @@ browser.contextMenus.create({
 browser.contextMenus.onClicked.addListener(async (info, tab) => {
   try {
     const url = new URL(tab.url);
-    
+
     if (info.menuItemId === 'whitelistDomain') {
       const domain = url.hostname;
       if (!settings.whitelistedDomains.includes(domain)) {
@@ -356,7 +356,7 @@ browser.contextMenus.onClicked.addListener(async (info, tab) => {
 
 async function shouldProtectTab(tab) {
   //console.log(`Checking protection for tab ${tab.id} (${tab.url})`);
-  
+
   // Skip protection check for suspended pages or non-http(s) pages
   if (
     tab.url.startsWith(browser.runtime.getURL("suspended.html")) ||
@@ -373,7 +373,7 @@ async function shouldProtectTab(tab) {
       //console.log(`Checking whitelist for domain: ${url.hostname}`);
       //console.log(`Current whitelisted domains:`, settings.whitelistedDomains);
       //console.log(`Current whitelisted URLs:`, settings.whitelistedUrls);
-      
+
       if (settings.whitelistedDomains.includes(url.hostname)) {
         //console.log(`Tab ${tab.id} protected: domain ${url.hostname} is whitelisted`);
         return true;
@@ -413,7 +413,7 @@ async function shouldProtectTab(tab) {
       });
 
       const { formProtection, notificationProtection } = results[0];
-      
+
       if (formProtection) {
         //console.log(`Tab ${tab.id} protected: has form changes`);
         return true;
