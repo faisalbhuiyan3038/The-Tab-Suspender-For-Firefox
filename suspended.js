@@ -29,6 +29,7 @@ function init() {
 
   // Display the original URL
   document.getElementById('page-url').textContent = origUrl;
+  document.getElementById('page-url').href = origUrl;
 
   // Set the page title
   document.title = `Suspended: ${title || origUrl}`;
