@@ -1,7 +1,7 @@
 // background.js
 
 // State management
-let SUSPEND_TIME = 5000;
+let SUSPEND_TIME = 40*60*1000;
 let isEnabled = true; // Enabled by default
 let activeTabId = null;
 let suspendedTabs = {};
