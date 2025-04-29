@@ -2,62 +2,133 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.min.css" rel="stylesheet">
   <style>
     :root {
-      --bg-color: #ffffff;
-      --text-color: #000000;
+      --bg-color: #f0f2f5;
+      --text-color: #2d3748;
+      --url-bg: #ffffff;
+      --url-text: #2d8653;
+      --url-border: #e2e8f0;
+      --message-color: #4299e1;
+      --shadow-color: rgba(0, 0, 0, 0.08);
+      --container-bg: #ffffff;
+      --accent-color: #4299e1;
+      --accent-hover: #3182ce;
+      --border-color: #e2e8f0;
       --input-bg: #ffffff;
-      --border-color: #cccccc;
+      --tab-inactive: #e2e8f0;
+      --tab-active-border: #4299e1;
     }
 
     :root[data-theme="dark"] {
-      --bg-color: #1a1a1a;
-      --text-color: #ffffff;
-      --input-bg: #2d2d2d;
-      --border-color: #404040;
+      --bg-color: #1a202c;
+      --text-color: #f7fafc;
+      --url-bg: #2d3748;
+      --url-text: #34C759;
+      --url-border: #4a5568;
+      --message-color: #63b3ed;
+      --shadow-color: rgba(0, 0, 0, 0.25);
+      --container-bg: #2d3748;
+      --accent-color: #63b3ed;
+      --accent-hover: #4299e1;
+      --border-color: #4a5568;
+      --input-bg: #2d3748;
+      --tab-inactive: #4a5568;
+      --tab-active-border: #63b3ed;
     }
 
     body {
-      width: 300px;
-      padding: 16px;
-      font-family: system-ui, -apple-system, sans-serif;
+      width: 340px;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
       background-color: var(--bg-color);
       color: var(--text-color);
       transition: background-color 0.3s, color 0.3s;
+      line-height: 1.5;
     }
+    
+    .container {
+      padding: 16px;
+    }
+    
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .header h1 {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0;
+    }
+    
+    .main-toggle {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
     .form-group {
       margin-bottom: 16px;
     }
+    
     label {
       display: block;
       margin-bottom: 8px;
       font-weight: 500;
+      font-size: 14px;
     }
+    
     input[type="number"] {
       width: 80px;
-      padding: 4px 8px;
+      padding: 8px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      background-color: var(--input-bg);
+      color: var(--text-color);
+      font-family: inherit;
+      font-size: 14px;
+      transition: border-color 0.3s;
     }
+    
+    input[type="number"]:focus {
+      outline: none;
+      border-color: var(--accent-color);
+    }
+    
     .status {
-      margin-top: 8px;
-      color: #4CAF50;
-      font-size: 0.9em;
+      margin-top: 16px;
+      color: #34C759;
+      font-size: 13px;
+      font-weight: 500;
       opacity: 0;
       transition: opacity 0.3s;
+      text-align: center;
     }
+    
     .status.visible {
       opacity: 1;
     }
+    
     .switch {
       position: relative;
       display: inline-block;
-      width: 48px;
-      height: 24px;
+      width: 44px;
+      height: 22px;
     }
+    
     .switch input {
       opacity: 0;
       width: 0;
       height: 0;
     }
+    
     .slider {
       position: absolute;
       cursor: pointer;
@@ -67,158 +138,240 @@
       bottom: 0;
       background-color: var(--border-color);
       transition: .3s;
-      border-radius: 24px;
+      border-radius: 22px;
     }
+    
     .slider:before {
       position: absolute;
       content: "";
-      height: 18px;
-      width: 18px;
+      height: 16px;
+      width: 16px;
       left: 3px;
       bottom: 3px;
       background-color: white;
       transition: .3s;
       border-radius: 50%;
     }
+    
     input:checked + .slider {
-      background-color: #2196F3;
+      background-color: var(--accent-color);
     }
+    
     input:checked + .slider:before {
-      transform: translateX(24px);
+      transform: translateX(22px);
     }
+    
     .toggle-group {
       display: flex;
       align-items: center;
       gap: 10px;
       margin-bottom: 16px;
     }
+    
     button {
-      background-color: #2196F3;
+      background-color: var(--accent-color);
       color: white;
       border: none;
       padding: 8px 16px;
-      border-radius: 4px;
+      border-radius: 6px;
       cursor: pointer;
       font-size: 14px;
+      font-weight: 500;
+      transition: background-color 0.3s;
     }
+    
     button:hover {
-      background-color: #1976D2;
+      background-color: var(--accent-hover);
     }
+    
     .time-input-group {
       display: flex;
-      align-items: flex-end;
+      align-items: center;
       gap: 10px;
     }
+    
     .checkbox-group {
-      margin-top: 20px;
-      border-top: 1px solid #ddd;
-      padding-top: 20px;
+      margin-top: 16px;
     }
+    
     .checkbox-item {
       display: flex;
       align-items: center;
       margin-bottom: 12px;
     }
+    
     .checkbox-item input[type="checkbox"] {
       margin-right: 8px;
     }
+    
     .checkbox-item label {
       font-size: 14px;
       margin-bottom: 0;
       font-weight: normal;
+      display: inline;
     }
-    .whitelist-section {
-      margin-top: 20px;
-      border-top: 1px solid #ddd;
-      padding-top: 20px;
-    }
-    .whitelist-section h3 {
-      margin-top: 0;
-      margin-bottom: 16px;
-      font-size: 16px;
-    }
+    
     .whitelist-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 8px;
-      background: #f5f5f5;
-      border-radius: 4px;
+      padding: 10px;
+      background: var(--url-bg);
+      border: 1px solid var(--url-border);
+      border-radius: 6px;
       margin-bottom: 8px;
     }
+    
     .whitelist-item span {
-      font-size: 14px;
+      font-size: 13px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
       margin-right: 8px;
+      color: var(--url-text);
+      font-family: 'SF Mono', SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
     }
+    
     .remove-btn {
       background: none;
       border: none;
-      color: #666;
+      color: var(--text-color);
       padding: 0 8px;
       font-size: 18px;
       cursor: pointer;
       line-height: 1;
     }
+    
     .remove-btn:hover {
       background: none;
       color: #f44336;
     }
+    
     .no-items {
-      color: #666;
+      color: var(--text-color);
+      opacity: 0.6;
       font-style: italic;
-      margin: 0;
+      margin: 16px 0;
+      text-align: center;
+      font-size: 13px;
     }
+    
     h4 {
       margin: 16px 0 8px;
       font-size: 14px;
-      color: #666;
+      font-weight: 600;
+      color: var(--text-color);
     }
+    
+    /* Tabs styling */
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 16px;
+    }
+    
+    .tab {
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.3s;
+    }
+    
+    .tab.active {
+      border-bottom: 2px solid var(--tab-active-border);
+      color: var(--accent-color);
+    }
+    
+    .tab-content {
+      display: none;
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+    
+    .whitelist-container {
+      max-height: 200px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+    
+    /* Scrollbar styling */
+    .whitelist-container::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    .whitelist-container::-webkit-scrollbar-track {
+      background: var(--bg-color);
+    }
+    
+    .whitelist-container::-webkit-scrollbar-thumb {
+      background-color: var(--border-color);
+      border-radius: 6px;
+    }
+    
+
   </style>
 </head>
 <body>
-  <div class="toggle-group">
-    <label class="switch">
-      <input type="checkbox" id="enableSwitch">
-      <span class="slider"></span>
-    </label>
-    <span>Enable Tab Suspension</span>
-  </div>
-  <div class="form-group">
-    <label>Dark Mode</label>
-    <label class="switch">
-      <input type="checkbox" id="darkModeSwitch">
-      <span class="slider round"></span>
-    </label>
-  </div>
-  <div class="form-group">
-    <label for="suspendTime">Suspend inactive tabs after (minutes):</label>
-    <div class="time-input-group">
-      <input type="number" id="suspendTime" min="1" max="1440">
-      <button id="saveButton">Save</button>
+  <div class="container">
+    <div class="header">
+      <h1>Tab Suspender</h1>
+      <div class="main-toggle">
+        <label class="switch">
+          <input type="checkbox" id="enableSwitch">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+    
+    <div class="tabs">
+      <div class="tab active" data-tab="options">Options</div>
+      <div class="tab" data-tab="whitelist">Whitelist</div>
+    </div>
+    
+    <div id="options-tab" class="tab-content active">
+      <div class="form-group">
+        <label for="suspendTime">Suspend inactive tabs after (minutes):</label>
+        <div class="time-input-group">
+          <input type="number" id="suspendTime" min="1" max="1440">
+          <button id="saveButton">Save</button>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label>Dark Mode</label>
+        <label class="switch">
+          <input type="checkbox" id="darkModeSwitch">
+          <span class="slider"></span>
+        </label>
+      </div>
+      
+      <div class="checkbox-group">
+        <div class="checkbox-item">
+          <input type="checkbox" id="ignoreAudio">
+          <label for="ignoreAudio">Don't suspend tabs playing audio</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="ignoreFormInput">
+          <label for="ignoreFormInput">Don't suspend tabs with form input</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="ignoreNotifications">
+          <label for="ignoreNotifications">Don't suspend tabs with notifications</label>
+        </div>
+      </div>
+      
+      <div id="status" class="status">Settings saved!</div>
+    </div>
+    
+    <div id="whitelist-tab" class="tab-content">
+      <div class="whitelist-container" id="whitelist"></div>
     </div>
   </div>
-  <div class="checkbox-group">
-    <div class="checkbox-item">
-      <input type="checkbox" id="ignoreAudio">
-      <label for="ignoreAudio">Don't suspend tabs playing media</label>
-    </div>
-    <div class="checkbox-item">
-      <input type="checkbox" id="ignoreFormInput">
-      <label for="ignoreFormInput">Don't suspend tabs with unsaved form changes</label>
-    </div>
-    <div class="checkbox-item">
-      <input type="checkbox" id="ignoreNotifications">
-      <label for="ignoreNotifications">Don't suspend tabs with notifications</label>
-    </div>
-  </div>
-  <div class="whitelist-section">
-    <h3>Whitelisted Sites</h3>
-    <div id="whitelist"></div>
-  </div>
-  <div id="status" class="status">Settings saved!</div>
+  
   <script src="popup.js"></script>
 </body>
 </html>
