@@ -13,17 +13,42 @@
       --message-color: #4299e1;
       --shadow-color: rgba(0, 0, 0, 0.08);
       --container-bg: #ffffff;
+      /* SVG-specific colors */
+      --frame-stroke: #4a4a4a;
+      --header-bg: #e0e0e0;
+      --content-bg: #f7f7f7;
+      --tab-bg: #d8d8d8;
+      --tab-eyes: #333333;
+      --blanket-color: #6ea8ff;
+      --close-btn: #ff5f57;
+      --minimize-btn: #ffbd2e;
+      --maximize-btn: #28c940;
+      --zzz-color: #6ea8ff; /* Added for zzz animation */
     }
+  
     :root[data-theme="dark"] {
       --bg-color: #1a202c;
       --text-color: #f7fafc;
       --url-bg: #2d3748;
-      --url-text: #63b3ed;
+      /* --url-text: #63b3ed; */
+      --url-text: #34C759;
       --url-border: #4a5568;
       --message-color: #63b3ed;
       --shadow-color: rgba(0, 0, 0, 0.25);
       --container-bg: #2d3748;
+      /* SVG-specific colors - dark mode */
+      --frame-stroke: #cccccc;
+      --header-bg: #3c3c3c;
+      --content-bg: #2a2a2a;
+      --tab-bg: #5a5a5a;
+      --tab-eyes: #999999;
+      --blanket-color: #4a80d9;
+      --close-btn: #ff6f67;
+      --minimize-btn: #ffca4e;
+      --maximize-btn: #38e950;
+      --zzz-color: #4a80d9; /* Adjusted for dark mode */
     }
+  
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
       display: flex;
@@ -40,6 +65,7 @@
       transition: background-color 0.3s, color 0.3s;
       line-height: 1.5;
     }
+  
     .container {
       text-align: center;
       max-width: 500px;
@@ -50,12 +76,14 @@
       box-shadow: 0 8px 30px var(--shadow-color);
       transition: background-color 0.3s, box-shadow 0.3s;
     }
+  
     h1 {
       color: var(--text-color);
       margin: 16px 0;
       font-weight: 600;
       font-size: 1.75rem;
     }
+  
     .url {
       margin: 16px 0;
       padding: 12px;
@@ -64,90 +92,122 @@
       border: 1px solid var(--url-border);
       font-family: 'SF Mono', SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
       font-size: 0.9rem;
-      color: var(--url-text) !important;
+      color: var(--url-text);
     }
-    .url a,
+  
+   .url a,
     .url a:link,
     .url a:visited,
     .url a:active,
     .url a:hover {
-      color: var(--url-text) !important;
-      text-decoration: none !important;
-      word-break: break-all;
-    }
-    .url a {
       color: var(--url-text);
       text-decoration: none;
       word-break: break-all;
     }
-    .url a:visited {
-      color: var(--url-text);
-    }
+  
     .message {
       color: var(--message-color);
       font-size: 1.1rem;
       font-weight: 500;
       margin: 16px 0 0;
     }
-    /* SVG Logo Styles */
-    :root {
-      --bg-color: #f8f9fa;
-      --text-color: #212529;
-      --url-bg: #ffffff;
-      --url-text: #495057;
-      --url-border: #e9ecef;
-      --message-color: #0d6efd;
-      --shadow-color: rgba(0, 0, 0, 0.05);
-      /* SVG specific colors */
-      --frame-stroke: #4a4a4a;
-      --header-bg: #e0e0e0;
-      --content-bg: #f7f7f7;
-      --tab-bg: #d8d8d8;
-      --tab-eyes: #333333;
-      --blanket-color: #6ea8ff;
-      --close-btn: #ff5f57;
-      --minimize-btn: #ffbd2e;
-      --maximize-btn: #28c940;
-    }
-    :root[data-theme="dark"] {
-      --bg-color: #212529;
-      --text-color: #f8f9fa;
-      --url-bg: #343a40;
-      --url-text: #ced4da;
-      --url-border: #495057;
-      --message-color: #6ea8fe;
-      --shadow-color: rgba(0, 0, 0, 0.2);
-      /* SVG specific colors - dark mode */
-      --frame-stroke: #cccccc;
-      --header-bg: #3c3c3c;
-      --content-bg: #2a2a2a;
-      --tab-bg: #5a5a5a;
-      --tab-eyes: #999999;
-      --blanket-color: #4a80d9;
-      --close-btn: #ff6f67;
-      --minimize-btn: #ffca4e;
-      --maximize-btn: #38e950;
-    }
+  
     .logo-container {
       display: flex;
       justify-content: center;
       width: 100%;
       margin: 20px 0;
     }
+  
     .logo {
       width: 200px;
       height: 160px;
     }
+  
     /* SVG element styles */
-    .frame { stroke: var(--frame-stroke); fill: none; }
-    .header { fill: var(--header-bg); }
-    .content { fill: var(--content-bg); }
-    .tab { fill: var(--tab-bg); }
-    .eyes { stroke: var(--tab-eyes); stroke-width: 2; stroke-linecap: round; fill: none; }
-    .blanket { fill: var(--blanket-color); }
-    .btn-close { fill: var(--close-btn); }
-    .btn-minimize { fill: var(--minimize-btn); }
-    .btn-maximize { fill: var(--maximize-btn); }
+    .frame {
+      stroke: var(--frame-stroke);
+      fill: none;
+    }
+  
+    .header {
+      fill: var(--header-bg);
+    }
+  
+    .content {
+      fill: var(--content-bg);
+    }
+  
+    .tab {
+      fill: var(--tab-bg);
+    }
+  
+    .eyes {
+      stroke: var(--tab-eyes);
+      stroke-width: 2;
+      stroke-linecap: round;
+      fill: none;
+    }
+  
+    .blanket {
+      fill: var(--blanket-color);
+    }
+  
+    .btn-close {
+      fill: var(--close-btn);
+    }
+  
+    .btn-minimize {
+      fill: var(--minimize-btn);
+    }
+  
+    .btn-maximize {
+      fill: var(--maximize-btn);
+    }
+  
+    /* SVG animation styles */
+    @keyframes zzz-float-enhanced {
+      0% {
+        opacity: 0;
+        transform: translate(0, 5px) scale(0.7) rotate(0deg);
+      }
+      20% {
+        opacity: 1;
+        transform: translate(5px, -10px) scale(1) rotate(-5deg);
+      }
+      70% {
+        opacity: 1;
+        transform: translate(10px, -25px) scale(1.05) rotate(0deg);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(15px, -40px) scale(0.8) rotate(10deg);
+      }
+    }
+  
+    @keyframes tab-bob {
+      0%, 100% {
+        transform-origin: 80px 80px;
+        transform: rotate(-10deg) translateY(0);
+      }
+      50% {
+        transform-origin: 80px 80px;
+        transform: rotate(-10deg) translateY(-1.5px);
+      }
+    }
+  
+    .zzz-enhanced {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      fill: var(--zzz-color);
+      opacity: 0;
+      animation: zzz-float-enhanced 3s infinite ease-in-out;
+    }
+  
+    .sleeping-tab-group {
+      animation: tab-bob 4s infinite ease-in-out;
+    }
+  
     @media (hover: hover) {
       .container:hover {
         box-shadow: 0 8px 30px var(--shadow-color);
@@ -165,69 +225,6 @@
             <clipPath id="windowClip">
               <rect x="5" y="5" width="190" height="150" rx="10" ry="10"/>
             </clipPath>
-            <style>
-              /* Embedded styles for SVG animation enhancements */
-              @keyframes zzz-float-enhanced {
-                0% {
-                  opacity: 0;
-                  transform: translate(0, 5px) scale(0.7) rotate(0deg);
-                }
-                20% {
-                  opacity: 1;
-                  transform: translate(5px, -10px) scale(1) rotate(-5deg);
-                }
-                70% {
-                  opacity: 1;
-                  transform: translate(10px, -25px) scale(1.05) rotate(0deg);
-                }
-                100% {
-                  opacity: 0;
-                  transform: translate(15px, -40px) scale(0.8) rotate(10deg);
-                }
-              }
-        
-              @keyframes tab-bob {
-                 0%, 100% {
-                    /* Use transform directly on the group's existing transform */
-                    /* We need to combine transforms carefully. Let JS handle or simplify */
-                     transform-origin: 80px 80px; /* Center of rotation */
-                     transform: rotate(-10deg) translateY(0);
-                 }
-                 50% {
-                     transform-origin: 80px 80px;
-                     transform: rotate(-10deg) translateY(-1.5px); /* Bob up slightly */
-                 }
-              }
-        
-              .zzz-enhanced {
-                font-family: 'Inter', sans-serif; /* Use a smooth font */
-                font-weight: 600; /* Slightly bolder */
-                fill: var(--zzz-color, #6ea8ff); /* Use CSS variable, fallback */
-                opacity: 0;
-                animation: zzz-float-enhanced 3s infinite ease-in-out;
-                 /* Ensure zzz appears above tab if needed */
-                z-index: 10;
-              }
-        
-              .sleeping-tab-group {
-                  /* Applying bobbing - Note: transform origin is important */
-                  /* The keyframes above handle the combined rotation and translation */
-                  animation: tab-bob 4s infinite ease-in-out;
-               }
-        
-               /* Base styles inherited via classes defined outside SVG */
-               /* These ensure the elements are visible before external CSS potentially loads */
-                .header { fill: var(--header-bg, #e0e0e0); }
-                .content { fill: var(--content-bg, #f7f7f7); }
-                .blanket { fill: var(--blanket-color, #6ea8ff); }
-                .tab { fill: var(--tab-bg, #d8d8d8); }
-                .eyes { stroke: var(--tab-eyes, #333333); stroke-width: 2; stroke-linecap: round; fill: none; }
-                .frame { stroke: var(--frame-stroke, #4a4a4a); fill: none; }
-                .btn-close { fill: var(--close-btn, #ff5f57); }
-                .btn-minimize { fill: var(--minimize-btn, #ffbd2e); }
-                .btn-maximize { fill: var(--maximize-btn, #28c940); }
-        
-            </style>
           </defs>
         
           <path d="M5 15C5 9.47715 9.47715 5 15 5H185C190.523 5 195 9.47715 195 15V35H5V15Z" class="header"/>
