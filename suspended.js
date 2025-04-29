@@ -28,8 +28,10 @@ function init() {
   const title = params.title;
 
   // Display the original URL
-  document.getElementById('page-url').textContent = origUrl;
-  document.getElementById('page-url').href = origUrl;
+  const anchor = document.createElement('a');
+  anchor.href = origUrl;
+  anchor.textContent = origUrl;
+  document.getElementById('page-url').appendChild(anchor);
 
   // Set the page title
   document.title = `Suspended: ${title || origUrl}`;
