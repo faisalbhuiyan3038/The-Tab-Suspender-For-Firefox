@@ -40,17 +40,23 @@ function displayWhitelist(whitelistedDomains, whitelistedUrls) {
   const whitelistContainer = document.getElementById('whitelist');
   whitelistContainer.innerHTML = '';
 
-  if (whitelistedDomains.length === 0 && whitelistedUrls.length === 0) {
+  // Ensure arrays are defined
+  const domains = Array.isArray(whitelistedDomains) ? whitelistedDomains : [];
+  const urls = Array.isArray(whitelistedUrls) ? whitelistedUrls : [];
+
+  // Check if both lists are empty
+  if (domains.length === 0 && urls.length === 0) {
     whitelistContainer.innerHTML = '<p class="no-items">No whitelisted items</p>';
     return;
   }
 
-  // Display domains
-  if (whitelistedDomains.length > 0) {
-    const domainSection = document.createElement('div');
-    domainSection.innerHTML = '<h4>Whitelisted Domains</h4>';
-    
-    whitelistedDomains.forEach(domain => {
+  // Display domains section (even if empty)
+  const domainSection = document.createElement('div');
+  domainSection.className = 'whitelist-section';
+  domainSection.innerHTML = '<h4>Whitelisted Domains</h4>';
+  
+  if (domains.length > 0) {
+    domains.forEach(domain => {
       const item = document.createElement('div');
       item.className = 'whitelist-item';
       item.innerHTML = `
@@ -59,16 +65,23 @@ function displayWhitelist(whitelistedDomains, whitelistedUrls) {
       `;
       domainSection.appendChild(item);
     });
-    
-    whitelistContainer.appendChild(domainSection);
+  } else {
+    // Show a message when no domains are whitelisted
+    const emptyMsg = document.createElement('p');
+    emptyMsg.className = 'no-items';
+    emptyMsg.textContent = 'No domains whitelisted';
+    domainSection.appendChild(emptyMsg);
   }
+  
+  whitelistContainer.appendChild(domainSection);
 
-  // Display URLs
-  if (whitelistedUrls.length > 0) {
-    const urlSection = document.createElement('div');
-    urlSection.innerHTML = '<h4>Whitelisted Pages</h4>';
-    
-    whitelistedUrls.forEach(url => {
+  // Display URLs section (even if empty)
+  const urlSection = document.createElement('div');
+  urlSection.className = 'whitelist-section';
+  urlSection.innerHTML = '<h4>Whitelisted Pages</h4>';
+  
+  if (urls.length > 0) {
+    urls.forEach(url => {
       const formattedUrl = formatUrl(url);
       const item = document.createElement('div');
       item.className = 'whitelist-item';
@@ -78,9 +91,15 @@ function displayWhitelist(whitelistedDomains, whitelistedUrls) {
       `;
       urlSection.appendChild(item);
     });
-    
-    whitelistContainer.appendChild(urlSection);
+  } else {
+    // Show a message when no pages are whitelisted
+    const emptyMsg = document.createElement('p');
+    emptyMsg.className = 'no-items';
+    emptyMsg.textContent = 'No pages whitelisted';
+    urlSection.appendChild(emptyMsg);
   }
+  
+  whitelistContainer.appendChild(urlSection);
 }
 
 // Show status message
@@ -149,21 +168,30 @@ document.getElementById('whitelist').addEventListener('click', async (e) => {
     const type = e.target.dataset.type;
     const value = e.target.dataset.value;
     
-    const result = await browser.storage.local.get([type === 'domain' ? 'whitelistedDomains' : 'whitelistedUrls']);
-    const list = result[type === 'domain' ? 'whitelistedDomains' : 'whitelistedUrls'] || [];
+    // Always get both lists to ensure we have the complete data
+    const result = await browser.storage.local.get(['whitelistedDomains', 'whitelistedUrls']);
     
+    // Get the list we're modifying
+    const listKey = type === 'domain' ? 'whitelistedDomains' : 'whitelistedUrls';
+    const list = result[listKey] || [];
+    
+    // Create the new list without the removed item
     const newList = list.filter(item => item !== value);
-    await browser.storage.local.set({ [type === 'domain' ? 'whitelistedDomains' : 'whitelistedUrls']: newList });
+    
+    // Update storage with the modified list
+    await browser.storage.local.set({ [listKey]: newList });
     
     // Notify background script to update settings and reset timers
     browser.runtime.sendMessage({
       action: 'updateSettings',
-      settings: { [type === 'domain' ? 'whitelistedDomains' : 'whitelistedUrls']: newList }
+      settings: { [listKey]: newList }
     });
     
-    // Refresh the whitelist display without reloading the page
-    const whitelistedDomains = type === 'domain' ? newList : result.whitelistedDomains || [];
-    const whitelistedUrls = type === 'url' ? newList : result.whitelistedUrls || [];
+    // Refresh the whitelist display with both lists
+    const whitelistedDomains = type === 'domain' ? newList : (result.whitelistedDomains || []);
+    const whitelistedUrls = type === 'url' ? newList : (result.whitelistedUrls || []);
+    
+    // Display the updated whitelist
     displayWhitelist(whitelistedDomains, whitelistedUrls);
     
     // Show saved message
@@ -220,6 +248,91 @@ document.getElementById('saveButton').addEventListener('click', () => {
 
     // Show saved message
     showStatus();
+  }
+});
+
+// Get the current active tab
+async function getCurrentTab() {
+  const tabs = await browser.tabs.query({ active: true, currentWindow: true });
+  return tabs[0];
+}
+
+// Whitelist current domain button handler
+document.getElementById('whitelistDomainBtn').addEventListener('click', async () => {
+  try {
+    const tab = await getCurrentTab();
+    const url = new URL(tab.url);
+    const domain = url.hostname;
+    
+    // Get current whitelisted domains
+    const result = await browser.storage.local.get(['whitelistedDomains']);
+    const whitelistedDomains = result.whitelistedDomains || [];
+    
+    // Check if domain is already whitelisted
+    if (!whitelistedDomains.includes(domain)) {
+      // Add domain to whitelist
+      whitelistedDomains.push(domain);
+      await browser.storage.local.set({ whitelistedDomains });
+      
+      // Notify background script to update settings
+      browser.runtime.sendMessage({
+        action: 'updateSettings',
+        settings: { whitelistedDomains }
+      });
+      
+      // Update the whitelist display
+      const whitelistResult = await browser.storage.local.get(['whitelistedUrls']);
+      displayWhitelist(whitelistedDomains, whitelistResult.whitelistedUrls || []);
+      
+      // Show saved message
+      status.textContent = `Domain ${domain} whitelisted!`;
+      showStatus();
+    } else {
+      // Domain already whitelisted
+      status.textContent = `Domain ${domain} already whitelisted`;
+      showStatus();
+    }
+  } catch (error) {
+    console.error('Error whitelisting domain:', error);
+  }
+});
+
+// Whitelist current page button handler
+document.getElementById('whitelistPageBtn').addEventListener('click', async () => {
+  try {
+    const tab = await getCurrentTab();
+    const pageUrl = tab.url;
+    
+    // Get current whitelisted URLs
+    const result = await browser.storage.local.get(['whitelistedUrls']);
+    const whitelistedUrls = result.whitelistedUrls || [];
+    
+    // Check if URL is already whitelisted
+    if (!whitelistedUrls.includes(pageUrl)) {
+      // Add URL to whitelist
+      whitelistedUrls.push(pageUrl);
+      await browser.storage.local.set({ whitelistedUrls });
+      
+      // Notify background script to update settings
+      browser.runtime.sendMessage({
+        action: 'updateSettings',
+        settings: { whitelistedUrls }
+      });
+      
+      // Update the whitelist display
+      const whitelistResult = await browser.storage.local.get(['whitelistedDomains']);
+      displayWhitelist(whitelistResult.whitelistedDomains || [], whitelistedUrls);
+      
+      // Show saved message
+      status.textContent = 'Current page whitelisted!';
+      showStatus();
+    } else {
+      // URL already whitelisted
+      status.textContent = 'Current page already whitelisted';
+      showStatus();
+    }
+  } catch (error) {
+    console.error('Error whitelisting page:', error);
   }
 });
 

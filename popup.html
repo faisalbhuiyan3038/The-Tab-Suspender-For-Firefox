@@ -312,6 +312,19 @@
       border-radius: 6px;
     }
     
+    /* Whitelist action buttons */
+    .whitelist-actions {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    
+    .whitelist-btn {
+      flex: 1;
+      font-size: 13px;
+      padding: 8px 12px;
+    }
+    
 
   </style>
 </head>
@@ -368,6 +381,10 @@
     </div>
     
     <div id="whitelist-tab" class="tab-content">
+      <div class="whitelist-actions">
+        <button id="whitelistDomainBtn" class="whitelist-btn">Whitelist Current Domain</button>
+        <button id="whitelistPageBtn" class="whitelist-btn">Whitelist Current Page</button>
+      </div>
       <div class="whitelist-container" id="whitelist"></div>
     </div>
   </div>
