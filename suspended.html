@@ -165,22 +165,89 @@
             <clipPath id="windowClip">
               <rect x="5" y="5" width="190" height="150" rx="10" ry="10"/>
             </clipPath>
+            <style>
+              /* Embedded styles for SVG animation enhancements */
+              @keyframes zzz-float-enhanced {
+                0% {
+                  opacity: 0;
+                  transform: translate(0, 5px) scale(0.7) rotate(0deg);
+                }
+                20% {
+                  opacity: 1;
+                  transform: translate(5px, -10px) scale(1) rotate(-5deg);
+                }
+                70% {
+                  opacity: 1;
+                  transform: translate(10px, -25px) scale(1.05) rotate(0deg);
+                }
+                100% {
+                  opacity: 0;
+                  transform: translate(15px, -40px) scale(0.8) rotate(10deg);
+                }
+              }
+        
+              @keyframes tab-bob {
+                 0%, 100% {
+                    /* Use transform directly on the group's existing transform */
+                    /* We need to combine transforms carefully. Let JS handle or simplify */
+                     transform-origin: 80px 80px; /* Center of rotation */
+                     transform: rotate(-10deg) translateY(0);
+                 }
+                 50% {
+                     transform-origin: 80px 80px;
+                     transform: rotate(-10deg) translateY(-1.5px); /* Bob up slightly */
+                 }
+              }
+        
+              .zzz-enhanced {
+                font-family: 'Inter', sans-serif; /* Use a smooth font */
+                font-weight: 600; /* Slightly bolder */
+                fill: var(--zzz-color, #6ea8ff); /* Use CSS variable, fallback */
+                opacity: 0;
+                animation: zzz-float-enhanced 3s infinite ease-in-out;
+                 /* Ensure zzz appears above tab if needed */
+                z-index: 10;
+              }
+        
+              .sleeping-tab-group {
+                  /* Applying bobbing - Note: transform origin is important */
+                  /* The keyframes above handle the combined rotation and translation */
+                  animation: tab-bob 4s infinite ease-in-out;
+               }
+        
+               /* Base styles inherited via classes defined outside SVG */
+               /* These ensure the elements are visible before external CSS potentially loads */
+                .header { fill: var(--header-bg, #e0e0e0); }
+                .content { fill: var(--content-bg, #f7f7f7); }
+                .blanket { fill: var(--blanket-color, #6ea8ff); }
+                .tab { fill: var(--tab-bg, #d8d8d8); }
+                .eyes { stroke: var(--tab-eyes, #333333); stroke-width: 2; stroke-linecap: round; fill: none; }
+                .frame { stroke: var(--frame-stroke, #4a4a4a); fill: none; }
+                .btn-close { fill: var(--close-btn, #ff5f57); }
+                .btn-minimize { fill: var(--minimize-btn, #ffbd2e); }
+                .btn-maximize { fill: var(--maximize-btn, #28c940); }
+        
+            </style>
           </defs>
-
+        
           <path d="M5 15C5 9.47715 9.47715 5 15 5H185C190.523 5 195 9.47715 195 15V35H5V15Z" class="header"/>
-
+        
           <rect x="5" y="35" width="190" height="120" rx="0" ry="0" class="content" clip-path="url(#windowClip)"/>
-
+        
           <path d="M30 145 C 40 130, 60 135, 80 120 S 120 100, 150 115 S 180 135, 195 130 V 155 H 5 V 150 C 10 155, 20 155, 30 145 Z" class="blanket" clip-path="url(#windowClip)"/>
-
-          <g transform="rotate(-10 80 80)">
+        
+          <g class="sleeping-tab-group" transform="rotate(-10 80 80)">
             <rect x="50" y="50" width="80" height="60" rx="8" ry="8" class="tab"/>
             <path d="M70 75 Q 75 80 80 75" class="eyes"/>
             <path d="M100 75 Q 105 80 110 75" class="eyes"/>
           </g>
-
+        
+          <text x="115" y="70" class="zzz-enhanced" style="font-size: 22px; animation-delay: 0s;">Z</text>
+          <text x="125" y="60" class="zzz-enhanced" style="font-size: 18px; animation-delay: 0.4s;">z</text>
+          <text x="135" y="50" class="zzz-enhanced" style="font-size: 14px; animation-delay: 0.8s;">z</text>
+        
           <rect x="5" y="5" width="190" height="150" rx="10" ry="10" stroke-width="2" class="frame"/>
-
+        
           <circle cx="20" cy="20" r="6" class="btn-close"/>
           <circle cx="40" cy="20" r="6" class="btn-minimize"/>
           <circle cx="60" cy="20" r="6" class="btn-maximize"/>
