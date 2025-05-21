@@ -88,10 +88,12 @@ async function resetTabTimer(tabId) {
 /**
  * Suspends the tab by saving its original URL and updating it
  * to a local suspended page.
+ * @param {number} tabId - The ID of the tab to suspend
+ * @param {boolean} [force=false] - If true, will suspend even if the tab is active
  */
-async function suspendTab(tabId) {
+async function suspendTab(tabId, force = false) {
   //console.log(`Attempting to suspend tab ${tabId}`);
-  if (tabId === activeTabId) {
+  if (!force && tabId === activeTabId) {
     //console.log(`Tab ${tabId} is active, not suspending`);
     return;
   }
@@ -319,6 +321,12 @@ browser.contextMenus.create({
   contexts: ['page']
 });
 
+browser.contextMenus.create({
+  id: 'suspendPage',
+  title: 'Suspend This Page',
+  contexts: ['page']
+});
+
 // Handle context menu clicks
 browser.contextMenus.onClicked.addListener(async (info, tab) => {
   try {
@@ -348,6 +356,15 @@ browser.contextMenus.onClicked.addListener(async (info, tab) => {
           message: 'This page has been added to the whitelist'
         });
       }
+    } else if (info.menuItemId === 'suspendPage') {
+      // Suspend the current tab immediately, forcing suspension even if active
+      await suspendTab(tab.id, true);
+      browser.notifications.create({
+        type: 'basic',
+        iconUrl: 'icons/icon48.png',
+        title: 'Page Suspended',
+        message: 'This page has been suspended'
+      });
     }
   } catch (error) {
     console.error('Error whitelisting:', error);
@@ -406,6 +423,13 @@ async function shouldProtectTab(tab) {
             const notificationProtection = ${settings.ignoreNotifications} &&
               'Notification' in window &&
               Notification.permission === 'granted';
+            // #region Debugging
+            // console.log('Tab protection check:', { 
+            //   formProtection, 
+            //   notificationProtection,
+            //   hasNotificationAPI: 'Notification' in window,
+            //   notificationPermission: 'Notification' in window ? Notification.permission : 'no Notification API'
+            // });
 
             ({ formProtection, notificationProtection })
           }
@@ -413,13 +437,14 @@ async function shouldProtectTab(tab) {
       });
 
       const { formProtection, notificationProtection } = results[0];
+      // console.log('Tab protection result:', { formProtection, notificationProtection });
 
       if (formProtection) {
-        //console.log(`Tab ${tab.id} protected: has form changes`);
+        // console.log(`Tab ${tab.id} protected: has form changes`);
         return true;
       }
       if (notificationProtection) {
-        //console.log(`Tab ${tab.id} protected: has notifications`);
+        // console.log(`Tab ${tab.id} protected: has notifications`);
         return true;
       }
     } catch (error) {

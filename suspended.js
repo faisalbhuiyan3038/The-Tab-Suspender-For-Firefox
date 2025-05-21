@@ -34,7 +34,7 @@ function init() {
   document.getElementById('page-url').appendChild(anchor);
 
   // Set the page title
-  document.title = `Suspended: ${title || origUrl}`;
+  document.title = `💤 ${title || origUrl}`;
 
   // Make the whole page clickable
   document.body.addEventListener('click', () => {
