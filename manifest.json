@@ -36,5 +36,10 @@
   },
   "web_accessible_resources": [
     "suspended.html"
-  ]
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{669407ff-70f0-4512-a010-ea4530c5e716}"
+    }
+  }
 }

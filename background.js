@@ -14,8 +14,7 @@ let settings = {
   whitelistedUrls: []
 };
 
-// Load all settings
-browser.storage.local.get([
+browser.storage.sync.get([
   'suspendTime',
   'isEnabled',
   'ignoreAudio',
@@ -25,7 +24,7 @@ browser.storage.local.get([
   'whitelistedUrls'
 ]).then(result => {
   if (result.suspendTime) {
-    SUSPEND_TIME = result.suspendTime * 60 * 1000; // Convert seconds to milliseconds
+    SUSPEND_TIME = result.suspendTime * 60 * 1000; // Convert minutes to milliseconds
   }
   if (result.isEnabled !== undefined) {
     isEnabled = result.isEnabled;
@@ -39,7 +38,6 @@ browser.storage.local.get([
   };
 });
 
-// Load suspended tabs state when extension starts
 browser.storage.local.get('suspendedTabs').then(result => {
   if (result.suspendedTabs) {
     suspendedTabs = result.suspendedTabs;
@@ -50,30 +48,24 @@ browser.storage.local.get('suspendedTabs').then(result => {
  * Resets (or creates) the suspension timer for a given tab.
  */
 async function resetTabTimer(tabId) {
-  // Clear any existing timer
   if (tabTimers[tabId]) {
     clearTimeout(tabTimers[tabId]);
     delete tabTimers[tabId];
   }
 
   try {
-    // Get tab info
     const tab = await browser.tabs.get(tabId);
 
-    // Don't set timer for suspended pages
     if (tab.url.startsWith(browser.runtime.getURL("suspended.html"))) {
       // //console.log(`Tab ${tabId} is already suspended, not setting timer`);
       return;
     }
 
-    // Only set timer if the extension is enabled and it's not the active tab
     if (isEnabled && tabId !== activeTabId) {
-      // Clear any existing timer for this tab
       if (tabTimers[tabId]) {
         clearTimeout(tabTimers[tabId]);
       }
 
-      // Set new timer
       tabTimers[tabId] = setTimeout(() => {
         suspendTab(tabId);
       }, SUSPEND_TIME);
@@ -101,26 +93,22 @@ async function suspendTab(tabId, force = false) {
   try {
     const tab = await browser.tabs.get(tabId);
 
-    // Skip if already suspended
     if (tab.url.startsWith(browser.runtime.getURL("suspended.html"))) {
       //console.log(`Tab ${tabId} is already suspended`);
       return;
     }
 
-    // Check if tab should be protected
-    const shouldProtect = await shouldProtectTab(tab);
+    const shouldProtect = await shouldProtectTab(tab, force); // Pass force flag
     if (shouldProtect) {
       //console.log(`Tab ${tabId} is protected, not suspending`);
       return;
     }
 
-    // Save the original URL and title
     suspendedTabs[tabId] = {
       url: tab.url,
       title: tab.title
     };
 
-    // Save state to storage
     saveSuspendedTabsState();
 
     // Update to suspended page
@@ -133,13 +121,9 @@ async function suspendTab(tabId, force = false) {
   }
 }
 
-// Track tab state changes
 browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-  // If the tab has completed loading
   if (changeInfo.status === 'complete') {
-    // Don't set timer for suspended pages
     if (!tab.url.startsWith(browser.runtime.getURL("suspended.html"))) {
-      // Reset timer if this is not the active tab
       if (tabId !== activeTabId) {
         //console.log(`Tab ${tabId} updated, setting suspension timer`);
         resetTabTimer(tabId);
@@ -147,7 +131,6 @@ browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     }
   }
 
-  // If this is a new tab load and we have stored state for it
   if (changeInfo.status === 'complete' && suspendedTabs[tabId]) {
     const originalTab = suspendedTabs[tabId];
 
@@ -161,46 +144,38 @@ browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   }
 });
 
-// Track active tab changes
 browser.tabs.onActivated.addListener((activeInfo) => {
   const previousActiveTab = activeTabId;
   activeTabId = activeInfo.tabId;
 
-  // Clear timer for newly activated tab
   if (tabTimers[activeTabId]) {
     clearTimeout(tabTimers[activeTabId]);
     delete tabTimers[activeTabId];
   }
 
-  // Start timer for previously active tab
   if (previousActiveTab && previousActiveTab !== activeTabId) {
     browser.tabs.get(previousActiveTab).then(tab => {
       if (!tab.url.startsWith(browser.runtime.getURL("suspended.html"))) {
         resetTabTimer(previousActiveTab);
       }
     }).catch(() => {
-      // Tab might have been closed, ignore error
     });
   }
 });
 
-// Track window focus changes
 browser.windows.onFocusChanged.addListener((windowId) => {
   if (windowId === browser.windows.WINDOW_ID_NONE) return;
 
-  // Get the active tab in the newly focused window
   browser.tabs.query({ active: true, windowId }).then(tabs => {
     if (tabs[0]) {
       const previousActiveTab = activeTabId;
       activeTabId = tabs[0].id;
 
-      // Clear timer for newly activated tab
       if (tabTimers[activeTabId]) {
         clearTimeout(tabTimers[activeTabId]);
         delete tabTimers[activeTabId];
       }
 
-      // Start timer for previously active tab
       if (previousActiveTab && previousActiveTab !== activeTabId) {
         browser.tabs.get(previousActiveTab).then(tab => {
           if (!tab.url.startsWith(browser.runtime.getURL("suspended.html"))) {
@@ -214,11 +189,8 @@ browser.windows.onFocusChanged.addListener((windowId) => {
   });
 });
 
-// Listen for messages from the suspended page
 browser.runtime.onMessage.addListener((message, sender) => {
-  // Handle theme updates
   if (message.action === 'updateTheme') {
-    // Forward the theme update to all suspended tabs
     browser.tabs.query({}).then(tabs => {
       tabs.forEach(tab => {
         if (suspendedTabs[tab.id]) {
@@ -227,73 +199,21 @@ browser.runtime.onMessage.addListener((message, sender) => {
             isDark: message.isDark
           });
         }
-      });
+      }
+      );
     });
     return;
   }
   if (message.action === "resumeTab" && sender.tab) {
     const origUrl = message.origUrl;
     delete suspendedTabs[sender.tab.id];
-    saveSuspendedTabsState(); // Save state after resuming
+    saveSuspendedTabsState(); 
     browser.tabs.update(sender.tab.id, { url: origUrl });
-  } else if (message.action === "updateSuspendTime") {
-    SUSPEND_TIME = message.minutes * 60 * 1000;
-    // Reset all timers with new time
-    Object.keys(tabTimers).forEach(tabId => {
-      resetTabTimer(parseInt(tabId, 10));
-    });
-  } else if (message.action === "updateEnabled") {
-    isEnabled = message.isEnabled;
-    if (!isEnabled) {
-      // Clear all timers when disabled
-      Object.keys(tabTimers).forEach(tabId => {
-        if (tabTimers[tabId]) {
-          clearTimeout(tabTimers[tabId]);
-          delete tabTimers[tabId];
-        }
-      });
-    } else {
-      // Start timers for all inactive tabs when enabled
-      browser.tabs.query({}).then(tabs => {
-        tabs.forEach(tab => {
-          if (!tab.active && !tab.url.startsWith(browser.runtime.getURL("suspended.html"))) {
-            resetTabTimer(tab.id);
-          }
-        });
-      });
-    }
-  } else if (message.action === "updateSettings") {
-    const oldSettings = { ...settings };
-    settings = { ...settings, ...message.settings };
-
-    // If whitelist settings changed, reset timers for all tabs
-    if (
-      message.settings.whitelistedDomains !== undefined ||
-      message.settings.whitelistedUrls !== undefined
-    ) {
-      //console.log('Whitelist settings changed, checking all tabs...');
-      // First, clear all existing timers
-      Object.keys(tabTimers).forEach(tabId => {
-        clearTimeout(tabTimers[tabId]);
-        delete tabTimers[tabId];
-      });
-
-      // Then reset timers for all non-suspended tabs
-      browser.tabs.query({}).then(tabs => {
-        tabs.forEach(tab => {
-          if (!tab.active && !tab.url.startsWith(browser.runtime.getURL("suspended.html"))) {
-            //console.log(`Resetting timer for tab ${tab.id} after whitelist change`);
-            resetTabTimer(tab.id);
-          }
-        });
-      });
-    }
   }
 });
 
 // Initialize timers for existing tabs when extension starts
 browser.tabs.query({}).then(tabs => {
-  // Find the active tab
   const activeTab = tabs.find(tab => tab.active);
   if (activeTab) {
     activeTabId = activeTab.id;
@@ -307,8 +227,6 @@ browser.tabs.query({}).then(tabs => {
   });
 });
 
-// Add this function to check if a tab should be protected
-// Create context menu items
 browser.contextMenus.create({
   id: 'whitelistDomain',
   title: 'Whitelist this domain',
@@ -327,7 +245,6 @@ browser.contextMenus.create({
   contexts: ['page']
 });
 
-// Handle context menu clicks
 browser.contextMenus.onClicked.addListener(async (info, tab) => {
   try {
     const url = new URL(tab.url);
@@ -336,7 +253,7 @@ browser.contextMenus.onClicked.addListener(async (info, tab) => {
       const domain = url.hostname;
       if (!settings.whitelistedDomains.includes(domain)) {
         settings.whitelistedDomains.push(domain);
-        await browser.storage.local.set({ whitelistedDomains: settings.whitelistedDomains });
+        await browser.storage.sync.set({ whitelistedDomains: settings.whitelistedDomains });
         browser.notifications.create({
           type: 'basic',
           iconUrl: 'icons/icon48.png',
@@ -348,7 +265,7 @@ browser.contextMenus.onClicked.addListener(async (info, tab) => {
       const pageUrl = tab.url;
       if (!settings.whitelistedUrls.includes(pageUrl)) {
         settings.whitelistedUrls.push(pageUrl);
-        await browser.storage.local.set({ whitelistedUrls: settings.whitelistedUrls });
+        await browser.storage.sync.set({ whitelistedUrls: settings.whitelistedUrls });
         browser.notifications.create({
           type: 'basic',
           iconUrl: 'icons/icon48.png',
@@ -357,7 +274,6 @@ browser.contextMenus.onClicked.addListener(async (info, tab) => {
         });
       }
     } else if (info.menuItemId === 'suspendPage') {
-      // Suspend the current tab immediately, forcing suspension even if active
       await suspendTab(tab.id, true);
       browser.notifications.create({
         type: 'basic',
@@ -371,7 +287,7 @@ browser.contextMenus.onClicked.addListener(async (info, tab) => {
   }
 });
 
-async function shouldProtectTab(tab) {
+async function shouldProtectTab(tab, force = false) {
   //console.log(`Checking protection for tab ${tab.id} (${tab.url})`);
 
   // Skip protection check for suspended pages or non-http(s) pages
@@ -383,8 +299,12 @@ async function shouldProtectTab(tab) {
     return true;
   }
 
+  if (force) {
+    //console.log(`Tab ${tabId} force suspend: bypassing whitelist/activity checks`);
+    return false;
+  }
+
   try {
-    // Check whitelist first
     try {
       const url = new URL(tab.url);
       //console.log(`Checking whitelist for domain: ${url.hostname}`);
@@ -456,12 +376,11 @@ async function shouldProtectTab(tab) {
     return false;
 
   } catch (e) {
-    // If we can't execute the script (e.g., on about: pages), don't suspend
+    // avoid suspending if can't suspend
     return true;
   }
 }
 
-// Add function to save suspended tabs state
 function saveSuspendedTabsState() {
   browser.storage.local.set({ suspendedTabs });
 }
@@ -487,3 +406,83 @@ browser.runtime.onStartup.addListener(() => {
     });
   });
 });
+
+function handleStorageChange(changes, areaName) {
+  // Only react to changes in 'sync' storage
+  if (areaName !== 'sync') {
+    return;
+  }
+
+  let settingsChanged = false;
+  let whitelistChanged = false;
+  let timersNeedReset = false;
+
+  if (changes.suspendTime) {
+    SUSPEND_TIME = changes.suspendTime.newValue * 60 * 1000;
+    timersNeedReset = true;
+  }
+
+  if (changes.isEnabled) {
+    isEnabled = changes.isEnabled.newValue;
+    if (!isEnabled) {
+      Object.keys(tabTimers).forEach(tabId => {
+        if (tabTimers[tabId]) {
+          clearTimeout(tabTimers[tabId]);
+          delete tabTimers[tabId];
+        }
+      });
+    } else {
+      timersNeedReset = true;
+    }
+  }
+
+  // Update in-memory settings
+  if (changes.ignoreAudio) {
+    settings.ignoreAudio = changes.ignoreAudio.newValue ?? true;
+    settingsChanged = true;
+  }
+  if (changes.ignoreFormInput) {
+    settings.ignoreFormInput = changes.ignoreFormInput.newValue ?? true;
+    settingsChanged = true;
+  }
+  if (changes.ignoreNotifications) {
+    settings.ignoreNotifications = changes.ignoreNotifications.newValue ?? true;
+    settingsChanged = true;
+  }
+
+  if (changes.whitelistedDomains) {
+    settings.whitelistedDomains = changes.whitelistedDomains.newValue ?? [];
+    whitelistChanged = true;
+  }
+  if (changes.whitelistedUrls) {
+    settings.whitelistedUrls = changes.whitelistedUrls.newValue ?? [];
+    whitelistChanged = true;
+  }
+  
+  if (whitelistChanged || (changes.isEnabled && changes.isEnabled.newValue === true)) {
+    //console.log('Settings changed, checking all tabs...');
+    // clear all existing timers
+    Object.keys(tabTimers).forEach(tabId => {
+      clearTimeout(tabTimers[tabId]);
+      delete tabTimers[tabId];
+    });
+
+    // reset timers for all non-suspended tabs
+    browser.tabs.query({}).then(tabs => {
+      tabs.forEach(tab => {
+        if (!tab.active && !tab.url.startsWith(browser.runtime.getURL("suspended.html"))) {
+          //console.log(`Resetting timer for tab ${tab.id} after setting change`);
+          resetTabTimer(tab.id);
+        }
+      });
+    });
+  } 
+  else if (timersNeedReset) {
+    Object.keys(tabTimers).forEach(tabId => {
+      resetTabTimer(parseInt(tabId, 10));
+    });
+  }
+}
+
+browser.storage.onChanged.addListener(handleStorageChange);
+

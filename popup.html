@@ -168,7 +168,11 @@
       margin-bottom: 16px;
     }
     
-    button {
+    /* *** CSS FIX: ***
+       Changed 'button' to 'button, .btn'
+       This applies button styles to <label class="btn">
+    */
+    button, .btn {
       background-color: var(--accent-color);
       color: white;
       border: none;
@@ -178,9 +182,11 @@
       font-size: 14px;
       font-weight: 500;
       transition: background-color 0.3s;
+      display: inline-block; /* Added for labels */
+      text-decoration: none; /* Added for labels */
     }
     
-    button:hover {
+    button:hover, .btn:hover {
       background-color: var(--accent-hover);
     }
     
@@ -324,8 +330,21 @@
       font-size: 13px;
       padding: 8px 12px;
     }
-    
 
+    /* Added for new button */
+    .setting-item {
+      margin-top: 16px;
+    }
+    .button-group {
+      display: flex;
+      gap: 8px;
+    }
+    p.description {
+      font-size: 13px;
+      opacity: 0.8;
+      margin: -4px 0 12px;
+    }
+    
   </style>
 </head>
 <body>
@@ -343,6 +362,7 @@
     <div class="tabs">
       <div class="tab active" data-tab="options">Options</div>
       <div class="tab" data-tab="whitelist">Whitelist</div>
+      <!-- REMOVED "Manage Data" Tab -->
     </div>
     
     <div id="options-tab" class="tab-content active">
@@ -376,17 +396,29 @@
           <label for="ignoreNotifications">Don't suspend tabs with notifications</label>
         </div>
       </div>
+
+      <!-- NEW: Data Management Button -->
+      <div class="setting-item">
+        <h4>Data Management</h4>
+        <p class="description">Import or export your settings and whitelist.</p>
+        <div class="button-group">
+          <button id="manageDataBtn" class="btn">Open Data Manager</button>
+        </div>
+      </div>
       
       <div id="status" class="status">Settings saved!</div>
     </div>
     
     <div id="whitelist-tab" class="tab-content">
       <div class="whitelist-actions">
-        <button id="whitelistDomainBtn" class="whitelist-btn">Whitelist Current Domain</button>
-        <button id="whitelistPageBtn" class="whitelist-btn">Whitelist Current Page</button>
+        <button id="whitelistDomainBtn" class="btn whitelist-btn">Whitelist Current Domain</button>
+        <button id="whitelistPageBtn" class="btn whitelist-btn">Whitelist Current Page</button>
       </div>
       <div class="whitelist-container" id="whitelist"></div>
     </div>
+
+    <!-- REMOVED "data-tab" content -->
+
   </div>
   
   <script src="popup.js"></script>
