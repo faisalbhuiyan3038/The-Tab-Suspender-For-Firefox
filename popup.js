@@ -1,9 +1,7 @@
-// Apply theme to document
 function applyTheme(isDark) {
   document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
 }
 
-// Tab switching functionality
 function setupTabs() {
   const tabs = document.querySelectorAll('.tab');
   const tabContents = document.querySelectorAll('.tab-content');
@@ -22,7 +20,6 @@ function setupTabs() {
   });
 }
 
-// Format URL for display
 function formatUrl(url) {
   try {
     const urlObj = new URL(url);
@@ -35,7 +32,6 @@ function formatUrl(url) {
   }
 }
 
-// Display whitelisted items
 function displayWhitelist(whitelistedDomains, whitelistedUrls) {
   const whitelistContainer = document.getElementById('whitelist');
   whitelistContainer.innerHTML = '';
@@ -96,7 +92,6 @@ function displayWhitelist(whitelistedDomains, whitelistedUrls) {
   whitelistContainer.appendChild(urlSection);
 }
 
-// Show status message in the MAIN options tab
 function showMainStatus(message = 'Settings saved!') {
   const status = document.getElementById('status');
   if (!status) return;
@@ -116,7 +111,6 @@ function showMainStatus(message = 'Settings saved!') {
   }, 2000);
 }
 
-// Define keys for synced settings
 const SYNC_SETTINGS_KEYS = [
   'suspendTime',
   'isEnabled',
@@ -133,7 +127,6 @@ const SYNC_SETTINGS_KEYS = [
  */
 async function loadAndDisplaySettings() {
   try {
-    // Load local and sync'd settings in parallel
     const [syncSettings, localSettings] = await Promise.all([
       browser.storage.sync.get(SYNC_SETTINGS_KEYS),
       browser.storage.local.get(['darkMode'])
@@ -151,18 +144,15 @@ async function loadAndDisplaySettings() {
     document.getElementById('ignoreAudio').checked = settings.ignoreAudio ?? true;
     document.getElementById('ignoreFormInput').checked = settings.ignoreFormInput ?? true;
     document.getElementById('ignoreNotifications').checked = settings.ignoreNotifications ?? true;
-    document.getElementById('ignorePinned').checked = settings.ignorePinned ?? true; // NEW
+    document.getElementById('ignorePinned').checked = settings.ignorePinned ?? true; 
     document.getElementById('darkModeSwitch').checked = settings.darkMode ?? false;
     
-    // Apply theme
     applyTheme(settings.darkMode ?? false);
 
-    // Display whitelisted items
     const whitelistedDomains = settings.whitelistedDomains || [];
     const whitelistedUrls = settings.whitelistedUrls || [];
     displayWhitelist(whitelistedDomains, whitelistedUrls);
-    
-    // Setup tab switching
+
     setupTabs();
 
   } catch (error) {
@@ -173,7 +163,6 @@ async function loadAndDisplaySettings() {
 // Load saved settings when popup opens
 document.addEventListener('DOMContentLoaded', loadAndDisplaySettings);
 
-// Handle whitelist item removal
 document.getElementById('whitelist').addEventListener('click', async (e) => {
   if (e.target.classList.contains('remove-btn')) {
     const type = e.target.dataset.type;
@@ -188,8 +177,6 @@ document.getElementById('whitelist').addEventListener('click', async (e) => {
     
     await browser.storage.sync.set({ [listKey]: newList });
     
-    // No message needed, storage.onChanged will handle it
-    
     const whitelistedDomains = type === 'domain' ? newList : (result.whitelistedDomains || []);
     const whitelistedUrls = type === 'url' ? newList : (result.whitelistedUrls || []);
     
@@ -199,8 +186,6 @@ document.getElementById('whitelist').addEventListener('click', async (e) => {
   }
 });
 
-// Save changes for checkboxes
-// NEW: Added 'ignorePinned' to this list
 ['ignoreAudio', 'ignoreFormInput', 'ignoreNotifications', 'ignorePinned'].forEach(id => {
   document.getElementById(id).addEventListener('change', (e) => {
     const setting = { [id]: e.target.checked };
@@ -209,14 +194,12 @@ document.getElementById('whitelist').addEventListener('click', async (e) => {
   });
 });
 
-// Save changes when enable switch is toggled
 document.getElementById('enableSwitch').addEventListener('change', (e) => {
   const isEnabled = e.target.checked;
   browser.storage.sync.set({ isEnabled });
   showMainStatus();
 });
 
-// Dark mode toggle handler
 document.getElementById('darkModeSwitch').addEventListener('change', (event) => {
   const isDark = event.target.checked;
   browser.storage.local.set({ darkMode: isDark });
@@ -227,7 +210,6 @@ document.getElementById('darkModeSwitch').addEventListener('change', (event) => 
   showMainStatus();
 });
 
-// Save changes when save button is clicked
 document.getElementById('saveButton').addEventListener('click', () => {
   const input = document.getElementById('suspendTime');
   const minutes = parseInt(input.value, 10);
@@ -238,13 +220,11 @@ document.getElementById('saveButton').addEventListener('click', () => {
   }
 });
 
-// Get the current active tab
 async function getCurrentTab() {
   const tabs = await browser.tabs.query({ active: true, currentWindow: true });
   return tabs[0];
 }
 
-// Whitelist current domain button handler
 document.getElementById('whitelistDomainBtn').addEventListener('click', async () => {
   try {
     const tab = await getCurrentTab();
@@ -272,7 +252,6 @@ document.getElementById('whitelistDomainBtn').addEventListener('click', async ()
   }
 });
 
-// Whitelist current page button handler
 document.getElementById('whitelistPageBtn').addEventListener('click', async () => {
   try {
     const tab = await getCurrentTab();
@@ -299,7 +278,6 @@ document.getElementById('whitelistPageBtn').addEventListener('click', async () =
   }
 });
 
-// Open Data Management Page
 document.getElementById('manageDataBtn').addEventListener('click', () => {
   browser.tabs.create({
     url: browser.runtime.getURL('data_management.html')
@@ -307,7 +285,6 @@ document.getElementById('manageDataBtn').addEventListener('click', () => {
   window.close();
 });
 
-// Open Shortcuts Guide Page
 document.getElementById('configureShortcutsBtn').addEventListener('click', () => {
   browser.tabs.create({
     url: 'https://support.mozilla.org/en-US/kb/manage-extension-shortcuts-firefox'

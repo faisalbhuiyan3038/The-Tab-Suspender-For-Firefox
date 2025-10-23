@@ -3,7 +3,7 @@
 A Firefox extension that automatically suspends inactive tabs after a specified time to save memory. Unlike Firefox's native tab discarding, and popular addons like Auto Tab Discard, this extension shows a custom suspended page that you need to click to reload - preventing accidental tab reloads when you mistakenly click on a tab.
 
 ## Firefox Addons Store Link
-- Currently in review.
+- It's live! <a href="https://addons.mozilla.org/en-US/firefox/addon/the-tab-suspender/">Download it on Firefox</a>
 
 ## Screenshots
 
@@ -11,6 +11,30 @@ A Firefox extension that automatically suspends inactive tabs after a specified 
   <p><img src="screenshots/popup.png" alt="Extension Popup Settings" width="800"/></p>
   <p><img src="screenshots/suspended_state.png" alt="Suspended Tab State" width="800"/></p>
 </div>
+
+## New features and Changes in v1.5 release
+- Settings are synced with your Firefox profile.
+- Allow exporting, importing whitelisted sites.
+- Add keyboard shortcuts for suspend, unsuspend and whitelist.
+- Add 'Ignore pinned tabs' option.
+- Original website favicon is now displayed in suspended page.
+- One-time migration added for migrating whitelisted sites from local to Firefox profile.
+- Bug fixes and refactor.
+
+## New features and Changes in v1.4 release
+- Added Suspend this page to context menu options.
+- Replaced Suspended: to 'zzz' icon in Tab title for suspended tabs.
+
+## New features and Changes in v1.2 release
+- Major UI Redesign: Completely overhauled the user interface for a more intuitive and visually appealing experience.
+- SVG with Dark/Light Themes: Added support for SVG graphics with seamless dark and light theme switching to match your browser's appearance.
+- ZZZ Animation: Introduced a playful "ZZZ" animation to visually indicate when tabs are suspended.
+- Whitelist Buttons in Popup: Added convenient whitelist buttons to the popup for quick management of excluded tabs.
+- Resolved various bugs to improve stability and performance.
+
+## New features and Changes in v1.1 release
+- Added ability to whitelist site by domain or page (Access it via context menu)
+- Added dark mode (Toggle it in popup settings)
 
 ## Features
 
@@ -24,6 +48,7 @@ A Firefox extension that automatically suspends inactive tabs after a specified 
   - Option to prevent suspension of tabs playing audio/video
   - Option to prevent suspension of tabs with unsaved form changes
   - Option to prevent suspension of tabs with notification permissions
+  - Option to prevent suspension of pinned tabs
 - Persistent suspension state across browser restarts
 - Remembers your settings between browser restarts
 - Lightweight and efficient
@@ -52,6 +77,7 @@ Key behaviors:
    - Prevent suspension of media-playing tabs
    - Prevent suspension of tabs with unsaved forms
    - Prevent suspension of tabs with notifications
+   - Prevent suspension of pinned tabs
 5. Toggle suspension on/off as needed
 6. That's it! Inactive tabs will be suspended automatically
 
@@ -59,11 +85,11 @@ When a tab is suspended, you'll see a simple page showing the original URL. Clic
 
 ## Future Improvements
 
-- Domain whitelist/blacklist functionality
+- Domain whitelist/blacklist functionality (Added)
 - Per-site suspension rules
 - Tab suspension statistics
-- Keyboard shortcuts for manual suspension/restoration
-- Dark mode for suspended page
+- Keyboard shortcuts for manual suspension/restoration (Added)
+- Dark mode for suspended page (Added)
 
 ## Contributing
 

@@ -12,7 +12,6 @@ function showDataStatus(message, isError = false) {
 
   status.style.color = isError ? '#f44336' : '#34C759';
   
-  // Reset the animation by removing and re-adding the class
   status.classList.remove('visible');
   
   // Force a reflow to restart the animation
@@ -23,7 +22,7 @@ function showDataStatus(message, isError = false) {
   
   window.dataStatusTimeout = setTimeout(() => {
     status.classList.remove('visible');
-  }, 4000); // Give a bit longer for data messages
+  }, 4000); 
 }
 
 const SYNC_SETTINGS_KEYS = [
@@ -110,10 +109,8 @@ document.getElementById('importSettingsInput').addEventListener('change', (event
       for (const key of arrayKeys) {
         if (importedSettings.hasOwnProperty(key) && Array.isArray(importedSettings[key])) {
           
-          // Use a Set for automatic de-duplication
           const mergedSet = new Set(localSettings[key] || []);
           
-          // Add imported items, ensuring they are strings
           for (const item of importedSettings[key]) {
             if (typeof item === 'string' && item.length > 0) {
               mergedSet.add(item);
@@ -136,7 +133,6 @@ document.getElementById('importSettingsInput').addEventListener('change', (event
       console.error('Error importing settings:', error);
       showDataStatus(`Import failed: ${error.message}`, true);
     } finally {
-      // Reset the file input so the user can import the same file again
       event.target.value = null;
     }
   };
