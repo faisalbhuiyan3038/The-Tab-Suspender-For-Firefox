@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "The Tab Suspender",
-  "version": "1.4",
+  "version": "1.5",
   "description": "Suspends inactive tabs after a set time by replacing them with a custom suspended page.",
   "icons": {
     "16": "icons/icon16.png",
@@ -35,8 +35,21 @@
     }
   },
   "web_accessible_resources": [
-    "suspended.html"
+    "suspended.html",
+    "data_management.html",
+    "icons/icon32.png"
   ],
+  "commands": {
+    "suspend-current-tab": {
+      "description": "Suspend the current active tab"
+    },
+    "whitelist-current-page": {
+      "description": "Whitelist the current active page"
+    },
+    "unsuspend-current-tab": {
+      "description": "Unsuspend/Restore the current active tab"
+    }
+  },
   "browser_specific_settings": {
     "gecko": {
       "id": "{669407ff-70f0-4512-a010-ea4530c5e716}"

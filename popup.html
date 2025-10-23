@@ -168,10 +168,6 @@
       margin-bottom: 16px;
     }
     
-    /* *** CSS FIX: ***
-       Changed 'button' to 'button, .btn'
-       This applies button styles to <label class="btn">
-    */
     button, .btn {
       background-color: var(--accent-color);
       color: white;
@@ -182,8 +178,8 @@
       font-size: 14px;
       font-weight: 500;
       transition: background-color 0.3s;
-      display: inline-block; /* Added for labels */
-      text-decoration: none; /* Added for labels */
+      display: inline-block; 
+      text-decoration: none;
     }
     
     button:hover, .btn:hover {
@@ -334,6 +330,12 @@
     /* Added for new button */
     .setting-item {
       margin-top: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .setting-item:last-of-type {
+      border-bottom: none;
+      padding-bottom: 0;
     }
     .button-group {
       display: flex;
@@ -362,7 +364,7 @@
     <div class="tabs">
       <div class="tab active" data-tab="options">Options</div>
       <div class="tab" data-tab="whitelist">Whitelist</div>
-      <!-- REMOVED "Manage Data" Tab -->
+      <div class="tab" data-tab="settings">Settings</div>
     </div>
     
     <div id="options-tab" class="tab-content active">
@@ -395,14 +397,10 @@
           <input type="checkbox" id="ignoreNotifications">
           <label for="ignoreNotifications">Don't suspend tabs with notifications</label>
         </div>
-      </div>
-
-      <!-- NEW: Data Management Button -->
-      <div class="setting-item">
-        <h4>Data Management</h4>
-        <p class="description">Import or export your settings and whitelist.</p>
-        <div class="button-group">
-          <button id="manageDataBtn" class="btn">Open Data Manager</button>
+        <!-- NEW "Ignore pinned tabs" CHECKBOX -->
+        <div class="checkbox-item">
+          <input type="checkbox" id="ignorePinned">
+          <label for="ignorePinned">Don't suspend pinned tabs</label>
         </div>
       </div>
       
@@ -417,7 +415,23 @@
       <div class="whitelist-container" id="whitelist"></div>
     </div>
 
-    <!-- REMOVED "data-tab" content -->
+    <div id="settings-tab" class="tab-content">
+      <div class="setting-item">
+        <h4>Keyboard Shortcuts</h4>
+        <p class="description">Configure shortcuts for suspending, whitelisting, and unsuspending tabs.</p>
+        <div class="button-group">
+          <button id="configureShortcutsBtn" class="btn">Configure Shortcuts</button>
+        </div>
+      </div>
+
+      <div class="setting-item">
+        <h4>Data Management</h4>
+        <p class="description">Import or export your settings and whitelist.</p>
+        <div class="button-group">
+          <button id="manageDataBtn" class="btn">Open Data Manager</button>
+        </div>
+      </div>
+    </div>
 
   </div>
   
