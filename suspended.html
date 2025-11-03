@@ -14,6 +14,7 @@
       --message-color: #4299e1;
       --shadow-color: rgba(0, 0, 0, 0.08);
       --container-bg: #ffffff;
+      --container-bg-rgb: 255, 255, 255; /* NEW: for semi-transparent bg */
       /* SVG-specific colors */
       --frame-stroke: #4a4a4a;
       --header-bg: #e0e0e0;
@@ -31,12 +32,12 @@
       --bg-color: #1a202c;
       --text-color: #f7fafc;
       --url-bg: #2d3748;
-      /* --url-text: #63b3ed; */
       --url-text: #34C759;
       --url-border: #4a5568;
       --message-color: #63b3ed;
       --shadow-color: rgba(0, 0, 0, 0.25);
       --container-bg: #2d3748;
+      --container-bg-rgb: 45, 55, 72; /* NEW: for semi-transparent bg */
       /* SVG-specific colors - dark mode */
       --frame-stroke: #cccccc;
       --header-bg: #3c3c3c;
@@ -66,6 +67,20 @@
       transition: background-color 0.3s, color 0.3s;
       line-height: 1.5;
     }
+    
+    /* Styles for when a screenshot is present */
+    body.has-bg {
+      background-size: cover;
+      background-position: center center;
+    }
+    
+    body.has-bg .container {
+      /* Use semi-transparent variable */
+      background-color: rgba(var(--container-bg-rgb, 255, 255, 255), 0.92);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px); /* For Safari */
+      border: 1px solid rgba(128,128,128, 0.1);
+    }
   
     .container {
       text-align: center;
@@ -75,7 +90,7 @@
       padding: 24px;
       border-radius: 12px;
       box-shadow: 0 8px 30px var(--shadow-color);
-      transition: background-color 0.3s, box-shadow 0.3s;
+      transition: background-color 0.3s, box-shadow 0.3s, backdrop-filter 0.3s;
     }
   
     h1 {
@@ -96,7 +111,7 @@
       color: var(--url-text);
     }
   
-   .url a,
+    .url a,
     .url a:link,
     .url a:visited,
     .url a:active,
@@ -219,7 +234,7 @@
 </head>
 <body>
   <div class="container">
-    <div class="logo-container">
+    <div class="logo-container" id="logo-container">
       <div class="logo">
         <svg width="200" height="160" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
           <defs>

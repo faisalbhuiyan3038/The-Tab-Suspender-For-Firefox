@@ -117,9 +117,14 @@ const SYNC_SETTINGS_KEYS = [
   'ignoreAudio',
   'ignoreFormInput',
   'ignoreNotifications',
-  'ignorePinned', // NEW KEY
+  'ignorePinned',
   'whitelistedDomains',
-  'whitelistedUrls'
+  'whitelistedUrls',
+  'enableScreenshots',
+  'captureQuality',
+  'resizeWidth',
+  'resizeHeight',
+  'resizeQuality'
 ];
 
 /**
@@ -138,7 +143,7 @@ async function loadAndDisplaySettings() {
     const suspendTime = settings.suspendTime || defaultTime;
     const isEnabled = settings.isEnabled ?? true;
 
-    // Set form values
+    // Set form values for Options tab
     document.getElementById('suspendTime').value = suspendTime;
     document.getElementById('enableSwitch').checked = isEnabled;
     document.getElementById('ignoreAudio').checked = settings.ignoreAudio ?? true;
@@ -146,6 +151,13 @@ async function loadAndDisplaySettings() {
     document.getElementById('ignoreNotifications').checked = settings.ignoreNotifications ?? true;
     document.getElementById('ignorePinned').checked = settings.ignorePinned ?? true; 
     document.getElementById('darkModeSwitch').checked = settings.darkMode ?? false;
+    document.getElementById('enableScreenshots').checked = settings.enableScreenshots ?? false;
+    
+    document.getElementById('captureQuality').value = settings.captureQuality || 50;
+    document.getElementById('resizeWidth').value = settings.resizeWidth || 1280;
+    document.getElementById('resizeHeight').value = settings.resizeHeight || 720;
+    document.getElementById('resizeQuality').value = settings.resizeQuality || 0.5;
+
     
     applyTheme(settings.darkMode ?? false);
 
@@ -186,7 +198,7 @@ document.getElementById('whitelist').addEventListener('click', async (e) => {
   }
 });
 
-['ignoreAudio', 'ignoreFormInput', 'ignoreNotifications', 'ignorePinned'].forEach(id => {
+['ignoreAudio', 'ignoreFormInput', 'ignoreNotifications', 'ignorePinned', 'enableScreenshots'].forEach(id => {
   document.getElementById(id).addEventListener('change', (e) => {
     const setting = { [id]: e.target.checked };
     browser.storage.sync.set(setting);
@@ -210,7 +222,7 @@ document.getElementById('darkModeSwitch').addEventListener('change', (event) => 
   showMainStatus();
 });
 
-document.getElementById('saveButton').addEventListener('click', () => {
+document.getElementById('saveTimeButton').addEventListener('click', () => {
   const input = document.getElementById('suspendTime');
   const minutes = parseInt(input.value, 10);
 
@@ -219,6 +231,46 @@ document.getElementById('saveButton').addEventListener('click', () => {
     showMainStatus();
   }
 });
+
+document.getElementById('saveScreenshotSettings').addEventListener('click', () => {
+  try {
+    const captureQuality = parseInt(document.getElementById('captureQuality').value, 10);
+    const resizeWidth = parseInt(document.getElementById('resizeWidth').value, 10);
+    const resizeHeight = parseInt(document.getElementById('resizeHeight').value, 10);
+    const resizeQuality = parseFloat(document.getElementById('resizeQuality').value);
+
+    // Basic validation
+    if (isNaN(captureQuality) || captureQuality < 5 || captureQuality > 100) {
+      showMainStatus('Capture Quality must be 5-100');
+      return;
+    }
+    if (isNaN(resizeWidth) || resizeWidth < 100) {
+      showMainStatus('Resize Width must be at least 100');
+      return;
+    }
+    if (isNaN(resizeHeight) || resizeHeight < 100) {
+      showMainStatus('Resize Height must be at least 100');
+      return;
+    }
+    if (isNaN(resizeQuality) || resizeQuality < 0.1 || resizeQuality > 1.0) {
+      showMainStatus('Resize Quality must be 0.1-1.0');
+      return;
+    }
+
+    browser.storage.sync.set({
+      captureQuality,
+      resizeWidth,
+      resizeHeight,
+      resizeQuality
+    });
+    
+    showMainStatus('Screenshot settings saved!');
+  } catch (error) {
+    console.error("Error saving screenshot settings:", error);
+    showMainStatus('Error saving settings');
+  }
+});
+
 
 async function getCurrentTab() {
   const tabs = await browser.tabs.query({ active: true, currentWindow: true });

@@ -9,6 +9,11 @@ let settings = {
   ignoreFormInput: true,
   ignoreNotifications: true,
   ignorePinned: true, 
+  enableScreenshots: false,
+  captureQuality: 50,
+  resizeWidth: 1280,
+  resizeHeight: 720,
+  resizeQuality: 0.5,
   whitelistedDomains: [],
   whitelistedUrls: []
 };
@@ -23,7 +28,12 @@ const SYNC_SETTINGS_KEYS = [
   'ignoreNotifications',
   'ignorePinned',
   'whitelistedDomains',
-  'whitelistedUrls'
+  'whitelistedUrls',
+  'enableScreenshots',
+  'captureQuality',
+  'resizeWidth',
+  'resizeHeight',
+  'resizeQuality'
 ];
 
 async function loadSettings() {
@@ -41,6 +51,11 @@ async function loadSettings() {
       ignoreFormInput: result.ignoreFormInput ?? true,
       ignoreNotifications: result.ignoreNotifications ?? true,
       ignorePinned: result.ignorePinned ?? true,
+      enableScreenshots: result.enableScreenshots ?? false,
+      captureQuality: result.captureQuality || 50,
+      resizeWidth: result.resizeWidth || 1280,
+      resizeHeight: result.resizeHeight || 720,
+      resizeQuality: result.resizeQuality || 0.5,
       whitelistedDomains: result.whitelistedDomains ?? [],
       whitelistedUrls: result.whitelistedUrls ?? []
     };
@@ -122,16 +137,33 @@ async function suspendTab(tabId, force = false) {
     suspendedTabs[tabId] = {
       url: tab.url,
       title: tab.title,
-      favIconUrl: tab.favIconUrl 
+      favIconUrl: tab.favIconUrl,
+      thumbnail: null
     };
 
     saveSuspendedTabsState();
 
-    const suspendedPageURL = browser.runtime.getURL("suspended.html") +
+    let suspendedPageURL = browser.runtime.getURL("suspended.html") +
       "?origUrl=" + encodeURIComponent(tab.url) +
       "&title=" + encodeURIComponent(tab.title) +
-      "&favIconUrl=" + encodeURIComponent(tab.favIconUrl || '');
-      
+      "&favIconUrl=" + encodeURIComponent(tab.favIconUrl || '') +
+      "&tabId=" + tabId; 
+
+    if (settings.enableScreenshots) {
+      try {
+        const fullResImage = await browser.tabs.captureTab(tabId, { 
+          format: "jpeg", 
+          quality: settings.captureQuality 
+        });
+        
+        await browser.storage.local.set({ ["temp_img_" + tabId]: fullResImage });
+        suspendedPageURL += "&hasCapture=true";
+        console.log(`Captured screenshot for tab ${tabId}`);
+      } catch (captureError) {
+        console.error(`Failed to capture tab ${tabId}:`, captureError);
+      }
+    }
+        
     browser.tabs.update(tabId, { url: suspendedPageURL });
     return true;
   } catch (e) {
@@ -154,10 +186,12 @@ browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     const originalTab = suspendedTabs[tabId];
 
     if (tab.url === originalTab.url) {
-      const suspendedPageURL = browser.runtime.getURL("suspended.html") +
+      let suspendedPageURL = browser.runtime.getURL("suspended.html") +
         "?origUrl=" + encodeURIComponent(originalTab.url) +
         "&title=" + encodeURIComponent(originalTab.title) +
-        "&favIconUrl=" + encodeURIComponent(originalTab.favIconUrl || ''); // Add favicon
+        "&favIconUrl=" + encodeURIComponent(originalTab.favIconUrl || '') +
+        "&tabId=" + tabId; 
+
       browser.tabs.update(tabId, { url: suspendedPageURL });
     }
   }
@@ -220,10 +254,13 @@ browser.runtime.onMessage.addListener((message, sender) => {
     });
     return;
   }
+
   if (message.action === "resumeTab" && sender.tab) {
     const origUrl = message.origUrl;
-    delete suspendedTabs[sender.tab.id];
-    saveSuspendedTabsState();
+    if (suspendedTabs[sender.tab.id]) {
+      delete suspendedTabs[sender.tab.id];
+      saveSuspendedTabsState();
+    }
     browser.tabs.update(sender.tab.id, { url: origUrl });
   }
 });
@@ -296,7 +333,7 @@ browser.contextMenus.onClicked.addListener(async (info, tab) => {
         await browser.storage.sync.set({ whitelistedUrls: newUrls });
         browser.notifications.create({
           type: 'basic',
-          iconUrl: 'icons/icon4F8.png',
+          iconUrl: 'icons/icon48.png',
           title: 'Page Whitelisted',
           message: 'This page has been added to the whitelist'
         });
@@ -396,6 +433,8 @@ browser.tabs.onRemoved.addListener((tabId) => {
     delete suspendedTabs[tabId];
     saveSuspendedTabsState();
   }
+  //Clean up any lingering temp images
+  browser.storage.local.remove("temp_img_" + tabId);
 });
 
 browser.runtime.onStartup.addListener(() => {
@@ -406,7 +445,8 @@ browser.runtime.onStartup.addListener(() => {
         const suspendedPageURL = browser.runtime.getURL("suspended.html") +
           "?origUrl=" + encodeURIComponent(originalTab.url) +
           "&title=" + encodeURIComponent(originalTab.title) +
-          "&favIconUrl=" + encodeURIComponent(originalTab.favIconUrl || ''); // Add favicon
+          "&favIconUrl=" + encodeURIComponent(originalTab.favIconUrl || '') +
+          "&tabId=" + tab.id; 
         browser.tabs.update(tab.id, { url: suspendedPageURL });
       }
     });
@@ -469,7 +509,7 @@ browser.commands.onCommand.addListener(async (commandName) => {
       } else {
         browser.notifications.create({
           type: 'basic',
-          iconUrl: 'icons/icon48.png',
+          iconUrl: 'icons/icon48.png', 
           title: 'Tab Not Suspended',
           message: 'This tab is not currently suspended.'
         });
@@ -549,7 +589,8 @@ browser.runtime.onStartup.addListener(() => {
         const suspendedPageURL = browser.runtime.getURL("suspended.html") +
           "?origUrl=" + encodeURIComponent(originalTab.url) +
           "&title=" + encodeURIComponent(originalTab.title) +
-          "&favIconUrl=" + encodeURIComponent(originalTab.favIconUrl || ''); // Add favicon
+          "&favIconUrl=" + encodeURIComponent(originalTab.favIconUrl || '') +
+          "&tabId=" + tab.id;
         browser.tabs.update(tab.id, { url: suspendedPageURL });
       }
     });

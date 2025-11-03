@@ -39,7 +39,7 @@
     }
 
     body {
-      width: 340px;
+      width: 360px; 
       margin: 0;
       padding: 0;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -77,6 +77,12 @@
     .form-group {
       margin-bottom: 16px;
     }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
     
     label {
       display: block;
@@ -95,8 +101,13 @@
       font-family: inherit;
       font-size: 14px;
       transition: border-color 0.3s;
+      box-sizing: border-box;
     }
     
+    .form-grid .form-group input[type="number"] {
+      width: 100%;
+    }
+
     input[type="number"]:focus {
       outline: none;
       border-color: var(--accent-color);
@@ -180,6 +191,13 @@
       transition: background-color 0.3s;
       display: inline-block; 
       text-decoration: none;
+      width: auto; 
+    }
+
+    .btn-full {
+      width: 100%;
+      box-sizing: border-box;
+      margin-top: 8px;
     }
     
     button:hover, .btn:hover {
@@ -273,12 +291,14 @@
     }
     
     .tab {
-      padding: 8px 16px;
+      padding: 8px 10px; 
       font-size: 14px;
       font-weight: 500;
       cursor: pointer;
       border-bottom: 2px solid transparent;
       transition: all 0.3s;
+      flex-grow: 1; 
+      text-align: center;
     }
     
     .tab.active {
@@ -364,6 +384,7 @@
     <div class="tabs">
       <div class="tab active" data-tab="options">Options</div>
       <div class="tab" data-tab="whitelist">Whitelist</div>
+      <div class="tab" data-tab="screenshot">Screenshot</div>
       <div class="tab" data-tab="settings">Settings</div>
     </div>
     
@@ -372,7 +393,7 @@
         <label for="suspendTime">Suspend inactive tabs after (minutes):</label>
         <div class="time-input-group">
           <input type="number" id="suspendTime" min="1" max="1440">
-          <button id="saveButton">Save</button>
+          <button id="saveTimeButton">Save</button>
         </div>
       </div>
       
@@ -382,6 +403,13 @@
           <input type="checkbox" id="darkModeSwitch">
           <span class="slider"></span>
         </label>
+      </div>
+
+      <div class="checkbox-group">
+        <div class="checkbox-item">
+          <input type="checkbox" id="enableScreenshots">
+          <label for="enableScreenshots">Enable tab screenshots (experimental)</label>
+        </div>
       </div>
       
       <div class="checkbox-group">
@@ -403,7 +431,6 @@
         </div>
       </div>
       
-      <div id="status" class="status">Settings saved!</div>
     </div>
     
     <div id="whitelist-tab" class="tab-content">
@@ -412,6 +439,33 @@
         <button id="whitelistPageBtn" class="btn whitelist-btn">Whitelist Current Page</button>
       </div>
       <div class="whitelist-container" id="whitelist"></div>
+    </div>
+
+    <div id="screenshot-tab" class="tab-content">
+      <p class="description">Configure screenshot capture and resize settings. Smaller images save memory.</p>
+      
+      <div class="form-group">
+        <label for="captureQuality">Capture Quality (5-100)</label>
+        <input type="number" id="captureQuality" min="5" max="100" step="5">
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="resizeWidth">Resize Width (px)</label>
+          <input type="number" id="resizeWidth" min="100" step="10">
+        </div>
+        <div class="form-group">
+          <label for="resizeHeight">Resize Height (px)</label>
+          <input type="number" id="resizeHeight" min="100" step="10">
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="resizeQuality">Resize Quality (0.1 - 1.0)</label>
+        <input type="number" id="resizeQuality" min="0.1" max="1.0" step="0.1">
+      </div>
+
+      <button id="saveScreenshotSettings" class="btn btn-full">Save Screenshot Settings</button>
     </div>
 
     <div id="settings-tab" class="tab-content">
@@ -432,8 +486,11 @@
       </div>
     </div>
 
+    <div id="status" class="status">Settings saved!</div>
+
   </div>
   
   <script src="popup.js"></script>
 </body>
 </html>
+
