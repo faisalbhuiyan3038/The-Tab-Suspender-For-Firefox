@@ -13,7 +13,6 @@ function applyTheme(isDark) {
   document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
 }
 
-// Displays the thumbnail and hides the default SVG
 function displayThumbnail(dataUrl) {
   if (!dataUrl) return;
   try {
@@ -31,7 +30,6 @@ function displayThumbnail(dataUrl) {
   }
 }
 
-// Resizes a data: URL image using an in-memory canvas
 function resizeImage(dataUrl, maxWidth, maxHeight, quality) {
   return new Promise((resolve, reject) => {
     const img = new Image();
@@ -59,6 +57,7 @@ function resizeImage(dataUrl, maxWidth, maxHeight, quality) {
       
       ctx.drawImage(img, 0, 0, width, height);
       
+      // Export as low-quality WEBP for better compression
       resolve(canvas.toDataURL('image/webp', quality));
     };
     img.onerror = (err) => {
@@ -114,15 +113,16 @@ async function init() {
 
   if (tabId) {
     try {
-      const tabsData = await browser.storage.local.get('suspendedTabs');
-      const allSuspended = tabsData.suspendedTabs || {};
-      const tabInfo = allSuspended[tabId];
+      const thumbData = await browser.storage.local.get("thumbnail_" + tabId);
+      const existingThumbnail = thumbData["thumbnail_" + tabId];
 
-      if (tabInfo && tabInfo.thumbnail) {
+      // Case 1: Thumbnail already exists in storage
+      if (existingThumbnail) {
         console.log("Displaying existing thumbnail");
-        displayThumbnail(tabInfo.thumbnail);
+        displayThumbnail(existingThumbnail);
       
-      } else if (hasCapture && tabInfo) {
+      // Case 2: First-time suspension, need to process temp image
+      } else if (hasCapture) {
         console.log("Processing new screenshot...");
         const tempData = await browser.storage.local.get("temp_img_" + tabId);
         const fullResImage = tempData["temp_img_" + tabId];
@@ -132,12 +132,10 @@ async function init() {
           const height = syncSettings.resizeHeight || 720;
           const quality = syncSettings.resizeQuality || 0.5;
 
-          // Resize the image
           const smallDataUrl = await resizeImage(fullResImage, width, height, quality);
           
-          // Save the small thumbnail to *permanent* storage
-          tabInfo.thumbnail = smallDataUrl;
-          await browser.storage.local.set({ suspendedTabs: allSuspended });
+          // Save the small thumbnail to *its own* key
+          await browser.storage.local.set({ ["thumbnail_" + tabId]: smallDataUrl });
           
           // Display the new thumbnail
           displayThumbnail(smallDataUrl);

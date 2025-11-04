@@ -12,6 +12,10 @@ A Firefox extension that automatically suspends inactive tabs after a specified 
   <p><img src="screenshots/suspended_state.png" alt="Suspended Tab State" width="800"/></p>
 </div>
 
+## New features and Changes in v1.6 release
+- Added new Experimental feature to save screenshots for suspended tabs, with configurable quality settings.
+- Refactored code to improve performance and reduce I/O operations and memory usage.
+
 ## New features and Changes in v1.5 release
 - Settings are synced with your Firefox profile.
 - Allow exporting, importing whitelisted sites.

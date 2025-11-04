@@ -2,7 +2,7 @@
 let SUSPEND_TIME = 40*60*1000;
 let isEnabled = true; // Enabled by default
 let activeTabId = null;
-let suspendedTabs = {};
+let suspendedTabs = {}; 
 let tabTimers = {};
 let settings = {
   ignoreAudio: true,
@@ -134,14 +134,14 @@ async function suspendTab(tabId, force = false) {
       return;
     }
 
+    
     suspendedTabs[tabId] = {
       url: tab.url,
       title: tab.title,
       favIconUrl: tab.favIconUrl,
-      thumbnail: null
     };
 
-    saveSuspendedTabsState();
+    saveSuspendedTabsState(); 
 
     let suspendedPageURL = browser.runtime.getURL("suspended.html") +
       "?origUrl=" + encodeURIComponent(tab.url) +
@@ -153,7 +153,7 @@ async function suspendTab(tabId, force = false) {
       try {
         const fullResImage = await browser.tabs.captureTab(tabId, { 
           format: "jpeg", 
-          quality: settings.captureQuality 
+          quality: settings.captureQuality
         });
         
         await browser.storage.local.set({ ["temp_img_" + tabId]: fullResImage });
@@ -186,11 +186,12 @@ browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     const originalTab = suspendedTabs[tabId];
 
     if (tab.url === originalTab.url) {
+      // Logic to re-suspend a tab that was navigated "back" to
       let suspendedPageURL = browser.runtime.getURL("suspended.html") +
         "?origUrl=" + encodeURIComponent(originalTab.url) +
         "&title=" + encodeURIComponent(originalTab.title) +
         "&favIconUrl=" + encodeURIComponent(originalTab.favIconUrl || '') +
-        "&tabId=" + tabId; 
+        "&tabId=" + tabId;
 
       browser.tabs.update(tabId, { url: suspendedPageURL });
     }
@@ -240,7 +241,7 @@ browser.windows.onFocusChanged.addListener((windowId) => {
 });
 
 // --- Event Listeners (Runtime, Storage) ---
-browser.runtime.onMessage.addListener((message, sender) => {
+browser.runtime.onMessage.addListener(async (message, sender) => { 
   if (message.action === 'updateTheme') {
     browser.tabs.query({}).then(tabs => {
       tabs.forEach(tab => {
@@ -254,13 +255,16 @@ browser.runtime.onMessage.addListener((message, sender) => {
     });
     return;
   }
-
   if (message.action === "resumeTab" && sender.tab) {
     const origUrl = message.origUrl;
     if (suspendedTabs[sender.tab.id]) {
-      delete suspendedTabs[sender.tab.id];
+      delete suspendedTabs[sender.tab.id]; 
       saveSuspendedTabsState();
     }
+    await browser.storage.local.remove([
+      "thumbnail_" + sender.tab.id,
+      "temp_img_" + sender.tab.id
+    ]);
     browser.tabs.update(sender.tab.id, { url: origUrl });
   }
 });
@@ -428,13 +432,16 @@ function saveSuspendedTabsState() {
   browser.storage.local.set({ suspendedTabs });
 }
 
-browser.tabs.onRemoved.addListener((tabId) => {
+browser.tabs.onRemoved.addListener(async (tabId) => {
   if (suspendedTabs[tabId]) {
     delete suspendedTabs[tabId];
     saveSuspendedTabsState();
   }
-  //Clean up any lingering temp images
-  browser.storage.local.remove("temp_img_" + tabId);
+  // Clean up all associated storage
+  await browser.storage.local.remove([
+    "thumbnail_" + tabId,
+    "temp_img_" + tabId
+  ]);
 });
 
 browser.runtime.onStartup.addListener(() => {
@@ -446,7 +453,7 @@ browser.runtime.onStartup.addListener(() => {
           "?origUrl=" + encodeURIComponent(originalTab.url) +
           "&title=" + encodeURIComponent(originalTab.title) +
           "&favIconUrl=" + encodeURIComponent(originalTab.favIconUrl || '') +
-          "&tabId=" + tab.id; 
+          "&tabId=" + tab.id; // Always include tabId
         browser.tabs.update(tab.id, { url: suspendedPageURL });
       }
     });
@@ -505,11 +512,16 @@ browser.commands.onCommand.addListener(async (commandName) => {
         const origUrl = suspendedTabs[tab.id].url;
         delete suspendedTabs[tab.id];
         saveSuspendedTabsState();
+        // MODIFIED: Also remove thumbnails
+        await browser.storage.local.remove([
+          "thumbnail_" + tab.id,
+          "temp_img_" + tab.id
+        ]);
         await browser.tabs.update(tab.id, { url: origUrl });
       } else {
         browser.notifications.create({
           type: 'basic',
-          iconUrl: 'icons/icon48.png', 
+          iconUrl: 'icons/icon48.png',
           title: 'Tab Not Suspended',
           message: 'This tab is not currently suspended.'
         });
@@ -521,9 +533,10 @@ browser.commands.onCommand.addListener(async (commandName) => {
 
 /**
  * Moves settings from browser.storage.local to browser.storage.sync
- * to prevent data loss on update.
+ * AND migrates local tab storage to new format
  */
 async function runMigration() {
+  // 1. Migrate SYNC settings
   const keysToMigrate = [
     'suspendTime',
     'isEnabled',
@@ -537,33 +550,62 @@ async function runMigration() {
 
   try {
     const localData = await browser.storage.local.get(keysToMigrate);
-
-    if (Object.keys(localData).length === 0) {
-      console.log("Migration check: No local settings found to migrate.");
-      return;
-    }
-
-    console.log("Migration: Found old settings in local storage. Migrating to sync...");
-    
-    let settingsToSync = {};
-    for (const key of keysToMigrate) {
-      if (localData[key] !== undefined) {
-        settingsToSync[key] = localData[key];
+    if (Object.keys(localData).length > 0) {
+      console.log("Migration: Found old settings in local storage. Migrating to sync...");
+      let settingsToSync = {};
+      for (const key of keysToMigrate) {
+        if (localData[key] !== undefined) {
+          settingsToSync[key] = localData[key];
+        }
       }
-    }
-
-    if (Object.keys(settingsToSync).length > 0) {
-      await browser.storage.sync.set(settingsToSync);
-      console.log("Migration: Successfully moved settings to sync storage.", settingsToSync);
-      
-      await browser.storage.local.remove(keysToMigrate);
-      console.log("Migration: Cleaned up old settings from local storage.");
+      if (Object.keys(settingsToSync).length > 0) {
+        await browser.storage.sync.set(settingsToSync);
+        console.log("Migration: Successfully moved settings to sync storage.", settingsToSync);
+        await browser.storage.local.remove(keysToMigrate);
+        console.log("Migration: Cleaned up old settings from local storage.");
+      }
     } else {
-      console.log("Migration: No defined settings found in local storage. Nothing to migrate.");
+      console.log("Migration check: No local settings found to migrate.");
     }
-
   } catch (error) {
-    console.error("Migration failed:", error);
+    console.error("Sync Migration failed:", error);
+  }
+
+  //  Migrate LOCAL tab storage
+  try {
+    const oldStorage = await browser.storage.local.get("suspendedTabs");
+    if (oldStorage.suspendedTabs) {
+      console.log("Migration: Found old 'suspendedTabs' blob. Migrating to new format...");
+      const oldTabs = oldStorage.suspendedTabs;
+      let newSuspendedTabs = {};
+      let newThumbnails = {};   
+
+      for (const [tabId, data] of Object.entries(oldTabs)) {
+        if (data && data.url) { // Check if data is valid
+          const { thumbnail, ...rest } = data;
+          newSuspendedTabs[tabId] = rest; // Add text data to new blob
+          if (thumbnail) {
+            newThumbnails["thumbnail_" + tabId] = thumbnail; // Add thumbnail to its own key
+          }
+        }
+      }
+
+      if (Object.keys(newThumbnails).length > 0) {
+        await browser.storage.local.set(newThumbnails);
+        console.log(`Migration: Migrated ${Object.keys(newThumbnails).length} thumbnails.`);
+      }
+
+      await browser.storage.local.set({ suspendedTabs: newSuspendedTabs });
+      console.log("Migration: New text-only 'suspendedTabs' saved. Migration complete.");
+      
+      // Update in-memory object
+      suspendedTabs = newSuspendedTabs;
+
+    } else {
+      console.log("Migration check: No old 'suspendedTabs' blob found. No local data migration needed.");
+    }
+  } catch (error) {
+    console.error("Local Tab Storage Migration failed:", error);
   }
 }
 
@@ -590,7 +632,7 @@ browser.runtime.onStartup.addListener(() => {
           "?origUrl=" + encodeURIComponent(originalTab.url) +
           "&title=" + encodeURIComponent(originalTab.title) +
           "&favIconUrl=" + encodeURIComponent(originalTab.favIconUrl || '') +
-          "&tabId=" + tab.id;
+          "&tabId=" + tab.id; // Always include tabId
         browser.tabs.update(tab.id, { url: suspendedPageURL });
       }
     });

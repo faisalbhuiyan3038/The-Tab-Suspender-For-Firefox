@@ -8,11 +8,9 @@ function setupTabs() {
   
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
-      // Remove active class from all tabs and contents
       tabs.forEach(t => t.classList.remove('active'));
       tabContents.forEach(content => content.classList.remove('active'));
       
-      // Add active class to clicked tab and corresponding content
       tab.classList.add('active');
       const tabId = tab.getAttribute('data-tab');
       document.getElementById(`${tabId}-tab`).classList.add('active');
@@ -153,6 +151,7 @@ async function loadAndDisplaySettings() {
     document.getElementById('darkModeSwitch').checked = settings.darkMode ?? false;
     document.getElementById('enableScreenshots').checked = settings.enableScreenshots ?? false;
     
+    // Set form values for Screenshot tab
     document.getElementById('captureQuality').value = settings.captureQuality || 50;
     document.getElementById('resizeWidth').value = settings.resizeWidth || 1280;
     document.getElementById('resizeHeight').value = settings.resizeHeight || 720;
@@ -198,13 +197,6 @@ document.getElementById('whitelist').addEventListener('click', async (e) => {
   }
 });
 
-['ignoreAudio', 'ignoreFormInput', 'ignoreNotifications', 'ignorePinned', 'enableScreenshots'].forEach(id => {
-  document.getElementById(id).addEventListener('change', (e) => {
-    const setting = { [id]: e.target.checked };
-    browser.storage.sync.set(setting);
-    showMainStatus();
-  });
-});
 
 document.getElementById('enableSwitch').addEventListener('change', (e) => {
   const isEnabled = e.target.checked;
@@ -222,16 +214,36 @@ document.getElementById('darkModeSwitch').addEventListener('change', (event) => 
   showMainStatus();
 });
 
-document.getElementById('saveTimeButton').addEventListener('click', () => {
-  const input = document.getElementById('suspendTime');
-  const minutes = parseInt(input.value, 10);
+//Listener for saving ALL options
+document.getElementById('saveOptionsButton').addEventListener('click', () => {
+  try {
+    const suspendTime = parseInt(document.getElementById('suspendTime').value, 10);
+    
+    if (isNaN(suspendTime) || suspendTime < 1 || suspendTime > 1440) {
+      showMainStatus('Time must be between 1 and 1440');
+      return;
+    }
 
-  if (minutes >= 1 && minutes <= 1440) { 
-    browser.storage.sync.set({ suspendTime: minutes });
-    showMainStatus();
+    const settingsToSave = {
+      suspendTime: suspendTime,
+      enableScreenshots: document.getElementById('enableScreenshots').checked,
+      ignoreAudio: document.getElementById('ignoreAudio').checked,
+      ignoreFormInput: document.getElementById('ignoreFormInput').checked,
+      ignoreNotifications: document.getElementById('ignoreNotifications').checked,
+      ignorePinned: document.getElementById('ignorePinned').checked
+    };
+
+    browser.storage.sync.set(settingsToSave);
+    showMainStatus('Options saved!');
+
+  } catch (error) {
+    console.error("Error saving options:", error);
+    showMainStatus('Error saving options');
   }
 });
 
+
+//Listener for saving screenshot settings
 document.getElementById('saveScreenshotSettings').addEventListener('click', () => {
   try {
     const captureQuality = parseInt(document.getElementById('captureQuality').value, 10);
