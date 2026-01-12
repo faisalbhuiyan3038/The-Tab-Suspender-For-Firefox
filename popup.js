@@ -5,12 +5,12 @@ function applyTheme(isDark) {
 function setupTabs() {
   const tabs = document.querySelectorAll('.tab');
   const tabContents = document.querySelectorAll('.tab-content');
-  
+
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
       tabs.forEach(t => t.classList.remove('active'));
       tabContents.forEach(content => content.classList.remove('active'));
-      
+
       tab.classList.add('active');
       const tabId = tab.getAttribute('data-tab');
       document.getElementById(`${tabId}-tab`).classList.add('active');
@@ -45,7 +45,7 @@ function displayWhitelist(whitelistedDomains, whitelistedUrls) {
   const domainSection = document.createElement('div');
   domainSection.className = 'whitelist-section';
   domainSection.innerHTML = '<h4>Whitelisted Domains</h4>';
-  
+
   if (domains.length > 0) {
     domains.forEach(domain => {
       const item = document.createElement('div');
@@ -62,13 +62,13 @@ function displayWhitelist(whitelistedDomains, whitelistedUrls) {
     emptyMsg.textContent = 'No domains whitelisted';
     domainSection.appendChild(emptyMsg);
   }
-  
+
   whitelistContainer.appendChild(domainSection);
 
   const urlSection = document.createElement('div');
   urlSection.className = 'whitelist-section';
   urlSection.innerHTML = '<h4>Whitelisted Pages</h4>';
-  
+
   if (urls.length > 0) {
     urls.forEach(url => {
       const formattedUrl = formatUrl(url);
@@ -86,24 +86,24 @@ function displayWhitelist(whitelistedDomains, whitelistedUrls) {
     emptyMsg.textContent = 'No pages whitelisted';
     urlSection.appendChild(emptyMsg);
   }
-  
+
   whitelistContainer.appendChild(urlSection);
 }
 
 function showMainStatus(message = 'Settings saved!') {
   const status = document.getElementById('status');
   if (!status) return;
-  
+
   if (window.statusTimeout) {
     clearTimeout(window.statusTimeout);
   }
-  
+
   status.classList.remove('visible');
   void status.offsetWidth;
-  
+
   status.textContent = message;
   status.classList.add('visible');
-  
+
   window.statusTimeout = setTimeout(() => {
     status.classList.remove('visible');
   }, 2000);
@@ -131,8 +131,8 @@ const SYNC_SETTINGS_KEYS = [
 async function loadAndDisplaySettings() {
   try {
     const [syncSettings, localSettings] = await Promise.all([
-      browser.storage.sync.get(SYNC_SETTINGS_KEYS),
-      browser.storage.local.get(['darkMode'])
+      chrome.storage.sync.get(SYNC_SETTINGS_KEYS),
+      chrome.storage.local.get(['darkMode'])
     ]);
 
     const settings = { ...syncSettings, ...localSettings };
@@ -147,17 +147,17 @@ async function loadAndDisplaySettings() {
     document.getElementById('ignoreAudio').checked = settings.ignoreAudio ?? true;
     document.getElementById('ignoreFormInput').checked = settings.ignoreFormInput ?? true;
     document.getElementById('ignoreNotifications').checked = settings.ignoreNotifications ?? true;
-    document.getElementById('ignorePinned').checked = settings.ignorePinned ?? true; 
+    document.getElementById('ignorePinned').checked = settings.ignorePinned ?? true;
     document.getElementById('darkModeSwitch').checked = settings.darkMode ?? false;
     document.getElementById('enableScreenshots').checked = settings.enableScreenshots ?? false;
-    
+
     // Set form values for Screenshot tab
     document.getElementById('captureQuality').value = settings.captureQuality || 50;
     document.getElementById('resizeWidth').value = settings.resizeWidth || 1280;
     document.getElementById('resizeHeight').value = settings.resizeHeight || 720;
     document.getElementById('resizeQuality').value = settings.resizeQuality || 0.5;
 
-    
+
     applyTheme(settings.darkMode ?? false);
 
     const whitelistedDomains = settings.whitelistedDomains || [];
@@ -178,21 +178,21 @@ document.getElementById('whitelist').addEventListener('click', async (e) => {
   if (e.target.classList.contains('remove-btn')) {
     const type = e.target.dataset.type;
     const value = e.target.dataset.value;
-    
-    const result = await browser.storage.sync.get(['whitelistedDomains', 'whitelistedUrls']);
-    
+
+    const result = await chrome.storage.sync.get(['whitelistedDomains', 'whitelistedUrls']);
+
     const listKey = type === 'domain' ? 'whitelistedDomains' : 'whitelistedUrls';
     const list = result[listKey] || [];
-    
+
     const newList = list.filter(item => item !== value);
-    
-    await browser.storage.sync.set({ [listKey]: newList });
-    
+
+    await chrome.storage.sync.set({ [listKey]: newList });
+
     const whitelistedDomains = type === 'domain' ? newList : (result.whitelistedDomains || []);
     const whitelistedUrls = type === 'url' ? newList : (result.whitelistedUrls || []);
-    
+
     displayWhitelist(whitelistedDomains, whitelistedUrls);
-    
+
     showMainStatus('Whitelist updated');
   }
 });
@@ -200,17 +200,17 @@ document.getElementById('whitelist').addEventListener('click', async (e) => {
 
 document.getElementById('enableSwitch').addEventListener('change', (e) => {
   const isEnabled = e.target.checked;
-  browser.storage.sync.set({ isEnabled });
+  chrome.storage.sync.set({ isEnabled });
   showMainStatus();
 });
 
 document.getElementById('darkModeSwitch').addEventListener('change', (event) => {
   const isDark = event.target.checked;
-  browser.storage.local.set({ darkMode: isDark });
+  chrome.storage.local.set({ darkMode: isDark });
   applyTheme(isDark);
-  
-  browser.runtime.sendMessage({ action: 'updateTheme', isDark });
-  
+
+  chrome.runtime.sendMessage({ action: 'updateTheme', isDark });
+
   showMainStatus();
 });
 
@@ -218,7 +218,7 @@ document.getElementById('darkModeSwitch').addEventListener('change', (event) => 
 document.getElementById('saveOptionsButton').addEventListener('click', () => {
   try {
     const suspendTime = parseInt(document.getElementById('suspendTime').value, 10);
-    
+
     if (isNaN(suspendTime) || suspendTime < 1 || suspendTime > 1440) {
       showMainStatus('Time must be between 1 and 1440');
       return;
@@ -233,7 +233,7 @@ document.getElementById('saveOptionsButton').addEventListener('click', () => {
       ignorePinned: document.getElementById('ignorePinned').checked
     };
 
-    browser.storage.sync.set(settingsToSave);
+    chrome.storage.sync.set(settingsToSave);
     showMainStatus('Options saved!');
 
   } catch (error) {
@@ -269,13 +269,13 @@ document.getElementById('saveScreenshotSettings').addEventListener('click', () =
       return;
     }
 
-    browser.storage.sync.set({
+    chrome.storage.sync.set({
       captureQuality,
       resizeWidth,
       resizeHeight,
       resizeQuality
     });
-    
+
     showMainStatus('Screenshot settings saved!');
   } catch (error) {
     console.error("Error saving screenshot settings:", error);
@@ -285,7 +285,7 @@ document.getElementById('saveScreenshotSettings').addEventListener('click', () =
 
 
 async function getCurrentTab() {
-  const tabs = await browser.tabs.query({ active: true, currentWindow: true });
+  const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
   return tabs[0];
 }
 
@@ -293,20 +293,20 @@ document.getElementById('whitelistDomainBtn').addEventListener('click', async ()
   try {
     const tab = await getCurrentTab();
     if (!tab.url.match(/^https?:\/\//)) return; // Don't whitelist special pages
-    
+
     const url = new URL(tab.url);
     const domain = url.hostname;
-    
-    const result = await browser.storage.sync.get(['whitelistedDomains']);
+
+    const result = await chrome.storage.sync.get(['whitelistedDomains']);
     const whitelistedDomains = result.whitelistedDomains || [];
-    
+
     if (!whitelistedDomains.includes(domain)) {
       whitelistedDomains.push(domain);
-      await browser.storage.sync.set({ whitelistedDomains });
-      
-      const whitelistResult = await browser.storage.sync.get(['whitelistedUrls']);
+      await chrome.storage.sync.set({ whitelistedDomains });
+
+      const whitelistResult = await chrome.storage.sync.get(['whitelistedUrls']);
       displayWhitelist(whitelistedDomains, whitelistResult.whitelistedUrls || []);
-      
+
       showMainStatus(`Domain ${domain} whitelisted!`);
     } else {
       showMainStatus(`Domain ${domain} already whitelisted`);
@@ -320,19 +320,19 @@ document.getElementById('whitelistPageBtn').addEventListener('click', async () =
   try {
     const tab = await getCurrentTab();
     if (!tab.url.match(/^https?:\/\//)) return; // Don't whitelist special pages
-    
+
     const pageUrl = tab.url;
-    
-    const result = await browser.storage.sync.get(['whitelistedUrls']);
+
+    const result = await chrome.storage.sync.get(['whitelistedUrls']);
     const whitelistedUrls = result.whitelistedUrls || [];
-    
+
     if (!whitelistedUrls.includes(pageUrl)) {
       whitelistedUrls.push(pageUrl);
-      await browser.storage.sync.set({ whitelistedUrls });
-      
-      const whitelistResult = await browser.storage.sync.get(['whitelistedDomains']);
+      await chrome.storage.sync.set({ whitelistedUrls });
+
+      const whitelistResult = await chrome.storage.sync.get(['whitelistedDomains']);
       displayWhitelist(whitelistResult.whitelistedDomains || [], whitelistedUrls);
-      
+
       showMainStatus('Current page whitelisted!');
     } else {
       showMainStatus('Current page already whitelisted');
@@ -343,16 +343,15 @@ document.getElementById('whitelistPageBtn').addEventListener('click', async () =
 });
 
 document.getElementById('manageDataBtn').addEventListener('click', () => {
-  browser.tabs.create({
-    url: browser.runtime.getURL('data_management.html')
+  chrome.tabs.create({
+    url: chrome.runtime.getURL('data_management.html')
   });
   window.close();
 });
 
 document.getElementById('configureShortcutsBtn').addEventListener('click', () => {
-  browser.tabs.create({
-    url: 'https://support.mozilla.org/en-US/kb/manage-extension-shortcuts-firefox'
+  chrome.tabs.create({
+    url: 'chrome://extensions/shortcuts'
   });
   window.close();
 });
-

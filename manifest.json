@@ -1,5 +1,5 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "The Tab Suspender",
   "version": "1.6",
   "description": "Suspends inactive tabs after a set time by replacing them with a custom suspended page.",
@@ -15,16 +15,17 @@
     "tabs",
     "storage",
     "webNavigation",
-    "<all_urls>",
     "notifications",
-    "contextMenus"
+    "contextMenus",
+    "scripting"
+  ],
+  "host_permissions": [
+    "<all_urls>"
   ],
   "background": {
-    "scripts": [
-      "background.js"
-    ]
+    "service_worker": "background.js"
   },
-  "browser_action": {
+  "action": {
     "default_popup": "popup.html",
     "default_title": "Tab Suspender Settings",
     "default_icon": {
@@ -35,9 +36,10 @@
     }
   },
   "web_accessible_resources": [
-    "suspended.html",
-    "data_management.html",
-    "icons/icon32.png"
+    {
+      "resources": ["suspended.html", "data_management.html", "icons/icon32.png"],
+      "matches": ["<all_urls>"]
+    }
   ],
   "commands": {
     "suspend-current-tab": {
@@ -48,11 +50,6 @@
     },
     "unsuspend-current-tab": {
       "description": "Unsuspend/Restore the current active tab"
-    }
-  },
-  "browser_specific_settings": {
-    "gecko": {
-      "id": "{669407ff-70f0-4512-a010-ea4530c5e716}"
     }
   }
 }

@@ -11,18 +11,18 @@ function showDataStatus(message, isError = false) {
   }
 
   status.style.color = isError ? '#f44336' : '#34C759';
-  
+
   status.classList.remove('visible');
-  
+
   // Force a reflow to restart the animation
   void status.offsetWidth;
-  
+
   status.textContent = message;
   status.classList.add('visible');
-  
+
   window.dataStatusTimeout = setTimeout(() => {
     status.classList.remove('visible');
-  }, 4000); 
+  }, 4000);
 }
 
 const SYNC_SETTINGS_KEYS = [
@@ -36,7 +36,7 @@ const SYNC_SETTINGS_KEYS = [
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
-  browser.storage.local.get(['darkMode']).then(result => {
+  chrome.storage.local.get(['darkMode']).then(result => {
     applyTheme(result.darkMode ?? false);
   });
 });
@@ -44,24 +44,23 @@ document.addEventListener('DOMContentLoaded', () => {
 // --- Import/Export Logic ---
 document.getElementById('exportSettingsBtn').addEventListener('click', async () => {
   try {
-    const settings = await browser.storage.sync.get(SYNC_SETTINGS_KEYS);
+    const settings = await chrome.storage.sync.get(SYNC_SETTINGS_KEYS);
     const jsonString = JSON.stringify(settings, null, 2);
     const blob = new Blob([jsonString], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
-    
+
     const a = document.createElement('a');
     a.href = url;
     a.download = 'tab-suspender-settings.json';
     document.body.appendChild(a);
     a.click();
-    
+
     // Clean up
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    
+
     showDataStatus('Settings exported!');
-  } catch (error)
- {
+  } catch (error) {
     console.error('Error exporting settings:', error);
     showDataStatus('Export failed', true);
   }
@@ -86,9 +85,9 @@ document.getElementById('importSettingsInput').addEventListener('change', (event
     }
 
     try {
-      
-      const localSettings = await browser.storage.sync.get(SYNC_SETTINGS_KEYS);
-      
+
+      const localSettings = await chrome.storage.sync.get(SYNC_SETTINGS_KEYS);
+
       const newSettings = {};
 
       const booleanKeys = ['isEnabled', 'ignoreAudio', 'ignoreFormInput', 'ignoreNotifications'];
@@ -108,25 +107,25 @@ document.getElementById('importSettingsInput').addEventListener('change', (event
       const arrayKeys = ['whitelistedDomains', 'whitelistedUrls'];
       for (const key of arrayKeys) {
         if (importedSettings.hasOwnProperty(key) && Array.isArray(importedSettings[key])) {
-          
+
           const mergedSet = new Set(localSettings[key] || []);
-          
+
           for (const item of importedSettings[key]) {
             if (typeof item === 'string' && item.length > 0) {
               mergedSet.add(item);
             }
           }
-          
+
           newSettings[key] = Array.from(mergedSet);
         }
       }
-      
+
       if (Object.keys(newSettings).length === 0) {
         throw new Error("File contains no valid or recognized settings.");
       }
 
-      await browser.storage.sync.set(newSettings);
-      
+      await chrome.storage.sync.set(newSettings);
+
       showDataStatus('Settings imported successfully!');
 
     } catch (error) {
@@ -136,7 +135,7 @@ document.getElementById('importSettingsInput').addEventListener('change', (event
       event.target.value = null;
     }
   };
-  
+
   reader.onerror = () => {
     console.error('File reading error');
     showDataStatus('Import failed: Could not read file', true);

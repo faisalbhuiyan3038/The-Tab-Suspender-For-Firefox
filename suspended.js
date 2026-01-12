@@ -19,8 +19,8 @@ function displayThumbnail(dataUrl) {
     document.body.style.backgroundImage = `url(${dataUrl})`;
     document.body.style.backgroundSize = 'cover';
     document.body.style.backgroundPosition = 'center center';
-    document.body.classList.add('has-bg'); 
-    
+    document.body.classList.add('has-bg');
+
     // const logo = document.querySelector('.logo-container');
     // if (logo) {
     //   logo.style.display = 'none'; // Hide the SVG logo
@@ -54,9 +54,9 @@ function resizeImage(dataUrl, maxWidth, maxHeight, quality) {
       canvas.width = width;
       canvas.height = height;
       const ctx = canvas.getContext('2d');
-      
+
       ctx.drawImage(img, 0, 0, width, height);
-      
+
       // Export as low-quality WEBP for better compression
       resolve(canvas.toDataURL('image/webp', quality));
     };
@@ -73,13 +73,13 @@ async function init() {
   const params = getQueryParams();
   const origUrl = params.origUrl;
   const title = params.title;
-  const favIconUrl = params.favIconUrl; 
+  const favIconUrl = params.favIconUrl;
   const tabId = params.tabId;
   const hasCapture = params.hasCapture === 'true';
 
   const [localSettings, syncSettings] = await Promise.all([
-    browser.storage.local.get(['darkMode']),
-    browser.storage.sync.get(['resizeWidth', 'resizeHeight', 'resizeQuality'])
+    chrome.storage.local.get(['darkMode']),
+    chrome.storage.sync.get(['resizeWidth', 'resizeHeight', 'resizeQuality'])
   ]);
 
   applyTheme(localSettings.darkMode ?? false);
@@ -97,7 +97,7 @@ async function init() {
   const anchor = document.createElement('a');
   anchor.href = origUrl;
   anchor.textContent = origUrl;
-  
+
   const pageUrlContainer = document.getElementById('page-url');
   if (pageUrlContainer) {
     pageUrlContainer.appendChild(anchor);
@@ -107,24 +107,24 @@ async function init() {
 
   document.body.addEventListener('click', () => {
     if (origUrl) {
-      browser.runtime.sendMessage({ action: "resumeTab", origUrl });
+      chrome.runtime.sendMessage({ action: "resumeTab", origUrl });
     }
   });
 
   if (tabId) {
     try {
-      const thumbData = await browser.storage.local.get("thumbnail_" + tabId);
+      const thumbData = await chrome.storage.local.get("thumbnail_" + tabId);
       const existingThumbnail = thumbData["thumbnail_" + tabId];
 
       // Case 1: Thumbnail already exists in storage
       if (existingThumbnail) {
         console.log("Displaying existing thumbnail");
         displayThumbnail(existingThumbnail);
-      
-      // Case 2: First-time suspension, need to process temp image
+
+        // Case 2: First-time suspension, need to process temp image
       } else if (hasCapture) {
         console.log("Processing new screenshot...");
-        const tempData = await browser.storage.local.get("temp_img_" + tabId);
+        const tempData = await chrome.storage.local.get("temp_img_" + tabId);
         const fullResImage = tempData["temp_img_" + tabId];
 
         if (fullResImage) {
@@ -133,22 +133,22 @@ async function init() {
           const quality = syncSettings.resizeQuality || 0.5;
 
           const smallDataUrl = await resizeImage(fullResImage, width, height, quality);
-          
+
           // Save the small thumbnail to *its own* key
-          await browser.storage.local.set({ ["thumbnail_" + tabId]: smallDataUrl });
-          
+          await chrome.storage.local.set({ ["thumbnail_" + tabId]: smallDataUrl });
+
           // Display the new thumbnail
           displayThumbnail(smallDataUrl);
-          
+
           // Clean up the large temporary image
-          await browser.storage.local.remove("temp_img_" + tabId);
+          await chrome.storage.local.remove("temp_img_" + tabId);
         }
       }
     } catch (error) {
       console.error("Error during screenshot processing:", error);
       // Clean up temp image just in case
       if (tabId) {
-        await browser.storage.local.remove("temp_img_" + tabId);
+        await chrome.storage.local.remove("temp_img_" + tabId);
       }
     }
   }
@@ -156,9 +156,8 @@ async function init() {
 
 init();
 
-browser.runtime.onMessage.addListener((message) => {
+chrome.runtime.onMessage.addListener((message) => {
   if (message.action === 'updateTheme') {
     applyTheme(message.isDark);
   }
 });
-
