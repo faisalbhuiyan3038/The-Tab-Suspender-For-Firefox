@@ -698,13 +698,89 @@ async function runMigration() {
   }
 }
 
+/**
+ * Recovers suspended tabs after addon update by scanning all open tabs
+ * and rebuilding the suspendedTabs state from URL parameters.
+ * This handles cases where tab IDs may have changed after update,
+ * AND cases where the extension UUID changed (common with about:debugging).
+ */
+async function recoverSuspendedTabs() {
+  try {
+    // Match ANY moz-extension URL with suspended.html, regardless of UUID
+    const suspendedPagePattern = /^moz-extension:\/\/[^/]+\/suspended\.html\?/;
+    const currentBase = browser.runtime.getURL("suspended.html");
+    console.log("Current extension base:", currentBase);
+    console.log("Looking for pattern:", suspendedPagePattern);
+
+    const tabs = await browser.tabs.query({});
+    console.log(`Found ${tabs.length} total tabs. Checking for suspended pages...`);
+
+    let recoveredCount = 0;
+
+    for (const tab of tabs) {
+      console.log(`Tab ${tab.id}: ${tab.url?.substring(0, 100)}...`);
+
+      // Match against pattern (any extension UUID) instead of exact prefix
+      if (tab.url && suspendedPagePattern.test(tab.url)) {
+        console.log(`Found suspended tab ${tab.id}`);
+        // Parse URL params to extract original tab info
+        try {
+          const url = new URL(tab.url);
+          const origUrl = url.searchParams.get('origUrl');
+          const title = url.searchParams.get('title');
+          const favIconUrl = url.searchParams.get('favIconUrl');
+
+          if (origUrl) {
+            // Re-register this tab with its current ID
+            suspendedTabs[tab.id] = {
+              url: decodeURIComponent(origUrl),
+              title: decodeURIComponent(title || ''),
+              favIconUrl: decodeURIComponent(favIconUrl || '')
+            };
+            recoveredCount++;
+            console.log(`Recovered tab ${tab.id}: ${origUrl}`);
+
+            // IMPORTANT: Navigate to the NEW extension's suspended.html URL
+            // This fixes the page so it works with the new extension
+            const newSuspendedURL = currentBase +
+              "?origUrl=" + encodeURIComponent(suspendedTabs[tab.id].url) +
+              "&title=" + encodeURIComponent(suspendedTabs[tab.id].title) +
+              "&favIconUrl=" + encodeURIComponent(suspendedTabs[tab.id].favIconUrl) +
+              "&tabId=" + tab.id;
+
+            await browser.tabs.update(tab.id, { url: newSuspendedURL });
+            console.log(`Updated tab ${tab.id} to new extension URL`);
+          }
+        } catch (parseError) {
+          console.error(`Failed to parse suspended tab URL for tab ${tab.id}:`, parseError);
+        }
+      }
+    }
+
+    if (recoveredCount > 0) {
+      saveSuspendedTabsState();
+      console.log(`Recovered ${recoveredCount} suspended tabs after addon update.`);
+    } else {
+      console.log("No suspended tabs found to recover.");
+    }
+  } catch (error) {
+    console.error('Error recovering suspended tabs:', error);
+  }
+}
+
 // --- Addon Startup Logic ---
 
 // Listen for installation or update
 browser.runtime.onInstalled.addListener(async (details) => {
+  console.log(`Addon event: ${details.reason}`);
+
   if (details.reason === "update" || details.reason === "install") {
-    console.log("Addon updated or installed. Running migration...");
+    console.log("Running migration...");
     await runMigration();
+
+    // Recover any existing suspended tabs (handles both update and reload via about:debugging)
+    console.log("Attempting to recover suspended tabs...");
+    await recoverSuspendedTabs();
   }
   initialize();
 });
