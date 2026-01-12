@@ -3,8 +3,9 @@ let SUSPEND_TIME = 40 * 60 * 1000;
 let isEnabled = true; // Enabled by default
 let activeTabId = null;
 let suspendedTabs = {};
-let tabTimers = {};
-let discardTimers = {};  // Track re-discard timers for suspended tabs
+// Note: tabTimers now use chrome.alarms, not setTimeout
+// discardTimers still use setTimeout since they're short-lived (30 seconds max)
+let discardTimers = {};
 let settings = {
   ignoreAudio: true,
   ignoreFormInput: true,
@@ -17,9 +18,13 @@ let settings = {
   resizeQuality: 0.5,
   whitelistedDomains: [],
   whitelistedUrls: [],
-  autoDiscard: true,       // Enable auto-discard after suspension
-  rediscardDelay: 30       // Seconds to wait before re-discarding a suspended tab
+  autoDiscard: true,
+  rediscardDelay: 30
 };
+
+// Alarm name prefixes
+const SUSPEND_ALARM_PREFIX = 'suspend_tab_';
+const DISCARD_ALARM_PREFIX = 'discard_tab_';
 
 // --- Storage Management ---
 
@@ -74,27 +79,35 @@ async function loadSettings() {
   }
 }
 
-chrome.storage.local.get('suspendedTabs').then(result => {
-  if (result.suspendedTabs) {
-    suspendedTabs = result.suspendedTabs;
+// Load suspended tabs from storage on service worker startup
+async function loadSuspendedTabs() {
+  try {
+    const result = await chrome.storage.local.get('suspendedTabs');
+    if (result.suspendedTabs) {
+      suspendedTabs = result.suspendedTabs;
+    }
+  } catch (error) {
+    console.error('Error loading suspended tabs:', error);
   }
-});
+}
 
 async function initialize() {
   await loadSettings();
-  initializeTimers();
+  await loadSuspendedTabs();
+  await initializeTimers();
 }
 
-// --- Tab Timer Logic ---
+// --- Tab Timer Logic using chrome.alarms ---
 
 /**
- * Resets (or creates) the suspension timer for a given tab.
+ * Resets (or creates) the suspension alarm for a given tab.
+ * Uses chrome.alarms which persists across service worker restarts.
  */
 async function resetTabTimer(tabId) {
-  if (tabTimers[tabId]) {
-    clearTimeout(tabTimers[tabId]);
-    delete tabTimers[tabId];
-  }
+  const alarmName = SUSPEND_ALARM_PREFIX + tabId;
+
+  // Clear existing alarm for this tab
+  await chrome.alarms.clear(alarmName);
 
   try {
     const tab = await chrome.tabs.get(tabId);
@@ -104,18 +117,60 @@ async function resetTabTimer(tabId) {
     }
 
     if (isEnabled && tabId !== activeTabId) {
-      if (tabTimers[tabId]) {
-        clearTimeout(tabTimers[tabId]);
-      }
-
-      tabTimers[tabId] = setTimeout(() => {
-        suspendTab(tabId);
-      }, SUSPEND_TIME);
+      // Create alarm - delayInMinutes is the time until alarm fires
+      const delayInMinutes = SUSPEND_TIME / (60 * 1000);
+      await chrome.alarms.create(alarmName, { delayInMinutes });
+      console.log(`Created suspend alarm for tab ${tabId}, will fire in ${delayInMinutes} minutes`);
     }
   } catch (error) {
     console.error(`Error in resetTabTimer for tab ${tabId}:`, error);
   }
 }
+
+/**
+ * Clears the suspension alarm for a given tab.
+ */
+async function clearTabTimer(tabId) {
+  const alarmName = SUSPEND_ALARM_PREFIX + tabId;
+  await chrome.alarms.clear(alarmName);
+}
+
+/**
+ * Sets a discard alarm for a suspended tab.
+ */
+async function setDiscardTimer(tabId, delaySeconds) {
+  const alarmName = DISCARD_ALARM_PREFIX + tabId;
+  await chrome.alarms.clear(alarmName);
+  // Convert seconds to minutes (minimum 0.1 minutes for chrome.alarms)
+  const delayInMinutes = Math.max(delaySeconds / 60, 0.1);
+  await chrome.alarms.create(alarmName, { delayInMinutes });
+}
+
+/**
+ * Clears the discard alarm for a tab.
+ */
+async function clearDiscardTimer(tabId) {
+  const alarmName = DISCARD_ALARM_PREFIX + tabId;
+  await chrome.alarms.clear(alarmName);
+}
+
+// Handle alarm events
+chrome.alarms.onAlarm.addListener(async (alarm) => {
+  console.log(`Alarm fired: ${alarm.name}`);
+
+  if (alarm.name.startsWith(SUSPEND_ALARM_PREFIX)) {
+    const tabId = parseInt(alarm.name.replace(SUSPEND_ALARM_PREFIX, ''), 10);
+    await suspendTab(tabId);
+  } else if (alarm.name.startsWith(DISCARD_ALARM_PREFIX)) {
+    const tabId = parseInt(alarm.name.replace(DISCARD_ALARM_PREFIX, ''), 10);
+    try {
+      await chrome.tabs.discard(tabId);
+      console.log(`Discarded suspended tab ${tabId} via alarm`);
+    } catch (e) {
+      // Tab might be active or closed
+    }
+  }
+});
 
 /**
  * Suspends the tab by saving its original URL and updating it
@@ -124,6 +179,18 @@ async function resetTabTimer(tabId) {
  * @param {boolean} [force=false] - If true, will suspend even if the tab is active
  */
 async function suspendTab(tabId, force = false) {
+  // Reload settings in case service worker was restarted
+  await loadSettings();
+  await loadSuspendedTabs();
+
+  // Get current active tab
+  try {
+    const [activeTab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    if (activeTab) {
+      activeTabId = activeTab.id;
+    }
+  } catch (e) { }
+
   if (!force && tabId === activeTabId) {
     return;
   }
@@ -141,7 +208,6 @@ async function suspendTab(tabId, force = false) {
       return;
     }
 
-
     suspendedTabs[tabId] = {
       url: tab.url,
       title: tab.title,
@@ -158,8 +224,6 @@ async function suspendTab(tabId, force = false) {
 
     if (settings.enableScreenshots) {
       try {
-        // Chrome uses captureVisibleTab instead of captureTab
-        // We need to make the tab active first to capture it
         const currentWindow = await chrome.windows.get(tab.windowId);
         if (currentWindow.focused) {
           const fullResImage = await chrome.tabs.captureVisibleTab(tab.windowId, {
@@ -176,16 +240,18 @@ async function suspendTab(tabId, force = false) {
       }
     }
 
-    chrome.tabs.update(tabId, { url: suspendedPageURL });
+    await chrome.tabs.update(tabId, { url: suspendedPageURL });
 
-    // Auto-discard the tab after suspension to free memory
+    // Auto-discard the tab after suspension using alarm
     if (settings.autoDiscard) {
+      // Use a short delay (1.5 seconds = 0.025 minutes, but min is 0.1)
+      // So we'll use setTimeout here since it's very short
       setTimeout(async () => {
         try {
           await chrome.tabs.discard(tabId);
           console.log(`Discarded suspended tab ${tabId}`);
         } catch (e) {
-          // Tab might be active or already closed - this is expected
+          // Tab might be active or already closed
         }
       }, 1500);
     }
@@ -198,11 +264,11 @@ async function suspendTab(tabId, force = false) {
 }
 
 // --- Event Listeners (Tabs, Windows) ---
-chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   if (changeInfo.status === 'complete') {
     if (!tab.url.startsWith(chrome.runtime.getURL("suspended.html"))) {
       if (tabId !== activeTabId) {
-        resetTabTimer(tabId);
+        await resetTabTimer(tabId);
       }
     }
   }
@@ -211,7 +277,6 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     const originalTab = suspendedTabs[tabId];
 
     if (tab.url === originalTab.url) {
-      // Logic to re-suspend a tab that was navigated "back" to
       let suspendedPageURL = chrome.runtime.getURL("suspended.html") +
         "?origUrl=" + encodeURIComponent(originalTab.url) +
         "&title=" + encodeURIComponent(originalTab.title) +
@@ -223,96 +288,67 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   }
 });
 
-chrome.tabs.onActivated.addListener((activeInfo) => {
+chrome.tabs.onActivated.addListener(async (activeInfo) => {
   const previousActiveTab = activeTabId;
   activeTabId = activeInfo.tabId;
 
   // Clear suspension timer for newly active tab
-  if (tabTimers[activeTabId]) {
-    clearTimeout(tabTimers[activeTabId]);
-    delete tabTimers[activeTabId];
-  }
+  await clearTabTimer(activeTabId);
 
-  // Clear any pending re-discard timer for the newly active tab
-  if (discardTimers[activeTabId]) {
-    clearTimeout(discardTimers[activeTabId]);
-    delete discardTimers[activeTabId];
-  }
+  // Clear any pending discard timer for the newly active tab
+  await clearDiscardTimer(activeTabId);
 
   if (previousActiveTab && previousActiveTab !== activeTabId) {
-    chrome.tabs.get(previousActiveTab).then(tab => {
+    try {
+      const tab = await chrome.tabs.get(previousActiveTab);
       const isSuspendedPage = tab.url.startsWith(chrome.runtime.getURL("suspended.html"));
 
       if (isSuspendedPage && settings.autoDiscard) {
-        // Previous tab was a suspended page that wasn't restored
-        // Start a re-discard timer
-        if (discardTimers[previousActiveTab]) {
-          clearTimeout(discardTimers[previousActiveTab]);
-        }
-        discardTimers[previousActiveTab] = setTimeout(async () => {
-          try {
-            await chrome.tabs.discard(previousActiveTab);
-            console.log(`Re-discarded suspended tab ${previousActiveTab} after inactivity`);
-          } catch (e) {
-            // Tab might be closed or active again
-          }
-          delete discardTimers[previousActiveTab];
-        }, settings.rediscardDelay * 1000);
+        // Previous tab was a suspended page - set discard timer
+        await setDiscardTimer(previousActiveTab, settings.rediscardDelay);
       } else if (!isSuspendedPage) {
         // Normal tab - start suspension timer
-        resetTabTimer(previousActiveTab);
+        await resetTabTimer(previousActiveTab);
       }
-    }).catch(() => { /* Tab might be closed */ });
+    } catch (e) {
+      // Tab might be closed
+    }
   }
 });
 
-chrome.windows.onFocusChanged.addListener((windowId) => {
+chrome.windows.onFocusChanged.addListener(async (windowId) => {
   if (windowId === chrome.windows.WINDOW_ID_NONE) return;
 
-  chrome.tabs.query({ active: true, windowId }).then(tabs => {
+  try {
+    const tabs = await chrome.tabs.query({ active: true, windowId });
     if (tabs[0]) {
       const previousActiveTab = activeTabId;
       activeTabId = tabs[0].id;
 
       // Clear suspension timer for newly active tab
-      if (tabTimers[activeTabId]) {
-        clearTimeout(tabTimers[activeTabId]);
-        delete tabTimers[activeTabId];
-      }
+      await clearTabTimer(activeTabId);
 
-      // Clear any pending re-discard timer for the newly active tab
-      if (discardTimers[activeTabId]) {
-        clearTimeout(discardTimers[activeTabId]);
-        delete discardTimers[activeTabId];
-      }
+      // Clear any pending discard timer for the newly active tab
+      await clearDiscardTimer(activeTabId);
 
       if (previousActiveTab && previousActiveTab !== activeTabId) {
-        chrome.tabs.get(previousActiveTab).then(tab => {
+        try {
+          const tab = await chrome.tabs.get(previousActiveTab);
           const isSuspendedPage = tab.url.startsWith(chrome.runtime.getURL("suspended.html"));
 
           if (isSuspendedPage && settings.autoDiscard) {
-            // Previous tab was a suspended page that wasn't restored
-            // Start a re-discard timer
-            if (discardTimers[previousActiveTab]) {
-              clearTimeout(discardTimers[previousActiveTab]);
-            }
-            discardTimers[previousActiveTab] = setTimeout(async () => {
-              try {
-                await chrome.tabs.discard(previousActiveTab);
-                console.log(`Re-discarded suspended tab ${previousActiveTab} after window focus change`);
-              } catch (e) {
-                // Tab might be closed or active again
-              }
-              delete discardTimers[previousActiveTab];
-            }, settings.rediscardDelay * 1000);
+            await setDiscardTimer(previousActiveTab, settings.rediscardDelay);
           } else if (!isSuspendedPage) {
-            // Normal tab - start suspension timer
-            resetTabTimer(previousActiveTab);
+            await resetTabTimer(previousActiveTab);
           }
-        }).catch(() => { /* Tab might be closed */ });
+        } catch (e) {
+          // Tab might be closed
+        }
       }
     }
-  });
+  } catch (e) {
+    console.error('Error in onFocusChanged:', e);
+  }
 });
 
 // --- Event Listeners (Runtime, Storage) ---
@@ -324,7 +360,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           chrome.tabs.sendMessage(tab.id, {
             action: 'updateTheme',
             isDark: message.isDark
-          }).catch(() => { /* Tab might not have the content script */ });
+          }).catch(() => { });
         }
       });
     });
@@ -334,11 +370,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     const origUrl = message.origUrl;
     const tabId = sender.tab.id;
 
-    // Clear any pending re-discard timer
-    if (discardTimers[tabId]) {
-      clearTimeout(discardTimers[tabId]);
-      delete discardTimers[tabId];
-    }
+    // Clear any pending discard timer
+    clearDiscardTimer(tabId);
 
     if (suspendedTabs[tabId]) {
       delete suspendedTabs[tabId];
@@ -359,28 +392,47 @@ chrome.storage.onChanged.addListener((changes, areaName) => {
 
     if (settingsChanged) {
       console.log('Sync settings changed, reloading...');
-      loadSettings().then(() => {
-        Object.keys(tabTimers).forEach(tabId => {
-          resetTabTimer(parseInt(tabId, 10));
-        });
+      loadSettings().then(async () => {
+        // Get all existing suspend alarms and reset them with new timing
+        const alarms = await chrome.alarms.getAll();
+        for (const alarm of alarms) {
+          if (alarm.name.startsWith(SUSPEND_ALARM_PREFIX)) {
+            const tabId = parseInt(alarm.name.replace(SUSPEND_ALARM_PREFIX, ''), 10);
+            await resetTabTimer(tabId);
+          }
+        }
       });
     }
   }
 });
 
-function initializeTimers() {
-  chrome.tabs.query({}).then(tabs => {
+async function initializeTimers() {
+  try {
+    const tabs = await chrome.tabs.query({});
     const activeTab = tabs.find(tab => tab.active);
     if (activeTab) {
       activeTabId = activeTab.id;
     }
 
-    tabs.forEach(tab => {
+    // Get existing alarms to see which tabs already have timers
+    const existingAlarms = await chrome.alarms.getAll();
+    const tabsWithAlarms = new Set(
+      existingAlarms
+        .filter(a => a.name.startsWith(SUSPEND_ALARM_PREFIX))
+        .map(a => parseInt(a.name.replace(SUSPEND_ALARM_PREFIX, ''), 10))
+    );
+
+    for (const tab of tabs) {
       if (!tab.active && !tab.url.startsWith(chrome.runtime.getURL("suspended.html"))) {
-        resetTabTimer(tab.id);
+        // Only create timer if one doesn't already exist
+        if (!tabsWithAlarms.has(tab.id)) {
+          await resetTabTimer(tab.id);
+        }
       }
-    });
-  });
+    }
+  } catch (error) {
+    console.error('Error in initializeTimers:', error);
+  }
 }
 
 // Create context menus on install
@@ -407,7 +459,6 @@ chrome.runtime.onInstalled.addListener((details) => {
   if (details.reason === "update" || details.reason === "install") {
     console.log("Running migration...");
     runMigration().then(() => {
-      // Recover any existing suspended tabs (handles both update and reload)
       console.log("Attempting to recover suspended tabs...");
       return recoverSuspendedTabs();
     }).then(() => {
@@ -418,7 +469,19 @@ chrome.runtime.onInstalled.addListener((details) => {
   }
 });
 
+// Also initialize on service worker startup (for when it wakes up)
+chrome.runtime.onStartup.addListener(() => {
+  console.log('Service worker starting up...');
+  initialize();
+});
+
+// Initialize immediately when script loads (for service worker restart)
+initialize();
+
 chrome.contextMenus.onClicked.addListener(async (info, tab) => {
+  // Ensure settings are loaded
+  await loadSettings();
+
   try {
     if (info.menuItemId === 'whitelistDomain') {
       const url = new URL(tab.url);
@@ -463,7 +526,6 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
 
 // --- Protection Logic ---
 async function shouldProtectTab(tab, force = false) {
-  // Check for non-http(s) pages (like about:, chrome-extension:, etc.)
   if (!tab.url.match(/^https?:\/\//)) {
     return true;
   }
@@ -472,13 +534,11 @@ async function shouldProtectTab(tab, force = false) {
     return false;
   }
 
-  // Check for pinned tabs
   if (settings.ignorePinned && tab.pinned) {
     return true;
   }
 
   try {
-    // Check whitelist
     try {
       const url = new URL(tab.url);
       if (settings.whitelistedDomains.includes(url.hostname)) {
@@ -491,12 +551,10 @@ async function shouldProtectTab(tab, force = false) {
       console.error('Error checking whitelist:', error);
     }
 
-    // Check for audio
     if (settings.ignoreAudio && tab.audible) {
       return true;
     }
 
-    // Check for form changes and notifications using chrome.scripting API
     try {
       const results = await chrome.scripting.executeScript({
         target: { tabId: tab.id },
@@ -521,7 +579,6 @@ async function shouldProtectTab(tab, force = false) {
       }
 
     } catch (error) {
-      // Can't execute script (e.g., on some protected pages)
       return true;
     }
 
@@ -538,50 +595,31 @@ function saveSuspendedTabsState() {
 }
 
 chrome.tabs.onRemoved.addListener(async (tabId) => {
-  // Clear any pending discard timer
-  if (discardTimers[tabId]) {
-    clearTimeout(discardTimers[tabId]);
-    delete discardTimers[tabId];
-  }
+  // Clear any pending timers
+  await clearTabTimer(tabId);
+  await clearDiscardTimer(tabId);
 
   if (suspendedTabs[tabId]) {
     delete suspendedTabs[tabId];
     saveSuspendedTabsState();
   }
-  // Clean up all associated storage
   await chrome.storage.local.remove([
     "thumbnail_" + tabId,
     "temp_img_" + tabId
   ]);
 });
 
-chrome.runtime.onStartup.addListener(() => {
-  initialize();
-
-  chrome.tabs.query({}).then(tabs => {
-    tabs.forEach(tab => {
-      if (suspendedTabs[tab.id] && suspendedTabs[tab.id].url === tab.url) {
-        const originalTab = suspendedTabs[tab.id];
-        const suspendedPageURL = chrome.runtime.getURL("suspended.html") +
-          "?origUrl=" + encodeURIComponent(originalTab.url) +
-          "&title=" + encodeURIComponent(originalTab.title) +
-          "&favIconUrl=" + encodeURIComponent(originalTab.favIconUrl || '') +
-          "&tabId=" + tab.id; // Always include tabId
-        chrome.tabs.update(tab.id, { url: suspendedPageURL });
-      }
-    });
-  });
-});
-
-
 chrome.commands.onCommand.addListener(async (commandName) => {
+  await loadSettings();
+  await loadSuspendedTabs();
+
   const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
   if (tabs.length === 0) return;
   const tab = tabs[0];
 
   switch (commandName) {
     case "suspend-current-tab": {
-      const success = await suspendTab(tab.id, true); // Force suspend
+      const success = await suspendTab(tab.id, true);
       if (success) {
         chrome.notifications.create({
           type: 'basic',
@@ -621,11 +659,7 @@ chrome.commands.onCommand.addListener(async (commandName) => {
     }
 
     case "unsuspend-current-tab": {
-      // Clear any pending re-discard timer
-      if (discardTimers[tab.id]) {
-        clearTimeout(discardTimers[tab.id]);
-        delete discardTimers[tab.id];
-      }
+      await clearDiscardTimer(tab.id);
 
       if (suspendedTabs[tab.id]) {
         const origUrl = suspendedTabs[tab.id].url;
@@ -654,7 +688,6 @@ chrome.commands.onCommand.addListener(async (commandName) => {
  * AND migrates local tab storage to new format
  */
 async function runMigration() {
-  // 1. Migrate SYNC settings
   const keysToMigrate = [
     'suspendTime',
     'isEnabled',
@@ -689,7 +722,6 @@ async function runMigration() {
     console.error("Sync Migration failed:", error);
   }
 
-  //  Migrate LOCAL tab storage
   try {
     const oldStorage = await chrome.storage.local.get("suspendedTabs");
     if (oldStorage.suspendedTabs) {
@@ -699,11 +731,11 @@ async function runMigration() {
       let newThumbnails = {};
 
       for (const [tabId, data] of Object.entries(oldTabs)) {
-        if (data && data.url) { // Check if data is valid
+        if (data && data.url) {
           const { thumbnail, ...rest } = data;
-          newSuspendedTabs[tabId] = rest; // Add text data to new blob
+          newSuspendedTabs[tabId] = rest;
           if (thumbnail) {
-            newThumbnails["thumbnail_" + tabId] = thumbnail; // Add thumbnail to its own key
+            newThumbnails["thumbnail_" + tabId] = thumbnail;
           }
         }
       }
@@ -716,7 +748,6 @@ async function runMigration() {
       await chrome.storage.local.set({ suspendedTabs: newSuspendedTabs });
       console.log("Migration: New text-only 'suspendedTabs' saved. Migration complete.");
 
-      // Update in-memory object
       suspendedTabs = newSuspendedTabs;
 
     } else {
@@ -730,12 +761,9 @@ async function runMigration() {
 /**
  * Recovers suspended tabs after addon update by scanning all open tabs
  * and rebuilding the suspendedTabs state from URL parameters.
- * This handles cases where tab IDs may have changed after update,
- * AND cases where the extension ID changed.
  */
 async function recoverSuspendedTabs() {
   try {
-    // Match ANY chrome-extension URL with suspended.html, regardless of extension ID
     const suspendedPagePattern = /^chrome-extension:\/\/[^/]+\/suspended\.html\?/;
     const currentBase = chrome.runtime.getURL("suspended.html");
     console.log("Current extension base:", currentBase);
@@ -749,10 +777,8 @@ async function recoverSuspendedTabs() {
     for (const tab of tabs) {
       console.log(`Tab ${tab.id}: ${tab.url?.substring(0, 100)}...`);
 
-      // Match against pattern (any extension ID) instead of exact prefix
       if (tab.url && suspendedPagePattern.test(tab.url)) {
         console.log(`Found suspended tab ${tab.id}`);
-        // Parse URL params to extract original tab info
         try {
           const url = new URL(tab.url);
           const origUrl = url.searchParams.get('origUrl');
@@ -760,7 +786,6 @@ async function recoverSuspendedTabs() {
           const favIconUrl = url.searchParams.get('favIconUrl');
 
           if (origUrl) {
-            // Re-register this tab with its current ID
             suspendedTabs[tab.id] = {
               url: decodeURIComponent(origUrl),
               title: decodeURIComponent(title || ''),
@@ -769,8 +794,6 @@ async function recoverSuspendedTabs() {
             recoveredCount++;
             console.log(`Recovered tab ${tab.id}: ${origUrl}`);
 
-            // IMPORTANT: Navigate to the NEW extension's suspended.html URL
-            // This fixes the page so it works with the new extension
             const newSuspendedURL = currentBase +
               "?origUrl=" + encodeURIComponent(suspendedTabs[tab.id].url) +
               "&title=" + encodeURIComponent(suspendedTabs[tab.id].title) +
