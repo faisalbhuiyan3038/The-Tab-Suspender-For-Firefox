@@ -1,21 +1,24 @@
 // State management
-let SUSPEND_TIME = 40*60*1000;
+let SUSPEND_TIME = 40 * 60 * 1000;
 let isEnabled = true; // Enabled by default
 let activeTabId = null;
-let suspendedTabs = {}; 
+let suspendedTabs = {};
 let tabTimers = {};
+let discardTimers = {};  // Track re-discard timers for suspended tabs
 let settings = {
   ignoreAudio: true,
   ignoreFormInput: true,
   ignoreNotifications: true,
-  ignorePinned: true, 
+  ignorePinned: true,
   enableScreenshots: false,
   captureQuality: 50,
   resizeWidth: 1280,
   resizeHeight: 720,
   resizeQuality: 0.5,
   whitelistedDomains: [],
-  whitelistedUrls: []
+  whitelistedUrls: [],
+  autoDiscard: true,       // Enable auto-discard after suspension
+  rediscardDelay: 30       // Seconds to wait before re-discarding a suspended tab
 };
 
 // --- Storage Management ---
@@ -33,13 +36,15 @@ const SYNC_SETTINGS_KEYS = [
   'captureQuality',
   'resizeWidth',
   'resizeHeight',
-  'resizeQuality'
+  'resizeQuality',
+  'autoDiscard',
+  'rediscardDelay'
 ];
 
 async function loadSettings() {
   try {
     const result = await browser.storage.sync.get(SYNC_SETTINGS_KEYS);
-    
+
     if (result.suspendTime) {
       SUSPEND_TIME = result.suspendTime * 60 * 1000;
     }
@@ -57,11 +62,13 @@ async function loadSettings() {
       resizeHeight: result.resizeHeight || 720,
       resizeQuality: result.resizeQuality || 0.5,
       whitelistedDomains: result.whitelistedDomains ?? [],
-      whitelistedUrls: result.whitelistedUrls ?? []
+      whitelistedUrls: result.whitelistedUrls ?? [],
+      autoDiscard: result.autoDiscard ?? true,
+      rediscardDelay: result.rediscardDelay ?? 30
     };
-    
+
     console.log('Settings loaded/reloaded:', settings, `Suspend Time: ${SUSPEND_TIME}`);
-    
+
   } catch (error) {
     console.error('Error loading settings:', error);
   }
@@ -134,28 +141,28 @@ async function suspendTab(tabId, force = false) {
       return;
     }
 
-    
+
     suspendedTabs[tabId] = {
       url: tab.url,
       title: tab.title,
       favIconUrl: tab.favIconUrl,
     };
 
-    saveSuspendedTabsState(); 
+    saveSuspendedTabsState();
 
     let suspendedPageURL = browser.runtime.getURL("suspended.html") +
       "?origUrl=" + encodeURIComponent(tab.url) +
       "&title=" + encodeURIComponent(tab.title) +
       "&favIconUrl=" + encodeURIComponent(tab.favIconUrl || '') +
-      "&tabId=" + tabId; 
+      "&tabId=" + tabId;
 
     if (settings.enableScreenshots) {
       try {
-        const fullResImage = await browser.tabs.captureTab(tabId, { 
-          format: "jpeg", 
+        const fullResImage = await browser.tabs.captureTab(tabId, {
+          format: "jpeg",
           quality: settings.captureQuality
         });
-        
+
         await browser.storage.local.set({ ["temp_img_" + tabId]: fullResImage });
         suspendedPageURL += "&hasCapture=true";
         console.log(`Captured screenshot for tab ${tabId}`);
@@ -163,12 +170,25 @@ async function suspendTab(tabId, force = false) {
         console.error(`Failed to capture tab ${tabId}:`, captureError);
       }
     }
-        
+
     browser.tabs.update(tabId, { url: suspendedPageURL });
+
+    // Auto-discard the tab after suspension to free memory
+    if (settings.autoDiscard) {
+      setTimeout(async () => {
+        try {
+          await browser.tabs.discard(tabId);
+          console.log(`Discarded suspended tab ${tabId}`);
+        } catch (e) {
+          // Tab might be active or already closed - this is expected
+        }
+      }, 1500);
+    }
+
     return true;
   } catch (e) {
     console.error('Error suspending tab:', e);
-    return false; 
+    return false;
   }
 }
 
@@ -202,14 +222,39 @@ browser.tabs.onActivated.addListener((activeInfo) => {
   const previousActiveTab = activeTabId;
   activeTabId = activeInfo.tabId;
 
+  // Clear suspension timer for newly active tab
   if (tabTimers[activeTabId]) {
     clearTimeout(tabTimers[activeTabId]);
     delete tabTimers[activeTabId];
   }
 
+  // Clear any pending re-discard timer for the newly active tab
+  if (discardTimers[activeTabId]) {
+    clearTimeout(discardTimers[activeTabId]);
+    delete discardTimers[activeTabId];
+  }
+
   if (previousActiveTab && previousActiveTab !== activeTabId) {
     browser.tabs.get(previousActiveTab).then(tab => {
-      if (!tab.url.startsWith(browser.runtime.getURL("suspended.html"))) {
+      const isSuspendedPage = tab.url.startsWith(browser.runtime.getURL("suspended.html"));
+
+      if (isSuspendedPage && settings.autoDiscard) {
+        // Previous tab was a suspended page that wasn't restored
+        // Start a re-discard timer
+        if (discardTimers[previousActiveTab]) {
+          clearTimeout(discardTimers[previousActiveTab]);
+        }
+        discardTimers[previousActiveTab] = setTimeout(async () => {
+          try {
+            await browser.tabs.discard(previousActiveTab);
+            console.log(`Re-discarded suspended tab ${previousActiveTab} after inactivity`);
+          } catch (e) {
+            // Tab might be closed or active again
+          }
+          delete discardTimers[previousActiveTab];
+        }, settings.rediscardDelay * 1000);
+      } else if (!isSuspendedPage) {
+        // Normal tab - start suspension timer
         resetTabTimer(previousActiveTab);
       }
     }).catch(() => { /* Tab might be closed */ });
@@ -224,14 +269,39 @@ browser.windows.onFocusChanged.addListener((windowId) => {
       const previousActiveTab = activeTabId;
       activeTabId = tabs[0].id;
 
+      // Clear suspension timer for newly active tab
       if (tabTimers[activeTabId]) {
         clearTimeout(tabTimers[activeTabId]);
         delete tabTimers[activeTabId];
       }
 
+      // Clear any pending re-discard timer for the newly active tab
+      if (discardTimers[activeTabId]) {
+        clearTimeout(discardTimers[activeTabId]);
+        delete discardTimers[activeTabId];
+      }
+
       if (previousActiveTab && previousActiveTab !== activeTabId) {
         browser.tabs.get(previousActiveTab).then(tab => {
-          if (!tab.url.startsWith(browser.runtime.getURL("suspended.html"))) {
+          const isSuspendedPage = tab.url.startsWith(browser.runtime.getURL("suspended.html"));
+
+          if (isSuspendedPage && settings.autoDiscard) {
+            // Previous tab was a suspended page that wasn't restored
+            // Start a re-discard timer
+            if (discardTimers[previousActiveTab]) {
+              clearTimeout(discardTimers[previousActiveTab]);
+            }
+            discardTimers[previousActiveTab] = setTimeout(async () => {
+              try {
+                await browser.tabs.discard(previousActiveTab);
+                console.log(`Re-discarded suspended tab ${previousActiveTab} after window focus change`);
+              } catch (e) {
+                // Tab might be closed or active again
+              }
+              delete discardTimers[previousActiveTab];
+            }, settings.rediscardDelay * 1000);
+          } else if (!isSuspendedPage) {
+            // Normal tab - start suspension timer
             resetTabTimer(previousActiveTab);
           }
         }).catch(() => { /* Tab might be closed */ });
@@ -241,7 +311,7 @@ browser.windows.onFocusChanged.addListener((windowId) => {
 });
 
 // --- Event Listeners (Runtime, Storage) ---
-browser.runtime.onMessage.addListener(async (message, sender) => { 
+browser.runtime.onMessage.addListener(async (message, sender) => {
   if (message.action === 'updateTheme') {
     browser.tabs.query({}).then(tabs => {
       tabs.forEach(tab => {
@@ -257,22 +327,30 @@ browser.runtime.onMessage.addListener(async (message, sender) => {
   }
   if (message.action === "resumeTab" && sender.tab) {
     const origUrl = message.origUrl;
-    if (suspendedTabs[sender.tab.id]) {
-      delete suspendedTabs[sender.tab.id]; 
+    const tabId = sender.tab.id;
+
+    // Clear any pending re-discard timer
+    if (discardTimers[tabId]) {
+      clearTimeout(discardTimers[tabId]);
+      delete discardTimers[tabId];
+    }
+
+    if (suspendedTabs[tabId]) {
+      delete suspendedTabs[tabId];
       saveSuspendedTabsState();
     }
     await browser.storage.local.remove([
-      "thumbnail_" + sender.tab.id,
-      "temp_img_" + sender.tab.id
+      "thumbnail_" + tabId,
+      "temp_img_" + tabId
     ]);
-    browser.tabs.update(sender.tab.id, { url: origUrl });
+    browser.tabs.update(tabId, { url: origUrl });
   }
 });
 
 browser.storage.onChanged.addListener((changes, areaName) => {
   if (areaName === 'sync') {
     const settingsChanged = SYNC_SETTINGS_KEYS.some(key => changes.hasOwnProperty(key));
-    
+
     if (settingsChanged) {
       console.log('Sync settings changed, reloading...');
       loadSettings().then(() => {
@@ -362,7 +440,7 @@ browser.contextMenus.onClicked.addListener(async (info, tab) => {
 async function shouldProtectTab(tab, force = false) {
   // Check for non-http(s) pages (like about:, moz-extension:, etc.)
   if (!tab.url.match(/^https?:\/\//)) {
-    return true; 
+    return true;
   }
 
   if (force) {
@@ -371,7 +449,7 @@ async function shouldProtectTab(tab, force = false) {
 
   // Check for pinned tabs
   if (settings.ignorePinned && tab.pinned) {
-    return true; 
+    return true;
   }
 
   try {
@@ -433,6 +511,12 @@ function saveSuspendedTabsState() {
 }
 
 browser.tabs.onRemoved.addListener(async (tabId) => {
+  // Clear any pending discard timer
+  if (discardTimers[tabId]) {
+    clearTimeout(discardTimers[tabId]);
+    delete discardTimers[tabId];
+  }
+
   if (suspendedTabs[tabId]) {
     delete suspendedTabs[tabId];
     saveSuspendedTabsState();
@@ -463,7 +547,7 @@ browser.runtime.onStartup.addListener(() => {
 
 browser.commands.onCommand.addListener(async (commandName) => {
   const tabs = await browser.tabs.query({ active: true, currentWindow: true });
-  if (tabs.length === 0) return; 
+  if (tabs.length === 0) return;
   const tab = tabs[0];
 
   switch (commandName) {
@@ -479,7 +563,7 @@ browser.commands.onCommand.addListener(async (commandName) => {
       }
       break;
     }
-      
+
     case "whitelist-current-page": {
       try {
         const pageUrl = tab.url;
@@ -508,11 +592,16 @@ browser.commands.onCommand.addListener(async (commandName) => {
     }
 
     case "unsuspend-current-tab": {
+      // Clear any pending re-discard timer
+      if (discardTimers[tab.id]) {
+        clearTimeout(discardTimers[tab.id]);
+        delete discardTimers[tab.id];
+      }
+
       if (suspendedTabs[tab.id]) {
         const origUrl = suspendedTabs[tab.id].url;
         delete suspendedTabs[tab.id];
         saveSuspendedTabsState();
-        // MODIFIED: Also remove thumbnails
         await browser.storage.local.remove([
           "thumbnail_" + tab.id,
           "temp_img_" + tab.id
@@ -543,7 +632,7 @@ async function runMigration() {
     'ignoreAudio',
     'ignoreFormInput',
     'ignoreNotifications',
-    'ignorePinned', 
+    'ignorePinned',
     'whitelistedDomains',
     'whitelistedUrls'
   ];
@@ -578,7 +667,7 @@ async function runMigration() {
       console.log("Migration: Found old 'suspendedTabs' blob. Migrating to new format...");
       const oldTabs = oldStorage.suspendedTabs;
       let newSuspendedTabs = {};
-      let newThumbnails = {};   
+      let newThumbnails = {};
 
       for (const [tabId, data] of Object.entries(oldTabs)) {
         if (data && data.url) { // Check if data is valid
@@ -597,7 +686,7 @@ async function runMigration() {
 
       await browser.storage.local.set({ suspendedTabs: newSuspendedTabs });
       console.log("Migration: New text-only 'suspendedTabs' saved. Migration complete.");
-      
+
       // Update in-memory object
       suspendedTabs = newSuspendedTabs;
 
@@ -623,7 +712,7 @@ browser.runtime.onInstalled.addListener(async (details) => {
 // For regular browser startups (not an install/update)
 browser.runtime.onStartup.addListener(() => {
   initialize();
-  
+
   browser.tabs.query({}).then(tabs => {
     tabs.forEach(tab => {
       if (suspendedTabs[tab.id] && suspendedTabs[tab.id].url === tab.url) {
