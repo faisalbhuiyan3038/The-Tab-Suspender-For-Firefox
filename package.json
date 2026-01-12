@@ -1,0 +1,14 @@
+{
+  "name": "the-tab-suspender",
+    "version": "1.7",
+    "scripts": {
+      "build": "node build.js",
+      "clean": "rm -rf dist"
+    },
+  "devDependencies": {
+    "clean-css-cli": "^5.6.3",
+    "fs-extra": "^11.3.3",
+    "html-minifier-terser": "^7.2.0",
+    "terser": "^5.44.1"
+  }
+}

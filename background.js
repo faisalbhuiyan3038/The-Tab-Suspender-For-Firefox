@@ -22,7 +22,6 @@ let settings = {
   rediscardDelay: 30
 };
 
-// Alarm name prefixes
 const SUSPEND_ALARM_PREFIX = 'suspend_tab_';
 const DISCARD_ALARM_PREFIX = 'discard_tab_';
 
@@ -96,8 +95,6 @@ async function initialize() {
   await loadSuspendedTabs();
   await initializeTimers();
 }
-
-// --- Tab Timer Logic using chrome.alarms ---
 
 /**
  * Resets (or creates) the suspension alarm for a given tab.
@@ -245,7 +242,7 @@ async function suspendTab(tabId, force = false) {
     // Auto-discard the tab after suspension using alarm
     if (settings.autoDiscard) {
       // Use a short delay (1.5 seconds = 0.025 minutes, but min is 0.1)
-      // So we'll use setTimeout here since it's very short
+      //use setTimeout here since it's very short
       setTimeout(async () => {
         try {
           await chrome.tabs.discard(tabId);
@@ -469,7 +466,7 @@ chrome.runtime.onInstalled.addListener((details) => {
   }
 });
 
-// Also initialize on service worker startup (for when it wakes up)
+//initialize on service worker startup (for when it wakes up)
 chrome.runtime.onStartup.addListener(() => {
   console.log('Service worker starting up...');
   initialize();

@@ -1,9 +1,13 @@
 # The Tab Suspender
 
-A Firefox extension that automatically suspends inactive tabs after a specified time to save memory. Unlike Firefox's native tab discarding, and popular addons like Auto Tab Discard, this extension shows a custom suspended page that you need to click to reload - preventing accidental tab reloads when you mistakenly click on a tab.
+A Firefox/Chrome extension that automatically suspends inactive tabs after a specified time to save memory. Unlike Firefox's native tab discarding, and popular addons like Auto Tab Discard, this extension shows a custom suspended page that you need to click to reload - preventing accidental tab reloads when you mistakenly click on a tab.
 
 ## Firefox Addons Store Link
 - It's live! <a href="https://addons.mozilla.org/en-US/firefox/addon/the-tab-suspender/">Download it on Firefox</a>
+
+## Chrome Web Store Link
+- Extension under review.
+<!-- - It's live! <a href="https://chrome.google.com/webstore/detail/the-tab-suspender/jfjgjgjgjgjgjgjgjgjgjgjgjgjgjgjg">Download it on Chrome</a> -->
 
 ## Screenshots
 
@@ -11,6 +15,12 @@ A Firefox extension that automatically suspends inactive tabs after a specified 
   <p><img src="screenshots/popup.png" alt="Extension Popup Settings" width="800"/></p>
   <p><img src="screenshots/suspended_state.png" alt="Suspended Tab State" width="800"/></p>
 </div>
+
+## New features and Changes in v1.7 release
+- Enable native discard API, same as Auto Discard Tab, without removing suspended page.
+- Now saves significantly more memory.
+- Added new suspended tabs Migration logic so suspended tabs won't be lost in future updates. (This will take effect from next update)
+- Ported extension to Chromium. (Currently under review).
 
 ## New features and Changes in v1.6 release
 - Added new Experimental feature to save screenshots for suspended tabs, with configurable quality settings.
@@ -87,6 +97,10 @@ Key behaviors:
 
 When a tab is suspended, you'll see a simple page showing the original URL. Click anywhere on the page to restore the tab to its original state. This behavior persists even after browser restarts - suspended tabs stay suspended until you choose to restore them.
 
+## Build Instructions
+- Run `npm install --save-dev` to install dependencies
+- Run `npm run build` to build the extension
+- 
 ## Future Improvements
 
 - Domain whitelist/blacklist functionality (Added)
