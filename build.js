@@ -1,12 +1,11 @@
-const { execSync } = require('child_process');
+const esbuild = require('esbuild');
 const fs = require('fs-extra');
+const { execSync } = require('child_process');
 const path = require('path');
 
-// Configuration
-const SRC_DIR = './';
 const DIST_DIR = './dist';
 
-// Files to minify
+// JS files to bundle/minify
 const jsFiles = [
     'background.js',
     'popup.js',
@@ -20,49 +19,54 @@ const htmlFiles = [
     'data_management.html'
 ];
 
-// Clean and create dist folder
-console.log('🧹 Cleaning dist folder...');
-fs.removeSync(DIST_DIR);
-fs.mkdirSync(DIST_DIR, { recursive: true });
+async function build() {
+    // Clean dist folder
+    console.log('🧹 Cleaning dist folder...');
+    fs.removeSync(DIST_DIR);
+    fs.mkdirSync(DIST_DIR, { recursive: true });
 
-// Minify JavaScript files
-console.log('📦 Minifying JavaScript...');
-jsFiles.forEach(file => {
-    const srcPath = path.join(SRC_DIR, file);
-    const distPath = path.join(DIST_DIR, file);
-    
-    if (fs.existsSync(srcPath)) {
-        execSync(`npx terser ${srcPath} -o ${distPath} --compress --mangle`);
-        console.log(`   ✓ ${file}`);
-    } else {
-        console.log(`   ⚠ ${file} not found, skipping...`);
+    // Minify JS files with esbuild
+    console.log('📦 Minifying JavaScript...');
+    for (const file of jsFiles) {
+        if (fs.existsSync(file)) {
+            await esbuild.build({
+                entryPoints: [file],
+                outfile: path.join(DIST_DIR, file),
+                bundle: false,
+                minify: true,
+                minifyWhitespace: true,
+                minifyIdentifiers: true,  // This creates a, b, c, d...
+                minifySyntax: true,
+                target: ['chrome100'],
+                format: 'esm',
+            });
+            console.log(`   ✓ ${file}`);
+        }
     }
+
+    // Minify HTML
+    console.log('📄 Minifying HTML...');
+    htmlFiles.forEach(file => {
+        if (fs.existsSync(file)) {
+            execSync(`npx html-minifier-terser --collapse-whitespace --remove-comments --minify-css true --minify-js true -o ${path.join(DIST_DIR, file)} ${file}`);
+            console.log(`   ✓ ${file}`);
+        }
+    });
+
+    // Copy manifest.json
+    console.log('📋 Copying manifest.json...');
+    fs.copySync('manifest.json', path.join(DIST_DIR, 'manifest.json'));
+    console.log('   ✓ manifest.json');
+
+    // Copy icons
+    console.log('🖼️  Copying icons...');
+    fs.copySync('icons', path.join(DIST_DIR, 'icons'));
+    console.log('   ✓ icons/');
+
+    console.log('\n✅ Build complete!');
+}
+
+build().catch((err) => {
+    console.error('Build failed:', err);
+    process.exit(1);
 });
-
-// Minify HTML files
-console.log('📄 Minifying HTML...');
-htmlFiles.forEach(file => {
-    const srcPath = path.join(SRC_DIR, file);
-    const distPath = path.join(DIST_DIR, file);
-    
-    if (fs.existsSync(srcPath)) {
-        execSync(`npx html-minifier-terser --collapse-whitespace --remove-comments --minify-css true --minify-js true -o ${distPath} ${srcPath}`);
-        console.log(`   ✓ ${file}`);
-    } else {
-        console.log(`   ⚠ ${file} not found, skipping...`);
-    }
-});
-
-// Copy manifest.json (don't minify)
-console.log('📋 Copying manifest.json...');
-fs.copySync('manifest.json', path.join(DIST_DIR, 'manifest.json'));
-console.log('   ✓ manifest.json');
-
-// Copy icons folder
-console.log('🖼️  Copying icons...');
-fs.copySync('icons', path.join(DIST_DIR, 'icons'));
-console.log('   ✓ icons/');
-
-// Build summary
-console.log('\n✅ Build complete!');
-console.log(`📁 Output folder: ${path.resolve(DIST_DIR)}`);
