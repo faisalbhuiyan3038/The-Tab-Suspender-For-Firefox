@@ -1,0 +1,154 @@
+{
+  "extName": {
+    "message": "Приостановка вкладок",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Автоматически приостанавливать неактивные вкладки для экономии памяти",
+    "description": "Extension description"
+  },
+  "tabSuspender": {
+    "message": "Приостановка вкладок",
+    "description": "heading in popup.html"
+  },
+  "options": {
+    "message": "Параметры",
+    "description": "div in popup.html"
+  },
+  "whitelist": {
+    "message": "Белый список",
+    "description": "div in popup.html"
+  },
+  "screenshot": {
+    "message": "Скриншот",
+    "description": "div in popup.html"
+  },
+  "settings": {
+    "message": "Настройки",
+    "description": "div in popup.html"
+  },
+  "keyboardShortcuts": {
+    "message": "Горячие клавиши",
+    "description": "heading in popup.html"
+  },
+  "dataManagement": {
+    "message": "Управление данными",
+    "description": "heading in popup.html"
+  },
+  "configureScreenshotCapture": {
+    "message": "Настройте создание и изменение размера скриншотов. Меньшие изображения экономят память.",
+    "description": "paragraph in popup.html"
+  },
+  "configureKeyboardShortcuts": {
+    "message": "Настройте горячие клавиши в настройках расширений Chrome.",
+    "description": "paragraph in popup.html"
+  },
+  "importExportSettingsWhitelist": {
+    "message": "Импорт или экспорт настроек и белого списка.",
+    "description": "paragraph in popup.html"
+  },
+  "saveOptions": {
+    "message": "Сохранить параметры",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentDomain": {
+    "message": "Добавить домен в белый список",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentPage": {
+    "message": "Добавить страницу в белый список",
+    "description": "button in popup.html"
+  },
+  "saveScreenshotSettings": {
+    "message": "Сохранить настройки скриншотов",
+    "description": "button in popup.html"
+  },
+  "configureShortcuts": {
+    "message": "Настроить сочетания клавиш",
+    "description": "button in popup.html"
+  },
+  "openDataManager": {
+    "message": "Открыть диспетчер данных",
+    "description": "button in popup.html"
+  },
+  "suspendInactiveTabsAfter": {
+    "message": "Приостанавливать неактивные вкладки через (минут):",
+    "description": "label in popup.html"
+  },
+  "darkMode": {
+    "message": "Темная тема",
+    "description": "label in popup.html"
+  },
+  "enableTabScreenshotsUses": {
+    "message": "Включить скриншоты вкладок (использует больше памяти)",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsPlaying": {
+    "message": "Не приостанавливать вкладки с воспроизведением аудио",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsInput": {
+    "message": "Не приостанавливать вкладки с вводом в формах",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsNotification": {
+    "message": "Не приостанавливать вкладки с уведомлениями",
+    "description": "label in popup.html"
+  },
+  "dontSuspendPinnedTabs": {
+    "message": "Не приостанавливать закрепленные вкладки",
+    "description": "label in popup.html"
+  },
+  "captureQuality5100": {
+    "message": "Качество снимка (5-100)",
+    "description": "label in popup.html"
+  },
+  "resizeWidthPx": {
+    "message": "Изменить ширину (px)",
+    "description": "label in popup.html"
+  },
+  "resizeHeightPx": {
+    "message": "Изменить высоту (px)",
+    "description": "label in popup.html"
+  },
+  "resizeQuality0110": {
+    "message": "Качество изменения размера (0.1 - 1.0)",
+    "description": "label in popup.html"
+  },
+  "settingsSaved": {
+    "message": "Настройки сохранены!",
+    "description": "notification in popup.html"
+  },
+  "tabSuspended": {
+    "message": "Вкладка приостановлена",
+    "description": "title in suspended.html"
+  },
+  "clickAnywhereToRestore": {
+    "message": "Нажмите в любом месте, чтобы восстановить эту вкладку",
+    "description": "paragraph in suspended.html"
+  },
+  "dataManagementTabSuspender": {
+    "message": "Управление данными - Приостановка вкладок",
+    "description": "title in data_management.html"
+  },
+  "exportSettings": {
+    "message": "Экспорт настроек",
+    "description": "heading in data_management.html"
+  },
+  "importSettings": {
+    "message": "Импорт настроек",
+    "description": "heading in data_management.html"
+  },
+  "exportDesc": {
+    "message": "Сохранить белый список и настройки в файл JSON.",
+    "description": "paragraph in data_management.html"
+  },
+  "importDesc": {
+    "message": "Загрузить настройки из файла JSON. Это перезапишет текущие настройки.",
+    "description": "paragraph in data_management.html"
+  },
+  "selectJsonFile": {
+    "message": "Выбрать файл JSON",
+    "description": "label in data_management.html"
+  }
+}

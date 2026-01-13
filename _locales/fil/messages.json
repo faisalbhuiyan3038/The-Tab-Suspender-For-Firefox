@@ -1,0 +1,154 @@
+{
+    "extName": {
+        "message": "Tagasuspend ng Tab",
+        "description": "Extension name"
+    },
+    "extDescription": {
+        "message": "Kusang suspendhin ang mga hindi aktibong tab para makatipid ng memory",
+        "description": "Extension description"
+    },
+    "tabSuspender": {
+        "message": "Tagasuspend ng Tab",
+        "description": "heading in popup.html"
+    },
+    "options": {
+        "message": "Mga Pagpipilian",
+        "description": "div in popup.html"
+    },
+    "whitelist": {
+        "message": "Whitelist",
+        "description": "div in popup.html"
+    },
+    "screenshot": {
+        "message": "Screenshot",
+        "description": "div in popup.html"
+    },
+    "settings": {
+        "message": "Mga Setting",
+        "description": "div in popup.html"
+    },
+    "keyboardShortcuts": {
+        "message": "Mga Keyboard Shortcuts",
+        "description": "heading in popup.html"
+    },
+    "dataManagement": {
+        "message": "Pamamahala ng Data",
+        "description": "heading in popup.html"
+    },
+    "configureScreenshotCapture": {
+        "message": "I-configure ang pagkuha at pag-resize ng screenshot. Ang mas maliliit na larawan ay nakakatipid ng memory.",
+        "description": "paragraph in popup.html"
+    },
+    "configureKeyboardShortcuts": {
+        "message": "I-configure ang mga keyboard shortcut sa setting ng extension ng Chrome.",
+        "description": "paragraph in popup.html"
+    },
+    "importExportSettingsWhitelist": {
+        "message": "I-import o i-export ang iyong mga setting at whitelist.",
+        "description": "paragraph in popup.html"
+    },
+    "saveOptions": {
+        "message": "I-save ang mga Pagpipilian",
+        "description": "button in popup.html"
+    },
+    "whitelistCurrentDomain": {
+        "message": "I-whitelist ang Kasalukuyang Domain",
+        "description": "button in popup.html"
+    },
+    "whitelistCurrentPage": {
+        "message": "I-whitelist ang Kasalukuyang Pahina",
+        "description": "button in popup.html"
+    },
+    "saveScreenshotSettings": {
+        "message": "I-save ang mga Setting ng Screenshot",
+        "description": "button in popup.html"
+    },
+    "configureShortcuts": {
+        "message": "I-configure ang mga Shortcut",
+        "description": "button in popup.html"
+    },
+    "openDataManager": {
+        "message": "Buksan ang Tagapamahala ng Data",
+        "description": "button in popup.html"
+    },
+    "suspendInactiveTabsAfter": {
+        "message": "Suspendihin ang mga hindi aktibong tab pagkatapos ng (minuto):",
+        "description": "label in popup.html"
+    },
+    "darkMode": {
+        "message": "Dark Mode",
+        "description": "label in popup.html"
+    },
+    "enableTabScreenshotsUses": {
+        "message": "Paganahin ang mga screenshot ng tab (gumagamit ng mas maraming memory)",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsPlaying": {
+        "message": "Huwag suspendihin ang mga tab na nagtutugtog ng audio",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsInput": {
+        "message": "Huwag suspendihin ang mga tab na may form input",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsNotification": {
+        "message": "Huwag suspendihin ang mga tab na may notification",
+        "description": "label in popup.html"
+    },
+    "dontSuspendPinnedTabs": {
+        "message": "Huwag suspendihin ang mga naka-pin na tab",
+        "description": "label in popup.html"
+    },
+    "captureQuality5100": {
+        "message": "Capture Quality (5-100)",
+        "description": "label in popup.html"
+    },
+    "resizeWidthPx": {
+        "message": "Laki ng Width (px)",
+        "description": "label in popup.html"
+    },
+    "resizeHeightPx": {
+        "message": "Laki ng Height (px)",
+        "description": "label in popup.html"
+    },
+    "resizeQuality0110": {
+        "message": "Resize Quality (0.1 - 1.0)",
+        "description": "label in popup.html"
+    },
+    "settingsSaved": {
+        "message": "Nai-save ang mga setting!",
+        "description": "notification in popup.html"
+    },
+    "tabSuspended": {
+        "message": "Nasuspend ang Tab",
+        "description": "title in suspended.html"
+    },
+    "clickAnywhereToRestore": {
+        "message": "Mag-click kahit saan para ibalik ang tab na ito",
+        "description": "paragraph in suspended.html"
+    },
+    "dataManagementTabSuspender": {
+        "message": "Pamamahala ng Data - Tagasuspend ng Tab",
+        "description": "title in data_management.html"
+    },
+    "exportSettings": {
+        "message": "I-export ang mga Setting",
+        "description": "heading in data_management.html"
+    },
+    "importSettings": {
+        "message": "I-import ang mga Setting",
+        "description": "heading in data_management.html"
+    },
+    "exportDesc": {
+        "message": "I-save ang iyong whitelist at mga setting sa isang JSON file.",
+        "description": "paragraph in data_management.html"
+    },
+    "importDesc": {
+        "message": "Mag-load ng setting mula sa isang JSON file. Ito ay mag-o-override sa iyong kasalukuyang mga setting.",
+        "description": "paragraph in data_management.html"
+    },
+    "selectJsonFile": {
+        "message": "Pumili ng JSON File",
+        "description": "label in data_management.html"
+    }
+}

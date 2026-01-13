@@ -1,0 +1,154 @@
+{
+  "extName": {
+    "message": "Suspensão de Abas",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Suspenda automaticamente abas inativas para economizar memória",
+    "description": "Extension description"
+  },
+  "tabSuspender": {
+    "message": "Suspensão de Abas",
+    "description": "heading in popup.html"
+  },
+  "options": {
+    "message": "Opções",
+    "description": "div in popup.html"
+  },
+  "whitelist": {
+    "message": "Lista Branca",
+    "description": "div in popup.html"
+  },
+  "screenshot": {
+    "message": "Captura de tela",
+    "description": "div in popup.html"
+  },
+  "settings": {
+    "message": "Configurações",
+    "description": "div in popup.html"
+  },
+  "keyboardShortcuts": {
+    "message": "Atalhos de teclado",
+    "description": "heading in popup.html"
+  },
+  "dataManagement": {
+    "message": "Gerenciamento de Dados",
+    "description": "heading in popup.html"
+  },
+  "configureScreenshotCapture": {
+    "message": "Configure a captura e o redimensionamento de capturas de tela. Imagens menores economizam memória.",
+    "description": "paragraph in popup.html"
+  },
+  "configureKeyboardShortcuts": {
+    "message": "Configure os atalhos de teclado nas configurações de extensões do Chrome.",
+    "description": "paragraph in popup.html"
+  },
+  "importExportSettingsWhitelist": {
+    "message": "Importar ou exportar suas configurações e lista branca.",
+    "description": "paragraph in popup.html"
+  },
+  "saveOptions": {
+    "message": "Salvar Opções",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentDomain": {
+    "message": "Adicionar domínio atual à lista branca",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentPage": {
+    "message": "Adicionar página atual à lista branca",
+    "description": "button in popup.html"
+  },
+  "saveScreenshotSettings": {
+    "message": "Salvar configurações de captura de tela",
+    "description": "button in popup.html"
+  },
+  "configureShortcuts": {
+    "message": "Configurar atalhos",
+    "description": "button in popup.html"
+  },
+  "openDataManager": {
+    "message": "Abrir gerenciador de dados",
+    "description": "button in popup.html"
+  },
+  "suspendInactiveTabsAfter": {
+    "message": "Suspender abas inativas após (minutos):",
+    "description": "label in popup.html"
+  },
+  "darkMode": {
+    "message": "Modo escuro",
+    "description": "label in popup.html"
+  },
+  "enableTabScreenshotsUses": {
+    "message": "Ativar capturas de tela das abas (usa mais memória)",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsPlaying": {
+    "message": "Não suspender abas reproduzindo áudio",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsInput": {
+    "message": "Não suspender abas com entrada de formulário",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsNotification": {
+    "message": "Não suspender abas com notificações",
+    "description": "label in popup.html"
+  },
+  "dontSuspendPinnedTabs": {
+    "message": "Não suspender abas fixadas",
+    "description": "label in popup.html"
+  },
+  "captureQuality5100": {
+    "message": "Qualidade de captura (5-100)",
+    "description": "label in popup.html"
+  },
+  "resizeWidthPx": {
+    "message": "Redimensionar largura (px)",
+    "description": "label in popup.html"
+  },
+  "resizeHeightPx": {
+    "message": "Redimensionar altura (px)",
+    "description": "label in popup.html"
+  },
+  "resizeQuality0110": {
+    "message": "Qualidade de redimensionamento (0.1 - 1.0)",
+    "description": "label in popup.html"
+  },
+  "settingsSaved": {
+    "message": "Configurações salvas!",
+    "description": "notification in popup.html"
+  },
+  "tabSuspended": {
+    "message": "Aba suspensa",
+    "description": "title in suspended.html"
+  },
+  "clickAnywhereToRestore": {
+    "message": "Clique em qualquer lugar para restaurar esta aba",
+    "description": "paragraph in suspended.html"
+  },
+  "dataManagementTabSuspender": {
+    "message": "Gerenciamento de Dados - Suspensão de Abas",
+    "description": "title in data_management.html"
+  },
+  "exportSettings": {
+    "message": "Exportar configurações",
+    "description": "heading in data_management.html"
+  },
+  "importSettings": {
+    "message": "Importar configurações",
+    "description": "heading in data_management.html"
+  },
+  "exportDesc": {
+    "message": "Salve sua lista branca e configurações em um arquivo JSON.",
+    "description": "paragraph in data_management.html"
+  },
+  "importDesc": {
+    "message": "Carregue configurações de um arquivo JSON. Isso substituirá suas configurações atuais.",
+    "description": "paragraph in data_management.html"
+  },
+  "selectJsonFile": {
+    "message": "Selecionar arquivo JSON",
+    "description": "label in data_management.html"
+  }
+}

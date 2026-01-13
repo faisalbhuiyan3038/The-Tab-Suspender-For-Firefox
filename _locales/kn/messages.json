@@ -1,0 +1,154 @@
+{
+    "extName": {
+        "message": "ಟ್ಯಾಬ್ ಸಸ್ಪೆಂಡರ್",
+        "description": "Extension name"
+    },
+    "extDescription": {
+        "message": "ಮೆಮೊರಿಯನ್ನು ಉಳಿಸಲು ನಿಷ್ಕ್ರಿಯ ಟ್ಯಾಬ್‌ಗಳನ್ನು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಸಸ್ಪೆಂಡ್ ಮಾಡಿ",
+        "description": "Extension description"
+    },
+    "tabSuspender": {
+        "message": "ಟ್ಯಾಬ್ ಸಸ್ಪೆಂಡರ್",
+        "description": "heading in popup.html"
+    },
+    "options": {
+        "message": "ಆಯ್ಕೆಗಳು",
+        "description": "div in popup.html"
+    },
+    "whitelist": {
+        "message": "ವೈಟ್‌ಲಿಸ್ಟ್",
+        "description": "div in popup.html"
+    },
+    "screenshot": {
+        "message": "ಸ್ಕ್ರೀನ್‌ಶಾಟ್",
+        "description": "div in popup.html"
+    },
+    "settings": {
+        "message": "ಸೆಟ್ಟಿಂಗ್‌ಗಳು",
+        "description": "div in popup.html"
+    },
+    "keyboardShortcuts": {
+        "message": "ಕೀಬೋರ್ಡ್ ಶಾರ್ಟ್‌ಕಟ್‌ಗಳು",
+        "description": "heading in popup.html"
+    },
+    "dataManagement": {
+        "message": "ಡೇಟಾ ನಿರ್ವಹಣೆ",
+        "description": "heading in popup.html"
+    },
+    "configureScreenshotCapture": {
+        "message": "ಸ್ಕ್ರೀನ್‌ಶಾಟ್ ಕ್ಯಾಪ್ಚರ್ ಮತ್ತು ರಿಸೈಜ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಕಾನ್ಫಿಗರ್ ಮಾಡಿ. ಚಿಕ್ಕ ಚಿತ್ರಗಳು ಮೆಮೊರಿಯನ್ನು ಉಳಿಸುತ್ತವೆ.",
+        "description": "paragraph in popup.html"
+    },
+    "configureKeyboardShortcuts": {
+        "message": "Chrome ವಿಸ್ತರಣೆ ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ಕೀಬೋರ್ಡ್ ಶಾರ್ಟ್‌ಕಟ್‌ಗಳನ್ನು ಕಾನ್ಫಿಗರ್ ಮಾಡಿ.",
+        "description": "paragraph in popup.html"
+    },
+    "importExportSettingsWhitelist": {
+        "message": "ನಿಮ್ಮ ಸೆಟ್ಟಿಂಗ್‌ಗಳು ಮತ್ತು ವೈಟ್‌ಲಿಸ್ಟ್ ಅನ್ನು ಆಮದು ಅಥವಾ ರಫ್ತು ಮಾಡಿ.",
+        "description": "paragraph in popup.html"
+    },
+    "saveOptions": {
+        "message": "ಆಯ್ಕೆಗಳನ್ನು ಉಳಿಸಿ",
+        "description": "button in popup.html"
+    },
+    "whitelistCurrentDomain": {
+        "message": "ಪ್ರಸ್ತುತ ಡೊಮೇನ್ ಅನ್ನು ವೈಟ್‌ಲಿಸ್ಟ್ ಮಾಡಿ",
+        "description": "button in popup.html"
+    },
+    "whitelistCurrentPage": {
+        "message": "ಪ್ರಸ್ತುತ ಪುಟವನ್ನು ವೈಟ್‌ಲಿಸ್ಟ್ ಮಾಡಿ",
+        "description": "button in popup.html"
+    },
+    "saveScreenshotSettings": {
+        "message": "ಸ್ಕ್ರೀನ್‌ಶಾಟ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಉಳಿಸಿ",
+        "description": "button in popup.html"
+    },
+    "configureShortcuts": {
+        "message": "ಶಾರ್ಟ್‌ಕಟ್‌ಗಳನ್ನು ಕಾನ್ಫಿಗರ್ ಮಾಡಿ",
+        "description": "button in popup.html"
+    },
+    "openDataManager": {
+        "message": "ಡೇಟಾ ಮ್ಯಾನೇಜರ್ ತೆರೆಯಿರಿ",
+        "description": "button in popup.html"
+    },
+    "suspendInactiveTabsAfter": {
+        "message": "ಇಷ್ಟು ಸಮಯದ ನಂತರ ನಿಷ್ಕ್ರಿಯ ಟ್ಯಾಬ್‌ಗಳನ್ನು ಸಸ್ಪೆಂಡ್ ಮಾಡಿ (ನಿಮಿಷಗಳು):",
+        "description": "label in popup.html"
+    },
+    "darkMode": {
+        "message": "ಡಾರ್ಕ್ ಮೋಡ್",
+        "description": "label in popup.html"
+    },
+    "enableTabScreenshotsUses": {
+        "message": "ಟ್ಯಾಬ್ ಸ್ಕ್ರೀನ್‌ಶಾಟ್‌ಗಳನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ (ಹೆಚ್ಚು ಮೆಮೊರಿ ಬಳಸುತ್ತದೆ)",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsPlaying": {
+        "message": "ಆಡಿಯೋ ಪ್ಲೇ ಮಾಡುವ ಟ್ಯಾಬ್‌ಗಳನ್ನು ಸಸ್ಪೆಂಡ್ ಮಾಡಬೇಡಿ",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsInput": {
+        "message": "ಫಾರ್ಮ್ ಇನ್‌ಪುಟ್ ಹೊಂದಿರುವ ಟ್ಯಾಬ್‌ಗಳನ್ನು ಸಸ್ಪೆಂಡ್ ಮಾಡಬೇಡಿ",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsNotification": {
+        "message": "ಅಧಿಸೂಚನೆಗಳೊಂದಿಗೆ ಟ್ಯಾಬ್‌ಗಳನ್ನು ಸಸ್ಪೆಂಡ್ ಮಾಡಬೇಡಿ",
+        "description": "label in popup.html"
+    },
+    "dontSuspendPinnedTabs": {
+        "message": "ಪಿನ್ ಮಾಡಿದ ಟ್ಯಾಬ್‌ಗಳನ್ನು ಸಸ್ಪೆಂಡ್ ಮಾಡಬೇಡಿ",
+        "description": "label in popup.html"
+    },
+    "captureQuality5100": {
+        "message": "ಕ್ಯಾಪ್ಚರ್ ಗುಣಮಟ್ಟ (5-100)",
+        "description": "label in popup.html"
+    },
+    "resizeWidthPx": {
+        "message": "ಅಗಲವನ್ನು ಬದಲಾಯಿಸಿ (px)",
+        "description": "label in popup.html"
+    },
+    "resizeHeightPx": {
+        "message": "ಎತ್ತರವನ್ನು ಬದಲಾಯಿಸಿ (px)",
+        "description": "label in popup.html"
+    },
+    "resizeQuality0110": {
+        "message": "ರಿಸೈಜ್ ಗುಣಮಟ್ಟ (0.1 - 1.0)",
+        "description": "label in popup.html"
+    },
+    "settingsSaved": {
+        "message": "ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಉಳಿಸಲಾಗಿದೆ!",
+        "description": "notification in popup.html"
+    },
+    "tabSuspended": {
+        "message": "ಟ್ಯಾಬ್ ಸಸ್ಪೆಂಡ್ ಮಾಡಲಾಗಿದೆ",
+        "description": "title in suspended.html"
+    },
+    "clickAnywhereToRestore": {
+        "message": "ಈ ಟ್ಯಾಬ್ ಅನ್ನು ಮರುಸ್ಥಾಪಿಸಲು ಎಲ್ಲಿಯಾದರೂ ಕ್ಲಿಕ್ ಮಾಡಿ",
+        "description": "paragraph in suspended.html"
+    },
+    "dataManagementTabSuspender": {
+        "message": "ಡೇಟಾ ನಿರ್ವಹಣೆ - ಟ್ಯಾಬ್ ಸಸ್ಪೆಂಡರ್",
+        "description": "title in data_management.html"
+    },
+    "exportSettings": {
+        "message": "ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ರಫ್ತು ಮಾಡಿ",
+        "description": "heading in data_management.html"
+    },
+    "importSettings": {
+        "message": "ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಆಮದು ಮಾಡಿ",
+        "description": "heading in data_management.html"
+    },
+    "exportDesc": {
+        "message": "ನಿಮ್ಮ ವೈಟ್‌ಲಿಸ್ಟ್ ಮತ್ತು ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು JSON ಫೈಲ್‌ನಲ್ಲಿ ಉಳಿಸಿ.",
+        "description": "paragraph in data_management.html"
+    },
+    "importDesc": {
+        "message": "JSON ಫೈಲ್‌ನಿಂದ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಲೋಡ್ ಮಾಡಿ. ಇದು ನಿಮ್ಮ ಪ್ರಸ್ತುತ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಅಧಿಕೃತವಾಗಿ ಬದಲಾಯಿಸುತ್ತದೆ.",
+        "description": "paragraph in data_management.html"
+    },
+    "selectJsonFile": {
+        "message": "JSON ಫೈಲ್ ಆಯ್ಕೆಮಾಡಿ",
+        "description": "label in data_management.html"
+    }
+}

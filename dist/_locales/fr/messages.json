@@ -1,0 +1,134 @@
+{
+  "extName": {
+    "message": "Bretelle à onglets",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Suspendre automatiquement les onglets inactifs pour économiser de la mémoire",
+    "description": "Extension description"
+  },
+  "tabSuspender": {
+    "message": "Bretelle à onglets",
+    "description": "heading in popup.html"
+  },
+  "keyboardShortcuts": {
+    "message": "Raccourcis clavier",
+    "description": "heading in popup.html"
+  },
+  "dataManagement": {
+    "message": "Gestion des données",
+    "description": "heading in popup.html"
+  },
+  "configureScreenshotCaptureAnd": {
+    "message": "Configurez les paramètres de capture d'écran et de redimensionnement. Les images plus petites économisent de la mémoire.",
+    "description": "paragraph in popup.html"
+  },
+  "configureKeyboardShortcutsIn": {
+    "message": "Configurez les raccourcis clavier dans les paramètres d'extension de Chrome.",
+    "description": "paragraph in popup.html"
+  },
+  "importOrExportYour": {
+    "message": "Importez ou exportez vos paramètres et votre liste blanche.",
+    "description": "paragraph in popup.html"
+  },
+  "saveOptions": {
+    "message": "Options d'enregistrement",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentDomain": {
+    "message": "Liste blanche du domaine actuel",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentPage": {
+    "message": "Page actuelle sur liste blanche",
+    "description": "button in popup.html"
+  },
+  "saveScreenshotSettings": {
+    "message": "Enregistrer les paramètres de capture d'écran",
+    "description": "button in popup.html"
+  },
+  "configureShortcuts": {
+    "message": "Configurer les raccourcis",
+    "description": "button in popup.html"
+  },
+  "openDataManager": {
+    "message": "Gestionnaire de données ouvertes",
+    "description": "button in popup.html"
+  },
+  "suspendInactiveTabsAfter": {
+    "message": "Suspendre les onglets inactifs après (minutes) :",
+    "description": "label in popup.html"
+  },
+  "darkMode": {
+    "message": "Mode sombre",
+    "description": "label in popup.html"
+  },
+  "enableTabScreenshotsUses": {
+    "message": "Activer les captures d'écran des onglets (utilise plus de mémoire)",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsPlaying": {
+    "message": "Ne suspendez pas la lecture audio des onglets",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsWith": {
+    "message": "Ne suspendez pas les onglets avec la saisie de formulaire",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsWith1": {
+    "message": "Ne suspendez pas les onglets avec des notifications",
+    "description": "label in popup.html"
+  },
+  "dontSuspendPinnedTabs": {
+    "message": "Ne pas suspendre les onglets épinglés",
+    "description": "label in popup.html"
+  },
+  "captureQuality5100": {
+    "message": "Qualité de capture (5-100)",
+    "description": "label in popup.html"
+  },
+  "resizeWidthPx": {
+    "message": "Redimensionner la largeur (px)",
+    "description": "label in popup.html"
+  },
+  "resizeHeightPx": {
+    "message": "Redimensionner la hauteur (px)",
+    "description": "label in popup.html"
+  },
+  "resizeQuality0110": {
+    "message": "Qualité de redimensionnement (0,1 - 1,0)",
+    "description": "label in popup.html"
+  },
+  "tabSuspended": {
+    "message": "Onglet suspendu",
+    "description": "title in suspended.html"
+  },
+  "clickAnywhereToRestore": {
+    "message": "Cliquez n'importe où pour restaurer cet onglet",
+    "description": "paragraph in suspended.html"
+  },
+  "dataManagementTabSuspender": {
+    "message": "Gestion des données – Suspension d'onglet",
+    "description": "title in data_management.html"
+  },
+  "exportSettings": {
+    "message": "Paramètres d'exportation",
+    "description": "heading in data_management.html"
+  },
+  "importSettings": {
+    "message": "Paramètres d'importation",
+    "description": "heading in data_management.html"
+  },
+  "saveYourWhitelistAnd": {
+    "message": "Enregistrez votre liste blanche et vos paramètres dans un fichier JSON.",
+    "description": "paragraph in data_management.html"
+  },
+  "loadSettingsFromA": {
+    "message": "Chargez les paramètres à partir d'un fichier JSON. Cela écrasera vos paramètres actuels.",
+    "description": "paragraph in data_management.html"
+  },
+  "selectJsonFile": {
+    "message": "Sélectionnez le fichier JSON",
+    "description": "label in data_management.html"
+  }
+}

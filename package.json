@@ -3,6 +3,10 @@
   "version": "1.7",
   "scripts": {
     "build": "node build.js",
+    "extract-strings": "node extract-strings.js",
+    "generate-locales": "node i18n-generator.js",
+    "update-html": "node update-html.js",
+    "i18n": "npm run extract-strings && npm run generate-locales && npm run update-html",
     "clean": "rm -rf dist"
   },
   "devDependencies": {

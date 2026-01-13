@@ -1,0 +1,154 @@
+{
+    "extName": {
+        "message": "Zaustavljanje zavihkov",
+        "description": "Extension name"
+    },
+    "extDescription": {
+        "message": "Samodejno ustavi neaktivne zavihke, da prihranite pomnilnik",
+        "description": "Extension description"
+    },
+    "tabSuspender": {
+        "message": "Zaustavljanje zavihkov",
+        "description": "heading in popup.html"
+    },
+    "options": {
+        "message": "Možnosti",
+        "description": "div in popup.html"
+    },
+    "whitelist": {
+        "message": "Beli seznam",
+        "description": "div in popup.html"
+    },
+    "screenshot": {
+        "message": "Posnetek zaslona",
+        "description": "div in popup.html"
+    },
+    "settings": {
+        "message": "Nastavitve",
+        "description": "div in popup.html"
+    },
+    "keyboardShortcuts": {
+        "message": "Tipkovne bližnjice",
+        "description": "heading in popup.html"
+    },
+    "dataManagement": {
+        "message": "Upravljanje podatkov",
+        "description": "heading in popup.html"
+    },
+    "configureScreenshotCapture": {
+        "message": "Konfigurirajte zajem in spreminjanje velikosti posnetkov zaslona. Manjše slike prihranijo pomnilnik.",
+        "description": "paragraph in popup.html"
+    },
+    "configureKeyboardShortcuts": {
+        "message": "Konfigurirajte tipkovne bližnjice v nastavitvah razširitev za Chrome.",
+        "description": "paragraph in popup.html"
+    },
+    "importExportSettingsWhitelist": {
+        "message": "Uvozite ali izvozite svoje nastavitve in beli seznam.",
+        "description": "paragraph in popup.html"
+    },
+    "saveOptions": {
+        "message": "Shrani možnosti",
+        "description": "button in popup.html"
+    },
+    "whitelistCurrentDomain": {
+        "message": "Dodaj trenutno domeno na beli seznam",
+        "description": "button in popup.html"
+    },
+    "whitelistCurrentPage": {
+        "message": "Dodaj trenutno stran na beli seznam",
+        "description": "button in popup.html"
+    },
+    "saveScreenshotSettings": {
+        "message": "Shrani nastavitve posnetkov",
+        "description": "button in popup.html"
+    },
+    "configureShortcuts": {
+        "message": "Konfiguriraj bližnjice",
+        "description": "button in popup.html"
+    },
+    "openDataManager": {
+        "message": "Odpri upravljalnik podatkov",
+        "description": "button in popup.html"
+    },
+    "suspendInactiveTabsAfter": {
+        "message": "Ustavi neaktivne zavihke po (minutah):",
+        "description": "label in popup.html"
+    },
+    "darkMode": {
+        "message": "Temni način",
+        "description": "label in popup.html"
+    },
+    "enableTabScreenshotsUses": {
+        "message": "Omogoči posnetke zavihkov (uporablja več pomnilnika)",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsPlaying": {
+        "message": "Ne ustavljaj zavihkov, ki predvajajo zvok",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsInput": {
+        "message": "Ne ustavljaj zavihkov z vnosom v obrazec",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsNotification": {
+        "message": "Ne ustavljaj zavihkov z obvestili",
+        "description": "label in popup.html"
+    },
+    "dontSuspendPinnedTabs": {
+        "message": "Ne ustavljaj pripetih zavihkov",
+        "description": "label in popup.html"
+    },
+    "captureQuality5100": {
+        "message": "Kakovost zajema (5-100)",
+        "description": "label in popup.html"
+    },
+    "resizeWidthPx": {
+        "message": "Spremeni širino (px)",
+        "description": "label in popup.html"
+    },
+    "resizeHeightPx": {
+        "message": "Spremeni višino (px)",
+        "description": "label in popup.html"
+    },
+    "resizeQuality0110": {
+        "message": "Kakovost spremembe velikosti (0.1 - 1.0)",
+        "description": "label in popup.html"
+    },
+    "settingsSaved": {
+        "message": "Nastavitve shranjene!",
+        "description": "notification in popup.html"
+    },
+    "tabSuspended": {
+        "message": "Zavihek ustavljen",
+        "description": "title in suspended.html"
+    },
+    "clickAnywhereToRestore": {
+        "message": "Kliknite kjer koli za obnovitev tega zavihka",
+        "description": "paragraph in suspended.html"
+    },
+    "dataManagementTabSuspender": {
+        "message": "Upravljanje podatkov - Zaustavljanje zavihkov",
+        "description": "title in data_management.html"
+    },
+    "exportSettings": {
+        "message": "Izvozi nastavitve",
+        "description": "heading in data_management.html"
+    },
+    "importSettings": {
+        "message": "Uvozi nastavitve",
+        "description": "heading in data_management.html"
+    },
+    "exportDesc": {
+        "message": "Shranite svoj beli seznam in nastavitve v datoteko JSON.",
+        "description": "paragraph in data_management.html"
+    },
+    "importDesc": {
+        "message": "Naložite nastavitve iz datoteke JSON. To bo prepisalo vaše trenutne nastavitve.",
+        "description": "paragraph in data_management.html"
+    },
+    "selectJsonFile": {
+        "message": "Izberi datoteko JSON",
+        "description": "label in data_management.html"
+    }
+}

@@ -1,0 +1,134 @@
+{
+  "extName": {
+    "message": "علامة التبويب الحمالة",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "تعليق علامات التبويب غير النشطة تلقائيًا لتوفير الذاكرة",
+    "description": "Extension description"
+  },
+  "tabSuspender": {
+    "message": "علامة التبويب الحمالة",
+    "description": "heading in popup.html"
+  },
+  "keyboardShortcuts": {
+    "message": "اختصارات لوحة المفاتيح",
+    "description": "heading in popup.html"
+  },
+  "dataManagement": {
+    "message": "إدارة البيانات",
+    "description": "heading in popup.html"
+  },
+  "configureScreenshotCaptureAnd": {
+    "message": "تكوين إعدادات التقاط لقطة الشاشة وتغيير حجمها. الصور الصغيرة تحفظ الذاكرة.",
+    "description": "paragraph in popup.html"
+  },
+  "configureKeyboardShortcutsIn": {
+    "message": "قم بتكوين اختصارات لوحة المفاتيح في إعدادات امتداد Chrome.",
+    "description": "paragraph in popup.html"
+  },
+  "importOrExportYour": {
+    "message": "قم باستيراد أو تصدير إعداداتك والقائمة البيضاء.",
+    "description": "paragraph in popup.html"
+  },
+  "saveOptions": {
+    "message": "حفظ الخيارات",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentDomain": {
+    "message": "القائمة البيضاء للمجال الحالي",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentPage": {
+    "message": "القائمة البيضاء للصفحة الحالية",
+    "description": "button in popup.html"
+  },
+  "saveScreenshotSettings": {
+    "message": "حفظ إعدادات لقطة الشاشة",
+    "description": "button in popup.html"
+  },
+  "configureShortcuts": {
+    "message": "تكوين الاختصارات",
+    "description": "button in popup.html"
+  },
+  "openDataManager": {
+    "message": "افتح مدير البيانات",
+    "description": "button in popup.html"
+  },
+  "suspendInactiveTabsAfter": {
+    "message": "تعليق علامات التبويب غير النشطة بعد (بالدقائق):",
+    "description": "label in popup.html"
+  },
+  "darkMode": {
+    "message": "الوضع المظلم",
+    "description": "label in popup.html"
+  },
+  "enableTabScreenshotsUses": {
+    "message": "تمكين لقطات شاشة علامة التبويب (يستخدم المزيد من الذاكرة)",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsPlaying": {
+    "message": "لا تقم بتعليق علامات التبويب التي تقوم بتشغيل الصوت",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsWith": {
+    "message": "لا تقم بتعليق علامات التبويب مع إدخال النموذج",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsWith1": {
+    "message": "لا تعلق علامات التبويب بالإشعارات",
+    "description": "label in popup.html"
+  },
+  "dontSuspendPinnedTabs": {
+    "message": "لا تقم بتعليق علامات التبويب المثبتة",
+    "description": "label in popup.html"
+  },
+  "captureQuality5100": {
+    "message": "جودة الالتقاط (5-100)",
+    "description": "label in popup.html"
+  },
+  "resizeWidthPx": {
+    "message": "تغيير حجم العرض (بكسل)",
+    "description": "label in popup.html"
+  },
+  "resizeHeightPx": {
+    "message": "تغيير حجم الارتفاع (بكسل)",
+    "description": "label in popup.html"
+  },
+  "resizeQuality0110": {
+    "message": "تغيير حجم الجودة (0.1 - 1.0)",
+    "description": "label in popup.html"
+  },
+  "tabSuspended": {
+    "message": "علامة التبويب معطلة",
+    "description": "title in suspended.html"
+  },
+  "clickAnywhereToRestore": {
+    "message": "انقر في أي مكان لاستعادة علامة التبويب هذه",
+    "description": "paragraph in suspended.html"
+  },
+  "dataManagementTabSuspender": {
+    "message": "إدارة البيانات - علامة التبويب المعلق",
+    "description": "title in data_management.html"
+  },
+  "exportSettings": {
+    "message": "إعدادات التصدير",
+    "description": "heading in data_management.html"
+  },
+  "importSettings": {
+    "message": "إعدادات الاستيراد",
+    "description": "heading in data_management.html"
+  },
+  "saveYourWhitelistAnd": {
+    "message": "احفظ القائمة البيضاء والإعدادات في ملف JSON.",
+    "description": "paragraph in data_management.html"
+  },
+  "loadSettingsFromA": {
+    "message": "تحميل الإعدادات من ملف JSON. سيؤدي هذا إلى استبدال إعداداتك الحالية.",
+    "description": "paragraph in data_management.html"
+  },
+  "selectJsonFile": {
+    "message": "حدد ملف JSON",
+    "description": "label in data_management.html"
+  }
+}

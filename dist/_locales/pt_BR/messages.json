@@ -1,0 +1,134 @@
+{
+  "extName": {
+    "message": "Suspensor de guia",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Suspenda automaticamente guias inativas para economizar memória",
+    "description": "Extension description"
+  },
+  "tabSuspender": {
+    "message": "Suspensor de guia",
+    "description": "heading in popup.html"
+  },
+  "keyboardShortcuts": {
+    "message": "Atalhos de teclado",
+    "description": "heading in popup.html"
+  },
+  "dataManagement": {
+    "message": "Gerenciamento de dados",
+    "description": "heading in popup.html"
+  },
+  "configureScreenshotCaptureAnd": {
+    "message": "Defina as configurações de captura de tela e redimensionamento. Imagens menores economizam memória.",
+    "description": "paragraph in popup.html"
+  },
+  "configureKeyboardShortcutsIn": {
+    "message": "Configure atalhos de teclado nas configurações de extensão do Chrome.",
+    "description": "paragraph in popup.html"
+  },
+  "importOrExportYour": {
+    "message": "Importe ou exporte suas configurações e lista de permissões.",
+    "description": "paragraph in popup.html"
+  },
+  "saveOptions": {
+    "message": "Salvar opções",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentDomain": {
+    "message": "Colocar domínio atual na lista de permissões",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentPage": {
+    "message": "Página atual da lista de permissões",
+    "description": "button in popup.html"
+  },
+  "saveScreenshotSettings": {
+    "message": "Salvar configurações de captura de tela",
+    "description": "button in popup.html"
+  },
+  "configureShortcuts": {
+    "message": "Configurar atalhos",
+    "description": "button in popup.html"
+  },
+  "openDataManager": {
+    "message": "Gerenciador de dados aberto",
+    "description": "button in popup.html"
+  },
+  "suspendInactiveTabsAfter": {
+    "message": "Suspender guias inativas após (minutos):",
+    "description": "label in popup.html"
+  },
+  "darkMode": {
+    "message": "Modo escuro",
+    "description": "label in popup.html"
+  },
+  "enableTabScreenshotsUses": {
+    "message": "Habilitar capturas de tela da guia (usa mais memória)",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsPlaying": {
+    "message": "Não suspenda as guias reproduzindo áudio",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsWith": {
+    "message": "Não suspenda guias com entrada de formulário",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsWith1": {
+    "message": "Não suspenda guias com notificações",
+    "description": "label in popup.html"
+  },
+  "dontSuspendPinnedTabs": {
+    "message": "Não suspenda guias fixadas",
+    "description": "label in popup.html"
+  },
+  "captureQuality5100": {
+    "message": "Qualidade de captura (5-100)",
+    "description": "label in popup.html"
+  },
+  "resizeWidthPx": {
+    "message": "Redimensionar largura (px)",
+    "description": "label in popup.html"
+  },
+  "resizeHeightPx": {
+    "message": "Redimensionar altura (px)",
+    "description": "label in popup.html"
+  },
+  "resizeQuality0110": {
+    "message": "Qualidade de redimensionamento (0,1 - 1,0)",
+    "description": "label in popup.html"
+  },
+  "tabSuspended": {
+    "message": "Guia suspensa",
+    "description": "title in suspended.html"
+  },
+  "clickAnywhereToRestore": {
+    "message": "Clique em qualquer lugar para restaurar esta guia",
+    "description": "paragraph in suspended.html"
+  },
+  "dataManagementTabSuspender": {
+    "message": "Gerenciamento de dados - Suspensor de guias",
+    "description": "title in data_management.html"
+  },
+  "exportSettings": {
+    "message": "Exportar configurações",
+    "description": "heading in data_management.html"
+  },
+  "importSettings": {
+    "message": "Configurações de importação",
+    "description": "heading in data_management.html"
+  },
+  "saveYourWhitelistAnd": {
+    "message": "Salve sua lista de permissões e configurações em um arquivo JSON.",
+    "description": "paragraph in data_management.html"
+  },
+  "loadSettingsFromA": {
+    "message": "Carregue as configurações de um arquivo JSON. Isso substituirá suas configurações atuais.",
+    "description": "paragraph in data_management.html"
+  },
+  "selectJsonFile": {
+    "message": "Selecione o arquivo JSON",
+    "description": "label in data_management.html"
+  }
+}

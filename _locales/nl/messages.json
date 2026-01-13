@@ -1,0 +1,154 @@
+{
+    "extName": {
+        "message": "Tab-pauzeren",
+        "description": "Extension name"
+    },
+    "extDescription": {
+        "message": "Pauzeer automatisch inactieve tabbladen om geheugen te besparen",
+        "description": "Extension description"
+    },
+    "tabSuspender": {
+        "message": "Tab-pauzeren",
+        "description": "heading in popup.html"
+    },
+    "options": {
+        "message": "Opties",
+        "description": "div in popup.html"
+    },
+    "whitelist": {
+        "message": "Witte lijst",
+        "description": "div in popup.html"
+    },
+    "screenshot": {
+        "message": "Screenshot",
+        "description": "div in popup.html"
+    },
+    "settings": {
+        "message": "Instellingen",
+        "description": "div in popup.html"
+    },
+    "keyboardShortcuts": {
+        "message": "Sneltoetsen",
+        "description": "heading in popup.html"
+    },
+    "dataManagement": {
+        "message": "Gegevensbeheer",
+        "description": "heading in popup.html"
+    },
+    "configureScreenshotCapture": {
+        "message": "Configureer het maken van screenshots en het wijzigen van de afmetingen. Kleinere afbeeldingen besparen geheugen.",
+        "description": "paragraph in popup.html"
+    },
+    "configureKeyboardShortcuts": {
+        "message": "Configureer sneltoetsen in de Chrome-extensie-instellingen.",
+        "description": "paragraph in popup.html"
+    },
+    "importExportSettingsWhitelist": {
+        "message": "Importeer of exporteer uw instellingen en witte lijst.",
+        "description": "paragraph in popup.html"
+    },
+    "saveOptions": {
+        "message": "Opties opslaan",
+        "description": "button in popup.html"
+    },
+    "whitelistCurrentDomain": {
+        "message": "Huidig domeen op witte lijst zetten",
+        "description": "button in popup.html"
+    },
+    "whitelistCurrentPage": {
+        "message": "Huidige pagina op witte lijst zetten",
+        "description": "button in popup.html"
+    },
+    "saveScreenshotSettings": {
+        "message": "Screenshot-instellingen opslaan",
+        "description": "button in popup.html"
+    },
+    "configureShortcuts": {
+        "message": "Sneltoetsen configureren",
+        "description": "button in popup.html"
+    },
+    "openDataManager": {
+        "message": "Gegevensbeheer openen",
+        "description": "button in popup.html"
+    },
+    "suspendInactiveTabsAfter": {
+        "message": "Pauzeer inactieve tabbladen na (minuten):",
+        "description": "label in popup.html"
+    },
+    "darkMode": {
+        "message": "Donkere modus",
+        "description": "label in popup.html"
+    },
+    "enableTabScreenshotsUses": {
+        "message": "Tabblad-screenshots inschakelen (gebruikt meer geheugen)",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsPlaying": {
+        "message": "Tabbladen met audio niet pauzeren",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsInput": {
+        "message": "Tabbladen met formuliervelden niet pauzeren",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsNotification": {
+        "message": "Tabbladen met meldingen niet pauzeren",
+        "description": "label in popup.html"
+    },
+    "dontSuspendPinnedTabs": {
+        "message": "Vastgezette tabbladen niet pauzeren",
+        "description": "label in popup.html"
+    },
+    "captureQuality5100": {
+        "message": "Opnamekwaliteit (5-100)",
+        "description": "label in popup.html"
+    },
+    "resizeWidthPx": {
+        "message": "Breedte wijzigen (px)",
+        "description": "label in popup.html"
+    },
+    "resizeHeightPx": {
+        "message": "Hoogte wijzigen (px)",
+        "description": "label in popup.html"
+    },
+    "resizeQuality0110": {
+        "message": "Kwaliteit wijzigen (0.1 - 1.0)",
+        "description": "label in popup.html"
+    },
+    "settingsSaved": {
+        "message": "Instellingen opgeslagen!",
+        "description": "notification in popup.html"
+    },
+    "tabSuspended": {
+        "message": "Tabblad gepauzeerd",
+        "description": "title in suspended.html"
+    },
+    "clickAnywhereToRestore": {
+        "message": "Klik waar dan ook om dit tabblad te herstellen",
+        "description": "paragraph in suspended.html"
+    },
+    "dataManagementTabSuspender": {
+        "message": "Gegevensbeheer - Tab-pauzeren",
+        "description": "title in data_management.html"
+    },
+    "exportSettings": {
+        "message": "Instellingen exporteren",
+        "description": "heading in data_management.html"
+    },
+    "importSettings": {
+        "message": "Instellingen importeren",
+        "description": "heading in data_management.html"
+    },
+    "exportDesc": {
+        "message": "Sla uw witte lijst en instellingen op in een JSON-bestand.",
+        "description": "paragraph in data_management.html"
+    },
+    "importDesc": {
+        "message": "Laad instellingen uit een JSON-bestand. Dit overschrijft uw huidige instellingen.",
+        "description": "paragraph in data_management.html"
+    },
+    "selectJsonFile": {
+        "message": "JSON-bestand selecteren",
+        "description": "label in data_management.html"
+    }
+}

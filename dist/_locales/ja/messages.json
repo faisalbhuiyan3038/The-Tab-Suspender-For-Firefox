@@ -1,0 +1,134 @@
+{
+  "extName": {
+    "message": "タブサスペンダー",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "メモリを節約するために非アクティブなタブを自動的に一時停止します",
+    "description": "Extension description"
+  },
+  "tabSuspender": {
+    "message": "タブサスペンダー",
+    "description": "heading in popup.html"
+  },
+  "keyboardShortcuts": {
+    "message": "キーボードショートカット",
+    "description": "heading in popup.html"
+  },
+  "dataManagement": {
+    "message": "データ管理",
+    "description": "heading in popup.html"
+  },
+  "configureScreenshotCaptureAnd": {
+    "message": "スクリーンショットのキャプチャとサイズ変更の設定を構成します。 画像が小さいほどメモリを節約できます。",
+    "description": "paragraph in popup.html"
+  },
+  "configureKeyboardShortcutsIn": {
+    "message": "Chrome の拡張機能設定でキーボード ショートカットを構成します。",
+    "description": "paragraph in popup.html"
+  },
+  "importOrExportYour": {
+    "message": "設定とホワイトリストをインポートまたはエクスポートします。",
+    "description": "paragraph in popup.html"
+  },
+  "saveOptions": {
+    "message": "保存オプション",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentDomain": {
+    "message": "現在のドメインをホワイトリストに登録する",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentPage": {
+    "message": "現在のページをホワイトリストに登録",
+    "description": "button in popup.html"
+  },
+  "saveScreenshotSettings": {
+    "message": "スクリーンショット設定の保存",
+    "description": "button in popup.html"
+  },
+  "configureShortcuts": {
+    "message": "ショートカットの設定",
+    "description": "button in popup.html"
+  },
+  "openDataManager": {
+    "message": "オープンデータマネージャー",
+    "description": "button in popup.html"
+  },
+  "suspendInactiveTabsAfter": {
+    "message": "(分) 後に非アクティブなタブを一時停止します:",
+    "description": "label in popup.html"
+  },
+  "darkMode": {
+    "message": "ダークモード",
+    "description": "label in popup.html"
+  },
+  "enableTabScreenshotsUses": {
+    "message": "タブのスクリーンショットを有効にする (より多くのメモリを使用します)",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsPlaying": {
+    "message": "オーディオを再生しているタブを一時停止しないでください",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsWith": {
+    "message": "フォーム入力時にタブを一時停止しないでください",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsWith1": {
+    "message": "通知のあるタブを一時停止しないでください",
+    "description": "label in popup.html"
+  },
+  "dontSuspendPinnedTabs": {
+    "message": "固定されたタブを一時停止しないでください",
+    "description": "label in popup.html"
+  },
+  "captureQuality5100": {
+    "message": "キャプチャ品質 (5-100)",
+    "description": "label in popup.html"
+  },
+  "resizeWidthPx": {
+    "message": "幅のサイズ変更 (px)",
+    "description": "label in popup.html"
+  },
+  "resizeHeightPx": {
+    "message": "高さのサイズ変更 (px)",
+    "description": "label in popup.html"
+  },
+  "resizeQuality0110": {
+    "message": "サイズ変更の品質 (0.1 - 1.0)",
+    "description": "label in popup.html"
+  },
+  "tabSuspended": {
+    "message": "タブが一時停止されました",
+    "description": "title in suspended.html"
+  },
+  "clickAnywhereToRestore": {
+    "message": "このタブを復元するには、任意の場所をクリックします",
+    "description": "paragraph in suspended.html"
+  },
+  "dataManagementTabSuspender": {
+    "message": "データ管理 - タブサスペンダー",
+    "description": "title in data_management.html"
+  },
+  "exportSettings": {
+    "message": "設定のエクスポート",
+    "description": "heading in data_management.html"
+  },
+  "importSettings": {
+    "message": "インポート設定",
+    "description": "heading in data_management.html"
+  },
+  "saveYourWhitelistAnd": {
+    "message": "ホワイトリストと設定を JSON ファイルに保存します。",
+    "description": "paragraph in data_management.html"
+  },
+  "loadSettingsFromA": {
+    "message": "JSON ファイルから設定を読み込みます。 これにより、現在の設定が上書きされます。",
+    "description": "paragraph in data_management.html"
+  },
+  "selectJsonFile": {
+    "message": "JSONファイルを選択",
+    "description": "label in data_management.html"
+  }
+}

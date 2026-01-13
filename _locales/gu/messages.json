@@ -1,0 +1,154 @@
+{
+    "extName": {
+        "message": "ટૅબ સસ્પેન્ડર",
+        "description": "Extension name"
+    },
+    "extDescription": {
+        "message": "મેમરી બચાવવા માટે નિષ્ક્રિય ટૅબ્સને આપમેળે સસ્પેન્ડ કરો",
+        "description": "Extension description"
+    },
+    "tabSuspender": {
+        "message": "ટૅબ સસ્પેન્ડર",
+        "description": "heading in popup.html"
+    },
+    "options": {
+        "message": "વિકલ્પો",
+        "description": "div in popup.html"
+    },
+    "whitelist": {
+        "message": "વ્હાઇટલિસ્ટ",
+        "description": "div in popup.html"
+    },
+    "screenshot": {
+        "message": "સ્ક્રીનશોટ",
+        "description": "div in popup.html"
+    },
+    "settings": {
+        "message": "સેટિંગ્સ",
+        "description": "div in popup.html"
+    },
+    "keyboardShortcuts": {
+        "message": "કીબોર્ડ શોર્ટકટ્સ",
+        "description": "heading in popup.html"
+    },
+    "dataManagement": {
+        "message": "ડેટા મેનેજમેન્ટ",
+        "description": "heading in popup.html"
+    },
+    "configureScreenshotCapture": {
+        "message": "સ્ક્રીનશોટ કેપ્ચર અને રીસાઇઝ સેટિંગ્સ કોન્ફિગર કરો. નાના ચિત્રો મેમરી બચાવે છે.",
+        "description": "paragraph in popup.html"
+    },
+    "configureKeyboardShortcuts": {
+        "message": "Chromeની એક્સટેન્શન સેટિંગ્સમાં કીબોર્ડ શોર્ટકટ્સ કોન્ફિગર કરો.",
+        "description": "paragraph in popup.html"
+    },
+    "importExportSettingsWhitelist": {
+        "message": "તમારી સેટિંગ્સ અને વ્હાઇટલિસ્ટ આયાત અથવા નિકાસ કરો.",
+        "description": "paragraph in popup.html"
+    },
+    "saveOptions": {
+        "message": "વિકલ્પો સાચવો",
+        "description": "button in popup.html"
+    },
+    "whitelistCurrentDomain": {
+        "message": "વર્તમાન ડોમેનને વ્હાઇટલિસ્ટ કરો",
+        "description": "button in popup.html"
+    },
+    "whitelistCurrentPage": {
+        "message": "વર્તમાન પેજને વ્હાઇટલિસ્ટ કરો",
+        "description": "button in popup.html"
+    },
+    "saveScreenshotSettings": {
+        "message": "સ્ક્રીનશોટ સેટિંગ્સ સાચવો",
+        "description": "button in popup.html"
+    },
+    "configureShortcuts": {
+        "message": "શોર્ટકટ્સ કોન્ફિગર કરો",
+        "description": "button in popup.html"
+    },
+    "openDataManager": {
+        "message": "ડેટા મેનેજર ખોલો",
+        "description": "button in popup.html"
+    },
+    "suspendInactiveTabsAfter": {
+        "message": "આટલી વાર પછી નિષ્ક્રિય ટૅબ્સ સસ્પેન્ડ કરો (મિનિટ):",
+        "description": "label in popup.html"
+    },
+    "darkMode": {
+        "message": "ડાર્ક મોડ",
+        "description": "label in popup.html"
+    },
+    "enableTabScreenshotsUses": {
+        "message": "ટૅબ સ્ક્રીનશોટ્સ સક્ષમ કરો (વધુ મેમરી વાપરે છે)",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsPlaying": {
+        "message": "ઓડિયો ચલાવતી ટૅબ્સને સસ્પેન્ડ કરશો નહીં",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsInput": {
+        "message": "ફોર્મ ઇનપુટ સાથે ટૅબ્સને સસ્પેન્ડ કરશો નહીં",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsNotification": {
+        "message": "નોટિફિકેશન સાથે ટૅબ્સને સસ્પેન્ડ કરશો નહીં",
+        "description": "label in popup.html"
+    },
+    "dontSuspendPinnedTabs": {
+        "message": "પિન કરેલી ટૅબ્સને સસ્પેન્ડ કરશો નહીં",
+        "description": "label in popup.html"
+    },
+    "captureQuality5100": {
+        "message": "કેપ્ચર ક્વોલિટી (5-100)",
+        "description": "label in popup.html"
+    },
+    "resizeWidthPx": {
+        "message": "પહોળાઈ બદલો (px)",
+        "description": "label in popup.html"
+    },
+    "resizeHeightPx": {
+        "message": "ઊંચાઈ બદલો (px)",
+        "description": "label in popup.html"
+    },
+    "resizeQuality0110": {
+        "message": "રીસાઇઝ ક્વોલિટી (0.1 - 1.0)",
+        "description": "label in popup.html"
+    },
+    "settingsSaved": {
+        "message": "સેટિંગ્સ સાચવવામાં આવી!",
+        "description": "notification in popup.html"
+    },
+    "tabSuspended": {
+        "message": "ટૅબ સસ્પેન્ડ થઈ ગઈ છે",
+        "description": "title in suspended.html"
+    },
+    "clickAnywhereToRestore": {
+        "message": "આ ટૅબને પાછી લાવવા માટે ક્યાંય ક્લિક કરો",
+        "description": "paragraph in suspended.html"
+    },
+    "dataManagementTabSuspender": {
+        "message": "ડેટા મેનેજમેન્ટ - ટૅબ સસ્પેન્ડર",
+        "description": "title in data_management.html"
+    },
+    "exportSettings": {
+        "message": "સેટિંગ્સ એક્સપોર્ટ કરો",
+        "description": "heading in data_management.html"
+    },
+    "importSettings": {
+        "message": "સેટિંગ્સ ઇમ્પોર્ટ કરો",
+        "description": "heading in data_management.html"
+    },
+    "exportDesc": {
+        "message": "તમારી વ્હાઇટલિસ્ટ અને સેટિંગ્સને JSON ફાઇલમાં સાચવો.",
+        "description": "paragraph in data_management.html"
+    },
+    "importDesc": {
+        "message": "JSON ફાઇલમાંથી સેટિંગ્સ લોડ કરો. આ તમારી વર્તમાન સેટિંગ્સને ઓવરરાઇડ કરશે.",
+        "description": "paragraph in data_management.html"
+    },
+    "selectJsonFile": {
+        "message": "JSON ફાઇલ પસંદ કરો",
+        "description": "label in data_management.html"
+    }
+}

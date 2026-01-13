@@ -1,0 +1,134 @@
+{
+  "extName": {
+    "message": "Tirante con pestaña",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Suspender automáticamente pestañas inactivas para ahorrar memoria",
+    "description": "Extension description"
+  },
+  "tabSuspender": {
+    "message": "Tirante con pestaña",
+    "description": "heading in popup.html"
+  },
+  "keyboardShortcuts": {
+    "message": "Atajos de teclado",
+    "description": "heading in popup.html"
+  },
+  "dataManagement": {
+    "message": "Gestión de datos",
+    "description": "heading in popup.html"
+  },
+  "configureScreenshotCaptureAnd": {
+    "message": "Configure la captura de pantalla y cambie el tamaño. Las imágenes más pequeñas ahorran memoria.",
+    "description": "paragraph in popup.html"
+  },
+  "configureKeyboardShortcutsIn": {
+    "message": "Configure atajos de teclado en la configuración de extensión de Chrome.",
+    "description": "paragraph in popup.html"
+  },
+  "importOrExportYour": {
+    "message": "Importe o exporte su configuración y lista blanca.",
+    "description": "paragraph in popup.html"
+  },
+  "saveOptions": {
+    "message": "Opciones de guardado",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentDomain": {
+    "message": "Dominio actual en la lista blanca",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentPage": {
+    "message": "Lista blanca de la página actual",
+    "description": "button in popup.html"
+  },
+  "saveScreenshotSettings": {
+    "message": "Guardar configuración de captura de pantalla",
+    "description": "button in popup.html"
+  },
+  "configureShortcuts": {
+    "message": "Configurar atajos",
+    "description": "button in popup.html"
+  },
+  "openDataManager": {
+    "message": "Administrador de datos abiertos",
+    "description": "button in popup.html"
+  },
+  "suspendInactiveTabsAfter": {
+    "message": "Suspender pestañas inactivas después de (minutos):",
+    "description": "label in popup.html"
+  },
+  "darkMode": {
+    "message": "Modo oscuro",
+    "description": "label in popup.html"
+  },
+  "enableTabScreenshotsUses": {
+    "message": "Habilitar capturas de pantalla de pestañas (usa más memoria)",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsPlaying": {
+    "message": "No suspender pestañas que reproducen audio",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsWith": {
+    "message": "No suspender pestañas con entrada de formulario",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsWith1": {
+    "message": "No suspender pestañas con notificaciones",
+    "description": "label in popup.html"
+  },
+  "dontSuspendPinnedTabs": {
+    "message": "No suspender pestañas fijadas",
+    "description": "label in popup.html"
+  },
+  "captureQuality5100": {
+    "message": "Calidad de captura (5-100)",
+    "description": "label in popup.html"
+  },
+  "resizeWidthPx": {
+    "message": "Cambiar tamaño de ancho (px)",
+    "description": "label in popup.html"
+  },
+  "resizeHeightPx": {
+    "message": "Cambiar tamaño de altura (px)",
+    "description": "label in popup.html"
+  },
+  "resizeQuality0110": {
+    "message": "Cambiar tamaño de calidad (0,1 - 1,0)",
+    "description": "label in popup.html"
+  },
+  "tabSuspended": {
+    "message": "Pestaña suspendida",
+    "description": "title in suspended.html"
+  },
+  "clickAnywhereToRestore": {
+    "message": "Haga clic en cualquier lugar para restaurar esta pestaña",
+    "description": "paragraph in suspended.html"
+  },
+  "dataManagementTabSuspender": {
+    "message": "Gestión de datos - Suspensor de pestañas",
+    "description": "title in data_management.html"
+  },
+  "exportSettings": {
+    "message": "Configuración de exportación",
+    "description": "heading in data_management.html"
+  },
+  "importSettings": {
+    "message": "Importar configuración",
+    "description": "heading in data_management.html"
+  },
+  "saveYourWhitelistAnd": {
+    "message": "Guarde su lista blanca y su configuración en un archivo JSON.",
+    "description": "paragraph in data_management.html"
+  },
+  "loadSettingsFromA": {
+    "message": "Cargue la configuración desde un archivo JSON. Esto sobrescribirá su configuración actual.",
+    "description": "paragraph in data_management.html"
+  },
+  "selectJsonFile": {
+    "message": "Seleccione el archivo JSON",
+    "description": "label in data_management.html"
+  }
+}

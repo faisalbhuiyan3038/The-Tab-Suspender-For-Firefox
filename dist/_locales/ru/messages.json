@@ -1,0 +1,134 @@
+{
+  "extName": {
+    "message": "Подвеска вкладок",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Автоматически приостанавливать неактивные вкладки для экономии памяти.",
+    "description": "Extension description"
+  },
+  "tabSuspender": {
+    "message": "Подвеска вкладок",
+    "description": "heading in popup.html"
+  },
+  "keyboardShortcuts": {
+    "message": "Сочетания клавиш",
+    "description": "heading in popup.html"
+  },
+  "dataManagement": {
+    "message": "Управление данными",
+    "description": "heading in popup.html"
+  },
+  "configureScreenshotCaptureAnd": {
+    "message": "Настройте параметры захвата снимков экрана и изменения размера. Изображения меньшего размера экономят память.",
+    "description": "paragraph in popup.html"
+  },
+  "configureKeyboardShortcutsIn": {
+    "message": "Настройте сочетания клавиш в настройках расширения Chrome.",
+    "description": "paragraph in popup.html"
+  },
+  "importOrExportYour": {
+    "message": "Импортируйте или экспортируйте свои настройки и белый список.",
+    "description": "paragraph in popup.html"
+  },
+  "saveOptions": {
+    "message": "Сохранить параметры",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentDomain": {
+    "message": "Белый список текущего домена",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentPage": {
+    "message": "Белый список текущей страницы",
+    "description": "button in popup.html"
+  },
+  "saveScreenshotSettings": {
+    "message": "Сохранить настройки скриншота",
+    "description": "button in popup.html"
+  },
+  "configureShortcuts": {
+    "message": "Настройка ярлыков",
+    "description": "button in popup.html"
+  },
+  "openDataManager": {
+    "message": "Менеджер открытых данных",
+    "description": "button in popup.html"
+  },
+  "suspendInactiveTabsAfter": {
+    "message": "Приостановить неактивные вкладки через (минут):",
+    "description": "label in popup.html"
+  },
+  "darkMode": {
+    "message": "Темный режим",
+    "description": "label in popup.html"
+  },
+  "enableTabScreenshotsUses": {
+    "message": "Включить снимки экрана вкладок (использует больше памяти)",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsPlaying": {
+    "message": "Не приостанавливать вкладки, воспроизводящие звук",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsWith": {
+    "message": "Не приостанавливать вкладки при вводе формы",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsWith1": {
+    "message": "Не приостанавливать вкладки с уведомлениями",
+    "description": "label in popup.html"
+  },
+  "dontSuspendPinnedTabs": {
+    "message": "Не приостанавливать закрепленные вкладки",
+    "description": "label in popup.html"
+  },
+  "captureQuality5100": {
+    "message": "Качество съемки (5-100)",
+    "description": "label in popup.html"
+  },
+  "resizeWidthPx": {
+    "message": "Изменение размера ширины (пикселей)",
+    "description": "label in popup.html"
+  },
+  "resizeHeightPx": {
+    "message": "Изменить размер высоты (пикселей)",
+    "description": "label in popup.html"
+  },
+  "resizeQuality0110": {
+    "message": "Изменение размера качества (0,1–1,0)",
+    "description": "label in popup.html"
+  },
+  "tabSuspended": {
+    "message": "Вкладка приостановлена",
+    "description": "title in suspended.html"
+  },
+  "clickAnywhereToRestore": {
+    "message": "Нажмите в любом месте, чтобы восстановить эту вкладку.",
+    "description": "paragraph in suspended.html"
+  },
+  "dataManagementTabSuspender": {
+    "message": "Управление данными — приостановка вкладок",
+    "description": "title in data_management.html"
+  },
+  "exportSettings": {
+    "message": "Экспорт настроек",
+    "description": "heading in data_management.html"
+  },
+  "importSettings": {
+    "message": "Импортировать настройки",
+    "description": "heading in data_management.html"
+  },
+  "saveYourWhitelistAnd": {
+    "message": "Сохраните белый список и настройки в файл JSON.",
+    "description": "paragraph in data_management.html"
+  },
+  "loadSettingsFromA": {
+    "message": "Загрузите настройки из файла JSON. Это перезапишет текущие настройки.",
+    "description": "paragraph in data_management.html"
+  },
+  "selectJsonFile": {
+    "message": "Выберите файл JSON",
+    "description": "label in data_management.html"
+  }
+}

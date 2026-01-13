@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Data Management - Tab Suspender</title>
+  <title data-i18n="dataManagementTabSuspender">Data Management - Tab Suspender</title>
   <!-- This is the same style block from popup.html for consistency -->
   <style>
     :root {
@@ -49,7 +50,7 @@
       transition: background-color 0.3s, color 0.3s;
       line-height: 1.5;
     }
-    
+
     .container {
       max-width: 500px;
       margin: 40px auto;
@@ -59,7 +60,7 @@
       border-radius: 8px;
       box-shadow: 0 4px 12px var(--shadow-color);
     }
-    
+
     h1 {
       font-size: 24px;
       font-weight: 600;
@@ -67,14 +68,14 @@
       padding-bottom: 16px;
       border-bottom: 1px solid var(--border-color);
     }
-    
+
     label {
       display: block;
       margin-bottom: 8px;
       font-weight: 500;
       font-size: 14px;
     }
-    
+
     .status {
       margin-top: 16px;
       color: #34C759;
@@ -84,13 +85,14 @@
       transition: opacity 0.3s;
       text-align: left;
     }
-    
+
     .status.visible {
       opacity: 1;
     }
-    
+
     /* This rule is copied from popup.html CSS */
-    button, .btn {
+    button,
+    .btn {
       background-color: var(--accent-color);
       color: white;
       border: none;
@@ -103,8 +105,9 @@
       display: inline-block;
       text-decoration: none;
     }
-    
-    button:hover, .btn:hover {
+
+    button:hover,
+    .btn:hover {
       background-color: var(--accent-hover);
     }
 
@@ -113,6 +116,7 @@
       padding-bottom: 16px;
       border-bottom: 1px solid var(--border-color);
     }
+
     .setting-item:last-child {
       border-bottom: none;
       padding-bottom: 0;
@@ -122,11 +126,13 @@
       display: flex;
       gap: 8px;
     }
+
     p.description {
       font-size: 14px;
       opacity: 0.8;
       margin: 4px 0 12px;
     }
+
     h4 {
       margin: 0 0 4px;
       font-size: 16px;
@@ -135,33 +141,37 @@
     }
   </style>
 </head>
+
 <body>
 
   <div class="container">
-    <h1>Data Management</h1>
-    
+    <h1 data-i18n="dataManagement">Data Management</h1>
+
     <div class="setting-item">
-      <h4>Export Settings</h4>
-      <p class="description">Save your whitelist and settings to a JSON file.</p>
+      <h4 data-i18n="exportSettings">Export Settings</h4>
+      <p class="description" data-i18n="exportDesc">Save your whitelist and settings to a JSON file.</p>
       <div class="button-group">
         <button id="exportSettingsBtn" class="btn">Export Settings</button>
       </div>
     </div>
 
     <div class="setting-item">
-      <h4>Import Settings</h4>
-      <p class="description">Load settings from a JSON file. This will overwrite your current settings.</p>
+      <h4 data-i18n="importSettings">Import Settings</h4>
+      <p class="description" data-i18n="importDesc">Load settings from a JSON file. This will overwrite your current
+        settings.</p>
       <div class="button-group">
-        <label for="importSettingsInput" class="btn">
+        <label data-i18n="selectJsonFile" for="importSettingsInput" class="btn">
           Select JSON File
         </label>
         <input type="file" id="importSettingsInput" accept="application/json" style="display: none;">
       </div>
     </div>
-    
+
     <div id="data-status" class="status"></div>
   </div>
-  
+
   <script src="data_management.js"></script>
+  <script src="i18n-loader.js"></script>
 </body>
+
 </html>

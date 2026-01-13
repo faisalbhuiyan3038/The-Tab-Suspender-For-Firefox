@@ -1,0 +1,134 @@
+{
+  "extName": {
+    "message": "標籤吊帶",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "自動暫停不活動的選項卡以節省內存",
+    "description": "Extension description"
+  },
+  "tabSuspender": {
+    "message": "標籤吊帶",
+    "description": "heading in popup.html"
+  },
+  "keyboardShortcuts": {
+    "message": "鍵盤快捷鍵",
+    "description": "heading in popup.html"
+  },
+  "dataManagement": {
+    "message": "數據管理",
+    "description": "heading in popup.html"
+  },
+  "configureScreenshotCaptureAnd": {
+    "message": "配置屏幕截圖捕獲和調整大小設置。 較小的圖像可以節省內存。",
+    "description": "paragraph in popup.html"
+  },
+  "configureKeyboardShortcutsIn": {
+    "message": "在 Chrome 的擴展程序設置中配置鍵盤快捷鍵。",
+    "description": "paragraph in popup.html"
+  },
+  "importOrExportYour": {
+    "message": "導入或導出您的設置和白名單。",
+    "description": "paragraph in popup.html"
+  },
+  "saveOptions": {
+    "message": "保存選項",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentDomain": {
+    "message": "白名單當前域",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentPage": {
+    "message": "白名單當前頁面",
+    "description": "button in popup.html"
+  },
+  "saveScreenshotSettings": {
+    "message": "保存屏幕截圖設置",
+    "description": "button in popup.html"
+  },
+  "configureShortcuts": {
+    "message": "配置快捷方式",
+    "description": "button in popup.html"
+  },
+  "openDataManager": {
+    "message": "開放數據管理器",
+    "description": "button in popup.html"
+  },
+  "suspendInactiveTabsAfter": {
+    "message": "在（分鐘）後暫停非活動選項卡：",
+    "description": "label in popup.html"
+  },
+  "darkMode": {
+    "message": "深色模式",
+    "description": "label in popup.html"
+  },
+  "enableTabScreenshotsUses": {
+    "message": "啟用選項卡屏幕截圖（使用更多內存）",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsPlaying": {
+    "message": "不要暫停標籤頁播放音頻",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsWith": {
+    "message": "不要暫停帶有表單輸入的選項卡",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsWith1": {
+    "message": "不要暫停帶有通知的標籤",
+    "description": "label in popup.html"
+  },
+  "dontSuspendPinnedTabs": {
+    "message": "不要暫停固定標籤",
+    "description": "label in popup.html"
+  },
+  "captureQuality5100": {
+    "message": "捕獲質量 (5-100)",
+    "description": "label in popup.html"
+  },
+  "resizeWidthPx": {
+    "message": "調整寬度（像素）",
+    "description": "label in popup.html"
+  },
+  "resizeHeightPx": {
+    "message": "調整高度 (px)",
+    "description": "label in popup.html"
+  },
+  "resizeQuality0110": {
+    "message": "調整質量大小（0.1 - 1.0）",
+    "description": "label in popup.html"
+  },
+  "tabSuspended": {
+    "message": "標籤暫停",
+    "description": "title in suspended.html"
+  },
+  "clickAnywhereToRestore": {
+    "message": "單擊任意位置即可恢復此選項卡",
+    "description": "paragraph in suspended.html"
+  },
+  "dataManagementTabSuspender": {
+    "message": "數據管理 - 標籤懸掛器",
+    "description": "title in data_management.html"
+  },
+  "exportSettings": {
+    "message": "導出設置",
+    "description": "heading in data_management.html"
+  },
+  "importSettings": {
+    "message": "導入設置",
+    "description": "heading in data_management.html"
+  },
+  "saveYourWhitelistAnd": {
+    "message": "將白名單和設置保存到 JSON 文件。",
+    "description": "paragraph in data_management.html"
+  },
+  "loadSettingsFromA": {
+    "message": "從 JSON 文件加載設置。 這將覆蓋您當前的設置。",
+    "description": "paragraph in data_management.html"
+  },
+  "selectJsonFile": {
+    "message": "選擇 JSON 文件",
+    "description": "label in data_management.html"
+  }
+}

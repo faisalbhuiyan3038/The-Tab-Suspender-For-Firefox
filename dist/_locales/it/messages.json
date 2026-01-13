@@ -1,0 +1,134 @@
+{
+  "extName": {
+    "message": "Bretella con linguetta",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Sospende automaticamente le schede inattive per risparmiare memoria",
+    "description": "Extension description"
+  },
+  "tabSuspender": {
+    "message": "Bretella con linguetta",
+    "description": "heading in popup.html"
+  },
+  "keyboardShortcuts": {
+    "message": "Scorciatoie da tastiera",
+    "description": "heading in popup.html"
+  },
+  "dataManagement": {
+    "message": "Gestione dei dati",
+    "description": "heading in popup.html"
+  },
+  "configureScreenshotCaptureAnd": {
+    "message": "Configura le impostazioni di acquisizione e ridimensionamento degli screenshot. Le immagini più piccole risparmiano memoria.",
+    "description": "paragraph in popup.html"
+  },
+  "configureKeyboardShortcutsIn": {
+    "message": "Configura le scorciatoie da tastiera nelle impostazioni dell'estensione di Chrome.",
+    "description": "paragraph in popup.html"
+  },
+  "importOrExportYour": {
+    "message": "Importa o esporta le tue impostazioni e la tua whitelist.",
+    "description": "paragraph in popup.html"
+  },
+  "saveOptions": {
+    "message": "Salva opzioni",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentDomain": {
+    "message": "Autorizza il dominio corrente",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentPage": {
+    "message": "Pagina corrente nella whitelist",
+    "description": "button in popup.html"
+  },
+  "saveScreenshotSettings": {
+    "message": "Salva le impostazioni dello screenshot",
+    "description": "button in popup.html"
+  },
+  "configureShortcuts": {
+    "message": "Configura le scorciatoie",
+    "description": "button in popup.html"
+  },
+  "openDataManager": {
+    "message": "Apri Gestione dati",
+    "description": "button in popup.html"
+  },
+  "suspendInactiveTabsAfter": {
+    "message": "Sospendi le schede inattive dopo (minuti):",
+    "description": "label in popup.html"
+  },
+  "darkMode": {
+    "message": "Modalità oscura",
+    "description": "label in popup.html"
+  },
+  "enableTabScreenshotsUses": {
+    "message": "Abilita screenshot delle schede (utilizza più memoria)",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsPlaying": {
+    "message": "Non sospendere la riproduzione dell'audio nelle schede",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsWith": {
+    "message": "Non sospendere le schede con l'input del modulo",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsWith1": {
+    "message": "Non sospendere le schede con le notifiche",
+    "description": "label in popup.html"
+  },
+  "dontSuspendPinnedTabs": {
+    "message": "Non sospendere le schede appuntate",
+    "description": "label in popup.html"
+  },
+  "captureQuality5100": {
+    "message": "Qualità di acquisizione (5-100)",
+    "description": "label in popup.html"
+  },
+  "resizeWidthPx": {
+    "message": "Ridimensiona larghezza (px)",
+    "description": "label in popup.html"
+  },
+  "resizeHeightPx": {
+    "message": "Ridimensiona altezza (px)",
+    "description": "label in popup.html"
+  },
+  "resizeQuality0110": {
+    "message": "Qualità ridimensionamento (0,1 - 1,0)",
+    "description": "label in popup.html"
+  },
+  "tabSuspended": {
+    "message": "Scheda sospesa",
+    "description": "title in suspended.html"
+  },
+  "clickAnywhereToRestore": {
+    "message": "Fare clic in un punto qualsiasi per ripristinare questa scheda",
+    "description": "paragraph in suspended.html"
+  },
+  "dataManagementTabSuspender": {
+    "message": "Gestione dei dati - Bretella con linguetta",
+    "description": "title in data_management.html"
+  },
+  "exportSettings": {
+    "message": "Export Settings",
+    "description": "heading in data_management.html"
+  },
+  "importSettings": {
+    "message": "Importa impostazioni",
+    "description": "heading in data_management.html"
+  },
+  "saveYourWhitelistAnd": {
+    "message": "Salva la whitelist e le impostazioni in un file JSON.",
+    "description": "paragraph in data_management.html"
+  },
+  "loadSettingsFromA": {
+    "message": "Carica le impostazioni da un file JSON. Ciò sovrascriverà le tue impostazioni attuali.",
+    "description": "paragraph in data_management.html"
+  },
+  "selectJsonFile": {
+    "message": "Seleziona File JSON",
+    "description": "label in data_management.html"
+  }
+}

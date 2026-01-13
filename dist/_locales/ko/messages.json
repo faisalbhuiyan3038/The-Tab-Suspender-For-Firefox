@@ -1,0 +1,134 @@
+{
+  "extName": {
+    "message": "탭 서스펜더",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "비활성 탭을 자동으로 일시 중지하여 메모리 절약",
+    "description": "Extension description"
+  },
+  "tabSuspender": {
+    "message": "탭 서스펜더",
+    "description": "heading in popup.html"
+  },
+  "keyboardShortcuts": {
+    "message": "키보드 단축키",
+    "description": "heading in popup.html"
+  },
+  "dataManagement": {
+    "message": "데이터 관리",
+    "description": "heading in popup.html"
+  },
+  "configureScreenshotCaptureAnd": {
+    "message": "스크린샷 캡처 및 크기 조정 설정을 구성합니다. 이미지가 작을수록 메모리가 절약됩니다.",
+    "description": "paragraph in popup.html"
+  },
+  "configureKeyboardShortcutsIn": {
+    "message": "Chrome 확장 프로그램 설정에서 키보드 단축키를 구성하세요.",
+    "description": "paragraph in popup.html"
+  },
+  "importOrExportYour": {
+    "message": "설정 및 화이트리스트를 가져오거나 내보냅니다.",
+    "description": "paragraph in popup.html"
+  },
+  "saveOptions": {
+    "message": "저장 옵션",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentDomain": {
+    "message": "현재 도메인을 허용 목록에 추가",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentPage": {
+    "message": "화이트리스트 현재 페이지",
+    "description": "button in popup.html"
+  },
+  "saveScreenshotSettings": {
+    "message": "스크린샷 설정 저장",
+    "description": "button in popup.html"
+  },
+  "configureShortcuts": {
+    "message": "바로가기 구성",
+    "description": "button in popup.html"
+  },
+  "openDataManager": {
+    "message": "데이터 관리자 열기",
+    "description": "button in popup.html"
+  },
+  "suspendInactiveTabsAfter": {
+    "message": "다음 시간 이후 비활성 탭 일시중지(분):",
+    "description": "label in popup.html"
+  },
+  "darkMode": {
+    "message": "다크 모드",
+    "description": "label in popup.html"
+  },
+  "enableTabScreenshotsUses": {
+    "message": "탭 스크린샷 활성화(더 많은 메모리 사용)",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsPlaying": {
+    "message": "오디오 재생 탭을 일시 중지하지 마십시오",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsWith": {
+    "message": "양식 입력이 있는 탭을 일시 중지하지 마세요.",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsWith1": {
+    "message": "알림이 있는 탭을 일시 중지하지 마세요",
+    "description": "label in popup.html"
+  },
+  "dontSuspendPinnedTabs": {
+    "message": "고정된 탭을 일시 중단하지 마세요.",
+    "description": "label in popup.html"
+  },
+  "captureQuality5100": {
+    "message": "캡처 품질(5-100)",
+    "description": "label in popup.html"
+  },
+  "resizeWidthPx": {
+    "message": "너비 조정(px)",
+    "description": "label in popup.html"
+  },
+  "resizeHeightPx": {
+    "message": "높이 조정(px)",
+    "description": "label in popup.html"
+  },
+  "resizeQuality0110": {
+    "message": "크기 조정 품질(0.1 - 1.0)",
+    "description": "label in popup.html"
+  },
+  "tabSuspended": {
+    "message": "탭이 정지됨",
+    "description": "title in suspended.html"
+  },
+  "clickAnywhereToRestore": {
+    "message": "이 탭을 복원하려면 아무 곳이나 클릭하세요.",
+    "description": "paragraph in suspended.html"
+  },
+  "dataManagementTabSuspender": {
+    "message": "데이터 관리 - 탭 서스펜더",
+    "description": "title in data_management.html"
+  },
+  "exportSettings": {
+    "message": "내보내기 설정",
+    "description": "heading in data_management.html"
+  },
+  "importSettings": {
+    "message": "가져오기 설정",
+    "description": "heading in data_management.html"
+  },
+  "saveYourWhitelistAnd": {
+    "message": "화이트리스트와 설정을 JSON 파일에 저장하세요.",
+    "description": "paragraph in data_management.html"
+  },
+  "loadSettingsFromA": {
+    "message": "JSON 파일에서 설정을 로드합니다. 현재 설정을 덮어쓰게 됩니다.",
+    "description": "paragraph in data_management.html"
+  },
+  "selectJsonFile": {
+    "message": "JSON 파일 선택",
+    "description": "label in data_management.html"
+  }
+}

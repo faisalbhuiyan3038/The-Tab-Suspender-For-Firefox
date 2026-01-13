@@ -1,0 +1,154 @@
+{
+    "extName": {
+        "message": "Tab Suspender",
+        "description": "Extension name"
+    },
+    "extDescription": {
+        "message": "Suspender automatisk inaktive faner for å spare minne",
+        "description": "Extension description"
+    },
+    "tabSuspender": {
+        "message": "Tab Suspender",
+        "description": "heading in popup.html"
+    },
+    "options": {
+        "message": "Alternativer",
+        "description": "div in popup.html"
+    },
+    "whitelist": {
+        "message": "Hvitliste",
+        "description": "div in popup.html"
+    },
+    "screenshot": {
+        "message": "Skjermbilde",
+        "description": "div in popup.html"
+    },
+    "settings": {
+        "message": "Innstillinger",
+        "description": "div in popup.html"
+    },
+    "keyboardShortcuts": {
+        "message": "Tastatursnarveier",
+        "description": "heading in popup.html"
+    },
+    "dataManagement": {
+        "message": "Datahåndtering",
+        "description": "heading in popup.html"
+    },
+    "configureScreenshotCapture": {
+        "message": "Konfigurer opptak og endring av størrelse på skjermbilder. Mindre bilder sparer minne.",
+        "description": "paragraph in popup.html"
+    },
+    "configureKeyboardShortcuts": {
+        "message": "Konfigurer tastatursnarveier i Chrome-utvidelsesinnstillingene.",
+        "description": "paragraph in popup.html"
+    },
+    "importExportSettingsWhitelist": {
+        "message": "Importer eller eksporter innstillingene dine og hvitlisten.",
+        "description": "paragraph in popup.html"
+    },
+    "saveOptions": {
+        "message": "Lagre alternativer",
+        "description": "button in popup.html"
+    },
+    "whitelistCurrentDomain": {
+        "message": "Hvitliste gjeldende domene",
+        "description": "button in popup.html"
+    },
+    "whitelistCurrentPage": {
+        "message": "Hvitliste gjeldende side",
+        "description": "button in popup.html"
+    },
+    "saveScreenshotSettings": {
+        "message": "Lagre innstillinger for skjermbilde",
+        "description": "button in popup.html"
+    },
+    "configureShortcuts": {
+        "message": "Konfigurer snarveier",
+        "description": "button in popup.html"
+    },
+    "openDataManager": {
+        "message": "Åpne datahåndterer",
+        "description": "button in popup.html"
+    },
+    "suspendInactiveTabsAfter": {
+        "message": "Suspender inaktive faner etter (minutter):",
+        "description": "label in popup.html"
+    },
+    "darkMode": {
+        "message": "Mørk modus",
+        "description": "label in popup.html"
+    },
+    "enableTabScreenshotsUses": {
+        "message": "Aktiver faneskjermbilder (bruker mer minne)",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsPlaying": {
+        "message": "Ikke suspender faner som spiller av lyd",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsInput": {
+        "message": "Ikke suspender faner med skjemainndata",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsNotification": {
+        "message": "Ikke suspender faner med varsler",
+        "description": "label in popup.html"
+    },
+    "dontSuspendPinnedTabs": {
+        "message": "Ikke suspender festede faner",
+        "description": "label in popup.html"
+    },
+    "captureQuality5100": {
+        "message": "Opptakskvalitet (5-100)",
+        "description": "label in popup.html"
+    },
+    "resizeWidthPx": {
+        "message": "Endre bredde (px)",
+        "description": "label in popup.html"
+    },
+    "resizeHeightPx": {
+        "message": "Endre høyde (px)",
+        "description": "label in popup.html"
+    },
+    "resizeQuality0110": {
+        "message": "Kvalitet på størrelsesendring (0.1 - 1.0)",
+        "description": "label in popup.html"
+    },
+    "settingsSaved": {
+        "message": "Innstillinger lagret!",
+        "description": "notification in popup.html"
+    },
+    "tabSuspended": {
+        "message": "Fanen er suspendert",
+        "description": "title in suspended.html"
+    },
+    "clickAnywhereToRestore": {
+        "message": "Klikk hvor som helst for å gjenopprette denne fanen",
+        "description": "paragraph in suspended.html"
+    },
+    "dataManagementTabSuspender": {
+        "message": "Datahåndtering - Tabbe-suspender",
+        "description": "title in data_management.html"
+    },
+    "exportSettings": {
+        "message": "Eksporter innstillinger",
+        "description": "heading in data_management.html"
+    },
+    "importSettings": {
+        "message": "Importer innstillinger",
+        "description": "heading in data_management.html"
+    },
+    "exportDesc": {
+        "message": "Lagre hvitlisten og innstillingene dine i en JSON-fil.",
+        "description": "paragraph in data_management.html"
+    },
+    "importDesc": {
+        "message": "Last inn innstillinger fra en JSON-fil. Dette vil overskrive dine nåværende innstillinger.",
+        "description": "paragraph in data_management.html"
+    },
+    "selectJsonFile": {
+        "message": "Velg JSON-fil",
+        "description": "label in data_management.html"
+    }
+}

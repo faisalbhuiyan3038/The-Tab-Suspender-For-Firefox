@@ -1,8 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "The Tab Suspender",
+  "name": "__MSG_extName__",
   "version": "1.7",
-  "description": "Suspends inactive tabs after a set time by replacing them with a custom suspended page.",
+  "description": "__MSG_extDescription__",
+  "default_locale": "en",
   "icons": {
     "16": "icons/icon16.png",
     "32": "icons/icon32.png",

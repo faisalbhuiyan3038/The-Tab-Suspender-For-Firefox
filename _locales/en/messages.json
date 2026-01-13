@@ -1,0 +1,154 @@
+{
+  "extName": {
+    "message": "Tab Suspender",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Automatically suspend inactive tabs to save memory",
+    "description": "Extension description"
+  },
+  "tabSuspender": {
+    "message": "Tab Suspender",
+    "description": "heading in popup.html"
+  },
+  "options": {
+    "message": "Options",
+    "description": "div in popup.html"
+  },
+  "whitelist": {
+    "message": "Whitelist",
+    "description": "div in popup.html"
+  },
+  "screenshot": {
+    "message": "Screenshot",
+    "description": "div in popup.html"
+  },
+  "settings": {
+    "message": "Settings",
+    "description": "div in popup.html"
+  },
+  "keyboardShortcuts": {
+    "message": "Keyboard Shortcuts",
+    "description": "heading in popup.html"
+  },
+  "dataManagement": {
+    "message": "Data Management",
+    "description": "heading in popup.html"
+  },
+  "configureScreenshotCapture": {
+    "message": "Configure screenshot capture and resize settings. Smaller images save memory.",
+    "description": "paragraph in popup.html"
+  },
+  "configureKeyboardShortcuts": {
+    "message": "Configure keyboard shortcuts in Chrome's extension settings.",
+    "description": "paragraph in popup.html"
+  },
+  "importExportSettingsWhitelist": {
+    "message": "Import or export your settings and whitelist.",
+    "description": "paragraph in popup.html"
+  },
+  "saveOptions": {
+    "message": "Save Options",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentDomain": {
+    "message": "Whitelist Current Domain",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentPage": {
+    "message": "Whitelist Current Page",
+    "description": "button in popup.html"
+  },
+  "saveScreenshotSettings": {
+    "message": "Save Screenshot Settings",
+    "description": "button in popup.html"
+  },
+  "configureShortcuts": {
+    "message": "Configure Shortcuts",
+    "description": "button in popup.html"
+  },
+  "openDataManager": {
+    "message": "Open Data Manager",
+    "description": "button in popup.html"
+  },
+  "suspendInactiveTabsAfter": {
+    "message": "Suspend inactive tabs after (minutes):",
+    "description": "label in popup.html"
+  },
+  "darkMode": {
+    "message": "Dark Mode",
+    "description": "label in popup.html"
+  },
+  "enableTabScreenshotsUses": {
+    "message": "Enable tab screenshots (uses more memory)",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsPlaying": {
+    "message": "Don't suspend tabs playing audio",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsInput": {
+    "message": "Don't suspend tabs with form input",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsNotification": {
+    "message": "Don't suspend tabs with notifications",
+    "description": "label in popup.html"
+  },
+  "dontSuspendPinnedTabs": {
+    "message": "Don't suspend pinned tabs",
+    "description": "label in popup.html"
+  },
+  "captureQuality5100": {
+    "message": "Capture Quality (5-100)",
+    "description": "label in popup.html"
+  },
+  "resizeWidthPx": {
+    "message": "Resize Width (px)",
+    "description": "label in popup.html"
+  },
+  "resizeHeightPx": {
+    "message": "Resize Height (px)",
+    "description": "label in popup.html"
+  },
+  "resizeQuality0110": {
+    "message": "Resize Quality (0.1 - 1.0)",
+    "description": "label in popup.html"
+  },
+  "settingsSaved": {
+    "message": "Settings saved!",
+    "description": "notification in popup.html"
+  },
+  "tabSuspended": {
+    "message": "Tab Suspended",
+    "description": "title in suspended.html"
+  },
+  "clickAnywhereToRestore": {
+    "message": "Click anywhere to restore this tab",
+    "description": "paragraph in suspended.html"
+  },
+  "dataManagementTabSuspender": {
+    "message": "Data Management - Tab Suspender",
+    "description": "title in data_management.html"
+  },
+  "exportSettings": {
+    "message": "Export Settings",
+    "description": "heading in data_management.html"
+  },
+  "importSettings": {
+    "message": "Import Settings",
+    "description": "heading in data_management.html"
+  },
+  "exportDesc": {
+    "message": "Save your whitelist and settings to a JSON file.",
+    "description": "paragraph in data_management.html"
+  },
+  "importDesc": {
+    "message": "Load settings from a JSON file. This will overwrite your current settings.",
+    "description": "paragraph in data_management.html"
+  },
+  "selectJsonFile": {
+    "message": "Select JSON File",
+    "description": "label in data_management.html"
+  }
+}

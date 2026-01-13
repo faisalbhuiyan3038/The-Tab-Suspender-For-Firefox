@@ -1,0 +1,134 @@
+{
+  "extName": {
+    "message": "टैब सस्पेंडर",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "मेमोरी बचाने के लिए निष्क्रिय टैब को स्वचालित रूप से निलंबित करें",
+    "description": "Extension description"
+  },
+  "tabSuspender": {
+    "message": "टैब सस्पेंडर",
+    "description": "heading in popup.html"
+  },
+  "keyboardShortcuts": {
+    "message": "कुंजीपटल अल्प मार्ग",
+    "description": "heading in popup.html"
+  },
+  "dataManagement": {
+    "message": "डेटा प्रबंधन",
+    "description": "heading in popup.html"
+  },
+  "configureScreenshotCaptureAnd": {
+    "message": "स्क्रीनशॉट कैप्चर कॉन्फ़िगर करें और सेटिंग्स का आकार बदलें। छोटी छवियाँ स्मृति बचाती हैं।",
+    "description": "paragraph in popup.html"
+  },
+  "configureKeyboardShortcutsIn": {
+    "message": "Chrome की एक्सटेंशन सेटिंग में कीबोर्ड शॉर्टकट कॉन्फ़िगर करें.",
+    "description": "paragraph in popup.html"
+  },
+  "importOrExportYour": {
+    "message": "अपनी सेटिंग्स और श्वेतसूची आयात या निर्यात करें।",
+    "description": "paragraph in popup.html"
+  },
+  "saveOptions": {
+    "message": "विकल्प सहेजें",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentDomain": {
+    "message": "श्वेतसूची वर्तमान डोमेन",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentPage": {
+    "message": "श्वेतसूची वर्तमान पृष्ठ",
+    "description": "button in popup.html"
+  },
+  "saveScreenshotSettings": {
+    "message": "स्क्रीनशॉट सेटिंग्स सहेजें",
+    "description": "button in popup.html"
+  },
+  "configureShortcuts": {
+    "message": "शॉर्टकट कॉन्फ़िगर करें",
+    "description": "button in popup.html"
+  },
+  "openDataManager": {
+    "message": "डेटा मैनेजर खोलें",
+    "description": "button in popup.html"
+  },
+  "suspendInactiveTabsAfter": {
+    "message": "(मिनट) के बाद निष्क्रिय टैब निलंबित करें:",
+    "description": "label in popup.html"
+  },
+  "darkMode": {
+    "message": "डार्क मोड",
+    "description": "label in popup.html"
+  },
+  "enableTabScreenshotsUses": {
+    "message": "टैब स्क्रीनशॉट सक्षम करें (अधिक मेमोरी का उपयोग करता है)",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsPlaying": {
+    "message": "ऑडियो चलाने वाले टैब को निलंबित न करें",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsWith": {
+    "message": "प्रपत्र इनपुट वाले टैब को निलंबित न करें",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsWith1": {
+    "message": "सूचनाओं वाले टैब निलंबित न करें",
+    "description": "label in popup.html"
+  },
+  "dontSuspendPinnedTabs": {
+    "message": "पिन किए गए टैब को निलंबित न करें",
+    "description": "label in popup.html"
+  },
+  "captureQuality5100": {
+    "message": "कैप्चर गुणवत्ता (5-100)",
+    "description": "label in popup.html"
+  },
+  "resizeWidthPx": {
+    "message": "चौड़ाई का आकार बदलें (px)",
+    "description": "label in popup.html"
+  },
+  "resizeHeightPx": {
+    "message": "ऊंचाई का आकार बदलें (px)",
+    "description": "label in popup.html"
+  },
+  "resizeQuality0110": {
+    "message": "गुणवत्ता का आकार बदलें (0.1 - 1.0)",
+    "description": "label in popup.html"
+  },
+  "tabSuspended": {
+    "message": "टैब निलंबित",
+    "description": "title in suspended.html"
+  },
+  "clickAnywhereToRestore": {
+    "message": "इस टैब को पुनर्स्थापित करने के लिए कहीं भी क्लिक करें",
+    "description": "paragraph in suspended.html"
+  },
+  "dataManagementTabSuspender": {
+    "message": "डेटा प्रबंधन - टैब सस्पेंडर",
+    "description": "title in data_management.html"
+  },
+  "exportSettings": {
+    "message": "निर्यात सेटिंग्स",
+    "description": "heading in data_management.html"
+  },
+  "importSettings": {
+    "message": "सेटिंग आयात करना",
+    "description": "heading in data_management.html"
+  },
+  "saveYourWhitelistAnd": {
+    "message": "अपनी श्वेतसूची और सेटिंग्स को JSON फ़ाइल में सहेजें।",
+    "description": "paragraph in data_management.html"
+  },
+  "loadSettingsFromA": {
+    "message": "JSON फ़ाइल से सेटिंग लोड करें. यह आपकी वर्तमान सेटिंग्स को अधिलेखित कर देगा.",
+    "description": "paragraph in data_management.html"
+  },
+  "selectJsonFile": {
+    "message": "JSON फ़ाइल चुनें",
+    "description": "label in data_management.html"
+  }
+}

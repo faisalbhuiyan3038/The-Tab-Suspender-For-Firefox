@@ -1,0 +1,154 @@
+{
+    "extName": {
+        "message": "Pauziranje kartica",
+        "description": "Extension name"
+    },
+    "extDescription": {
+        "message": "Automatski pauziraj neaktivne kartice kako bi uštedio memoriju",
+        "description": "Extension description"
+    },
+    "tabSuspender": {
+        "message": "Pauziranje kartica",
+        "description": "heading in popup.html"
+    },
+    "options": {
+        "message": "Opcije",
+        "description": "div in popup.html"
+    },
+    "whitelist": {
+        "message": "Bijela lista",
+        "description": "div in popup.html"
+    },
+    "screenshot": {
+        "message": "Slika zaslona",
+        "description": "div in popup.html"
+    },
+    "settings": {
+        "message": "Postavke",
+        "description": "div in popup.html"
+    },
+    "keyboardShortcuts": {
+        "message": "Prečaci na tipkovnici",
+        "description": "heading in popup.html"
+    },
+    "dataManagement": {
+        "message": "Upravljanje podacima",
+        "description": "heading in popup.html"
+    },
+    "configureScreenshotCapture": {
+        "message": "Konfigurirajte snimanje i promjenu veličine slika zaslona. Manje slike štede memoriju.",
+        "description": "paragraph in popup.html"
+    },
+    "configureKeyboardShortcuts": {
+        "message": "Konfigurirajte prečace na tipkovnici u postavkama proširenja za Chrome.",
+        "description": "paragraph in popup.html"
+    },
+    "importExportSettingsWhitelist": {
+        "message": "Uvezite ili izvezite svoje postavke i bijelu listu.",
+        "description": "paragraph in popup.html"
+    },
+    "saveOptions": {
+        "message": "Spremi opcije",
+        "description": "button in popup.html"
+    },
+    "whitelistCurrentDomain": {
+        "message": "Dodaj trenutnu domenu na bijelu listu",
+        "description": "button in popup.html"
+    },
+    "whitelistCurrentPage": {
+        "message": "Dodaj trenutnu stranicu na bijelu listu",
+        "description": "button in popup.html"
+    },
+    "saveScreenshotSettings": {
+        "message": "Spremi postavke slike zaslona",
+        "description": "button in popup.html"
+    },
+    "configureShortcuts": {
+        "message": "Konfiguriraj prečace",
+        "description": "button in popup.html"
+    },
+    "openDataManager": {
+        "message": "Otvori upravitelja podataka",
+        "description": "button in popup.html"
+    },
+    "suspendInactiveTabsAfter": {
+        "message": "Pauziraj neaktivne kartice nakon (minuta):",
+        "description": "label in popup.html"
+    },
+    "darkMode": {
+        "message": "Tamni način rada",
+        "description": "label in popup.html"
+    },
+    "enableTabScreenshotsUses": {
+        "message": "Omogući slike kartica (koristi više memorije)",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsPlaying": {
+        "message": "Ne pauziraj kartice koje reproduciraju zvuk",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsInput": {
+        "message": "Ne pauziraj kartice s unosom obrasca",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsNotification": {
+        "message": "Ne pauziraj kartice s obavijestima",
+        "description": "label in popup.html"
+    },
+    "dontSuspendPinnedTabs": {
+        "message": "Ne pauziraj prikovane kartice",
+        "description": "label in popup.html"
+    },
+    "captureQuality5100": {
+        "message": "Kvaliteta snimanja (5-100)",
+        "description": "label in popup.html"
+    },
+    "resizeWidthPx": {
+        "message": "Promijeni širinu (px)",
+        "description": "label in popup.html"
+    },
+    "resizeHeightPx": {
+        "message": "Promijeni visinu (px)",
+        "description": "label in popup.html"
+    },
+    "resizeQuality0110": {
+        "message": "Kvaliteta promjene veličine (0.1 - 1.0)",
+        "description": "label in popup.html"
+    },
+    "settingsSaved": {
+        "message": "Postavke spremljene!",
+        "description": "notification in popup.html"
+    },
+    "tabSuspended": {
+        "message": "Kartica je pauzirana",
+        "description": "title in suspended.html"
+    },
+    "clickAnywhereToRestore": {
+        "message": "Kliknite bilo gdje za vraćanje ove kartice",
+        "description": "paragraph in suspended.html"
+    },
+    "dataManagementTabSuspender": {
+        "message": "Upravljanje podacima - Pauziranje kartica",
+        "description": "title in data_management.html"
+    },
+    "exportSettings": {
+        "message": "Izvezi postavke",
+        "description": "heading in data_management.html"
+    },
+    "importSettings": {
+        "message": "Uvezi postavke",
+        "description": "heading in data_management.html"
+    },
+    "exportDesc": {
+        "message": "Spremite svoju bijelu listu i postavke u JSON datoteku.",
+        "description": "paragraph in data_management.html"
+    },
+    "importDesc": {
+        "message": "Učitajte postavke iz JSON datoteke. Time će se prepisati vaše trenutne postavke.",
+        "description": "paragraph in data_management.html"
+    },
+    "selectJsonFile": {
+        "message": "Odaberi JSON datoteku",
+        "description": "label in data_management.html"
+    }
+}
