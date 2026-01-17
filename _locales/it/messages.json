@@ -1,0 +1,154 @@
+{
+  "extName": {
+    "message": "Sospensione Schede",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Sospendi automaticamente le schede inattive per risparmiare memoria",
+    "description": "Extension description"
+  },
+  "tabSuspender": {
+    "message": "Sospensione Schede",
+    "description": "heading in popup.html"
+  },
+  "options": {
+    "message": "Opzioni",
+    "description": "div in popup.html"
+  },
+  "whitelist": {
+    "message": "Whitelist",
+    "description": "div in popup.html"
+  },
+  "screenshot": {
+    "message": "Screenshot",
+    "description": "div in popup.html"
+  },
+  "settings": {
+    "message": "Impostazioni",
+    "description": "div in popup.html"
+  },
+  "keyboardShortcuts": {
+    "message": "Scorciatoie da tastiera",
+    "description": "heading in popup.html"
+  },
+  "dataManagement": {
+    "message": "Gestione Dati",
+    "description": "heading in popup.html"
+  },
+  "configureScreenshotCapture": {
+    "message": "Configura cattura e ridimensionamento degli screenshot. Immagini più piccole risparmiano memoria.",
+    "description": "paragraph in popup.html"
+  },
+  "configureKeyboardShortcuts": {
+    "message": "Configura le scorciatoie da tastiera nelle impostazioni delle estensioni di Chrome.",
+    "description": "paragraph in popup.html"
+  },
+  "importExportSettingsWhitelist": {
+    "message": "Importa o esporta le tue impostazioni e la whitelist.",
+    "description": "paragraph in popup.html"
+  },
+  "saveOptions": {
+    "message": "Salva opzioni",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentDomain": {
+    "message": "Aggiungi dominio corrente alla whitelist",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentPage": {
+    "message": "Aggiungi pagina corrente alla whitelist",
+    "description": "button in popup.html"
+  },
+  "saveScreenshotSettings": {
+    "message": "Salva impostazioni screenshot",
+    "description": "button in popup.html"
+  },
+  "configureShortcuts": {
+    "message": "Configura scorciatoie",
+    "description": "button in popup.html"
+  },
+  "openDataManager": {
+    "message": "Apri gestore dati",
+    "description": "button in popup.html"
+  },
+  "suspendInactiveTabsAfter": {
+    "message": "Sospendi schede inattive dopo (minuti):",
+    "description": "label in popup.html"
+  },
+  "darkMode": {
+    "message": "Modalità scura",
+    "description": "label in popup.html"
+  },
+  "enableTabScreenshotsUses": {
+    "message": "Abilita screenshot delle schede (usa più memoria)",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsPlaying": {
+    "message": "Non sospendere le schede con audio in riproduzione",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsInput": {
+    "message": "Non sospendere le schede con input modulo",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsNotification": {
+    "message": "Non sospendere le schede con notifiche",
+    "description": "label in popup.html"
+  },
+  "dontSuspendPinnedTabs": {
+    "message": "Non sospendere le schede bloccate",
+    "description": "label in popup.html"
+  },
+  "captureQuality5100": {
+    "message": "Qualità cattura (5-100)",
+    "description": "label in popup.html"
+  },
+  "resizeWidthPx": {
+    "message": "Ridimensiona larghezza (px)",
+    "description": "label in popup.html"
+  },
+  "resizeHeightPx": {
+    "message": "Ridimensiona altezza (px)",
+    "description": "label in popup.html"
+  },
+  "resizeQuality0110": {
+    "message": "Qualità ridimensionamento (0.1 - 1.0)",
+    "description": "label in popup.html"
+  },
+  "settingsSaved": {
+    "message": "Impostazioni salvate!",
+    "description": "notification in popup.html"
+  },
+  "tabSuspended": {
+    "message": "Scheda sospesa",
+    "description": "title in suspended.html"
+  },
+  "clickAnywhereToRestore": {
+    "message": "Clicca ovunque per ripristinare questa scheda",
+    "description": "paragraph in suspended.html"
+  },
+  "dataManagementTabSuspender": {
+    "message": "Gestione Dati - Sospensione Schede",
+    "description": "title in data_management.html"
+  },
+  "exportSettings": {
+    "message": "Esporta impostazioni",
+    "description": "heading in data_management.html"
+  },
+  "importSettings": {
+    "message": "Importa impostazioni",
+    "description": "heading in data_management.html"
+  },
+  "exportDesc": {
+    "message": "Salva la tua whitelist e le impostazioni in un file JSON.",
+    "description": "paragraph in data_management.html"
+  },
+  "importDesc": {
+    "message": "Carica le impostazioni da un file JSON. Questo sovrascriverà le impostazioni attuali.",
+    "description": "paragraph in data_management.html"
+  },
+  "selectJsonFile": {
+    "message": "Seleziona file JSON",
+    "description": "label in data_management.html"
+  }
+}

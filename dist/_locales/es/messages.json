@@ -1,0 +1,154 @@
+{
+  "extName": {
+    "message": "Suspensor de pestañas",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Suspender automáticamente las pestañas inactivas para ahorrar memoria",
+    "description": "Extension description"
+  },
+  "tabSuspender": {
+    "message": "Suspensor de pestañas",
+    "description": "heading in popup.html"
+  },
+  "options": {
+    "message": "Opciones",
+    "description": "div in popup.html"
+  },
+  "whitelist": {
+    "message": "Lista blanca",
+    "description": "div in popup.html"
+  },
+  "screenshot": {
+    "message": "Captura de pantalla",
+    "description": "div in popup.html"
+  },
+  "settings": {
+    "message": "Configuración",
+    "description": "div in popup.html"
+  },
+  "keyboardShortcuts": {
+    "message": "Atajos de teclado",
+    "description": "heading in popup.html"
+  },
+  "dataManagement": {
+    "message": "Gestión de datos",
+    "description": "heading in popup.html"
+  },
+  "configureScreenshotCapture": {
+    "message": "Configure la captura y el redimensionamiento de capturas de pantalla. Las imágenes más pequeñas ahorran memoria.",
+    "description": "paragraph in popup.html"
+  },
+  "configureKeyboardShortcuts": {
+    "message": "Configure los atajos de teclado en la configuración de extensiones de Chrome.",
+    "description": "paragraph in popup.html"
+  },
+  "importExportSettingsWhitelist": {
+    "message": "Importe o exporte su configuración y lista blanca.",
+    "description": "paragraph in popup.html"
+  },
+  "saveOptions": {
+    "message": "Guardar opciones",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentDomain": {
+    "message": "Añadir dominio actual a lista blanca",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentPage": {
+    "message": "Añadir página actual a lista blanca",
+    "description": "button in popup.html"
+  },
+  "saveScreenshotSettings": {
+    "message": "Guardar configuración de capturas",
+    "description": "button in popup.html"
+  },
+  "configureShortcuts": {
+    "message": "Configurar atajos",
+    "description": "button in popup.html"
+  },
+  "openDataManager": {
+    "message": "Abrir gestor de datos",
+    "description": "button in popup.html"
+  },
+  "suspendInactiveTabsAfter": {
+    "message": "Suspender pestañas inactivas después de (minutos):",
+    "description": "label in popup.html"
+  },
+  "darkMode": {
+    "message": "Modo oscuro",
+    "description": "label in popup.html"
+  },
+  "enableTabScreenshotsUses": {
+    "message": "Activar capturas de pestañas (usa más memoria)",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsPlaying": {
+    "message": "No suspender pestañas reproduciendo audio",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsInput": {
+    "message": "No suspender pestañas con entrada de formulario",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsNotification": {
+    "message": "No suspender pestañas con notificaciones",
+    "description": "label in popup.html"
+  },
+  "dontSuspendPinnedTabs": {
+    "message": "No suspender pestañas fijadas",
+    "description": "label in popup.html"
+  },
+  "captureQuality5100": {
+    "message": "Calidad de captura (5-100)",
+    "description": "label in popup.html"
+  },
+  "resizeWidthPx": {
+    "message": "Redimensionar ancho (px)",
+    "description": "label in popup.html"
+  },
+  "resizeHeightPx": {
+    "message": "Redimensionar alto (px)",
+    "description": "label in popup.html"
+  },
+  "resizeQuality0110": {
+    "message": "Calidad de redimensionamiento (0.1 - 1.0)",
+    "description": "label in popup.html"
+  },
+  "settingsSaved": {
+    "message": "¡Configuración guardada!",
+    "description": "notification in popup.html"
+  },
+  "tabSuspended": {
+    "message": "Pestaña suspendida",
+    "description": "title in suspended.html"
+  },
+  "clickAnywhereToRestore": {
+    "message": "Haga clic en cualquier lugar para restaurar esta pestaña",
+    "description": "paragraph in suspended.html"
+  },
+  "dataManagementTabSuspender": {
+    "message": "Gestión de datos - Suspensor de pestañas",
+    "description": "title in data_management.html"
+  },
+  "exportSettings": {
+    "message": "Exportar configuración",
+    "description": "heading in data_management.html"
+  },
+  "importSettings": {
+    "message": "Importar configuración",
+    "description": "heading in data_management.html"
+  },
+  "exportDesc": {
+    "message": "Guarde su lista blanca y configuración en un archivo JSON.",
+    "description": "paragraph in data_management.html"
+  },
+  "importDesc": {
+    "message": "Cargue la configuración desde un archivo JSON. Esto sobrescribirá su configuración actual.",
+    "description": "paragraph in data_management.html"
+  },
+  "selectJsonFile": {
+    "message": "Seleccionar archivo JSON",
+    "description": "label in data_management.html"
+  }
+}

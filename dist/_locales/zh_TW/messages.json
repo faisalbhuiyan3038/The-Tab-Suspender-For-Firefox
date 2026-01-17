@@ -1,0 +1,154 @@
+{
+  "extName": {
+    "message": "分頁暫停",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "自動暫停非使用中的分頁以節省記憶體",
+    "description": "Extension description"
+  },
+  "tabSuspender": {
+    "message": "分頁暫停",
+    "description": "heading in popup.html"
+  },
+  "options": {
+    "message": "選項",
+    "description": "div in popup.html"
+  },
+  "whitelist": {
+    "message": "白名單",
+    "description": "div in popup.html"
+  },
+  "screenshot": {
+    "message": "螢幕截圖",
+    "description": "div in popup.html"
+  },
+  "settings": {
+    "message": "設定",
+    "description": "div in popup.html"
+  },
+  "keyboardShortcuts": {
+    "message": "鍵盤快捷鍵",
+    "description": "heading in popup.html"
+  },
+  "dataManagement": {
+    "message": "資料管理",
+    "description": "heading in popup.html"
+  },
+  "configureScreenshotCapture": {
+    "message": "設定螢幕截圖擷取和尺寸調整。較小的圖片可以節省記憶體。",
+    "description": "paragraph in popup.html"
+  },
+  "configureKeyboardShortcuts": {
+    "message": "在 Chrome 擴充功能設定中設定鍵盤快捷鍵。",
+    "description": "paragraph in popup.html"
+  },
+  "importExportSettingsWhitelist": {
+    "message": "匯入或匯出您的設定和白名單。",
+    "description": "paragraph in popup.html"
+  },
+  "saveOptions": {
+    "message": "儲存選項",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentDomain": {
+    "message": "將目前網域加入白名單",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentPage": {
+    "message": "將目前頁面加入白名單",
+    "description": "button in popup.html"
+  },
+  "saveScreenshotSettings": {
+    "message": "儲存螢幕截圖設定",
+    "description": "button in popup.html"
+  },
+  "configureShortcuts": {
+    "message": "設定快捷鍵",
+    "description": "button in popup.html"
+  },
+  "openDataManager": {
+    "message": "開啟資料管理員",
+    "description": "button in popup.html"
+  },
+  "suspendInactiveTabsAfter": {
+    "message": "多久後暫停非使用中的分頁 (分鐘)：",
+    "description": "label in popup.html"
+  },
+  "darkMode": {
+    "message": "深色模式",
+    "description": "label in popup.html"
+  },
+  "enableTabScreenshotsUses": {
+    "message": "啟用分頁螢幕截圖 (會使用更多記憶體)",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsPlaying": {
+    "message": "不要暫停正在播放音訊的分頁",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsInput": {
+    "message": "不要暫停含有表單輸入的分頁",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsNotification": {
+    "message": "不要暫停含有通知的分頁",
+    "description": "label in popup.html"
+  },
+  "dontSuspendPinnedTabs": {
+    "message": "不要暫停已釘選的分頁",
+    "description": "label in popup.html"
+  },
+  "captureQuality5100": {
+    "message": "擷取品質 (5-100)",
+    "description": "label in popup.html"
+  },
+  "resizeWidthPx": {
+    "message": "調整寬度 (px)",
+    "description": "label in popup.html"
+  },
+  "resizeHeightPx": {
+    "message": "調整高度 (px)",
+    "description": "label in popup.html"
+  },
+  "resizeQuality0110": {
+    "message": "調整大小品質 (0.1 - 1.0)",
+    "description": "label in popup.html"
+  },
+  "settingsSaved": {
+    "message": "設定已儲存！",
+    "description": "notification in popup.html"
+  },
+  "tabSuspended": {
+    "message": "分頁已暫停",
+    "description": "title in suspended.html"
+  },
+  "clickAnywhereToRestore": {
+    "message": "點擊任意處以還原此分頁",
+    "description": "paragraph in suspended.html"
+  },
+  "dataManagementTabSuspender": {
+    "message": "資料管理 - 分頁暫停",
+    "description": "title in data_management.html"
+  },
+  "exportSettings": {
+    "message": "匯出設定",
+    "description": "heading in data_management.html"
+  },
+  "importSettings": {
+    "message": "匯入設定",
+    "description": "heading in data_management.html"
+  },
+  "exportDesc": {
+    "message": "將您的白名單和設定儲存到 JSON 檔案中。",
+    "description": "paragraph in data_management.html"
+  },
+  "importDesc": {
+    "message": "從 JSON 檔案載入設定。這將會覆寫您目前的設定。",
+    "description": "paragraph in data_management.html"
+  },
+  "selectJsonFile": {
+    "message": "選擇 JSON 檔案",
+    "description": "label in data_management.html"
+  }
+}

@@ -5,6 +5,9 @@ A Firefox extension that automatically suspends inactive tabs after a specified 
 ## Firefox Addons Store Link
 - It's live! <a href="https://addons.mozilla.org/en-US/firefox/addon/the-tab-suspender/">Download it on Firefox</a>
 
+## Chrome Web Store Link
+- [Download it on Chromium](https://chromewebstore.google.com/detail/tab-suspender/blppipbokojojjkpkccbgcilkolfpalm)
+
 ## Screenshots
 
 <div align="center">

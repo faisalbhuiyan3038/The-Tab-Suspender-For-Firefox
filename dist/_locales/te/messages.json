@@ -1,0 +1,154 @@
+{
+  "extName": {
+    "message": "ట్యాబ్ సస్పెండర్",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "మెమరీని ఆదా చేయడానికి క్రియారహిత ట్యాబ్‌లను స్వయంచాలితంగా సస్పెండ్ చేయండి",
+    "description": "Extension description"
+  },
+  "tabSuspender": {
+    "message": "ట్యాబ్ సస్పెండర్",
+    "description": "heading in popup.html"
+  },
+  "options": {
+    "message": "ఎంపికలు",
+    "description": "div in popup.html"
+  },
+  "whitelist": {
+    "message": "తెల్లజాబితా",
+    "description": "div in popup.html"
+  },
+  "screenshot": {
+    "message": "స్క్రీన్‌షాట్",
+    "description": "div in popup.html"
+  },
+  "settings": {
+    "message": "సెట్టింగ్‌లు",
+    "description": "div in popup.html"
+  },
+  "keyboardShortcuts": {
+    "message": "కీబోర్డ్ సత్వరమార్గాలు",
+    "description": "heading in popup.html"
+  },
+  "dataManagement": {
+    "message": "డేటా నిర్వహణ",
+    "description": "heading in popup.html"
+  },
+  "configureScreenshotCapture": {
+    "message": "స్క్రీన్‌షాట్ క్యాప్చర్ మరియు పరిమాణాన్ని మార్చడాన్ని కాన్ఫిగర్ చేయండి. చిన్న చిత్రాలు మెమరీని ఆదా చేస్తాయి.",
+    "description": "paragraph in popup.html"
+  },
+  "configureKeyboardShortcuts": {
+    "message": "Chrome పొడిగల సెట్టింగ్‌లలో కీబోర్డ్ సత్వరమార్గాలను కాన్ఫిగర్ చేయండి.",
+    "description": "paragraph in popup.html"
+  },
+  "importExportSettingsWhitelist": {
+    "message": "మీ సెట్టింగ్‌లు మరియు తెల్లజాబితాను ఇంపోర్ట్ లేదా ఎక్స్‌పోర్ట్ చేయండి.",
+    "description": "paragraph in popup.html"
+  },
+  "saveOptions": {
+    "message": "ఎంపికలను సేవ్ చేయండి",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentDomain": {
+    "message": "ప్రస్తుత డొమైన్‌ను తెల్లజాబితాలో చేర్చండి",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentPage": {
+    "message": "ప్రస్తుత పేజీని తెల్లజాబితాలో చేర్చండి",
+    "description": "button in popup.html"
+  },
+  "saveScreenshotSettings": {
+    "message": "స్క్రీన్‌షాట్ సెట్టింగ్‌లను సేవ్ చేయండి",
+    "description": "button in popup.html"
+  },
+  "configureShortcuts": {
+    "message": "సత్వరమార్గాలను కాన్ఫిగర్ చేయండి",
+    "description": "button in popup.html"
+  },
+  "openDataManager": {
+    "message": "డేటా మేనేజర్‌ను తెరవండి",
+    "description": "button in popup.html"
+  },
+  "suspendInactiveTabsAfter": {
+    "message": "ఇనాక్టివ్ ట్యాబ్‌లను ఇంత తర్వాత సస్పెండ్ చేయండి (నిమిషాలు):",
+    "description": "label in popup.html"
+  },
+  "darkMode": {
+    "message": "డార్క్ మోడ్",
+    "description": "label in popup.html"
+  },
+  "enableTabScreenshotsUses": {
+    "message": "ట్యాబ్ స్క్రీన్‌షాట్‌లను ప్రారంభించండి (మరిన్ని మెమరీని ఉపయోగిస్తుంది)",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsPlaying": {
+    "message": "ఆడియో ప్లే అవుతున్న ట్యాబ్‌లను సస్పెండ్ చేయవద్దు",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsInput": {
+    "message": "ఫారమ్ ఇన్‌పుట్ ఉన్న ట్యాబ్‌లను సస్పెండ్ చేయవద్దు",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsNotification": {
+    "message": "నోటిఫికేషన్లు ఉన్న ట్యాబ్‌లను సస్పెండ్ చేయవద్దు",
+    "description": "label in popup.html"
+  },
+  "dontSuspendPinnedTabs": {
+    "message": "పిన్ చేసిన ట్యాబ్‌లను సస్పెండ్ చేయవద్దు",
+    "description": "label in popup.html"
+  },
+  "captureQuality5100": {
+    "message": "క్యాప్చర్ క్వాలిటీ (5-100)",
+    "description": "label in popup.html"
+  },
+  "resizeWidthPx": {
+    "message": "వెడల్పును మార్చండి (px)",
+    "description": "label in popup.html"
+  },
+  "resizeHeightPx": {
+    "message": "ఎత్తును మార్చండి (px)",
+    "description": "label in popup.html"
+  },
+  "resizeQuality0110": {
+    "message": "రీసైజ్ క్వాలిటీ (0.1 - 1.0)",
+    "description": "label in popup.html"
+  },
+  "settingsSaved": {
+    "message": "సెట్టింగ్‌లు సేవ్ చేయబడ్డాయి!",
+    "description": "notification in popup.html"
+  },
+  "tabSuspended": {
+    "message": "ట్యాబ్ సస్పెండ్ చేయబడింది",
+    "description": "title in suspended.html"
+  },
+  "clickAnywhereToRestore": {
+    "message": "ఈ ట్యాబ్‌ను పునరుద్ధరించడానికి ఎక్కడైనా క్లిక్ చేయండి",
+    "description": "paragraph in suspended.html"
+  },
+  "dataManagementTabSuspender": {
+    "message": "డేటా నిర్వహణ - ట్యాబ్ సస్పెండర్",
+    "description": "title in data_management.html"
+  },
+  "exportSettings": {
+    "message": "సెట్టింగ్‌లను ఎక్స్‌పోర్ట్ చేయండి",
+    "description": "heading in data_management.html"
+  },
+  "importSettings": {
+    "message": "సెట్టింగ్‌లను ఇంపోర్ట్ చేయండి",
+    "description": "heading in data_management.html"
+  },
+  "exportDesc": {
+    "message": "మీ తెల్లజాబితా మరియు సెట్టింగ్‌లను JSON ఫైల్‌లో సేవ్ చేయండి.",
+    "description": "paragraph in data_management.html"
+  },
+  "importDesc": {
+    "message": "JSON ఫైల్ నుండి సెట్టింగ్‌లను లోడ్ చేయండి. ఇది మీ ప్రస్తుత సెట్టింగ్‌లను భర్తీ చేస్తుంది.",
+    "description": "paragraph in data_management.html"
+  },
+  "selectJsonFile": {
+    "message": "JSON ఫైల్‌ను ఎంచుకోండి",
+    "description": "label in data_management.html"
+  }
+}

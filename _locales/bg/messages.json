@@ -1,0 +1,154 @@
+{
+    "extName": {
+        "message": "Спиране на раздели",
+        "description": "Extension name"
+    },
+    "extDescription": {
+        "message": "Автоматично спира неактивните раздели, за да пести памет",
+        "description": "Extension description"
+    },
+    "tabSuspender": {
+        "message": "Спиране на раздели",
+        "description": "heading in popup.html"
+    },
+    "options": {
+        "message": "Настройки",
+        "description": "div in popup.html"
+    },
+    "whitelist": {
+        "message": "Бял списък",
+        "description": "div in popup.html"
+    },
+    "screenshot": {
+        "message": "Снимка на екрана",
+        "description": "div in popup.html"
+    },
+    "settings": {
+        "message": "Настройки",
+        "description": "div in popup.html"
+    },
+    "keyboardShortcuts": {
+        "message": "Клавишни комбинации",
+        "description": "heading in popup.html"
+    },
+    "dataManagement": {
+        "message": "Управление на данните",
+        "description": "heading in popup.html"
+    },
+    "configureScreenshotCapture": {
+        "message": "Настройте заснемането и оразмеряването на екранни снимки. По-малките изображения пестят памет.",
+        "description": "paragraph in popup.html"
+    },
+    "configureKeyboardShortcuts": {
+        "message": "Настройте клавишните комбинации в настройките за разширения на Chrome.",
+        "description": "paragraph in popup.html"
+    },
+    "importExportSettingsWhitelist": {
+        "message": "Внасяне или изнасяне на вашите настройки и бял списък.",
+        "description": "paragraph in popup.html"
+    },
+    "saveOptions": {
+        "message": "Запазване на опциите",
+        "description": "button in popup.html"
+    },
+    "whitelistCurrentDomain": {
+        "message": "Добавяне на текущия домейн в бял списък",
+        "description": "button in popup.html"
+    },
+    "whitelistCurrentPage": {
+        "message": "Добавяне на текущата страница в бял списък",
+        "description": "button in popup.html"
+    },
+    "saveScreenshotSettings": {
+        "message": "Запазване на настройките за снимки",
+        "description": "button in popup.html"
+    },
+    "configureShortcuts": {
+        "message": "Настройка на комбинации",
+        "description": "button in popup.html"
+    },
+    "openDataManager": {
+        "message": "Отваряне на управление на данни",
+        "description": "button in popup.html"
+    },
+    "suspendInactiveTabsAfter": {
+        "message": "Спиране на неактивни раздели след (минути):",
+        "description": "label in popup.html"
+    },
+    "darkMode": {
+        "message": "Тъмен режим",
+        "description": "label in popup.html"
+    },
+    "enableTabScreenshotsUses": {
+        "message": "Включване на снимки на раздели (използва повече памет)",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsPlaying": {
+        "message": "Без спиране на раздели с аудио",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsInput": {
+        "message": "Без спиране на раздели с въвеждане на данни",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsNotification": {
+        "message": "Без спиране на раздели с известия",
+        "description": "label in popup.html"
+    },
+    "dontSuspendPinnedTabs": {
+        "message": "Без спиране на закрепени раздели",
+        "description": "label in popup.html"
+    },
+    "captureQuality5100": {
+        "message": "Качество на снимката (5-100)",
+        "description": "label in popup.html"
+    },
+    "resizeWidthPx": {
+        "message": "Ширина (px)",
+        "description": "label in popup.html"
+    },
+    "resizeHeightPx": {
+        "message": "Височина (px)",
+        "description": "label in popup.html"
+    },
+    "resizeQuality0110": {
+        "message": "Качество на оразмеряване (0.1 - 1.0)",
+        "description": "label in popup.html"
+    },
+    "settingsSaved": {
+        "message": "Настройките са запазени!",
+        "description": "notification in popup.html"
+    },
+    "tabSuspended": {
+        "message": "Разделът е спрян",
+        "description": "title in suspended.html"
+    },
+    "clickAnywhereToRestore": {
+        "message": "Кликнете навсякъде, за да възстановите този раздел",
+        "description": "paragraph in suspended.html"
+    },
+    "dataManagementTabSuspender": {
+        "message": "Управление на данни - Спиране на раздели",
+        "description": "title in data_management.html"
+    },
+    "exportSettings": {
+        "message": "Изнасяне на настройки",
+        "description": "heading in data_management.html"
+    },
+    "importSettings": {
+        "message": "Внасяне на настройки",
+        "description": "heading in data_management.html"
+    },
+    "exportDesc": {
+        "message": "Запазете вашия бял списък и настройки в JSON файл.",
+        "description": "paragraph in data_management.html"
+    },
+    "importDesc": {
+        "message": "Заредете настройки от JSON файл. Това ще презапише текущите ви настройки.",
+        "description": "paragraph in data_management.html"
+    },
+    "selectJsonFile": {
+        "message": "Изберете JSON файл",
+        "description": "label in data_management.html"
+    }
+}

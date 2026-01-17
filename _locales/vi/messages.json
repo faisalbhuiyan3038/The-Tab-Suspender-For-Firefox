@@ -1,0 +1,154 @@
+{
+  "extName": {
+    "message": "Tạm dừng Tab",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Tự động tạm dừng các tab không hoạt động để tiết kiệm bộ nhớ",
+    "description": "Extension description"
+  },
+  "tabSuspender": {
+    "message": "Tạm dừng Tab",
+    "description": "heading in popup.html"
+  },
+  "options": {
+    "message": "Tùy chọn",
+    "description": "div in popup.html"
+  },
+  "whitelist": {
+    "message": "Danh sách cho phép",
+    "description": "div in popup.html"
+  },
+  "screenshot": {
+    "message": "Ảnh chụp màn hình",
+    "description": "div in popup.html"
+  },
+  "settings": {
+    "message": "Cài đặt",
+    "description": "div in popup.html"
+  },
+  "keyboardShortcuts": {
+    "message": "Phím tắt",
+    "description": "heading in popup.html"
+  },
+  "dataManagement": {
+    "message": "Quản lý dữ liệu",
+    "description": "heading in popup.html"
+  },
+  "configureScreenshotCapture": {
+    "message": "Cấu hình chụp và thay đổi kích thước ảnh màn hình. Hình ảnh nhỏ hơn tiết kiệm bộ nhớ hơn.",
+    "description": "paragraph in popup.html"
+  },
+  "configureKeyboardShortcuts": {
+    "message": "Cấu hình phím tắt trong cài đặt tiện ích mở rộng của Chrome.",
+    "description": "paragraph in popup.html"
+  },
+  "importExportSettingsWhitelist": {
+    "message": "Nhập hoặc xuất cài đặt và danh sách cho phép của bạn.",
+    "description": "paragraph in popup.html"
+  },
+  "saveOptions": {
+    "message": "Lưu tùy chọn",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentDomain": {
+    "message": "Thêm tên miền hiện tại vào danh sách cho phép",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentPage": {
+    "message": "Thêm trang hiện tại vào danh sách cho phép",
+    "description": "button in popup.html"
+  },
+  "saveScreenshotSettings": {
+    "message": "Lưu cài đặt ảnh chụp màn hình",
+    "description": "button in popup.html"
+  },
+  "configureShortcuts": {
+    "message": "Cấu hình phím tắt",
+    "description": "button in popup.html"
+  },
+  "openDataManager": {
+    "message": "Mở quản lý dữ liệu",
+    "description": "button in popup.html"
+  },
+  "suspendInactiveTabsAfter": {
+    "message": "Tạm dừng các tab không hoạt động sau (phút):",
+    "description": "label in popup.html"
+  },
+  "darkMode": {
+    "message": "Chế độ tối",
+    "description": "label in popup.html"
+  },
+  "enableTabScreenshotsUses": {
+    "message": "Bật ảnh chụp màn hình tab (sử dụng nhiều bộ nhớ hơn)",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsPlaying": {
+    "message": "Không tạm dừng tab đang phát âm thanh",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsInput": {
+    "message": "Không tạm dừng tab có nhập liệu biểu mẫu",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsNotification": {
+    "message": "Không tạm dừng tab có thông báo",
+    "description": "label in popup.html"
+  },
+  "dontSuspendPinnedTabs": {
+    "message": "Không tạm dừng tab đã ghim",
+    "description": "label in popup.html"
+  },
+  "captureQuality5100": {
+    "message": "Chất lượng chụp (5-100)",
+    "description": "label in popup.html"
+  },
+  "resizeWidthPx": {
+    "message": "Thay đổi chiều rộng (px)",
+    "description": "label in popup.html"
+  },
+  "resizeHeightPx": {
+    "message": "Thay đổi chiều cao (px)",
+    "description": "label in popup.html"
+  },
+  "resizeQuality0110": {
+    "message": "Chất lượng thay đổi kích thước (0.1 - 1.0)",
+    "description": "label in popup.html"
+  },
+  "settingsSaved": {
+    "message": "Đã lưu cài đặt!",
+    "description": "notification in popup.html"
+  },
+  "tabSuspended": {
+    "message": "Tab đã tạm dừng",
+    "description": "title in suspended.html"
+  },
+  "clickAnywhereToRestore": {
+    "message": "Nhấp vào bất cứ đâu để khôi phục tab này",
+    "description": "paragraph in suspended.html"
+  },
+  "dataManagementTabSuspender": {
+    "message": "Quản lý dữ liệu - Tạm dừng Tab",
+    "description": "title in data_management.html"
+  },
+  "exportSettings": {
+    "message": "Xuất cài đặt",
+    "description": "heading in data_management.html"
+  },
+  "importSettings": {
+    "message": "Nhập cài đặt",
+    "description": "heading in data_management.html"
+  },
+  "exportDesc": {
+    "message": "Lưu danh sách cho phép và cài đặt của bạn vào tệp JSON.",
+    "description": "paragraph in data_management.html"
+  },
+  "importDesc": {
+    "message": "Tải cài đặt từ tệp JSON. Thao tác này sẽ ghi đè cài đặt hiện tại của bạn.",
+    "description": "paragraph in data_management.html"
+  },
+  "selectJsonFile": {
+    "message": "Chọn tệp JSON",
+    "description": "label in data_management.html"
+  }
+}

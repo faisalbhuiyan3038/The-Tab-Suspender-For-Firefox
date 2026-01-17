@@ -1,0 +1,154 @@
+{
+  "extName": {
+    "message": "Tab-Anhalten",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Inaktive Tabs automatisch deaktivieren, um Arbeitsspeicher zu sparen",
+    "description": "Extension description"
+  },
+  "tabSuspender": {
+    "message": "Tab-Anhalten",
+    "description": "heading in popup.html"
+  },
+  "options": {
+    "message": "Optionen",
+    "description": "div in popup.html"
+  },
+  "whitelist": {
+    "message": "Whitelist",
+    "description": "div in popup.html"
+  },
+  "screenshot": {
+    "message": "Screenshot",
+    "description": "div in popup.html"
+  },
+  "settings": {
+    "message": "Einstellungen",
+    "description": "div in popup.html"
+  },
+  "keyboardShortcuts": {
+    "message": "Tastenkombinationen",
+    "description": "heading in popup.html"
+  },
+  "dataManagement": {
+    "message": "Datenverwaltung",
+    "description": "heading in popup.html"
+  },
+  "configureScreenshotCapture": {
+    "message": "Konfigurieren Sie Screenshot-Aufnahme und Größenänderung. Kleinere Bilder sparen Arbeitsspeicher.",
+    "description": "paragraph in popup.html"
+  },
+  "configureKeyboardShortcuts": {
+    "message": "Tastenkombinationen in den Chrome-Erweiterungseinstellungen konfigurieren.",
+    "description": "paragraph in popup.html"
+  },
+  "importExportSettingsWhitelist": {
+    "message": "Importieren oder Exportieren Sie Ihre Einstellungen und Whitelist.",
+    "description": "paragraph in popup.html"
+  },
+  "saveOptions": {
+    "message": "Optionen speichern",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentDomain": {
+    "message": "Aktuelle Domain whitelisten",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentPage": {
+    "message": "Aktuelle Seite whitelisten",
+    "description": "button in popup.html"
+  },
+  "saveScreenshotSettings": {
+    "message": "Screenshot-Einstellungen speichern",
+    "description": "button in popup.html"
+  },
+  "configureShortcuts": {
+    "message": "Shortcuts konfigurieren",
+    "description": "button in popup.html"
+  },
+  "openDataManager": {
+    "message": "Datenmanager öffnen",
+    "description": "button in popup.html"
+  },
+  "suspendInactiveTabsAfter": {
+    "message": "Inaktive Tabs deaktivieren nach (Minuten):",
+    "description": "label in popup.html"
+  },
+  "darkMode": {
+    "message": "Dunkler Modus",
+    "description": "label in popup.html"
+  },
+  "enableTabScreenshotsUses": {
+    "message": "Tab-Screenshots aktivieren (verwendet mehr Arbeitsspeicher)",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsPlaying": {
+    "message": "Tabs mit Audio-Wiedergabe nicht deaktivieren",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsInput": {
+    "message": "Tabs mit Formulareingaben nicht deaktivieren",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsNotification": {
+    "message": "Tabs mit Benachrichtigungen nicht deaktivieren",
+    "description": "label in popup.html"
+  },
+  "dontSuspendPinnedTabs": {
+    "message": "Angepinnte Tabs nicht deaktivieren",
+    "description": "label in popup.html"
+  },
+  "captureQuality5100": {
+    "message": "Aufnahmequalität (5-100)",
+    "description": "label in popup.html"
+  },
+  "resizeWidthPx": {
+    "message": "Breite ändern (px)",
+    "description": "label in popup.html"
+  },
+  "resizeHeightPx": {
+    "message": "Höhe ändern (px)",
+    "description": "label in popup.html"
+  },
+  "resizeQuality0110": {
+    "message": "Qualität der Größenänderung (0.1 - 1.0)",
+    "description": "label in popup.html"
+  },
+  "settingsSaved": {
+    "message": "Einstellungen gespeichert!",
+    "description": "notification in popup.html"
+  },
+  "tabSuspended": {
+    "message": "Tab deaktiviert",
+    "description": "title in suspended.html"
+  },
+  "clickAnywhereToRestore": {
+    "message": "Klicken Sie irgendwo, um diesen Tab wiederherzustellen",
+    "description": "paragraph in suspended.html"
+  },
+  "dataManagementTabSuspender": {
+    "message": "Datenverwaltung - Tab Suspender",
+    "description": "title in data_management.html"
+  },
+  "exportSettings": {
+    "message": "Einstellungen exportieren",
+    "description": "heading in data_management.html"
+  },
+  "importSettings": {
+    "message": "Einstellungen importieren",
+    "description": "heading in data_management.html"
+  },
+  "exportDesc": {
+    "message": "Speichern Sie Ihre Whitelist und Einstellungen in einer JSON-Datei.",
+    "description": "paragraph in data_management.html"
+  },
+  "importDesc": {
+    "message": "Einstellungen aus einer JSON-Datei laden. Dies überschreibt Ihre aktuellen Einstellungen.",
+    "description": "paragraph in data_management.html"
+  },
+  "selectJsonFile": {
+    "message": "JSON-Datei auswählen",
+    "description": "label in data_management.html"
+  }
+}

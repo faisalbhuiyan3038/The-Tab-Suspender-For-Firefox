@@ -1,0 +1,154 @@
+{
+    "extName": {
+        "message": "Pozastavení karet",
+        "description": "Extension name"
+    },
+    "extDescription": {
+        "message": "Automaticky pozastaví neaktivní karty, aby se ušetřila paměť",
+        "description": "Extension description"
+    },
+    "tabSuspender": {
+        "message": "Pozastavení karet",
+        "description": "heading in popup.html"
+    },
+    "options": {
+        "message": "Možnosti",
+        "description": "div in popup.html"
+    },
+    "whitelist": {
+        "message": "Výjimky",
+        "description": "div in popup.html"
+    },
+    "screenshot": {
+        "message": "Snímek obrazovky",
+        "description": "div in popup.html"
+    },
+    "settings": {
+        "message": "Nastavení",
+        "description": "div in popup.html"
+    },
+    "keyboardShortcuts": {
+        "message": "Klávesové zkratky",
+        "description": "heading in popup.html"
+    },
+    "dataManagement": {
+        "message": "Správa dat",
+        "description": "heading in popup.html"
+    },
+    "configureScreenshotCapture": {
+        "message": "Nastavte zachytávání a změnu velikosti snímků obrazovky. Menší obrázky šetří paměť.",
+        "description": "paragraph in popup.html"
+    },
+    "configureKeyboardShortcuts": {
+        "message": "Nakonfigurujte klávesové zkratky v nastavení rozšíření Chrome.",
+        "description": "paragraph in popup.html"
+    },
+    "importExportSettingsWhitelist": {
+        "message": "Importujte nebo exportujte svá nastavení a seznam výjimek.",
+        "description": "paragraph in popup.html"
+    },
+    "saveOptions": {
+        "message": "Uložit možnosti",
+        "description": "button in popup.html"
+    },
+    "whitelistCurrentDomain": {
+        "message": "Přidat doménu do výjimek",
+        "description": "button in popup.html"
+    },
+    "whitelistCurrentPage": {
+        "message": "Přidat stránku do výjimek",
+        "description": "button in popup.html"
+    },
+    "saveScreenshotSettings": {
+        "message": "Uložit nastavení snímků",
+        "description": "button in popup.html"
+    },
+    "configureShortcuts": {
+        "message": "Nastavit zkratky",
+        "description": "button in popup.html"
+    },
+    "openDataManager": {
+        "message": "Otevřít správu dat",
+        "description": "button in popup.html"
+    },
+    "suspendInactiveTabsAfter": {
+        "message": "Pozastavit neaktivní karty po (minuty):",
+        "description": "label in popup.html"
+    },
+    "darkMode": {
+        "message": "Tmavý režim",
+        "description": "label in popup.html"
+    },
+    "enableTabScreenshotsUses": {
+        "message": "Povolit snímky karet (využívá více paměti)",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsPlaying": {
+        "message": "Nepozastavovat karty s přehráváním zvuku",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsInput": {
+        "message": "Nepozastavovat karty s formulářem",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsNotification": {
+        "message": "Nepozastavovat karty s oznámeními",
+        "description": "label in popup.html"
+    },
+    "dontSuspendPinnedTabs": {
+        "message": "Nepozastavovat připnuté karty",
+        "description": "label in popup.html"
+    },
+    "captureQuality5100": {
+        "message": "Kvalita snímku (5-100)",
+        "description": "label in popup.html"
+    },
+    "resizeWidthPx": {
+        "message": "Změnit šířku (px)",
+        "description": "label in popup.html"
+    },
+    "resizeHeightPx": {
+        "message": "Změnit výšku (px)",
+        "description": "label in popup.html"
+    },
+    "resizeQuality0110": {
+        "message": "Kvalita změny velikosti (0.1 - 1.0)",
+        "description": "label in popup.html"
+    },
+    "settingsSaved": {
+        "message": "Nastavení uloženo!",
+        "description": "notification in popup.html"
+    },
+    "tabSuspended": {
+        "message": "Karta pozastavena",
+        "description": "title in suspended.html"
+    },
+    "clickAnywhereToRestore": {
+        "message": "Kliknutím kamkoli obnovíte tuto kartu",
+        "description": "paragraph in suspended.html"
+    },
+    "dataManagementTabSuspender": {
+        "message": "Správa dat - Pozastavení karet",
+        "description": "title in data_management.html"
+    },
+    "exportSettings": {
+        "message": "Exportovat nastavení",
+        "description": "heading in data_management.html"
+    },
+    "importSettings": {
+        "message": "Importovat nastavení",
+        "description": "heading in data_management.html"
+    },
+    "exportDesc": {
+        "message": "Uložte svůj seznam výjimek a nastavení do souboru JSON.",
+        "description": "paragraph in data_management.html"
+    },
+    "importDesc": {
+        "message": "Načtěte nastavení ze souboru JSON. Tím se přepíší vaše aktuální nastavení.",
+        "description": "paragraph in data_management.html"
+    },
+    "selectJsonFile": {
+        "message": "Vybrat soubor JSON",
+        "description": "label in data_management.html"
+    }
+}

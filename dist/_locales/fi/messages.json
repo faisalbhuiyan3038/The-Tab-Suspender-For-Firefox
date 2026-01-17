@@ -1,0 +1,154 @@
+{
+    "extName": {
+        "message": "Välilehtien pysäytin",
+        "description": "Extension name"
+    },
+    "extDescription": {
+        "message": "Keskeytä ei-aktiiviset välilehdet automaattisesti muistin säästämiseksi",
+        "description": "Extension description"
+    },
+    "tabSuspender": {
+        "message": "Välilehtien pysäytin",
+        "description": "heading in popup.html"
+    },
+    "options": {
+        "message": "Asetukset",
+        "description": "div in popup.html"
+    },
+    "whitelist": {
+        "message": "Sallittu lista",
+        "description": "div in popup.html"
+    },
+    "screenshot": {
+        "message": "Kuvakaappaus",
+        "description": "div in popup.html"
+    },
+    "settings": {
+        "message": "Asetukset",
+        "description": "div in popup.html"
+    },
+    "keyboardShortcuts": {
+        "message": "Pikanäppäimet",
+        "description": "heading in popup.html"
+    },
+    "dataManagement": {
+        "message": "Tietojen hallinta",
+        "description": "heading in popup.html"
+    },
+    "configureScreenshotCapture": {
+        "message": "Määritä kuvakaappausten ottaminen ja koon muuttaminen. Pienemmät kuvat säästävät muistia.",
+        "description": "paragraph in popup.html"
+    },
+    "configureKeyboardShortcuts": {
+        "message": "Määritä pikanäppäimet Chromen laajennusasetuksissa.",
+        "description": "paragraph in popup.html"
+    },
+    "importExportSettingsWhitelist": {
+        "message": "Tuo tai vie asetuksesi ja sallittu lista.",
+        "description": "paragraph in popup.html"
+    },
+    "saveOptions": {
+        "message": "Tallenna asetukset",
+        "description": "button in popup.html"
+    },
+    "whitelistCurrentDomain": {
+        "message": "Lisää nykyinen verkkotunnus sallittuun listaan",
+        "description": "button in popup.html"
+    },
+    "whitelistCurrentPage": {
+        "message": "Lisää nykyinen sivu sallittuun listaan",
+        "description": "button in popup.html"
+    },
+    "saveScreenshotSettings": {
+        "message": "Tallenna kuvakaappauksen asetukset",
+        "description": "button in popup.html"
+    },
+    "configureShortcuts": {
+        "message": "Määritä pikanäppäimet",
+        "description": "button in popup.html"
+    },
+    "openDataManager": {
+        "message": "Avaa tietojen hallinta",
+        "description": "button in popup.html"
+    },
+    "suspendInactiveTabsAfter": {
+        "message": "Keskeytä ei-aktiiviset välilehdet jälkeen (minuuttia):",
+        "description": "label in popup.html"
+    },
+    "darkMode": {
+        "message": "Tumma tila",
+        "description": "label in popup.html"
+    },
+    "enableTabScreenshotsUses": {
+        "message": "Ota välilehtien kuvakaappaukset käyttöön (käyttää enemmän muistia)",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsPlaying": {
+        "message": "Älä keskeytä välilehtiä, jotka toistavat ääntä",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsInput": {
+        "message": "Älä keskeytä välilehtiä, joissa on lomakkeiden syöte",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsNotification": {
+        "message": "Älä keskeytä välilehtiä, joissa on ilmoituksia",
+        "description": "label in popup.html"
+    },
+    "dontSuspendPinnedTabs": {
+        "message": "Älä keskeytä kiinnitettyjä välilehtiä",
+        "description": "label in popup.html"
+    },
+    "captureQuality5100": {
+        "message": "Kaappauksen laatu (5-100)",
+        "description": "label in popup.html"
+    },
+    "resizeWidthPx": {
+        "message": "Muuta leveyttä (px)",
+        "description": "label in popup.html"
+    },
+    "resizeHeightPx": {
+        "message": "Muuta korkeutta (px)",
+        "description": "label in popup.html"
+    },
+    "resizeQuality0110": {
+        "message": "Koon muuttamisen laatu (0.1 - 1.0)",
+        "description": "label in popup.html"
+    },
+    "settingsSaved": {
+        "message": "Asetukset tallennettu!",
+        "description": "notification in popup.html"
+    },
+    "tabSuspended": {
+        "message": "Välilehti keskeytetty",
+        "description": "title in suspended.html"
+    },
+    "clickAnywhereToRestore": {
+        "message": "Palauta tämä välilehti napsauttamalla mitä tahansa",
+        "description": "paragraph in suspended.html"
+    },
+    "dataManagementTabSuspender": {
+        "message": "Tietojen hallinta - Välilehtien pysäytin",
+        "description": "title in data_management.html"
+    },
+    "exportSettings": {
+        "message": "Vie asetukset",
+        "description": "heading in data_management.html"
+    },
+    "importSettings": {
+        "message": "Tuo asetukset",
+        "description": "heading in data_management.html"
+    },
+    "exportDesc": {
+        "message": "Tallenna sallittu listasi ja asetuksesi JSON-tiedostoon.",
+        "description": "paragraph in data_management.html"
+    },
+    "importDesc": {
+        "message": "Lataa asetukset JSON-tiedostosta. Tämä korvaa nykyiset asetuksesi.",
+        "description": "paragraph in data_management.html"
+    },
+    "selectJsonFile": {
+        "message": "Valitse JSON-tiedosto",
+        "description": "label in data_management.html"
+    }
+}

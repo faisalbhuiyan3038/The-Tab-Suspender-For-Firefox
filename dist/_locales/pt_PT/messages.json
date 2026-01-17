@@ -1,0 +1,154 @@
+{
+    "extName": {
+        "message": "Suspensão de Separadores",
+        "description": "Extension name"
+    },
+    "extDescription": {
+        "message": "Suspenda automaticamente separadores inativos para poupar memória",
+        "description": "Extension description"
+    },
+    "tabSuspender": {
+        "message": "Suspensão de Separadores",
+        "description": "heading in popup.html"
+    },
+    "options": {
+        "message": "Opções",
+        "description": "div in popup.html"
+    },
+    "whitelist": {
+        "message": "Lista Branca",
+        "description": "div in popup.html"
+    },
+    "screenshot": {
+        "message": "Captura de Ecrã",
+        "description": "div in popup.html"
+    },
+    "settings": {
+        "message": "Definições",
+        "description": "div in popup.html"
+    },
+    "keyboardShortcuts": {
+        "message": "Atalhos de Teclado",
+        "description": "heading in popup.html"
+    },
+    "dataManagement": {
+        "message": "Gestão de Dados",
+        "description": "heading in popup.html"
+    },
+    "configureScreenshotCapture": {
+        "message": "Configurar a captura e o redimensionamento de capturas de ecrã. Imagens mais pequenas poupam memória.",
+        "description": "paragraph in popup.html"
+    },
+    "configureKeyboardShortcuts": {
+        "message": "Configurar atalhos de teclado nas definições de extensões do Chrome.",
+        "description": "paragraph in popup.html"
+    },
+    "importExportSettingsWhitelist": {
+        "message": "Importar ou exportar as suas definições e lista branca.",
+        "description": "paragraph in popup.html"
+    },
+    "saveOptions": {
+        "message": "Guardar Opções",
+        "description": "button in popup.html"
+    },
+    "whitelistCurrentDomain": {
+        "message": "Adicionar domínio atual à lista branca",
+        "description": "button in popup.html"
+    },
+    "whitelistCurrentPage": {
+        "message": "Adicionar página atual à lista branca",
+        "description": "button in popup.html"
+    },
+    "saveScreenshotSettings": {
+        "message": "Guardar Definições de Captura",
+        "description": "button in popup.html"
+    },
+    "configureShortcuts": {
+        "message": "Configurar Atalhos",
+        "description": "button in popup.html"
+    },
+    "openDataManager": {
+        "message": "Abrir Gestor de Dados",
+        "description": "button in popup.html"
+    },
+    "suspendInactiveTabsAfter": {
+        "message": "Suspender separadores inativos após (minutos):",
+        "description": "label in popup.html"
+    },
+    "darkMode": {
+        "message": "Modo Escuro",
+        "description": "label in popup.html"
+    },
+    "enableTabScreenshotsUses": {
+        "message": "Ativar capturas de ecrã dos separadores (usa mais memória)",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsPlaying": {
+        "message": "Não suspender separadores a reproduzir áudio",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsInput": {
+        "message": "Não suspender separadores com entrada de formulário",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsNotification": {
+        "message": "Não suspender separadores com notificações",
+        "description": "label in popup.html"
+    },
+    "dontSuspendPinnedTabs": {
+        "message": "Não suspender separadores fixos",
+        "description": "label in popup.html"
+    },
+    "captureQuality5100": {
+        "message": "Qualidade de Captura (5-100)",
+        "description": "label in popup.html"
+    },
+    "resizeWidthPx": {
+        "message": "Redimensionar Largura (px)",
+        "description": "label in popup.html"
+    },
+    "resizeHeightPx": {
+        "message": "Redimensionar Altura (px)",
+        "description": "label in popup.html"
+    },
+    "resizeQuality0110": {
+        "message": "Qualidade de Redimensionamento (0.1 - 1.0)",
+        "description": "label in popup.html"
+    },
+    "settingsSaved": {
+        "message": "Definições guardadas!",
+        "description": "notification in popup.html"
+    },
+    "tabSuspended": {
+        "message": "Separador Suspenso",
+        "description": "title in suspended.html"
+    },
+    "clickAnywhereToRestore": {
+        "message": "Clique em qualquer lugar para restaurar este separador",
+        "description": "paragraph in suspended.html"
+    },
+    "dataManagementTabSuspender": {
+        "message": "Gestão de Dados - Suspensão de Separadores",
+        "description": "title in data_management.html"
+    },
+    "exportSettings": {
+        "message": "Exportar Definições",
+        "description": "heading in data_management.html"
+    },
+    "importSettings": {
+        "message": "Importar Definições",
+        "description": "heading in data_management.html"
+    },
+    "exportDesc": {
+        "message": "Guarde a sua lista branca e definições num ficheiro JSON.",
+        "description": "paragraph in data_management.html"
+    },
+    "importDesc": {
+        "message": "Carregar definições de um ficheiro JSON. Isto irá substituir as suas definições atuais.",
+        "description": "paragraph in data_management.html"
+    },
+    "selectJsonFile": {
+        "message": "Selecionar Ficheiro JSON",
+        "description": "label in data_management.html"
+    }
+}

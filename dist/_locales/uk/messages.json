@@ -1,0 +1,154 @@
+{
+  "extName": {
+    "message": "Призупинення вкладок",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Автоматично призупиняйте неактивні вкладки, щоб заощадити пам'ять",
+    "description": "Extension description"
+  },
+  "tabSuspender": {
+    "message": "Призупинення вкладок",
+    "description": "heading in popup.html"
+  },
+  "options": {
+    "message": "Налаштування",
+    "description": "div in popup.html"
+  },
+  "whitelist": {
+    "message": "Білий список",
+    "description": "div in popup.html"
+  },
+  "screenshot": {
+    "message": "Знімок екрана",
+    "description": "div in popup.html"
+  },
+  "settings": {
+    "message": "Параметри",
+    "description": "div in popup.html"
+  },
+  "keyboardShortcuts": {
+    "message": "Клавіатурні скорочення",
+    "description": "heading in popup.html"
+  },
+  "dataManagement": {
+    "message": "Керування даними",
+    "description": "heading in popup.html"
+  },
+  "configureScreenshotCapture": {
+    "message": "Налаштуйте створення та зміну розміру знімків екрана. Менші зображення економлять пам'ять.",
+    "description": "paragraph in popup.html"
+  },
+  "configureKeyboardShortcuts": {
+    "message": "Налаштуйте клавіатурні скорочення у налаштуваннях розширень Chrome.",
+    "description": "paragraph in popup.html"
+  },
+  "importExportSettingsWhitelist": {
+    "message": "Імпортуйте або експортуйте свої параметри та білий список.",
+    "description": "paragraph in popup.html"
+  },
+  "saveOptions": {
+    "message": "Зберегти налаштування",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentDomain": {
+    "message": "Додати домен до білого списку",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentPage": {
+    "message": "Додати сторінку до білого списку",
+    "description": "button in popup.html"
+  },
+  "saveScreenshotSettings": {
+    "message": "Зберегти параметри знімків екрана",
+    "description": "button in popup.html"
+  },
+  "configureShortcuts": {
+    "message": "Налаштувати скорочення",
+    "description": "button in popup.html"
+  },
+  "openDataManager": {
+    "message": "Відкрити менеджер даних",
+    "description": "button in popup.html"
+  },
+  "suspendInactiveTabsAfter": {
+    "message": "Призупиняти неактивні вкладки через (хвилин):",
+    "description": "label in popup.html"
+  },
+  "darkMode": {
+    "message": "Темний режим",
+    "description": "label in popup.html"
+  },
+  "enableTabScreenshotsUses": {
+    "message": "Увімкнути знімки вкладок (використовує більше пам'яті)",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsPlaying": {
+    "message": "Не призупиняти вкладки з відтворенням аудіо",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsInput": {
+    "message": "Не призупиняти вкладки із введенням у формі",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsNotification": {
+    "message": "Не призупиняти вкладки зі сповіщеннями",
+    "description": "label in popup.html"
+  },
+  "dontSuspendPinnedTabs": {
+    "message": "Не призупиняти закріплені вкладки",
+    "description": "label in popup.html"
+  },
+  "captureQuality5100": {
+    "message": "Якість зйомки (5-100)",
+    "description": "label in popup.html"
+  },
+  "resizeWidthPx": {
+    "message": "Змінити ширину (пікселів)",
+    "description": "label in popup.html"
+  },
+  "resizeHeightPx": {
+    "message": "Змінити висоту (пікселів)",
+    "description": "label in popup.html"
+  },
+  "resizeQuality0110": {
+    "message": "Якість зміни розміру (0.1 - 1.0)",
+    "description": "label in popup.html"
+  },
+  "settingsSaved": {
+    "message": "Параметри збережено!",
+    "description": "notification in popup.html"
+  },
+  "tabSuspended": {
+    "message": "Вкладку призупинено",
+    "description": "title in suspended.html"
+  },
+  "clickAnywhereToRestore": {
+    "message": "Натисніть будь-де, щоб відновити цю вкладку",
+    "description": "paragraph in suspended.html"
+  },
+  "dataManagementTabSuspender": {
+    "message": "Керування даними - Призупинення вкладок",
+    "description": "title in data_management.html"
+  },
+  "exportSettings": {
+    "message": "Експортувати параметри",
+    "description": "heading in data_management.html"
+  },
+  "importSettings": {
+    "message": "Імпортувати параметри",
+    "description": "heading in data_management.html"
+  },
+  "exportDesc": {
+    "message": "Збережіть свій білий список і параметри у файл JSON.",
+    "description": "paragraph in data_management.html"
+  },
+  "importDesc": {
+    "message": "Завантажте параметри з файлу JSON. Це перезапише поточні параметри.",
+    "description": "paragraph in data_management.html"
+  },
+  "selectJsonFile": {
+    "message": "Вибрати файл JSON",
+    "description": "label in data_management.html"
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "extName": {
+    "message": "Sekme Askıya Alma",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Belleği korumak için etkin olmayan sekmeleri otomatik olarak askıya alın",
+    "description": "Extension description"
+  },
+  "tabSuspender": {
+    "message": "Sekme Askıya Alma",
+    "description": "heading in popup.html"
+  },
+  "options": {
+    "message": "Seçenekler",
+    "description": "div in popup.html"
+  },
+  "whitelist": {
+    "message": "Beyaz Liste",
+    "description": "div in popup.html"
+  },
+  "screenshot": {
+    "message": "Ekran Görüntüsü",
+    "description": "div in popup.html"
+  },
+  "settings": {
+    "message": "Ayarlar",
+    "description": "div in popup.html"
+  },
+  "keyboardShortcuts": {
+    "message": "Klavye Kısayolları",
+    "description": "heading in popup.html"
+  },
+  "dataManagement": {
+    "message": "Veri Yönetimi",
+    "description": "heading in popup.html"
+  },
+  "configureScreenshotCapture": {
+    "message": "Ekran görüntüsü yakalama ve yeniden boyutlandırma ayarlarını yapılandırın. Daha küçük resimler bellek tasarrufu sağlar.",
+    "description": "paragraph in popup.html"
+  },
+  "configureKeyboardShortcuts": {
+    "message": "Chrome uzantı ayarlarında klavye kısayollarını yapılandırın.",
+    "description": "paragraph in popup.html"
+  },
+  "importExportSettingsWhitelist": {
+    "message": "Ayarlarınızı ve beyaz listenizi içe veya dışa aktarın.",
+    "description": "paragraph in popup.html"
+  },
+  "saveOptions": {
+    "message": "Seçenekleri Kaydet",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentDomain": {
+    "message": "Etki Alanını Beyaz Listeye Ekle",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentPage": {
+    "message": "Sayfayı Beyaz Listeye Ekle",
+    "description": "button in popup.html"
+  },
+  "saveScreenshotSettings": {
+    "message": "Ekran Görüntüsü Ayarlarını Kaydet",
+    "description": "button in popup.html"
+  },
+  "configureShortcuts": {
+    "message": "Kısayolları Yapılandır",
+    "description": "button in popup.html"
+  },
+  "openDataManager": {
+    "message": "Veri Yöneticisini Aç",
+    "description": "button in popup.html"
+  },
+  "suspendInactiveTabsAfter": {
+    "message": "Etkin olmayan sekmeleri şu süre sonra askıya al (dakika):",
+    "description": "label in popup.html"
+  },
+  "darkMode": {
+    "message": "Karanlık Mod",
+    "description": "label in popup.html"
+  },
+  "enableTabScreenshotsUses": {
+    "message": "Sekme ekran görüntülerini etkinleştir (daha fazla bellek kullanır)",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsPlaying": {
+    "message": "Ses çalan sekmeleri askıya alma",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsInput": {
+    "message": "Form girişi olan sekmeleri askıya alma",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsNotification": {
+    "message": "Bildirimi olan sekmeleri askıya alma",
+    "description": "label in popup.html"
+  },
+  "dontSuspendPinnedTabs": {
+    "message": "Sabitlenmiş sekmeleri askıya alma",
+    "description": "label in popup.html"
+  },
+  "captureQuality5100": {
+    "message": "Yakalama Kalitesi (5-100)",
+    "description": "label in popup.html"
+  },
+  "resizeWidthPx": {
+    "message": "Genişliği Yeniden Boyutlandır (px)",
+    "description": "label in popup.html"
+  },
+  "resizeHeightPx": {
+    "message": "Yüksekliği Yeniden Boyutlandır (px)",
+    "description": "label in popup.html"
+  },
+  "resizeQuality0110": {
+    "message": "Yeniden Boyutlandırma Kalitesi (0.1 - 1.0)",
+    "description": "label in popup.html"
+  },
+  "settingsSaved": {
+    "message": "Ayarlar kaydedildi!",
+    "description": "notification in popup.html"
+  },
+  "tabSuspended": {
+    "message": "Sekme Askıya Alındı",
+    "description": "title in suspended.html"
+  },
+  "clickAnywhereToRestore": {
+    "message": "Bu sekmeyi geri yüklemek için herhangi bir yere tıklayın",
+    "description": "paragraph in suspended.html"
+  },
+  "dataManagementTabSuspender": {
+    "message": "Veri Yönetimi - Sekme Askıya Alma",
+    "description": "title in data_management.html"
+  },
+  "exportSettings": {
+    "message": "Ayarları Dışa Aktar",
+    "description": "heading in data_management.html"
+  },
+  "importSettings": {
+    "message": "Ayarları İçe Aktar",
+    "description": "heading in data_management.html"
+  },
+  "exportDesc": {
+    "message": "Beyaz listenizi ve ayarlarınızı bir JSON dosyasına kaydedin.",
+    "description": "paragraph in data_management.html"
+  },
+  "importDesc": {
+    "message": "Ayarları bir JSON dosyasından yükleyin. Bu, mevcut ayarlarınızın üzerine yazacaktır.",
+    "description": "paragraph in data_management.html"
+  },
+  "selectJsonFile": {
+    "message": "JSON Dosyası Seç",
+    "description": "label in data_management.html"
+  }
+}

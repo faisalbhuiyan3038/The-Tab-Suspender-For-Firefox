@@ -1,0 +1,154 @@
+{
+  "extName": {
+    "message": "ระงับแท็บ",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "ระงับแท็บที่ไม่ได้ใช้งานโดยอัตโนมัติเพื่อประหยัดหน่วยความจำ",
+    "description": "Extension description"
+  },
+  "tabSuspender": {
+    "message": "ระงับแท็บ",
+    "description": "heading in popup.html"
+  },
+  "options": {
+    "message": "ตัวเลือก",
+    "description": "div in popup.html"
+  },
+  "whitelist": {
+    "message": "รายชื่อที่อนุญาต",
+    "description": "div in popup.html"
+  },
+  "screenshot": {
+    "message": "ภาพหน้าจอ",
+    "description": "div in popup.html"
+  },
+  "settings": {
+    "message": "การตั้งค่า",
+    "description": "div in popup.html"
+  },
+  "keyboardShortcuts": {
+    "message": "แป้นพิมพ์ลัด",
+    "description": "heading in popup.html"
+  },
+  "dataManagement": {
+    "message": "การจัดการข้อมูล",
+    "description": "heading in popup.html"
+  },
+  "configureScreenshotCapture": {
+    "message": "กำหนดค่าการจับภาพหน้าจอและการปรับขนาด รูปภาพที่เล็กลงจะช่วยประหยัดหน่วยความจำ",
+    "description": "paragraph in popup.html"
+  },
+  "configureKeyboardShortcuts": {
+    "message": "กำหนดค่าแป้นพิมพ์ลัดในการตั้งค่าส่วนขยายของ Chrome",
+    "description": "paragraph in popup.html"
+  },
+  "importExportSettingsWhitelist": {
+    "message": "นำเข้าหรือส่งออกการตั้งค่าและรายชื่อที่อนุญาตของคุณ",
+    "description": "paragraph in popup.html"
+  },
+  "saveOptions": {
+    "message": "บันทึกตัวเลือก",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentDomain": {
+    "message": "เพิ่มโดเมนปัจจุบันลงในรายชื่อที่อนุญาต",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentPage": {
+    "message": "เพิ่มหน้าปัจจุบันลงในรายชื่อที่อนุญาต",
+    "description": "button in popup.html"
+  },
+  "saveScreenshotSettings": {
+    "message": "บันทึกการตั้งค่าภาพหน้าจอ",
+    "description": "button in popup.html"
+  },
+  "configureShortcuts": {
+    "message": "กำหนดค่าทางลัด",
+    "description": "button in popup.html"
+  },
+  "openDataManager": {
+    "message": "เปิดตัวจัดการข้อมูล",
+    "description": "button in popup.html"
+  },
+  "suspendInactiveTabsAfter": {
+    "message": "ระงับแท็บที่ไม่ได้ใช้งานหลังจาก (นาที):",
+    "description": "label in popup.html"
+  },
+  "darkMode": {
+    "message": "โหมดมืด",
+    "description": "label in popup.html"
+  },
+  "enableTabScreenshotsUses": {
+    "message": "เปิดใช้งานภาพหน้าจอของแท็บ (ใช้หน่วยความจำมากขึ้น)",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsPlaying": {
+    "message": "ไม่ระงับแท็บที่กำลังเล่นเสียง",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsInput": {
+    "message": "ไม่ระงับแท็บที่มีการป้อนข้อมูลในแบบฟอร์ม",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsNotification": {
+    "message": "ไม่ระงับแท็บที่มีการแจ้งเตือน",
+    "description": "label in popup.html"
+  },
+  "dontSuspendPinnedTabs": {
+    "message": "ไม่ระงับแท็บที่ปักหมุด",
+    "description": "label in popup.html"
+  },
+  "captureQuality5100": {
+    "message": "คุณภาพในการจับภาพ (5-100)",
+    "description": "label in popup.html"
+  },
+  "resizeWidthPx": {
+    "message": "ปรับขนาดความกว้าง (px)",
+    "description": "label in popup.html"
+  },
+  "resizeHeightPx": {
+    "message": "ปรับขนาดความสูง (px)",
+    "description": "label in popup.html"
+  },
+  "resizeQuality0110": {
+    "message": "คุณภาพการปรับขนาด (0.1 - 1.0)",
+    "description": "label in popup.html"
+  },
+  "settingsSaved": {
+    "message": "บันทึกการตั้งค่าแล้ว!",
+    "description": "notification in popup.html"
+  },
+  "tabSuspended": {
+    "message": "ระงับแท็บแล้ว",
+    "description": "title in suspended.html"
+  },
+  "clickAnywhereToRestore": {
+    "message": "คลิกที่ใดก็ได้เพื่อคืนค่าแท็บนี้",
+    "description": "paragraph in suspended.html"
+  },
+  "dataManagementTabSuspender": {
+    "message": "การจัดการข้อมูล - ระงับแท็บ",
+    "description": "title in data_management.html"
+  },
+  "exportSettings": {
+    "message": "ส่งออกการตั้งค่า",
+    "description": "heading in data_management.html"
+  },
+  "importSettings": {
+    "message": "นำเข้าการตั้งค่า",
+    "description": "heading in data_management.html"
+  },
+  "exportDesc": {
+    "message": "บันทึกรายชื่อที่อนุญาตและการตั้งค่าของคุณลงในไฟล์ JSON",
+    "description": "paragraph in data_management.html"
+  },
+  "importDesc": {
+    "message": "โหลดการตั้งค่าจากไฟล์ JSON การดำเนินการนี้จะเขียนทับการตั้งค่าปัจจุบันของคุณ",
+    "description": "paragraph in data_management.html"
+  },
+  "selectJsonFile": {
+    "message": "เลือกไฟล์ JSON",
+    "description": "label in data_management.html"
+  }
+}

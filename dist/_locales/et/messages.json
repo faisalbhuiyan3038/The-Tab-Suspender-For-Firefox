@@ -1,0 +1,154 @@
+{
+    "extName": {
+        "message": "Kaartide peata",
+        "description": "Extension name"
+    },
+    "extDescription": {
+        "message": "Mälu säästmiseks peatage automaatselt mitteaktiivsed kaardid",
+        "description": "Extension description"
+    },
+    "tabSuspender": {
+        "message": "Kaartide peataja",
+        "description": "heading in popup.html"
+    },
+    "options": {
+        "message": "Sätted",
+        "description": "div in popup.html"
+    },
+    "whitelist": {
+        "message": "Lubatud loend",
+        "description": "div in popup.html"
+    },
+    "screenshot": {
+        "message": "Kuvatõmmis",
+        "description": "div in popup.html"
+    },
+    "settings": {
+        "message": "Seaded",
+        "description": "div in popup.html"
+    },
+    "keyboardShortcuts": {
+        "message": "Klaviatuuri otseteed",
+        "description": "heading in popup.html"
+    },
+    "dataManagement": {
+        "message": "Andmete haldamine",
+        "description": "heading in popup.html"
+    },
+    "configureScreenshotCapture": {
+        "message": "Seadistage kuvatõmmiste tegemine ja suuruse muutmine. Väiksemad pildid säästvad mälu.",
+        "description": "paragraph in popup.html"
+    },
+    "configureKeyboardShortcuts": {
+        "message": "Seadistage klaviatuuri otseteed Chrome'i laienduste sätetes.",
+        "description": "paragraph in popup.html"
+    },
+    "importExportSettingsWhitelist": {
+        "message": "Importige või ekspordige oma seaded ja lubatud loend.",
+        "description": "paragraph in popup.html"
+    },
+    "saveOptions": {
+        "message": "Salvesta valikud",
+        "description": "button in popup.html"
+    },
+    "whitelistCurrentDomain": {
+        "message": "Lisa praegune domeen lubatud loendisse",
+        "description": "button in popup.html"
+    },
+    "whitelistCurrentPage": {
+        "message": "Lisa praegune leht lubatud loendisse",
+        "description": "button in popup.html"
+    },
+    "saveScreenshotSettings": {
+        "message": "Salvesta kuvatõmmise seaded",
+        "description": "button in popup.html"
+    },
+    "configureShortcuts": {
+        "message": "Seadista otseteed",
+        "description": "button in popup.html"
+    },
+    "openDataManager": {
+        "message": "Ava andmehaldur",
+        "description": "button in popup.html"
+    },
+    "suspendInactiveTabsAfter": {
+        "message": "Peata mitteaktiivsed kaardid pärast (minutit):",
+        "description": "label in popup.html"
+    },
+    "darkMode": {
+        "message": "Tume režiim",
+        "description": "label in popup.html"
+    },
+    "enableTabScreenshotsUses": {
+        "message": "Luba kaartide kuvatõmmised (kasutab rohkem mälu)",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsPlaying": {
+        "message": "Ära peata kaarte, mis esitavad heli",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsInput": {
+        "message": "Ära peata kaarte, millel on vormisisend",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsNotification": {
+        "message": "Ära peata kaarte märguannetega",
+        "description": "label in popup.html"
+    },
+    "dontSuspendPinnedTabs": {
+        "message": "Ära peata kinnitatud kaarte",
+        "description": "label in popup.html"
+    },
+    "captureQuality5100": {
+        "message": "Pildikvaliteet (5-100)",
+        "description": "label in popup.html"
+    },
+    "resizeWidthPx": {
+        "message": "Muuda laiust (px)",
+        "description": "label in popup.html"
+    },
+    "resizeHeightPx": {
+        "message": "Muuda kõrgust (px)",
+        "description": "label in popup.html"
+    },
+    "resizeQuality0110": {
+        "message": "Suuruse muutmise kvaliteet (0.1 - 1.0)",
+        "description": "label in popup.html"
+    },
+    "settingsSaved": {
+        "message": "Seaded salvestatud!",
+        "description": "notification in popup.html"
+    },
+    "tabSuspended": {
+        "message": "Kaart on peatatud",
+        "description": "title in suspended.html"
+    },
+    "clickAnywhereToRestore": {
+        "message": "Klõpsake kuhu tahes, et see kaart taastada",
+        "description": "paragraph in suspended.html"
+    },
+    "dataManagementTabSuspender": {
+        "message": "Andmete haldamine - Kaartide peataja",
+        "description": "title in data_management.html"
+    },
+    "exportSettings": {
+        "message": "Ekspordi seaded",
+        "description": "heading in data_management.html"
+    },
+    "importSettings": {
+        "message": "Impordi seaded",
+        "description": "heading in data_management.html"
+    },
+    "exportDesc": {
+        "message": "Salvestage oma lubatud loend ja seaded JSON-faili.",
+        "description": "paragraph in data_management.html"
+    },
+    "importDesc": {
+        "message": "Laadige seaded JSON-failist. See kirjutab ü teie praegused seaded.",
+        "description": "paragraph in data_management.html"
+    },
+    "selectJsonFile": {
+        "message": "Vali JSON-fail",
+        "description": "label in data_management.html"
+    }
+}

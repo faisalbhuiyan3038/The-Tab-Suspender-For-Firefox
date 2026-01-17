@@ -1,0 +1,154 @@
+{
+    "extName": {
+        "message": "Cilņu apturēšana",
+        "description": "Extension name"
+    },
+    "extDescription": {
+        "message": "Automātiski apturēt neaktīvos cilnes, lai taupītu atmiņu",
+        "description": "Extension description"
+    },
+    "tabSuspender": {
+        "message": "Cilņu apturēšana",
+        "description": "heading in popup.html"
+    },
+    "options": {
+        "message": "Opcijas",
+        "description": "div in popup.html"
+    },
+    "whitelist": {
+        "message": "Baltais saraksts",
+        "description": "div in popup.html"
+    },
+    "screenshot": {
+        "message": "Ekrānattēls",
+        "description": "div in popup.html"
+    },
+    "settings": {
+        "message": "Iestatījumi",
+        "description": "div in popup.html"
+    },
+    "keyboardShortcuts": {
+        "message": "Īsinājumtaustiņi",
+        "description": "heading in popup.html"
+    },
+    "dataManagement": {
+        "message": "Datu pārvaldība",
+        "description": "heading in popup.html"
+    },
+    "configureScreenshotCapture": {
+        "message": "Konfigurējiet ekrānattēlu uzņemšanu un izmēru mainīšanu. Mazāki attēli taupa atmiņu.",
+        "description": "paragraph in popup.html"
+    },
+    "configureKeyboardShortcuts": {
+        "message": "Konfigurējiet īsinājumtaustiņus Chrome paplašinājumu iestatījumos.",
+        "description": "paragraph in popup.html"
+    },
+    "importExportSettingsWhitelist": {
+        "message": "Importējiet vai eksportējiet savus iestatījumus un balto sarakstu.",
+        "description": "paragraph in popup.html"
+    },
+    "saveOptions": {
+        "message": "Saglabāt opcijas",
+        "description": "button in popup.html"
+    },
+    "whitelistCurrentDomain": {
+        "message": "Pievienot pašreizējo domenu baltajam sarakstam",
+        "description": "button in popup.html"
+    },
+    "whitelistCurrentPage": {
+        "message": "Pievienot pašreizējo lapu baltajam sarakstam",
+        "description": "button in popup.html"
+    },
+    "saveScreenshotSettings": {
+        "message": "Saglabāt ekrānattēla iestatījumus",
+        "description": "button in popup.html"
+    },
+    "configureShortcuts": {
+        "message": "Konfigurēt saīsnes",
+        "description": "button in popup.html"
+    },
+    "openDataManager": {
+        "message": "Atvērt datu pārvaldnieku",
+        "description": "button in popup.html"
+    },
+    "suspendInactiveTabsAfter": {
+        "message": "Apturēt neaktīvās cilnes pēc (minūtēm):",
+        "description": "label in popup.html"
+    },
+    "darkMode": {
+        "message": "Tumšais režīms",
+        "description": "label in popup.html"
+    },
+    "enableTabScreenshotsUses": {
+        "message": "Iespējot cilņu ekrānattēlus (izmanto vairāk atmiņas)",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsPlaying": {
+        "message": "Neapturēt cilnes, kurās atskaņo audio",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsInput": {
+        "message": "Neapturēt cilnes ar formas ievadi",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsNotification": {
+        "message": "Neapturēt cilnes ar paziņojumiem",
+        "description": "label in popup.html"
+    },
+    "dontSuspendPinnedTabs": {
+        "message": "Neapturēt piespraustās cilnes",
+        "description": "label in popup.html"
+    },
+    "captureQuality5100": {
+        "message": "Uzņemšanas kvalitāte (5-100)",
+        "description": "label in popup.html"
+    },
+    "resizeWidthPx": {
+        "message": "Mainīt platumu (px)",
+        "description": "label in popup.html"
+    },
+    "resizeHeightPx": {
+        "message": "Mainīt augstumu (px)",
+        "description": "label in popup.html"
+    },
+    "resizeQuality0110": {
+        "message": "Izmēra maiņas kvalitāte (0.1 - 1.0)",
+        "description": "label in popup.html"
+    },
+    "settingsSaved": {
+        "message": "Iestatījumi saglabāti!",
+        "description": "notification in popup.html"
+    },
+    "tabSuspended": {
+        "message": "Cilne ir apturēta",
+        "description": "title in suspended.html"
+    },
+    "clickAnywhereToRestore": {
+        "message": "Noklikšķiniet jebkurā vietā, lai atjaunotu šo cilni",
+        "description": "paragraph in suspended.html"
+    },
+    "dataManagementTabSuspender": {
+        "message": "Datu pārvaldība - Cilņu apturēšana",
+        "description": "title in data_management.html"
+    },
+    "exportSettings": {
+        "message": "Eksportēt iestatījumus",
+        "description": "heading in data_management.html"
+    },
+    "importSettings": {
+        "message": "Importēt iestatījumus",
+        "description": "heading in data_management.html"
+    },
+    "exportDesc": {
+        "message": "Saglabājiet savu balto sarakstu un iestatījumus JSON failā.",
+        "description": "paragraph in data_management.html"
+    },
+    "importDesc": {
+        "message": "Ielādējiet iestatījumus no JSON faila. Tas pārrakstīs jūsu pašreizējos iestatījumus.",
+        "description": "paragraph in data_management.html"
+    },
+    "selectJsonFile": {
+        "message": "Atlasīt JSON failu",
+        "description": "label in data_management.html"
+    }
+}

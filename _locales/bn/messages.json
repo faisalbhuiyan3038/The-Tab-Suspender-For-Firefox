@@ -1,0 +1,154 @@
+{
+    "extName": {
+        "message": "ট্যাব সাসপেন্ডার",
+        "description": "Extension name"
+    },
+    "extDescription": {
+        "message": "মেমরি বাঁচাতে অকার্যকর ট্যাবগুলো স্বয়ংক্রিয়ভাবে সাসপেন্ড করুন",
+        "description": "Extension description"
+    },
+    "tabSuspender": {
+        "message": "ট্যাব সাসপেন্ডার",
+        "description": "heading in popup.html"
+    },
+    "options": {
+        "message": "অপশন",
+        "description": "div in popup.html"
+    },
+    "whitelist": {
+        "message": "হোয়াইটলিস্ট",
+        "description": "div in popup.html"
+    },
+    "screenshot": {
+        "message": "স্ক্রিনশট",
+        "description": "div in popup.html"
+    },
+    "settings": {
+        "message": "সেটিংস",
+        "description": "div in popup.html"
+    },
+    "keyboardShortcuts": {
+        "message": "কীবোর্ড শর্টকাট",
+        "description": "heading in popup.html"
+    },
+    "dataManagement": {
+        "message": "তথ্য ব্যবস্থাপনা",
+        "description": "heading in popup.html"
+    },
+    "configureScreenshotCapture": {
+        "message": "স্ক্রিনশট ক্যাপচার এবং রিসাইজ সেটিংস কনফিগার করুন। ছোট ছবি মেমরি বাঁচায়।",
+        "description": "paragraph in popup.html"
+    },
+    "configureKeyboardShortcuts": {
+        "message": "ক্রোম এক্সটেনশন সেটিংসে কীবোর্ড শর্টকাট কনফিগার করুন।",
+        "description": "paragraph in popup.html"
+    },
+    "importExportSettingsWhitelist": {
+        "message": "আপনার সেটিংস এবং হোয়াইটলিস্ট ইম্পোর্ট বা এক্সপোর্ট করুন।",
+        "description": "paragraph in popup.html"
+    },
+    "saveOptions": {
+        "message": "অপশন সংরক্ষণ করুন",
+        "description": "button in popup.html"
+    },
+    "whitelistCurrentDomain": {
+        "message": "বর্তমান ডোমেইন হোয়াইটলিস্ট করুন",
+        "description": "button in popup.html"
+    },
+    "whitelistCurrentPage": {
+        "message": "বর্তমান পেজ হোয়াইটলিস্ট করুন",
+        "description": "button in popup.html"
+    },
+    "saveScreenshotSettings": {
+        "message": "স্ক্রিনশট সেটিংস সংরক্ষণ করুন",
+        "description": "button in popup.html"
+    },
+    "configureShortcuts": {
+        "message": "শর্টকাট কনফিগার করুন",
+        "description": "button in popup.html"
+    },
+    "openDataManager": {
+        "message": "ডেটা ম্যানেজার খুলুন",
+        "description": "button in popup.html"
+    },
+    "suspendInactiveTabsAfter": {
+        "message": "নিষ্ক্রিয় ট্যাবগুলো এত পরে সাসপেন্ড করুন (মিনিট):",
+        "description": "label in popup.html"
+    },
+    "darkMode": {
+        "message": "ডার্ক মোড",
+        "description": "label in popup.html"
+    },
+    "enableTabScreenshotsUses": {
+        "message": "ট্যাব স্ক্রিনশট সক্রিয় করুন (বেশি মেমরি ব্যবহার করে)",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsPlaying": {
+        "message": "অডিও চালাচ্ছে এমন ট্যাব সাসপেন্ড করবেন না",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsInput": {
+        "message": "ফর্ম ইনপুট সহ ট্যাব সাসপেন্ড করবেন না",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsNotification": {
+        "message": "নোটিফিকেশন সহ ট্যাব সাসপেন্ড করবেন না",
+        "description": "label in popup.html"
+    },
+    "dontSuspendPinnedTabs": {
+        "message": "পিন করা ট্যাব সাসপেন্ড করবেন না",
+        "description": "label in popup.html"
+    },
+    "captureQuality5100": {
+        "message": "ক্যাপচার কোয়ালিটি (৫-১০০)",
+        "description": "label in popup.html"
+    },
+    "resizeWidthPx": {
+        "message": "প্রস্থ পরিবর্তন (px)",
+        "description": "label in popup.html"
+    },
+    "resizeHeightPx": {
+        "message": "দৈর্ঘ্য পরিবর্তন (px)",
+        "description": "label in popup.html"
+    },
+    "resizeQuality0110": {
+        "message": "রিসাইজ কোয়ালিটি (০.১ - ১.০)",
+        "description": "label in popup.html"
+    },
+    "settingsSaved": {
+        "message": "সেটিংস সংরক্ষিত হয়েছে!",
+        "description": "notification in popup.html"
+    },
+    "tabSuspended": {
+        "message": "ট্যাব সাসপেন্ড করা হয়েছে",
+        "description": "title in suspended.html"
+    },
+    "clickAnywhereToRestore": {
+        "message": "এই ট্যাবটি পুনরুদ্ধার করতে যেকোনো জায়গায় ক্লিক করুন",
+        "description": "paragraph in suspended.html"
+    },
+    "dataManagementTabSuspender": {
+        "message": "তথ্য ব্যবস্থাপনা - ট্যাব সাসপেন্ডার",
+        "description": "title in data_management.html"
+    },
+    "exportSettings": {
+        "message": "সেটিংস এক্সপোর্ট করুন",
+        "description": "heading in data_management.html"
+    },
+    "importSettings": {
+        "message": "সেটিংস ইম্পোর্ট করুন",
+        "description": "heading in data_management.html"
+    },
+    "exportDesc": {
+        "message": "আপনার হোয়াইটলিস্ট এবং সেটিংস একটি JSON ফাইলে সংরক্ষণ করুন।",
+        "description": "paragraph in data_management.html"
+    },
+    "importDesc": {
+        "message": "JSON ফাইল থেকে সেটিংস লোড করুন। এটি আপনার বর্তমান সেটিংস মুছে ফেলবে।",
+        "description": "paragraph in data_management.html"
+    },
+    "selectJsonFile": {
+        "message": "JSON ফাইল নির্বাচন করুন",
+        "description": "label in data_management.html"
+    }
+}

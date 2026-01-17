@@ -1,0 +1,154 @@
+{
+  "extName": {
+    "message": "معلق النوافذ",
+    "description": "اسم الإضافة"
+  },
+  "extDescription": {
+    "message": "إيقاف النوافذ غير النشطة تلقائياً لتوفير الذاكرة",
+    "description": "وصف الإضافة"
+  },
+  "tabSuspender": {
+    "message": "معلق النوافذ",
+    "description": "عنوان في popup.html"
+  },
+  "options": {
+    "message": "الخيارات",
+    "description": "قسم في popup.html"
+  },
+  "whitelist": {
+    "message": "القائمة البيضاء",
+    "description": "قسم في popup.html"
+  },
+  "screenshot": {
+    "message": "لقطة الشاشة",
+    "description": "قسم في popup.html"
+  },
+  "settings": {
+    "message": "الإعدادات",
+    "description": "قسم في popup.html"
+  },
+  "keyboardShortcuts": {
+    "message": "اختصارات لوحة المفاتيح",
+    "description": "عنوان في popup.html"
+  },
+  "dataManagement": {
+    "message": "إدارة البيانات",
+    "description": "عنوان في popup.html"
+  },
+  "configureScreenshotCapture": {
+    "message": "تكوين إعدادات التقاط لقطة الشاشة وتغيير حجمها. الصور الأصغر توفر ذاكرة.",
+    "description": "فقرة في popup.html"
+  },
+  "configureKeyboardShortcuts": {
+    "message": "قم بتكوين اختصارات لوحة المفاتيح من إعدادات إضافات Chrome.",
+    "description": "فقرة في popup.html"
+  },
+  "importExportSettingsWhitelist": {
+    "message": "استيراد أو تصدير إعداداتك والقائمة البيضاء.",
+    "description": "فقرة في popup.html"
+  },
+  "saveOptions": {
+    "message": "حفظ الخيارات",
+    "description": "زر في popup.html"
+  },
+  "whitelistCurrentDomain": {
+    "message": "إضافة النطاق الحالي للقائمة البيضاء",
+    "description": "زر في popup.html"
+  },
+  "whitelistCurrentPage": {
+    "message": "إضافة الصفحة الحالية للقائمة البيضاء",
+    "description": "زر في popup.html"
+  },
+  "saveScreenshotSettings": {
+    "message": "حفظ إعدادات لقطة الشاشة",
+    "description": "زر في popup.html"
+  },
+  "configureShortcuts": {
+    "message": "تكوين الاختصارات",
+    "description": "زر في popup.html"
+  },
+  "openDataManager": {
+    "message": "فتح مدير البيانات",
+    "description": "زر في popup.html"
+  },
+  "suspendInactiveTabsAfter": {
+    "message": "إيقاف النوافذ غير النشطة بعد (دقائق):",
+    "description": "تسمية في popup.html"
+  },
+  "darkMode": {
+    "message": "الوضع الداكن",
+    "description": "تسمية في popup.html"
+  },
+  "enableTabScreenshotsUses": {
+    "message": "تفعيل لقطات الشاشة للنوافذ (يستهلك ذاكرة أكبر)",
+    "description": "تسمية في popup.html"
+  },
+  "dontSuspendTabsPlaying": {
+    "message": "عدم إيقاف النوافذ التي تشغل صوتاً",
+    "description": "تسمية في popup.html"
+  },
+  "dontSuspendTabsInput": {
+    "message": "عدم إيقاف النوافذ التي تحتوي على حقول إدخال",
+    "description": "تسمية في popup.html"
+  },
+  "dontSuspendTabsNotification": {
+    "message": "عدم إيقاف النوافذ التي لديها إشعارات",
+    "description": "تسمية في popup.html"
+  },
+  "dontSuspendPinnedTabs": {
+    "message": "عدم إيقاف النوافذ المثبتة",
+    "description": "تسمية في popup.html"
+  },
+  "captureQuality5100": {
+    "message": "جودة الالتقاط (5-100)",
+    "description": "تسمية في popup.html"
+  },
+  "resizeWidthPx": {
+    "message": "عرض تغيير الحجم (بكسل)",
+    "description": "تسمية في popup.html"
+  },
+  "resizeHeightPx": {
+    "message": "ارتفاع تغيير الحجم (بكسل)",
+    "description": "تسمية في popup.html"
+  },
+  "resizeQuality0110": {
+    "message": "جودة تغيير الحجم (0.1 - 1.0)",
+    "description": "تسمية في popup.html"
+  },
+  "settingsSaved": {
+    "message": "تم حفظ الإعدادات!",
+    "description": "إشعار في popup.html"
+  },
+  "tabSuspended": {
+    "message": "تم إيقاف النافذة",
+    "description": "عنوان في suspended.html"
+  },
+  "clickAnywhereToRestore": {
+    "message": "انقر في أي مكان لاستعادة هذه النافذة",
+    "description": "فقرة في suspended.html"
+  },
+  "dataManagementTabSuspender": {
+    "message": "إدارة البيانات - معلق النوافذ",
+    "description": "عنوان في data_management.html"
+  },
+  "exportSettings": {
+    "message": "تصدير الإعدادات",
+    "description": "عنوان في data_management.html"
+  },
+  "importSettings": {
+    "message": "استيراد الإعدادات",
+    "description": "عنوان في data_management.html"
+  },
+  "exportDesc": {
+    "message": "احفظ القائمة البيضاء وإعداداتك في ملف JSON.",
+    "description": "فقرة في data_management.html"
+  },
+  "importDesc": {
+    "message": "تحميل الإعدادات من ملف JSON. سيستبدل هذا إعداداتك الحالية.",
+    "description": "فقرة في data_management.html"
+  },
+  "selectJsonFile": {
+    "message": "اختر ملف JSON",
+    "description": "تسمية في data_management.html"
+  }
+}

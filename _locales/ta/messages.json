@@ -1,0 +1,154 @@
+{
+  "extName": {
+    "message": "தாவல் இடைநிறுத்தம்",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "நினைவகத்தை மிச்சப்படுத்த செயலில்லாத தாவல்களை தானாக இடைநிறுத்தவும்",
+    "description": "Extension description"
+  },
+  "tabSuspender": {
+    "message": "தாவல் இடைநிறுத்தம்",
+    "description": "heading in popup.html"
+  },
+  "options": {
+    "message": "விருப்பங்கள்",
+    "description": "div in popup.html"
+  },
+  "whitelist": {
+    "message": "வெள்ளைப்பட்டியல்",
+    "description": "div in popup.html"
+  },
+  "screenshot": {
+    "message": "திரைப்பிடிப்பு",
+    "description": "div in popup.html"
+  },
+  "settings": {
+    "message": "அமைப்புகள்",
+    "description": "div in popup.html"
+  },
+  "keyboardShortcuts": {
+    "message": "விசைப்பலகை குறுக்குவழிகள்",
+    "description": "heading in popup.html"
+  },
+  "dataManagement": {
+    "message": "தரவு மேலாண்மை",
+    "description": "heading in popup.html"
+  },
+  "configureScreenshotCapture": {
+    "message": "திரைப்பிடிப்பு எடுத்தல் மற்றும் அளவை மாற்றுவதை கட்டமைக்கவும். சிறிய படங்கள் நினைவகத்தை மிச்சப்படுத்தும்.",
+    "description": "paragraph in popup.html"
+  },
+  "configureKeyboardShortcuts": {
+    "message": "Chrome நீட்டிப்பு அமைப்புகளில் விசைப்பலகை குறுக்குவழிகளை கட்டமைக்கவும்.",
+    "description": "paragraph in popup.html"
+  },
+  "importExportSettingsWhitelist": {
+    "message": "உங்களின் அமைப்புகள் மற்றும் வெள்ளைப்பட்டியலை இறக்குமதி செய்யவும் அல்லது ஏற்றுமதி செய்யவும்.",
+    "description": "paragraph in popup.html"
+  },
+  "saveOptions": {
+    "message": "விருப்பங்களை சேமி",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentDomain": {
+    "message": "தற்போதைய டொமைனை வெள்ளைப்பட்டியலில் சேர்",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentPage": {
+    "message": "தற்போதைய பக்கத்தை வெள்ளைப்பட்டியலில் சேர்",
+    "description": "button in popup.html"
+  },
+  "saveScreenshotSettings": {
+    "message": "திரைப்பிடிப்பு அமைப்புகளை சேமி",
+    "description": "button in popup.html"
+  },
+  "configureShortcuts": {
+    "message": "குறுக்குவழிகளை கட்டமை",
+    "description": "button in popup.html"
+  },
+  "openDataManager": {
+    "message": "தரவு மேலாளரைத் திற",
+    "description": "button in popup.html"
+  },
+  "suspendInactiveTabsAfter": {
+    "message": "இத்தனை நேரத்திற்குப் பிறகு செயலற்ற தாவல்களை இடைநிறுத்து (நிமிடங்கள்):",
+    "description": "label in popup.html"
+  },
+  "darkMode": {
+    "message": "இருள் பயன்முறை",
+    "description": "label in popup.html"
+  },
+  "enableTabScreenshotsUses": {
+    "message": "தாவல் திரைப்பிடிப்புகளை இயக்கு (அதிக நினைவகத்தை பயன்படுத்தும்)",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsPlaying": {
+    "message": "ஆடியோ இயக்கும் தாவல்களை இடைநிறுத்த வேண்டாம்",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsInput": {
+    "message": "படிவ உள்ளீட்டுடன் தாவல்களை இடைநிறுத்த வேண்டாம்",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsNotification": {
+    "message": "அறிவிப்புகளுடன் தாவல்களை இடைநிறுத்த வேண்டாம்",
+    "description": "label in popup.html"
+  },
+  "dontSuspendPinnedTabs": {
+    "message": "பின்னி செய்யப்பட்ட தாவல்களை இடைநிறுத்த வேண்டாம்",
+    "description": "label in popup.html"
+  },
+  "captureQuality5100": {
+    "message": "பிடிப்பு தரம் (5-100)",
+    "description": "label in popup.html"
+  },
+  "resizeWidthPx": {
+    "message": "அகலத்தை மாற்றவும் (px)",
+    "description": "label in popup.html"
+  },
+  "resizeHeightPx": {
+    "message": "உயரத்தை மாற்றவும் (px)",
+    "description": "label in popup.html"
+  },
+  "resizeQuality0110": {
+    "message": "அளவு மாற்ற தரம் (0.1 - 1.0)",
+    "description": "label in popup.html"
+  },
+  "settingsSaved": {
+    "message": "அமைப்புகள் சேமிக்கப்பட்டன!",
+    "description": "notification in popup.html"
+  },
+  "tabSuspended": {
+    "message": "தாவல் இடைநிறுத்தப்பட்டது",
+    "description": "title in suspended.html"
+  },
+  "clickAnywhereToRestore": {
+    "message": "இந்த தாவலை மீட்டெடுக்க எங்கேனும் சொடுக்கவும்",
+    "description": "paragraph in suspended.html"
+  },
+  "dataManagementTabSuspender": {
+    "message": "தரவு மேலாண்மை - தாவல் இடைநிறுத்தம்",
+    "description": "title in data_management.html"
+  },
+  "exportSettings": {
+    "message": "அமைப்புகளை ஏற்றுமதி செய்",
+    "description": "heading in data_management.html"
+  },
+  "importSettings": {
+    "message": "அமைப்புகளை இறக்குமதி செய்",
+    "description": "heading in data_management.html"
+  },
+  "exportDesc": {
+    "message": "உங்களின் வெள்ளைப்பட்டியல் மற்றும் அமைப்புகளை JSON கோப்பில் சேமிக்கவும்.",
+    "description": "paragraph in data_management.html"
+  },
+  "importDesc": {
+    "message": "JSON கோப்பிலிருந்து அமைப்புகளை ஏற்றவும். இது உங்களின் தற்போதைய அமைப்புகளை மாற்றியமைக்கும்.",
+    "description": "paragraph in data_management.html"
+  },
+  "selectJsonFile": {
+    "message": "JSON கோப்பைத் தேர்ந்தெடுக்கவும்",
+    "description": "label in data_management.html"
+  }
+}

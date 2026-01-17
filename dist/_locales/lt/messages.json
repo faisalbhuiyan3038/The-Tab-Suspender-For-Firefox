@@ -1,0 +1,154 @@
+{
+    "extName": {
+        "message": "Skirtukų pristabdymas",
+        "description": "Extension name"
+    },
+    "extDescription": {
+        "message": "Automatiškai pristabdyti neaktyvius skirtukus atminties taupymui",
+        "description": "Extension description"
+    },
+    "tabSuspender": {
+        "message": "Skirtukų pristabdymas",
+        "description": "heading in popup.html"
+    },
+    "options": {
+        "message": "Parinktys",
+        "description": "div in popup.html"
+    },
+    "whitelist": {
+        "message": "Baltasis sąrašas",
+        "description": "div in popup.html"
+    },
+    "screenshot": {
+        "message": "Ekrano nuotrauka",
+        "description": "div in popup.html"
+    },
+    "settings": {
+        "message": "Nustatymai",
+        "description": "div in popup.html"
+    },
+    "keyboardShortcuts": {
+        "message": "Klaviatūros trumpiniai",
+        "description": "heading in popup.html"
+    },
+    "dataManagement": {
+        "message": "Duomenų valdymas",
+        "description": "heading in popup.html"
+    },
+    "configureScreenshotCapture": {
+        "message": "Konfigūruokite ekrano nuotraukų darymą ir dydžio keitimą. Mažesni paveikslėliai taupo atmintį.",
+        "description": "paragraph in popup.html"
+    },
+    "configureKeyboardShortcuts": {
+        "message": "Konfigūruokite klaviatūros trumpinius „Chrome“ plėtinių nustatymuose.",
+        "description": "paragraph in popup.html"
+    },
+    "importExportSettingsWhitelist": {
+        "message": "Importuokite arba eksportuokite savo nustatymus ir baltajį sąrašą.",
+        "description": "paragraph in popup.html"
+    },
+    "saveOptions": {
+        "message": "Įrašyti parinktis",
+        "description": "button in popup.html"
+    },
+    "whitelistCurrentDomain": {
+        "message": "Įtraukti dabartinį domeną į baltąjį sąrašą",
+        "description": "button in popup.html"
+    },
+    "whitelistCurrentPage": {
+        "message": "Įtraukti dabartinį puslapį į baltąjį sąrašą",
+        "description": "button in popup.html"
+    },
+    "saveScreenshotSettings": {
+        "message": "Įrašyti ekrano nuotraukų nustatymus",
+        "description": "button in popup.html"
+    },
+    "configureShortcuts": {
+        "message": "Konfigūruoti trumpinius",
+        "description": "button in popup.html"
+    },
+    "openDataManager": {
+        "message": "Atidaryti duomenų tvarkyklę",
+        "description": "button in popup.html"
+    },
+    "suspendInactiveTabsAfter": {
+        "message": "Pristabdyti neaktyvius skirtukus po (minučių):",
+        "description": "label in popup.html"
+    },
+    "darkMode": {
+        "message": "Tamsus režimas",
+        "description": "label in popup.html"
+    },
+    "enableTabScreenshotsUses": {
+        "message": "Įjungti skirtukų ekrano nuotraukas (naudoja daugiau atminties)",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsPlaying": {
+        "message": "Nesustabdyti skirtukų, kuriuose groja garso įrašai",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsInput": {
+        "message": "Nesustabdyti skirtukų su formos įvestimi",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsNotification": {
+        "message": "Nesustabdyti skirtukų su pranešimais",
+        "description": "label in popup.html"
+    },
+    "dontSuspendPinnedTabs": {
+        "message": "Nesustabdyti prisegtų skirtukų",
+        "description": "label in popup.html"
+    },
+    "captureQuality5100": {
+        "message": "Fotografavimo kokybė (5-100)",
+        "description": "label in popup.html"
+    },
+    "resizeWidthPx": {
+        "message": "Keisti plotį (piks)",
+        "description": "label in popup.html"
+    },
+    "resizeHeightPx": {
+        "message": "Keisti aukštį (piks)",
+        "description": "label in popup.html"
+    },
+    "resizeQuality0110": {
+        "message": "Dydžio keitimo kokybė (0.1 - 1.0)",
+        "description": "label in popup.html"
+    },
+    "settingsSaved": {
+        "message": "Nustatymai įrašyti!",
+        "description": "notification in popup.html"
+    },
+    "tabSuspended": {
+        "message": "Skirtukas pristabdytas",
+        "description": "title in suspended.html"
+    },
+    "clickAnywhereToRestore": {
+        "message": "Spustelėkite bet kur, kad atkurtumėte šį skirtuką",
+        "description": "paragraph in suspended.html"
+    },
+    "dataManagementTabSuspender": {
+        "message": "Duomenų valdymas - Skirtukų pristabdymas",
+        "description": "title in data_management.html"
+    },
+    "exportSettings": {
+        "message": "Eksportuoti nustatymus",
+        "description": "heading in data_management.html"
+    },
+    "importSettings": {
+        "message": "Importuoti nustatymus",
+        "description": "heading in data_management.html"
+    },
+    "exportDesc": {
+        "message": "Įrašykite savo baltojį sąrašą ir nustatymus į JSON failą.",
+        "description": "paragraph in data_management.html"
+    },
+    "importDesc": {
+        "message": "Įkelkite nustatymus iš JSON failo. Tai pakeis jūsų dabartinius nustatymus.",
+        "description": "paragraph in data_management.html"
+    },
+    "selectJsonFile": {
+        "message": "Pasirinkite JSON failą",
+        "description": "label in data_management.html"
+    }
+}

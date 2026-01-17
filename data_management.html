@@ -138,21 +138,21 @@
 <body>
 
   <div class="container">
-    <h1>Data Management</h1>
+    <h1 data-i18n="dataManagement">Data Management</h1>
     
     <div class="setting-item">
-      <h4>Export Settings</h4>
-      <p class="description">Save your whitelist and settings to a JSON file.</p>
+      <h4 data-i18n="exportSettings">Export Settings</h4>
+      <p class="description" data-i18n="exportDesc">Save your whitelist and settings to a JSON file.</p>
       <div class="button-group">
         <button id="exportSettingsBtn" class="btn">Export Settings</button>
       </div>
     </div>
 
     <div class="setting-item">
-      <h4>Import Settings</h4>
-      <p class="description">Load settings from a JSON file. This will overwrite your current settings.</p>
+      <h4 data-i18n="importSettings">Import Settings</h4>
+      <p class="description" data-i18n="importDesc">Load settings from a JSON file. This will overwrite your current settings.</p>
       <div class="button-group">
-        <label for="importSettingsInput" class="btn">
+        <label data-i18n="selectJsonFile" for="importSettingsInput" class="btn">
           Select JSON File
         </label>
         <input type="file" id="importSettingsInput" accept="application/json" style="display: none;">

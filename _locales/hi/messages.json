@@ -1,0 +1,154 @@
+{
+  "extName": {
+    "message": "टैब सस्पेंडर",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "मेमोरी बचाने के लिए निष्क्रिय टैब को स्वचालित रूप से सस्पेंड करें",
+    "description": "Extension description"
+  },
+  "tabSuspender": {
+    "message": "टैब सस्पेंडर",
+    "description": "heading in popup.html"
+  },
+  "options": {
+    "message": "विकल्प",
+    "description": "div in popup.html"
+  },
+  "whitelist": {
+    "message": "व्हाइटलिस्ट",
+    "description": "div in popup.html"
+  },
+  "screenshot": {
+    "message": "स्क्रीनशॉट",
+    "description": "div in popup.html"
+  },
+  "settings": {
+    "message": "सेटिंग्स",
+    "description": "div in popup.html"
+  },
+  "keyboardShortcuts": {
+    "message": "कीबोर्ड शॉर्टकट",
+    "description": "heading in popup.html"
+  },
+  "dataManagement": {
+    "message": "डेटा प्रबंधन",
+    "description": "heading in popup.html"
+  },
+  "configureScreenshotCapture": {
+    "message": "स्क्रीनशॉट कैप्चर और रिसाइज़ सेटिंग कॉन्फ़िगर करें। छोटी छवियां मेमोरी बचाती हैं।",
+    "description": "paragraph in popup.html"
+  },
+  "configureKeyboardShortcuts": {
+    "message": "Chrome के एक्सटेंशन सेटिंग्स में कीबोर्ड शॉर्टकट कॉन्फ़िगर करें।",
+    "description": "paragraph in popup.html"
+  },
+  "importExportSettingsWhitelist": {
+    "message": "अपनी सेटिंग्स और व्हाइटलिस्ट आयात या निर्यात करें।",
+    "description": "paragraph in popup.html"
+  },
+  "saveOptions": {
+    "message": "विकल्प सहेजें",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentDomain": {
+    "message": "वर्तमान डोमेन को व्हाइटलिस्ट करें",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentPage": {
+    "message": "वर्तमान पृष्ठ को व्हाइटलिस्ट करें",
+    "description": "button in popup.html"
+  },
+  "saveScreenshotSettings": {
+    "message": "स्क्रीनशॉट सेटिंग्स सहेजें",
+    "description": "button in popup.html"
+  },
+  "configureShortcuts": {
+    "message": "शॉर्टकट कॉन्फ़िगर करें",
+    "description": "button in popup.html"
+  },
+  "openDataManager": {
+    "message": "डेटा मैनेजर खोलें",
+    "description": "button in popup.html"
+  },
+  "suspendInactiveTabsAfter": {
+    "message": "इतने समय बाद निष्क्रिय टैब सस्पेंड करें (मिनट):",
+    "description": "label in popup.html"
+  },
+  "darkMode": {
+    "message": "डार्क मोड",
+    "description": "label in popup.html"
+  },
+  "enableTabScreenshotsUses": {
+    "message": "टैब स्क्रीनशॉट सक्षम करें (अधिक मेमोरी का उपयोग करता है)",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsPlaying": {
+    "message": "ऑडियो चलाने वाले टैब को सस्पेंड न करें",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsInput": {
+    "message": "फ़ॉर्म इनपुट वाले टैब को सस्पेंड न करें",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsNotification": {
+    "message": "नोटिफिकेशन वाले टैब को सस्पेंड न करें",
+    "description": "label in popup.html"
+  },
+  "dontSuspendPinnedTabs": {
+    "message": "पिन किए गए टैब को सस्पेंड न करें",
+    "description": "label in popup.html"
+  },
+  "captureQuality5100": {
+    "message": "कैप्चर क्वालिटी (5-100)",
+    "description": "label in popup.html"
+  },
+  "resizeWidthPx": {
+    "message": "चौड़ाई बदलें (px)",
+    "description": "label in popup.html"
+  },
+  "resizeHeightPx": {
+    "message": "ऊंचाई बदलें (px)",
+    "description": "label in popup.html"
+  },
+  "resizeQuality0110": {
+    "message": "रिसाइज़ क्वालिटी (0.1 - 1.0)",
+    "description": "label in popup.html"
+  },
+  "settingsSaved": {
+    "message": "सेटिंग्स सहेजी गईं!",
+    "description": "notification in popup.html"
+  },
+  "tabSuspended": {
+    "message": "टैब सस्पेंड किया गया",
+    "description": "title in suspended.html"
+  },
+  "clickAnywhereToRestore": {
+    "message": "इस टैब को पुनर्स्थापित करने के लिए कहीं भी क्लिक करें",
+    "description": "paragraph in suspended.html"
+  },
+  "dataManagementTabSuspender": {
+    "message": "डेटा प्रबंधन - टैब सस्पेंडर",
+    "description": "title in data_management.html"
+  },
+  "exportSettings": {
+    "message": "सेटिंग्स निर्यात करें",
+    "description": "heading in data_management.html"
+  },
+  "importSettings": {
+    "message": "सेटिंग्स आयात करें",
+    "description": "heading in data_management.html"
+  },
+  "exportDesc": {
+    "message": "अपनी व्हाइटलिस्ट और सेटिंग्स को एक JSON फ़ाइल में सहेजें।",
+    "description": "paragraph in data_management.html"
+  },
+  "importDesc": {
+    "message": "JSON फ़ाइल से सेटिंग्स लोड करें। यह आपकी वर्तमान सेटिंग्स को ओवरराइड कर देगा।",
+    "description": "paragraph in data_management.html"
+  },
+  "selectJsonFile": {
+    "message": "JSON फ़ाइल चुनें",
+    "description": "label in data_management.html"
+  }
+}

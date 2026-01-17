@@ -1,0 +1,154 @@
+{
+  "extName": {
+    "message": "Kusimisha Vichwa",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Sahau kiotomatiki vichwa visivyo hai ili kuokoa kumbukumbu",
+    "description": "Extension description"
+  },
+  "tabSuspender": {
+    "message": "Kusimisha Vichwa",
+    "description": "heading in popup.html"
+  },
+  "options": {
+    "message": "Chaguo",
+    "description": "div in popup.html"
+  },
+  "whitelist": {
+    "message": "Orodha ya Nyeupe",
+    "description": "div in popup.html"
+  },
+  "screenshot": {
+    "message": "Picha ya Skrini",
+    "description": "div in popup.html"
+  },
+  "settings": {
+    "message": "Mipangilio",
+    "description": "div in popup.html"
+  },
+  "keyboardShortcuts": {
+    "message": "Njia Za Kibodi",
+    "description": "heading in popup.html"
+  },
+  "dataManagement": {
+    "message": "Usimamizi wa Data",
+    "description": "heading in popup.html"
+  },
+  "configureScreenshotCapture": {
+    "message": "Sanidi kupiga picha ya skrini na kubadilisha ukubwa. Picha ndogo huaokoa kumbukumbu.",
+    "description": "paragraph in popup.html"
+  },
+  "configureKeyboardShortcuts": {
+    "message": "Sanidi njia za kibodi katika mipangilio ya nyongeza ya Chrome.",
+    "description": "paragraph in popup.html"
+  },
+  "importExportSettingsWhitelist": {
+    "message": "Leta au utoe mipangilio yako na orodha nyeupe.",
+    "description": "paragraph in popup.html"
+  },
+  "saveOptions": {
+    "message": "Hifadhi Chaguo",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentDomain": {
+    "message": "Weka Kikoa cha Sasa kwenye Orodha Nyeupe",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentPage": {
+    "message": "Weka Ukurasa wa Sasa kwenye Orodha Nyeupe",
+    "description": "button in popup.html"
+  },
+  "saveScreenshotSettings": {
+    "message": "Hifadhi Mipangilio ya Picha ya Skrini",
+    "description": "button in popup.html"
+  },
+  "configureShortcuts": {
+    "message": "Sanidi Njia Za Kupitia",
+    "description": "button in popup.html"
+  },
+  "openDataManager": {
+    "message": "Funga Meneja wa Data",
+    "description": "button in popup.html"
+  },
+  "suspendInactiveTabsAfter": {
+    "message": "Sahau vichwa visivyo hai baada ya (dakika):",
+    "description": "label in popup.html"
+  },
+  "darkMode": {
+    "message": "Hali ya Giza",
+    "description": "label in popup.html"
+  },
+  "enableTabScreenshotsUses": {
+    "message": "Washa picha za skrini za vichwa (inatumia kumbukumbu nyingi)",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsPlaying": {
+    "message": "Usisahau vichwa vinavyocheza sauti",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsInput": {
+    "message": "Usisahau vichwa vilivyo na ingizo la fomu",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsNotification": {
+    "message": "Usisahau vichwa vilivyo na taarifa",
+    "description": "label in popup.html"
+  },
+  "dontSuspendPinnedTabs": {
+    "message": "Usisahau vichwa vilivyobanwa",
+    "description": "label in popup.html"
+  },
+  "captureQuality5100": {
+    "message": "Ubora wa Kupiga (5-100)",
+    "description": "label in popup.html"
+  },
+  "resizeWidthPx": {
+    "message": "Badilisha Upana (px)",
+    "description": "label in popup.html"
+  },
+  "resizeHeightPx": {
+    "message": "Badilisha Urefu (px)",
+    "description": "label in popup.html"
+  },
+  "resizeQuality0110": {
+    "message": "Ubora wa Kubadilisha Ukubwa (0.1 - 1.0)",
+    "description": "label in popup.html"
+  },
+  "settingsSaved": {
+    "message": "Mipangilio Imehifadhiwa!",
+    "description": "notification in popup.html"
+  },
+  "tabSuspended": {
+    "message": "Kichwa Kimesimishwa",
+    "description": "title in suspended.html"
+  },
+  "clickAnywhereToRestore": {
+    "message": "Bofye popote ili kurudisha kichwa hiki",
+    "description": "paragraph in suspended.html"
+  },
+  "dataManagementTabSuspender": {
+    "message": "Usimamizi wa Data - Kusimisha Vichwa",
+    "description": "title in data_management.html"
+  },
+  "exportSettings": {
+    "message": "Toa Mipangilio",
+    "description": "heading in data_management.html"
+  },
+  "importSettings": {
+    "message": "Leta Mipangilio",
+    "description": "heading in data_management.html"
+  },
+  "exportDesc": {
+    "message": "Hifadhi orodha yako nyeupe na mipangilio kwenye faili la JSON.",
+    "description": "paragraph in data_management.html"
+  },
+  "importDesc": {
+    "message": "Pakia mipangilio kutoka kwenye faili la JSON. Hii itaandika juu ya mipangilio yako ya sasa.",
+    "description": "paragraph in data_management.html"
+  },
+  "selectJsonFile": {
+    "message": "Chagua Faili la JSON",
+    "description": "label in data_management.html"
+  }
+}

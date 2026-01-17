@@ -1,0 +1,154 @@
+{
+    "extName": {
+        "message": "Penangguhan Tab",
+        "description": "Extension name"
+    },
+    "extDescription": {
+        "message": "Otomatis menangguhkan tab yang tidak aktif untuk menghemat memori",
+        "description": "Extension description"
+    },
+    "tabSuspender": {
+        "message": "Penangguhan Tab",
+        "description": "heading in popup.html"
+    },
+    "options": {
+        "message": "Opsi",
+        "description": "div in popup.html"
+    },
+    "whitelist": {
+        "message": "Daftar Putih",
+        "description": "div in popup.html"
+    },
+    "screenshot": {
+        "message": "Tangkapan Layar",
+        "description": "div in popup.html"
+    },
+    "settings": {
+        "message": "Pengaturan",
+        "description": "div in popup.html"
+    },
+    "keyboardShortcuts": {
+        "message": "Pintasan Keyboard",
+        "description": "heading in popup.html"
+    },
+    "dataManagement": {
+        "message": "Manajemen Data",
+        "description": "heading in popup.html"
+    },
+    "configureScreenshotCapture": {
+        "message": "Konfigurasikan pengambilan dan pengubahan ukuran tangkapan layar. Gambar yang lebih kecil menghemat memori.",
+        "description": "paragraph in popup.html"
+    },
+    "configureKeyboardShortcuts": {
+        "message": "Konfigurasikan pintasan keyboard di pengaturan ekstensi Chrome.",
+        "description": "paragraph in popup.html"
+    },
+    "importExportSettingsWhitelist": {
+        "message": "Impor atau ekspor pengaturan dan daftar putih Anda.",
+        "description": "paragraph in popup.html"
+    },
+    "saveOptions": {
+        "message": "Simpan Opsi",
+        "description": "button in popup.html"
+    },
+    "whitelistCurrentDomain": {
+        "message": "Tambahkan Domain Saat Ini ke Daftar Putih",
+        "description": "button in popup.html"
+    },
+    "whitelistCurrentPage": {
+        "message": "Tambahkan Halaman Saat Ini ke Daftar Putih",
+        "description": "button in popup.html"
+    },
+    "saveScreenshotSettings": {
+        "message": "Simpan Pengaturan Tangkapan Layar",
+        "description": "button in popup.html"
+    },
+    "configureShortcuts": {
+        "message": "Konfigurasikan Pintasan",
+        "description": "button in popup.html"
+    },
+    "openDataManager": {
+        "message": "Buka Manajer Data",
+        "description": "button in popup.html"
+    },
+    "suspendInactiveTabsAfter": {
+        "message": "Tangguhkan tab tidak aktif setelah (menit):",
+        "description": "label in popup.html"
+    },
+    "darkMode": {
+        "message": "Mode Gelap",
+        "description": "label in popup.html"
+    },
+    "enableTabScreenshotsUses": {
+        "message": "Aktifkan tangkapan layar tab (menggunakan lebih banyak memori)",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsPlaying": {
+        "message": "Jangan tangguhkan tab yang memutar audio",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsInput": {
+        "message": "Jangan tangguhkan tab dengan input formulir",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsNotification": {
+        "message": "Jangan tangguhkan tab dengan notifikasi",
+        "description": "label in popup.html"
+    },
+    "dontSuspendPinnedTabs": {
+        "message": "Jangan tangguhkan tab yang disematkan",
+        "description": "label in popup.html"
+    },
+    "captureQuality5100": {
+        "message": "Kualitas Tangkapan (5-100)",
+        "description": "label in popup.html"
+    },
+    "resizeWidthPx": {
+        "message": "Ubah Ukuran Lebar (px)",
+        "description": "label in popup.html"
+    },
+    "resizeHeightPx": {
+        "message": "Ubah Ukuran Tinggi (px)",
+        "description": "label in popup.html"
+    },
+    "resizeQuality0110": {
+        "message": "Kualitas Ubah Ukuran (0.1 - 1.0)",
+        "description": "label in popup.html"
+    },
+    "settingsSaved": {
+        "message": "Pengaturan disimpan!",
+        "description": "notification in popup.html"
+    },
+    "tabSuspended": {
+        "message": "Tab Ditangguhkan",
+        "description": "title in suspended.html"
+    },
+    "clickAnywhereToRestore": {
+        "message": "Klik di mana saja untuk memulihkan tab ini",
+        "description": "paragraph in suspended.html"
+    },
+    "dataManagementTabSuspender": {
+        "message": "Manajemen Data - Penangguhan Tab",
+        "description": "title in data_management.html"
+    },
+    "exportSettings": {
+        "message": "Ekspor Pengaturan",
+        "description": "heading in data_management.html"
+    },
+    "importSettings": {
+        "message": "Impor Pengaturan",
+        "description": "heading in data_management.html"
+    },
+    "exportDesc": {
+        "message": "Simpan daftar putih dan pengaturan Anda ke file JSON.",
+        "description": "paragraph in data_management.html"
+    },
+    "importDesc": {
+        "message": "Muat pengaturan dari file JSON. Ini akan menimpa pengaturan Anda saat ini.",
+        "description": "paragraph in data_management.html"
+    },
+    "selectJsonFile": {
+        "message": "Pilih File JSON",
+        "description": "label in data_management.html"
+    }
+}

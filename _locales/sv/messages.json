@@ -1,0 +1,154 @@
+{
+  "extName": {
+    "message": "Flikpaus",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Pausa automatiskt inaktiva flikar för att spara minne",
+    "description": "Extension description"
+  },
+  "tabSuspender": {
+    "message": "Flikpaus",
+    "description": "heading in popup.html"
+  },
+  "options": {
+    "message": "Alternativ",
+    "description": "div in popup.html"
+  },
+  "whitelist": {
+    "message": "Vitlista",
+    "description": "div in popup.html"
+  },
+  "screenshot": {
+    "message": "Skärmdump",
+    "description": "div in popup.html"
+  },
+  "settings": {
+    "message": "Inställningar",
+    "description": "div in popup.html"
+  },
+  "keyboardShortcuts": {
+    "message": "Tangentbordsgenvägar",
+    "description": "heading in popup.html"
+  },
+  "dataManagement": {
+    "message": "Datahantering",
+    "description": "heading in popup.html"
+  },
+  "configureScreenshotCapture": {
+    "message": "Konfigurera skärmdumpsfångst och storleksändring. Mindre bilder sparar minne.",
+    "description": "paragraph in popup.html"
+  },
+  "configureKeyboardShortcuts": {
+    "message": "Konfigurera tangentbordsgenvägar i Chromes tillägginställningar.",
+    "description": "paragraph in popup.html"
+  },
+  "importExportSettingsWhitelist": {
+    "message": "Importera eller exportera dina inställningar och vitlista.",
+    "description": "paragraph in popup.html"
+  },
+  "saveOptions": {
+    "message": "Spara alternativ",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentDomain": {
+    "message": "Vitlista aktuell domän",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentPage": {
+    "message": "Vitlista aktuell sida",
+    "description": "button in popup.html"
+  },
+  "saveScreenshotSettings": {
+    "message": "Spara skärmdumpsinställningar",
+    "description": "button in popup.html"
+  },
+  "configureShortcuts": {
+    "message": "Konfigurera genvägar",
+    "description": "button in popup.html"
+  },
+  "openDataManager": {
+    "message": "Öppna datahanterare",
+    "description": "button in popup.html"
+  },
+  "suspendInactiveTabsAfter": {
+    "message": "Pausa inaktiva flikar efter (minuter):",
+    "description": "label in popup.html"
+  },
+  "darkMode": {
+    "message": "Mörkt läge",
+    "description": "label in popup.html"
+  },
+  "enableTabScreenshotsUses": {
+    "message": "Aktivera flikskärmdumpar (använder mer minne)",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsPlaying": {
+    "message": "Pausa inte flikar som spelar upp ljud",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsInput": {
+    "message": "Pausa inte flikar med formulärinmatning",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsNotification": {
+    "message": "Pausa inte flikar med aviseringar",
+    "description": "label in popup.html"
+  },
+  "dontSuspendPinnedTabs": {
+    "message": "Pausa inte fästa flikar",
+    "description": "label in popup.html"
+  },
+  "captureQuality5100": {
+    "message": "Fångstkvalitet (5-100)",
+    "description": "label in popup.html"
+  },
+  "resizeWidthPx": {
+    "message": "Ändra bredd (px)",
+    "description": "label in popup.html"
+  },
+  "resizeHeightPx": {
+    "message": "Ändra höjd (px)",
+    "description": "label in popup.html"
+  },
+  "resizeQuality0110": {
+    "message": "Kvalitet på storleksändring (0.1 - 1.0)",
+    "description": "label in popup.html"
+  },
+  "settingsSaved": {
+    "message": "Inställningar sparade!",
+    "description": "notification in popup.html"
+  },
+  "tabSuspended": {
+    "message": "Flik pausad",
+    "description": "title in suspended.html"
+  },
+  "clickAnywhereToRestore": {
+    "message": "Klicka var som helst för att återställa den här fliken",
+    "description": "paragraph in suspended.html"
+  },
+  "dataManagementTabSuspender": {
+    "message": "Datahantering - Flikpaus",
+    "description": "title in data_management.html"
+  },
+  "exportSettings": {
+    "message": "Exportera inställningar",
+    "description": "heading in data_management.html"
+  },
+  "importSettings": {
+    "message": "Importera inställningar",
+    "description": "heading in data_management.html"
+  },
+  "exportDesc": {
+    "message": "Spara din vitlista och inställningar i en JSON-fil.",
+    "description": "paragraph in data_management.html"
+  },
+  "importDesc": {
+    "message": "Läs in inställningar från en JSON-fil. Detta kommer att skriva över dina nuvarande inställningar.",
+    "description": "paragraph in data_management.html"
+  },
+  "selectJsonFile": {
+    "message": "Välj JSON-fil",
+    "description": "label in data_management.html"
+  }
+}

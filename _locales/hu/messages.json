@@ -1,0 +1,154 @@
+{
+    "extName": {
+        "message": "Fülek felfüggesztése",
+        "description": "Extension name"
+    },
+    "extDescription": {
+        "message": "Inaktív fülek automatikus felfüggesztése a memória mentése érdekében",
+        "description": "Extension description"
+    },
+    "tabSuspender": {
+        "message": "Fülek felfüggesztése",
+        "description": "heading in popup.html"
+    },
+    "options": {
+        "message": "Beállítások",
+        "description": "div in popup.html"
+    },
+    "whitelist": {
+        "message": "Fehérlista",
+        "description": "div in popup.html"
+    },
+    "screenshot": {
+        "message": "Képernyőkép",
+        "description": "div in popup.html"
+    },
+    "settings": {
+        "message": "Beállítások",
+        "description": "div in popup.html"
+    },
+    "keyboardShortcuts": {
+        "message": "Billentyűparancsok",
+        "description": "heading in popup.html"
+    },
+    "dataManagement": {
+        "message": "Adatkezelés",
+        "description": "heading in popup.html"
+    },
+    "configureScreenshotCapture": {
+        "message": "A képernyőképek rögzítésének és átméretezésének beállítása. A kisebb képek kevesebb memóriát használnak.",
+        "description": "paragraph in popup.html"
+    },
+    "configureKeyboardShortcuts": {
+        "message": "Billentyűparancsok konfigurálása a Chrome bővítménybeállításaiban.",
+        "description": "paragraph in popup.html"
+    },
+    "importExportSettingsWhitelist": {
+        "message": "Beállítások és fehérlista importálása vagy exportálása.",
+        "description": "paragraph in popup.html"
+    },
+    "saveOptions": {
+        "message": "Beállítások mentése",
+        "description": "button in popup.html"
+    },
+    "whitelistCurrentDomain": {
+        "message": "Jelenlegi tartomány fehérlistára helyezése",
+        "description": "button in popup.html"
+    },
+    "whitelistCurrentPage": {
+        "message": "Jelenlegi oldal fehérlistára helyezése",
+        "description": "button in popup.html"
+    },
+    "saveScreenshotSettings": {
+        "message": "Képernyőkép-beállítások mentése",
+        "description": "button in popup.html"
+    },
+    "configureShortcuts": {
+        "message": "Parancsikonok konfigurálása",
+        "description": "button in popup.html"
+    },
+    "openDataManager": {
+        "message": "Adatkezelő megnyitása",
+        "description": "button in popup.html"
+    },
+    "suspendInactiveTabsAfter": {
+        "message": "Inaktív fülek felfüggesztése ennyi idő után (perc):",
+        "description": "label in popup.html"
+    },
+    "darkMode": {
+        "message": "Sötét mód",
+        "description": "label in popup.html"
+    },
+    "enableTabScreenshotsUses": {
+        "message": "Fül-képernyőképek engedélyezése (több memóriát használ)",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsPlaying": {
+        "message": "Ne függessze fel a hangot lejátszó füleket",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsInput": {
+        "message": "Ne függessze fel a beviteli mezővel rendelkező füleket",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsNotification": {
+        "message": "Ne függessze fel az értesítéssel rendelkező füleket",
+        "description": "label in popup.html"
+    },
+    "dontSuspendPinnedTabs": {
+        "message": "Ne függessze fel a rögzített (pinned) füleket",
+        "description": "label in popup.html"
+    },
+    "captureQuality5100": {
+        "message": "Rögzítési minőség (5-100)",
+        "description": "label in popup.html"
+    },
+    "resizeWidthPx": {
+        "message": "Szélesség átméretezése (px)",
+        "description": "label in popup.html"
+    },
+    "resizeHeightPx": {
+        "message": "Magasság átméretezése (px)",
+        "description": "label in popup.html"
+    },
+    "resizeQuality0110": {
+        "message": "Átméretezési minőség (0.1 - 1.0)",
+        "description": "label in popup.html"
+    },
+    "settingsSaved": {
+        "message": "Beállítások elmentve!",
+        "description": "notification in popup.html"
+    },
+    "tabSuspended": {
+        "message": "A fül fel van függesztve",
+        "description": "title in suspended.html"
+    },
+    "clickAnywhereToRestore": {
+        "message": "Kattintson bárhova a lap visszaállításához",
+        "description": "paragraph in suspended.html"
+    },
+    "dataManagementTabSuspender": {
+        "message": "Adatkezelés - Fülek felfüggesztése",
+        "description": "title in data_management.html"
+    },
+    "exportSettings": {
+        "message": "Beállítások exportálása",
+        "description": "heading in data_management.html"
+    },
+    "importSettings": {
+        "message": "Beállítások importálása",
+        "description": "heading in data_management.html"
+    },
+    "exportDesc": {
+        "message": "Fehérlista és beállítások mentése JSON fájlba.",
+        "description": "paragraph in data_management.html"
+    },
+    "importDesc": {
+        "message": "Beállítások betöltése JSON fájlból. Ez felülírja a jelenlegi beállításokat.",
+        "description": "paragraph in data_management.html"
+    },
+    "selectJsonFile": {
+        "message": "JSON fájl kiválasztása",
+        "description": "label in data_management.html"
+    }
+}

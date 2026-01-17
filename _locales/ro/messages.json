@@ -1,0 +1,154 @@
+{
+    "extName": {
+        "message": "Suspendare Taburi",
+        "description": "Extension name"
+    },
+    "extDescription": {
+        "message": "Suspendează automat taburile inactive pentru a economisi memoria",
+        "description": "Extension description"
+    },
+    "tabSuspender": {
+        "message": "Suspendare Taburi",
+        "description": "heading in popup.html"
+    },
+    "options": {
+        "message": "Opțiuni",
+        "description": "div in popup.html"
+    },
+    "whitelist": {
+        "message": "Listă albă",
+        "description": "div in popup.html"
+    },
+    "screenshot": {
+        "message": "Captură de ecran",
+        "description": "div in popup.html"
+    },
+    "settings": {
+        "message": "Setări",
+        "description": "div in popup.html"
+    },
+    "keyboardShortcuts": {
+        "message": "Comenzi rapide de tastatură",
+        "description": "heading in popup.html"
+    },
+    "dataManagement": {
+        "message": "Gestionare date",
+        "description": "heading in popup.html"
+    },
+    "configureScreenshotCapture": {
+        "message": "Configurați capturarea și redimensionarea imaginilor. Imaginile mai mici economisesc memoria.",
+        "description": "paragraph in popup.html"
+    },
+    "configureKeyboardShortcuts": {
+        "message": "Configurați comenzile rapide în setările extensiilor Chrome.",
+        "description": "paragraph in popup.html"
+    },
+    "importExportSettingsWhitelist": {
+        "message": "Importați sau exportați setările și lista albă.",
+        "description": "paragraph in popup.html"
+    },
+    "saveOptions": {
+        "message": "Salvează opțiunile",
+        "description": "button in popup.html"
+    },
+    "whitelistCurrentDomain": {
+        "message": "Adaugă domeniul curent pe lista albă",
+        "description": "button in popup.html"
+    },
+    "whitelistCurrentPage": {
+        "message": "Adaugă pagina curentă pe lista albă",
+        "description": "button in popup.html"
+    },
+    "saveScreenshotSettings": {
+        "message": "Salvează setările capturii de ecran",
+        "description": "button in popup.html"
+    },
+    "configureShortcuts": {
+        "message": "Configurare comenzi rapide",
+        "description": "button in popup.html"
+    },
+    "openDataManager": {
+        "message": "Deschide managerul de date",
+        "description": "button in popup.html"
+    },
+    "suspendInactiveTabsAfter": {
+        "message": "Suspendează taburile inactive după (minute):",
+        "description": "label in popup.html"
+    },
+    "darkMode": {
+        "message": "Mod întunecat",
+        "description": "label in popup.html"
+    },
+    "enableTabScreenshotsUses": {
+        "message": "Activează capturile de ecran pentru taburi (folosește mai multă memorie)",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsPlaying": {
+        "message": "Nu suspenda taburile care redau audio",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsInput": {
+        "message": "Nu suspenda taburile cu intrări în formular",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsNotification": {
+        "message": "Nu suspenda taburile cu notificări",
+        "description": "label in popup.html"
+    },
+    "dontSuspendPinnedTabs": {
+        "message": "Nu suspenda taburile fixate",
+        "description": "label in popup.html"
+    },
+    "captureQuality5100": {
+        "message": "Calitatea capturii (5-100)",
+        "description": "label in popup.html"
+    },
+    "resizeWidthPx": {
+        "message": "Redimensionează lățimea (px)",
+        "description": "label in popup.html"
+    },
+    "resizeHeightPx": {
+        "message": "Redimensionează înălțimea (px)",
+        "description": "label in popup.html"
+    },
+    "resizeQuality0110": {
+        "message": "Calitatea redimensionării (0.1 - 1.0)",
+        "description": "label in popup.html"
+    },
+    "settingsSaved": {
+        "message": "Setările au fost salvate!",
+        "description": "notification in popup.html"
+    },
+    "tabSuspended": {
+        "message": "Tabul suspendat",
+        "description": "title in suspended.html"
+    },
+    "clickAnywhereToRestore": {
+        "message": "Faceți clic oriunde pentru a restabili acest tab",
+        "description": "paragraph in suspended.html"
+    },
+    "dataManagementTabSuspender": {
+        "message": "Gestionare date - Suspendare Taburi",
+        "description": "title in data_management.html"
+    },
+    "exportSettings": {
+        "message": "Exportă setări",
+        "description": "heading in data_management.html"
+    },
+    "importSettings": {
+        "message": "Importă setări",
+        "description": "heading in data_management.html"
+    },
+    "exportDesc": {
+        "message": "Salvați lista albă și setările într-un fișier JSON.",
+        "description": "paragraph in data_management.html"
+    },
+    "importDesc": {
+        "message": "Încărcați setările dintr-un fișier JSON. Aceasta va suprascrie setările actuale.",
+        "description": "paragraph in data_management.html"
+    },
+    "selectJsonFile": {
+        "message": "Selectează fișierul JSON",
+        "description": "label in data_management.html"
+    }
+}

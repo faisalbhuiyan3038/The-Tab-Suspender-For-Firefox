@@ -1,0 +1,154 @@
+{
+  "extName": {
+    "message": "タブサスペンダー",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "メモリを節約するために、アクティブでないタブを自動的にサスペンドします",
+    "description": "Extension description"
+  },
+  "tabSuspender": {
+    "message": "タブサスペンダー",
+    "description": "heading in popup.html"
+  },
+  "options": {
+    "message": "オプション",
+    "description": "div in popup.html"
+  },
+  "whitelist": {
+    "message": "ホワイトリスト",
+    "description": "div in popup.html"
+  },
+  "screenshot": {
+    "message": "スクリーンショット",
+    "description": "div in popup.html"
+  },
+  "settings": {
+    "message": "設定",
+    "description": "div in popup.html"
+  },
+  "keyboardShortcuts": {
+    "message": "キーボードショートカット",
+    "description": "heading in popup.html"
+  },
+  "dataManagement": {
+    "message": "データ管理",
+    "description": "heading in popup.html"
+  },
+  "configureScreenshotCapture": {
+    "message": "スクリーンショットの取得とサイズ変更の設定を行います。画像サイズが小さいほどメモリを節約できます。",
+    "description": "paragraph in popup.html"
+  },
+  "configureKeyboardShortcuts": {
+    "message": "Chromeの拡張機能設定でキーボードショートカットを設定します。",
+    "description": "paragraph in popup.html"
+  },
+  "importExportSettingsWhitelist": {
+    "message": "設定とホワイトリストをインポートまたはエクスポートします。",
+    "description": "paragraph in popup.html"
+  },
+  "saveOptions": {
+    "message": "オプションを保存",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentDomain": {
+    "message": "現在のドメインをホワイトリストに追加",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentPage": {
+    "message": "現在のページをホワイトリストに追加",
+    "description": "button in popup.html"
+  },
+  "saveScreenshotSettings": {
+    "message": "スクリーンショット設定を保存",
+    "description": "button in popup.html"
+  },
+  "configureShortcuts": {
+    "message": "ショートカットの設定",
+    "description": "button in popup.html"
+  },
+  "openDataManager": {
+    "message": "データマネージャーを開く",
+    "description": "button in popup.html"
+  },
+  "suspendInactiveTabsAfter": {
+    "message": "この時間が経過したら非アクティブなタブをサスペンド（分）:",
+    "description": "label in popup.html"
+  },
+  "darkMode": {
+    "message": "ダークモード",
+    "description": "label in popup.html"
+  },
+  "enableTabScreenshotsUses": {
+    "message": "タブのスクリーンショットを有効にする（メモリを多く使用します）",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsPlaying": {
+    "message": "音声を再生中のタブはサスペンドしない",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsInput": {
+    "message": "入力フォームがあるタブはサスペンドしない",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsNotification": {
+    "message": "通知があるタブはサスペンドしない",
+    "description": "label in popup.html"
+  },
+  "dontSuspendPinnedTabs": {
+    "message": "ピン留めされたタブはサスペンドしない",
+    "description": "label in popup.html"
+  },
+  "captureQuality5100": {
+    "message": "キャプチャの品質 (5-100)",
+    "description": "label in popup.html"
+  },
+  "resizeWidthPx": {
+    "message": "幅のリサイズ (px)",
+    "description": "label in popup.html"
+  },
+  "resizeHeightPx": {
+    "message": "高さのリサイズ (px)",
+    "description": "label in popup.html"
+  },
+  "resizeQuality0110": {
+    "message": "リサイズの品質 (0.1 - 1.0)",
+    "description": "label in popup.html"
+  },
+  "settingsSaved": {
+    "message": "設定を保存しました！",
+    "description": "notification in popup.html"
+  },
+  "tabSuspended": {
+    "message": "タブがサスペンドされました",
+    "description": "title in suspended.html"
+  },
+  "clickAnywhereToRestore": {
+    "message": "どこでもクリックしてこのタブを復元",
+    "description": "paragraph in suspended.html"
+  },
+  "dataManagementTabSuspender": {
+    "message": "データ管理 - タブサスペンダー",
+    "description": "title in data_management.html"
+  },
+  "exportSettings": {
+    "message": "設定をエクスポート",
+    "description": "heading in data_management.html"
+  },
+  "importSettings": {
+    "message": "設定をインポート",
+    "description": "heading in data_management.html"
+  },
+  "exportDesc": {
+    "message": "ホワイトリストと設定をJSONファイルに保存します。",
+    "description": "paragraph in data_management.html"
+  },
+  "importDesc": {
+    "message": "JSONファイルから設定を読み込みます。これにより現在の設定が上書きされます。",
+    "description": "paragraph in data_management.html"
+  },
+  "selectJsonFile": {
+    "message": "JSONファイルを選択",
+    "description": "label in data_management.html"
+  }
+}

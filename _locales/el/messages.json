@@ -1,0 +1,154 @@
+{
+    "extName": {
+        "message": "Αναστολή Καρτελών",
+        "description": "Extension name"
+    },
+    "extDescription": {
+        "message": "Αυτόματη αναστολή αδρανών καρτελών για εξοικονόμηση μνήμης",
+        "description": "Extension description"
+    },
+    "tabSuspender": {
+        "message": "Αναστολή Καρτελών",
+        "description": "heading in popup.html"
+    },
+    "options": {
+        "message": "Επιλογές",
+        "description": "div in popup.html"
+    },
+    "whitelist": {
+        "message": "Λίστα Επιτρεπομένων",
+        "description": "div in popup.html"
+    },
+    "screenshot": {
+        "message": "Στιγμιότυπο",
+        "description": "div in popup.html"
+    },
+    "settings": {
+        "message": "Ρυθμίσεις",
+        "description": "div in popup.html"
+    },
+    "keyboardShortcuts": {
+        "message": "Συντομεύσεις Πληκτρολογίου",
+        "description": "heading in popup.html"
+    },
+    "dataManagement": {
+        "message": "Διαχείριση Δεδομένων",
+        "description": "heading in popup.html"
+    },
+    "configureScreenshotCapture": {
+        "message": "Ρυθμίστε τη λήψη και την αλλαγή μεγέθους των στιγμιότυπων. Τα μικρότερα εικονίδια εξοικονομούν μνήμη.",
+        "description": "paragraph in popup.html"
+    },
+    "configureKeyboardShortcuts": {
+        "message": "Ρυθμίστε τις συντομεύσεις πληκτρολογίου στις ρυθμίσεις επεκτάσεων του Chrome.",
+        "description": "paragraph in popup.html"
+    },
+    "importExportSettingsWhitelist": {
+        "message": "Εισαγωγή ή εξαγωγή των ρυθμίσεων και της λίστας επιτρεπομένων.",
+        "description": "paragraph in popup.html"
+    },
+    "saveOptions": {
+        "message": "Αποθήκευση Επιλογών",
+        "description": "button in popup.html"
+    },
+    "whitelistCurrentDomain": {
+        "message": "Προσθήκη Τρέχοντος Τομέα στη Λίστα",
+        "description": "button in popup.html"
+    },
+    "whitelistCurrentPage": {
+        "message": "Προσθήκη Τρέχουσας Σελίδας στη Λίστα",
+        "description": "button in popup.html"
+    },
+    "saveScreenshotSettings": {
+        "message": "Αποθήκευση Ρυθμίσεων Στιγμιότυπου",
+        "description": "button in popup.html"
+    },
+    "configureShortcuts": {
+        "message": "Ρύθμιση Συντομεύσεων",
+        "description": "button in popup.html"
+    },
+    "openDataManager": {
+        "message": "Άνοιγμα Διαχείρισης Δεδομένων",
+        "description": "button in popup.html"
+    },
+    "suspendInactiveTabsAfter": {
+        "message": "Αναστολή αδρανών καρτελών μετά από (λεπτά):",
+        "description": "label in popup.html"
+    },
+    "darkMode": {
+        "message": "Σκοτεινή Λειτουργία",
+        "description": "label in popup.html"
+    },
+    "enableTabScreenshotsUses": {
+        "message": "Ενεργοποίηση στιγμιότυπων καρτελών (χρησιμοποιεί περισσότερη μνήμη)",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsPlaying": {
+        "message": "Να μην αναστέλλονται καρτέλες που αναπαράγουν ήχο",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsInput": {
+        "message": "Να μην αναστέλλονται καρτέλες με καταχώρηση στη φόρμα",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsNotification": {
+        "message": "Να μην αναστέλλονται καρτέλες με ειδοποιήσεις",
+        "description": "label in popup.html"
+    },
+    "dontSuspendPinnedTabs": {
+        "message": "Να μην αναστέλλονται καρφιτσωμένες καρτέλες",
+        "description": "label in popup.html"
+    },
+    "captureQuality5100": {
+        "message": "Ποιότητα Λήψης (5-100)",
+        "description": "label in popup.html"
+    },
+    "resizeWidthPx": {
+        "message": "Αλλαγή Πλάτους (px)",
+        "description": "label in popup.html"
+    },
+    "resizeHeightPx": {
+        "message": "Αλλαγή Ύψους (px)",
+        "description": "label in popup.html"
+    },
+    "resizeQuality0110": {
+        "message": "Ποιότητα Αλλαγής Μεγέθους (0.1 - 1.0)",
+        "description": "label in popup.html"
+    },
+    "settingsSaved": {
+        "message": "Οι ρυθμίσεις αποθηκεύτηκαν!",
+        "description": "notification in popup.html"
+    },
+    "tabSuspended": {
+        "message": "Η καρτέλα αναστάλθηκε",
+        "description": "title in suspended.html"
+    },
+    "clickAnywhereToRestore": {
+        "message": "Κάντε κλικ οπουδήποτε για να επαναφέρετε αυτή την καρτέλα",
+        "description": "paragraph in suspended.html"
+    },
+    "dataManagementTabSuspender": {
+        "message": "Διαχείριση Δεδομένων - Αναστολή Καρτελών",
+        "description": "title in data_management.html"
+    },
+    "exportSettings": {
+        "message": "Εξαγωγή Ρυθμίσεων",
+        "description": "heading in data_management.html"
+    },
+    "importSettings": {
+        "message": "Εισαγωγή Ρυθμίσεων",
+        "description": "heading in data_management.html"
+    },
+    "exportDesc": {
+        "message": "Αποθήκευση της λίστας επιτρεπομένων και των ρυθμίσεων σε αρχείο JSON.",
+        "description": "paragraph in data_management.html"
+    },
+    "importDesc": {
+        "message": "Φόρτωση ρυθμίσεων από αρχείο JSON. Αυτό θα αντικαταστήσει τις τρέχουσες ρυθμίσεις σας.",
+        "description": "paragraph in data_management.html"
+    },
+    "selectJsonFile": {
+        "message": "Επιλογή Αρχείου JSON",
+        "description": "label in data_management.html"
+    }
+}

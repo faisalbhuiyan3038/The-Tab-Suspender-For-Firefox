@@ -1,0 +1,61 @@
+The Tab Suspender: Save Memory & Improve Performance
+
+This is a powerful and lightweight extension designed to automatically suspend inactive tabs, freeing up valuable system memory (RAM) (as it's getting expensive) and CPU resources. By putting unused tabs to sleep, it ensures your browser remains fast and responsive, extending battery life on laptops and improving overall system performance.
+
+SOME BACKGROUND:
+I initially built this extension for personal use on Firefox, and after a good number of people started using it, I listened to their feedback and improved it. Then, someone emailed me and requested I make a Chrome version of it, so, here it is. This is built for the modern web with latest Manifest V3 so its fully supported.
+
+KEY DIFFERENCE VS OTHER EXTENSIONS: 
+Suspended tabs don't automatically reload, you have to click to load them. The extension also uses Chrome's built-in native discarding so the browser behaves as if the tab doesn't exist.
+
+CORE FEATURES:
+
+Automatic Suspension: 
+- Automatically detects and suspends tabs that have been inactive for a specified period (default is 40 minutes).
+
+Significant Memory Savings: 
+- Instantly releases memory used by inactive tabs, allowing your active tabs and other applications to run smoother.
+
+Native Tab Discarding (New in v1.7): 
+- Now utilizes the Chromium Native Discard API for maximum efficiency and stability while maintaining our signature "Click to Restore" interface.
+
+Prevent Accidental Reloads: 
+- Suspended tabs do not auto-reload on focus. You decide when to load the content.
+
+Visual Feedback: 
+- Suspended tabs are clearly marked with a "zzz" icon in the title and a dimmed favicon.
+
+Dark Mode Support: 
+- The suspended page automatically adapts to your browser's theme (Light/Dark mode).
+
+Smart Whitelisting & Protection:
+- Whitelist specific domains or individual URLs so they never suspend.
+- Option to prevent suspension of tabs playing Audio/Video.
+- Option to prevent suspension of tabs with unsaved form inputs.
+- Option to prevent suspension of pinned tabs.
+
+CROSS-DEVICE-SYNC: 
+- Your settings and whitelist rules sync across all your Chrome instances (if enabled).
+
+KEYBOARD SHORTCUTS:
+- Quickly suspend, unsuspend, or whitelist the current tab using customizable hotkeys.
+
+CONTEXT MENU INTEGRATION: 
+- Right-click any page to suspend it immediately or add it to the whitelist.
+
+NEW IN VERSION 1.7
+- Full migration to Manifest V3 (MV3) for better security and future-proofing.
+- Integration with Native Discard API for improved memory handling.
+- Improved persistence: Suspended tabs now survive browser updates and restarts more reliably with new migration logic.
+- Optimized performance with reduced background activity.
+
+PRIVACY & SECURITY 
+The Tab Suspender runs entirely on your device. It does not track your browsing history, collect personal data, or send any information to external servers. It simply monitors tab activity state to determine when to save resources.
+
+HOW IT WORKS
+- You set a timeout duration (e.g., 30 minutes).
+- If you don't interact with a tab for that duration, the extension unloads the heavy website and replaces it with a temporary, lightweight placeholder.
+- When you return to the tab, you see the placeholder. Click anywhere on the page to reload the original website instantly.
+- When you move away from the tab without reloading the original website, the extension discards the tab again after 30 seconds.
+
+Perfect for users who keep dozens of tabs open for research, work, or reading lists but want to keep their computer running at top speed.

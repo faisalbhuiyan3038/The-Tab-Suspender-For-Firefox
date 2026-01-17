@@ -1,0 +1,154 @@
+{
+    "extName": {
+        "message": "Wstrzymywanie kart",
+        "description": "Extension name"
+    },
+    "extDescription": {
+        "message": "Automatycznie wstrzymuj nieaktywne karty, aby oszczędzać pamięć",
+        "description": "Extension description"
+    },
+    "tabSuspender": {
+        "message": "Wstrzymywanie kart",
+        "description": "heading in popup.html"
+    },
+    "options": {
+        "message": "Opcje",
+        "description": "div in popup.html"
+    },
+    "whitelist": {
+        "message": "Biała lista",
+        "description": "div in popup.html"
+    },
+    "screenshot": {
+        "message": "Zrzut ekranu",
+        "description": "div in popup.html"
+    },
+    "settings": {
+        "message": "Ustawienia",
+        "description": "div in popup.html"
+    },
+    "keyboardShortcuts": {
+        "message": "Skróty klawiaturowe",
+        "description": "heading in popup.html"
+    },
+    "dataManagement": {
+        "message": "Zarządzanie danymi",
+        "description": "heading in popup.html"
+    },
+    "configureScreenshotCapture": {
+        "message": "Skonfiguruj przechwytywanie i zmianę rozmiaru zrzutów ekranu. Mniejsze obrazy oszczędzają pamięć.",
+        "description": "paragraph in popup.html"
+    },
+    "configureKeyboardShortcuts": {
+        "message": "Skonfiguruj skróty klawiaturowe w ustawieniach rozszerzeń Chrome.",
+        "description": "paragraph in popup.html"
+    },
+    "importExportSettingsWhitelist": {
+        "message": "Importuj lub eksportuj swoje ustawienia i białą listę.",
+        "description": "paragraph in popup.html"
+    },
+    "saveOptions": {
+        "message": "Zapisz opcje",
+        "description": "button in popup.html"
+    },
+    "whitelistCurrentDomain": {
+        "message": "Dodaj obecną domenę do białej listy",
+        "description": "button in popup.html"
+    },
+    "whitelistCurrentPage": {
+        "message": "Dodaj obecną stronę do białej listy",
+        "description": "button in popup.html"
+    },
+    "saveScreenshotSettings": {
+        "message": "Zapisz ustawienia zrzutów",
+        "description": "button in popup.html"
+    },
+    "configureShortcuts": {
+        "message": "Konfiguruj skróty",
+        "description": "button in popup.html"
+    },
+    "openDataManager": {
+        "message": "Otwórz menedżer danych",
+        "description": "button in popup.html"
+    },
+    "suspendInactiveTabsAfter": {
+        "message": "Wstrzymaj nieaktywne karty po (minuty):",
+        "description": "label in popup.html"
+    },
+    "darkMode": {
+        "message": "Tryb ciemny",
+        "description": "label in popup.html"
+    },
+    "enableTabScreenshotsUses": {
+        "message": "Włącz zrzuty ekranu kart (używa więcej pamięci)",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsPlaying": {
+        "message": "Nie wstrzymuj kart odtwarzających dźwięk",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsInput": {
+        "message": "Nie wstrzymuj kart z wprowadzaniem danych w formularzu",
+        "description": "label in popup.html"
+    },
+    "dontSuspendTabsNotification": {
+        "message": "Nie wstrzymuj kart z powiadomieniami",
+        "description": "label in popup.html"
+    },
+    "dontSuspendPinnedTabs": {
+        "message": "Nie wstrzymuj przypiętych kart",
+        "description": "label in popup.html"
+    },
+    "captureQuality5100": {
+        "message": "Jakość przechwytywania (5-100)",
+        "description": "label in popup.html"
+    },
+    "resizeWidthPx": {
+        "message": "Zmień szerokość (px)",
+        "description": "label in popup.html"
+    },
+    "resizeHeightPx": {
+        "message": "Zmień wysokość (px)",
+        "description": "label in popup.html"
+    },
+    "resizeQuality0110": {
+        "message": "Jakość zmiany rozmiaru (0.1 - 1.0)",
+        "description": "label in popup.html"
+    },
+    "settingsSaved": {
+        "message": "Ustawienia zapisane!",
+        "description": "notification in popup.html"
+    },
+    "tabSuspended": {
+        "message": "Karta wstrzymana",
+        "description": "title in suspended.html"
+    },
+    "clickAnywhereToRestore": {
+        "message": "Kliknij w dowolnym miejscu, aby przywrócić tę kartę",
+        "description": "paragraph in suspended.html"
+    },
+    "dataManagementTabSuspender": {
+        "message": "Zarządzanie danymi - Wstrzymywanie kart",
+        "description": "title in data_management.html"
+    },
+    "exportSettings": {
+        "message": "Eksportuj ustawienia",
+        "description": "heading in data_management.html"
+    },
+    "importSettings": {
+        "message": "Importuj ustawienia",
+        "description": "heading in data_management.html"
+    },
+    "exportDesc": {
+        "message": "Zapisz swoją białą listę i ustawienia w pliku JSON.",
+        "description": "paragraph in data_management.html"
+    },
+    "importDesc": {
+        "message": "Załaduj ustawienia z pliku JSON. Spowoduje to nadpisanie obecnych ustawień.",
+        "description": "paragraph in data_management.html"
+    },
+    "selectJsonFile": {
+        "message": "Wybierz plik JSON",
+        "description": "label in data_management.html"
+    }
+}

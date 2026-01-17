@@ -1,0 +1,154 @@
+{
+  "extName": {
+    "message": "탭 일시 중단",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "메모리를 절약하기 위해 사용하지 않는 탭을 자동으로 일시 중단합니다.",
+    "description": "Extension description"
+  },
+  "tabSuspender": {
+    "message": "탭 일시 중단",
+    "description": "heading in popup.html"
+  },
+  "options": {
+    "message": "옵션",
+    "description": "div in popup.html"
+  },
+  "whitelist": {
+    "message": "허용 목록",
+    "description": "div in popup.html"
+  },
+  "screenshot": {
+    "message": "스크린샷",
+    "description": "div in popup.html"
+  },
+  "settings": {
+    "message": "설정",
+    "description": "div in popup.html"
+  },
+  "keyboardShortcuts": {
+    "message": "키보드 단축키",
+    "description": "heading in popup.html"
+  },
+  "dataManagement": {
+    "message": "데이터 관리",
+    "description": "heading in popup.html"
+  },
+  "configureScreenshotCapture": {
+    "message": "스크린샷 캡처 및 크기 조정 설정을 구성합니다. 이미지가 작을수록 메모리를 절약합니다.",
+    "description": "paragraph in popup.html"
+  },
+  "configureKeyboardShortcuts": {
+    "message": "Chrome 확장 프로그램 설정에서 키보드 단축키를 구성하세요.",
+    "description": "paragraph in popup.html"
+  },
+  "importExportSettingsWhitelist": {
+    "message": "설정 및 허용 목록을 가져오거나 내보냅니다.",
+    "description": "paragraph in popup.html"
+  },
+  "saveOptions": {
+    "message": "옵션 저장",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentDomain": {
+    "message": "현재 도메인 허용 목록에 추가",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentPage": {
+    "message": "현재 페이지 허용 목록에 추가",
+    "description": "button in popup.html"
+  },
+  "saveScreenshotSettings": {
+    "message": "스크린샷 설정 저장",
+    "description": "button in popup.html"
+  },
+  "configureShortcuts": {
+    "message": "단축키 구성",
+    "description": "button in popup.html"
+  },
+  "openDataManager": {
+    "message": "데이터 관리자 열기",
+    "description": "button in popup.html"
+  },
+  "suspendInactiveTabsAfter": {
+    "message": "다음 시간 후 사용하지 않는 탭 일시 중단(분):",
+    "description": "label in popup.html"
+  },
+  "darkMode": {
+    "message": "다크 모드",
+    "description": "label in popup.html"
+  },
+  "enableTabScreenshotsUses": {
+    "message": "탭 스크린샷 사용(더 많은 메모리 사용)",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsPlaying": {
+    "message": "오디오를 재생 중인 탭 일시 중단 안 함",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsInput": {
+    "message": "입력 양식이 있는 탭 일시 중단 안 함",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsNotification": {
+    "message": "알림이 있는 탭 일시 중단 안 함",
+    "description": "label in popup.html"
+  },
+  "dontSuspendPinnedTabs": {
+    "message": "고정된 탭 일시 중단 안 함",
+    "description": "label in popup.html"
+  },
+  "captureQuality5100": {
+    "message": "캡처 화질 (5-100)",
+    "description": "label in popup.html"
+  },
+  "resizeWidthPx": {
+    "message": "너비 조정(px)",
+    "description": "label in popup.html"
+  },
+  "resizeHeightPx": {
+    "message": "높이 조정(px)",
+    "description": "label in popup.html"
+  },
+  "resizeQuality0110": {
+    "message": "크기 조정 화질 (0.1 - 1.0)",
+    "description": "label in popup.html"
+  },
+  "settingsSaved": {
+    "message": "설정이 저장되었습니다!",
+    "description": "notification in popup.html"
+  },
+  "tabSuspended": {
+    "message": "탭 일시 중단됨",
+    "description": "title in suspended.html"
+  },
+  "clickAnywhereToRestore": {
+    "message": "아무 곳이나 클릭하여 이 탭 복원",
+    "description": "paragraph in suspended.html"
+  },
+  "dataManagementTabSuspender": {
+    "message": "데이터 관리 - 탭 일시 중단",
+    "description": "title in data_management.html"
+  },
+  "exportSettings": {
+    "message": "설정 내보내기",
+    "description": "heading in data_management.html"
+  },
+  "importSettings": {
+    "message": "설정 가져오기",
+    "description": "heading in data_management.html"
+  },
+  "exportDesc": {
+    "message": "허용 목록 및 설정을 JSON 파일로 저장합니다.",
+    "description": "paragraph in data_management.html"
+  },
+  "importDesc": {
+    "message": "JSON 파일에서 설정을 불러옵니다. 현재 설정을 덮어씁니다.",
+    "description": "paragraph in data_management.html"
+  },
+  "selectJsonFile": {
+    "message": "JSON 파일 선택",
+    "description": "label in data_management.html"
+  }
+}
