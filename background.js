@@ -74,14 +74,64 @@ async function loadSettings() {
   }
 }
 
-browser.storage.local.get('suspendedTabs').then(result => {
-  if (result.suspendedTabs) {
-    suspendedTabs = result.suspendedTabs;
+async function loadSuspendedTabs() {
+  try {
+    const result = await browser.storage.local.get('suspendedTabs');
+    if (result.suspendedTabs) {
+      suspendedTabs = result.suspendedTabs;
+    }
+  } catch (error) {
+    console.error('Error loading suspended tabs:', error);
   }
-});
+}
+
+/**
+ * Removes suspendedTabs entries for tabs that no longer exist.
+ * This handles edge cases like browser crashes, extension updates where recovery failed, etc.
+ */
+async function cleanupOrphanedEntries() {
+  try {
+    const tabs = await browser.tabs.query({});
+    const existingTabIds = new Set(tabs.map(t => t.id));
+
+    let orphansRemoved = 0;
+    const orphanThumbnails = [];
+
+    for (const tabIdStr of Object.keys(suspendedTabs)) {
+      const tabId = parseInt(tabIdStr, 10);
+      if (!existingTabIds.has(tabId)) {
+        // This tab no longer exists - check if the tab at least shows our suspended page
+        // (which would mean it's a valid suspended tab)
+        const matchingTab = tabs.find(t => t.id === tabId);
+        if (!matchingTab) {
+          console.log(`Cleanup: Removing orphaned entry for non-existent tab ${tabId}`);
+          delete suspendedTabs[tabIdStr];
+          orphanThumbnails.push("thumbnail_" + tabId);
+          orphansRemoved++;
+        }
+      }
+    }
+
+    if (orphansRemoved > 0) {
+      saveSuspendedTabsState();
+      if (orphanThumbnails.length > 0) {
+        await browser.storage.local.remove(orphanThumbnails);
+      }
+      console.log(`Cleanup: Removed ${orphansRemoved} orphaned entries from storage.`);
+    }
+  } catch (error) {
+    console.error('Error during orphan cleanup:', error);
+  }
+}
 
 async function initialize() {
   await loadSettings();
+  // Only load from storage if suspendedTabs wasn't already populated (e.g., by recoverSuspendedTabs)
+  if (Object.keys(suspendedTabs).length === 0) {
+    await loadSuspendedTabs();
+  }
+  // Clean up any orphaned entries (from crashes, failed recoveries, etc.)
+  await cleanupOrphanedEntries();
   initializeTimers();
 }
 
@@ -699,31 +749,32 @@ async function runMigration() {
 }
 
 /**
- * Recovers suspended tabs after addon update by scanning all open tabs
- * and rebuilding the suspendedTabs state from URL parameters.
- * This handles cases where tab IDs may have changed after update,
- * AND cases where the extension UUID changed (common with about:debugging).
+ * Recovers suspended tabs after addon update.
+ * 
+ * Strategy:
+ * 1. First, try to find existing tabs showing old extension URLs (works for about:debugging reloads)
+ * 2. If no tabs found but we have data in suspendedTabs (from migration), re-create the tabs
+ * 
+ * Firefox closes/invalidates extension pages when an extension is updated,
+ * so we need to re-create the tabs from our stored data.
  */
 async function recoverSuspendedTabs() {
   try {
-    // Match ANY moz-extension URL with suspended.html, regardless of UUID
-    const suspendedPagePattern = /^moz-extension:\/\/[^/]+\/suspended\.html\?/;
     const currentBase = browser.runtime.getURL("suspended.html");
     console.log("Current extension base:", currentBase);
-    console.log("Looking for pattern:", suspendedPagePattern);
 
+    // Step 1: Try to find any existing suspended tabs (may work for about:debugging)
+    const suspendedPagePattern = /^moz-extension:\/\/[^/]+\/suspended\.html\?/;
     const tabs = await browser.tabs.query({});
     console.log(`Found ${tabs.length} total tabs. Checking for suspended pages...`);
 
-    let recoveredCount = 0;
+    let recoveredFromTabs = 0;
 
     for (const tab of tabs) {
       console.log(`Tab ${tab.id}: ${tab.url?.substring(0, 100)}...`);
 
-      // Match against pattern (any extension UUID) instead of exact prefix
       if (tab.url && suspendedPagePattern.test(tab.url)) {
-        console.log(`Found suspended tab ${tab.id}`);
-        // Parse URL params to extract original tab info
+        console.log(`Found existing suspended tab ${tab.id}`);
         try {
           const url = new URL(tab.url);
           const origUrl = url.searchParams.get('origUrl');
@@ -731,17 +782,14 @@ async function recoverSuspendedTabs() {
           const favIconUrl = url.searchParams.get('favIconUrl');
 
           if (origUrl) {
-            // Re-register this tab with its current ID
             suspendedTabs[tab.id] = {
               url: decodeURIComponent(origUrl),
               title: decodeURIComponent(title || ''),
               favIconUrl: decodeURIComponent(favIconUrl || '')
             };
-            recoveredCount++;
-            console.log(`Recovered tab ${tab.id}: ${origUrl}`);
+            recoveredFromTabs++;
 
-            // IMPORTANT: Navigate to the NEW extension's suspended.html URL
-            // This fixes the page so it works with the new extension
+            // Navigate to the NEW extension's suspended.html URL
             const newSuspendedURL = currentBase +
               "?origUrl=" + encodeURIComponent(suspendedTabs[tab.id].url) +
               "&title=" + encodeURIComponent(suspendedTabs[tab.id].title) +
@@ -757,12 +805,95 @@ async function recoverSuspendedTabs() {
       }
     }
 
-    if (recoveredCount > 0) {
+    if (recoveredFromTabs > 0) {
       saveSuspendedTabsState();
-      console.log(`Recovered ${recoveredCount} suspended tabs after addon update.`);
-    } else {
-      console.log("No suspended tabs found to recover.");
+      console.log(`Recovered ${recoveredFromTabs} suspended tabs from existing browser tabs.`);
+      return;
     }
+
+    // Step 2: No existing tabs found - check if we have stored data to restore from
+    // The suspendedTabs object may have been populated by runMigration() earlier
+    const storedTabsCount = Object.keys(suspendedTabs).length;
+
+    if (storedTabsCount === 0) {
+      console.log("No suspended tabs found to recover (none in tabs, none in storage).");
+      return;
+    }
+
+    console.log(`No browser tabs found, but have ${storedTabsCount} entries in storage. Re-creating tabs...`);
+
+    // Re-create tabs from storage
+    // We need to create new tabs and update our suspendedTabs with new IDs
+    const oldEntries = Object.entries(suspendedTabs);
+    const newSuspendedTabs = {};
+
+    for (const [oldTabId, data] of oldEntries) {
+      if (!data || !data.url) continue;
+
+      try {
+        // Create the suspended page URL
+        const suspendedURL = currentBase +
+          "?origUrl=" + encodeURIComponent(data.url) +
+          "&title=" + encodeURIComponent(data.title || '') +
+          "&favIconUrl=" + encodeURIComponent(data.favIconUrl || '');
+
+        // Create a new tab with the suspended page
+        // Note: We'll add tabId param after we know the new tab's ID
+        const newTab = await browser.tabs.create({
+          url: suspendedURL,
+          active: false  // Don't activate - keep them suspended in background
+        });
+
+        // Update the URL to include the correct tabId
+        const finalURL = suspendedURL + "&tabId=" + newTab.id;
+        await browser.tabs.update(newTab.id, { url: finalURL });
+
+        // Register with new tab ID
+        newSuspendedTabs[newTab.id] = {
+          url: data.url,
+          title: data.title || '',
+          favIconUrl: data.favIconUrl || ''
+        };
+
+        console.log(`Re-created suspended tab: old ID ${oldTabId} -> new ID ${newTab.id}: ${data.url}`);
+
+        // Try to migrate thumbnail if it exists
+        try {
+          const thumbKey = "thumbnail_" + oldTabId;
+          const thumbData = await browser.storage.local.get(thumbKey);
+          if (thumbData[thumbKey]) {
+            // Save with new tab ID
+            await browser.storage.local.set({ ["thumbnail_" + newTab.id]: thumbData[thumbKey] });
+            // Remove old thumbnail
+            await browser.storage.local.remove(thumbKey);
+            console.log(`Migrated thumbnail from tab ${oldTabId} to ${newTab.id}`);
+          }
+        } catch (thumbError) {
+          console.error(`Failed to migrate thumbnail for tab ${oldTabId}:`, thumbError);
+        }
+
+      } catch (createError) {
+        console.error(`Failed to re-create tab for ${data.url}:`, createError);
+      }
+    }
+
+    // Replace old suspendedTabs with new ones (with correct tab IDs)
+    suspendedTabs = newSuspendedTabs;
+    saveSuspendedTabsState();
+
+    const restoredCount = Object.keys(newSuspendedTabs).length;
+    console.log(`Re-created ${restoredCount} suspended tabs from storage.`);
+
+    if (restoredCount > 0) {
+      // Notify user that tabs were restored
+      browser.notifications.create({
+        type: 'basic',
+        iconUrl: 'icons/icon48.png',
+        title: 'Tabs Restored',
+        message: `${restoredCount} suspended tab(s) were restored after the extension update.`
+      });
+    }
+
   } catch (error) {
     console.error('Error recovering suspended tabs:', error);
   }
