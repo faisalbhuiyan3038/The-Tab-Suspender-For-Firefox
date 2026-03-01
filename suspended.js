@@ -19,8 +19,8 @@ function displayThumbnail(dataUrl) {
     document.body.style.backgroundImage = `url(${dataUrl})`;
     document.body.style.backgroundSize = 'cover';
     document.body.style.backgroundPosition = 'center center';
-    document.body.classList.add('has-bg'); 
-    
+    document.body.classList.add('has-bg');
+
     // const logo = document.querySelector('.logo-container');
     // if (logo) {
     //   logo.style.display = 'none'; // Hide the SVG logo
@@ -54,9 +54,9 @@ function resizeImage(dataUrl, maxWidth, maxHeight, quality) {
       canvas.width = width;
       canvas.height = height;
       const ctx = canvas.getContext('2d');
-      
+
       ctx.drawImage(img, 0, 0, width, height);
-      
+
       // Export as low-quality WEBP for better compression
       resolve(canvas.toDataURL('image/webp', quality));
     };
@@ -73,13 +73,13 @@ async function init() {
   const params = getQueryParams();
   const origUrl = params.origUrl;
   const title = params.title;
-  const favIconUrl = params.favIconUrl; 
+  const favIconUrl = params.favIconUrl;
   const tabId = params.tabId;
   const hasCapture = params.hasCapture === 'true';
 
   const [localSettings, syncSettings] = await Promise.all([
     browser.storage.local.get(['darkMode']),
-    browser.storage.sync.get(['resizeWidth', 'resizeHeight', 'resizeQuality'])
+    browser.storage.sync.get(['resizeWidth', 'resizeHeight', 'resizeQuality', 'suspendEmoji'])
   ]);
 
   applyTheme(localSettings.darkMode ?? false);
@@ -97,13 +97,14 @@ async function init() {
   const anchor = document.createElement('a');
   anchor.href = origUrl;
   anchor.textContent = origUrl;
-  
+
   const pageUrlContainer = document.getElementById('page-url');
   if (pageUrlContainer) {
     pageUrlContainer.appendChild(anchor);
   }
 
-  document.title = `💤 ${title || origUrl}`;
+  const emoji = syncSettings.suspendEmoji === undefined ? 'none' : syncSettings.suspendEmoji;
+  document.title = emoji === 'none' ? (title || origUrl) : `${emoji} ${title || origUrl}`;
 
   document.body.addEventListener('click', () => {
     if (origUrl) {
@@ -120,8 +121,8 @@ async function init() {
       if (existingThumbnail) {
         console.log("Displaying existing thumbnail");
         displayThumbnail(existingThumbnail);
-      
-      // Case 2: First-time suspension, need to process temp image
+
+        // Case 2: First-time suspension, need to process temp image
       } else if (hasCapture) {
         console.log("Processing new screenshot...");
         const tempData = await browser.storage.local.get("temp_img_" + tabId);
@@ -133,13 +134,13 @@ async function init() {
           const quality = syncSettings.resizeQuality || 0.5;
 
           const smallDataUrl = await resizeImage(fullResImage, width, height, quality);
-          
+
           // Save the small thumbnail to *its own* key
           await browser.storage.local.set({ ["thumbnail_" + tabId]: smallDataUrl });
-          
+
           // Display the new thumbnail
           displayThumbnail(smallDataUrl);
-          
+
           // Clean up the large temporary image
           await browser.storage.local.remove("temp_img_" + tabId);
         }

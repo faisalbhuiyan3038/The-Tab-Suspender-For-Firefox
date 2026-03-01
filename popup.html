@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="UTF-8">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.min.css" rel="stylesheet">
@@ -39,7 +40,8 @@
     }
 
     body {
-      width: 360px; /* MODIFIED: Was 340px */
+      width: 360px;
+      /* MODIFIED: Was 340px */
       margin: 0;
       padding: 0;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -48,11 +50,11 @@
       transition: background-color 0.3s, color 0.3s;
       line-height: 1.5;
     }
-    
+
     .container {
       padding: 16px;
     }
-    
+
     .header {
       display: flex;
       align-items: center;
@@ -61,19 +63,19 @@
       padding-bottom: 12px;
       border-bottom: 1px solid var(--border-color);
     }
-    
+
     .header h1 {
       font-size: 18px;
       font-weight: 600;
       margin: 0;
     }
-    
+
     .main-toggle {
       display: flex;
       align-items: center;
       gap: 10px;
     }
-    
+
     .form-group {
       margin-bottom: 16px;
     }
@@ -83,14 +85,14 @@
       grid-template-columns: 1fr 1fr;
       gap: 12px;
     }
-    
+
     label {
       display: block;
       margin-bottom: 8px;
       font-weight: 500;
       font-size: 14px;
     }
-    
+
     input[type="number"] {
       width: 80px;
       padding: 8px 12px;
@@ -101,9 +103,10 @@
       font-family: inherit;
       font-size: 14px;
       transition: border-color 0.3s;
-      box-sizing: border-box; /* Added for better sizing */
+      box-sizing: border-box;
+      /* Added for better sizing */
     }
-    
+
     .form-grid .form-group input[type="number"] {
       width: 100%;
     }
@@ -112,7 +115,7 @@
       outline: none;
       border-color: var(--accent-color);
     }
-    
+
     .status {
       margin-top: 16px;
       color: #34C759;
@@ -122,24 +125,24 @@
       transition: opacity 0.3s;
       text-align: center;
     }
-    
+
     .status.visible {
       opacity: 1;
     }
-    
+
     .switch {
       position: relative;
       display: inline-block;
       width: 44px;
       height: 22px;
     }
-    
+
     .switch input {
       opacity: 0;
       width: 0;
       height: 0;
     }
-    
+
     .slider {
       position: absolute;
       cursor: pointer;
@@ -151,7 +154,7 @@
       transition: .3s;
       border-radius: 22px;
     }
-    
+
     .slider:before {
       position: absolute;
       content: "";
@@ -163,23 +166,24 @@
       transition: .3s;
       border-radius: 50%;
     }
-    
-    input:checked + .slider {
+
+    input:checked+.slider {
       background-color: var(--accent-color);
     }
-    
-    input:checked + .slider:before {
+
+    input:checked+.slider:before {
       transform: translateX(22px);
     }
-    
+
     .toggle-group {
       display: flex;
       align-items: center;
       gap: 10px;
       margin-bottom: 16px;
     }
-    
-    button, .btn {
+
+    button,
+    .btn {
       background-color: var(--accent-color);
       color: white;
       border: none;
@@ -189,9 +193,10 @@
       font-size: 14px;
       font-weight: 500;
       transition: background-color 0.3s;
-      display: inline-block; 
+      display: inline-block;
       text-decoration: none;
-      width: auto; /* Ensure buttons fit content */
+      width: auto;
+      /* Ensure buttons fit content */
     }
 
     .btn-full {
@@ -199,38 +204,39 @@
       box-sizing: border-box;
       margin-top: 8px;
     }
-    
-    button:hover, .btn:hover {
+
+    button:hover,
+    .btn:hover {
       background-color: var(--accent-hover);
     }
-    
+
     .time-input-group {
       display: flex;
       align-items: center;
       gap: 10px;
     }
-    
+
     .checkbox-group {
       margin-top: 16px;
     }
-    
+
     .checkbox-item {
       display: flex;
       align-items: center;
       margin-bottom: 12px;
     }
-    
+
     .checkbox-item input[type="checkbox"] {
       margin-right: 8px;
     }
-    
+
     .checkbox-item label {
       font-size: 14px;
       margin-bottom: 0;
       font-weight: normal;
       display: inline;
     }
-    
+
     .whitelist-item {
       display: flex;
       justify-content: space-between;
@@ -241,7 +247,7 @@
       border-radius: 6px;
       margin-bottom: 8px;
     }
-    
+
     .whitelist-item span {
       font-size: 13px;
       overflow: hidden;
@@ -251,7 +257,7 @@
       color: var(--url-text);
       font-family: 'SF Mono', SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
     }
-    
+
     .remove-btn {
       background: none;
       border: none;
@@ -261,12 +267,12 @@
       cursor: pointer;
       line-height: 1;
     }
-    
+
     .remove-btn:hover {
       background: none;
       color: #f44336;
     }
-    
+
     .no-items {
       color: var(--text-color);
       opacity: 0.6;
@@ -275,71 +281,74 @@
       text-align: center;
       font-size: 13px;
     }
-    
+
     h4 {
       margin: 16px 0 8px;
       font-size: 14px;
       font-weight: 600;
       color: var(--text-color);
     }
-    
+
     .tabs {
       display: flex;
       border-bottom: 1px solid var(--border-color);
       margin-bottom: 16px;
     }
-    
+
     .tab {
-      padding: 8px 10px; /* MODIFIED: Was 8px 12px */
+      padding: 8px 10px;
+      /* MODIFIED: Was 8px 12px */
       font-size: 14px;
       font-weight: 500;
       cursor: pointer;
       border-bottom: 2px solid transparent;
       transition: all 0.3s;
-      flex-grow: 1; /* NEW: Make tabs fill space */
-      text-align: center; /* NEW: Center text */
+      flex-grow: 1;
+      /* NEW: Make tabs fill space */
+      text-align: center;
+      /* NEW: Center text */
     }
-    
+
     .tab.active {
       border-bottom: 2px solid var(--tab-active-border);
       color: var(--accent-color);
     }
-    
+
     .tab-content {
       display: none;
     }
-    
+
     .tab-content.active {
       display: block;
     }
-    
+
     .whitelist-container {
       max-height: 200px;
       overflow-y: auto;
       padding-right: 4px;
     }
-    
+
     /* Scrollbar styling */
     .whitelist-container::-webkit-scrollbar {
       width: 6px;
     }
-    
+
     .whitelist-container::-webkit-scrollbar-track {
       background: var(--bg-color);
     }
-    
+
     .whitelist-container::-webkit-scrollbar-thumb {
       background-color: var(--border-color);
       border-radius: 6px;
     }
-    
+
     /* Whitelist action buttons */
     .whitelist-actions {
       display: flex;
       gap: 8px;
       margin-bottom: 16px;
     }
-    
+
     .whitelist-btn {
       flex: 1;
       font-size: 13px;
@@ -351,22 +360,25 @@
       padding-bottom: 16px;
       border-bottom: 1px solid var(--border-color);
     }
+
     .setting-item:last-of-type {
       border-bottom: none;
       padding-bottom: 0;
     }
+
     .button-group {
       display: flex;
       gap: 8px;
     }
+
     p.description {
       font-size: 13px;
       opacity: 0.8;
       margin: -4px 0 12px;
     }
-    
   </style>
 </head>
+
 <body>
   <div class="container">
     <div class="header">
@@ -378,71 +390,91 @@
         </label>
       </div>
     </div>
-    
+
     <div class="tabs">
       <div data-i18n="options" class="tab active" data-tab="options">Options</div>
       <div data-i18n="whitelist" class="tab" data-tab="whitelist">Whitelist</div>
       <div data-i18n="screenshot" class="tab" data-tab="screenshot">Screenshot</div>
       <div data-i18n="settings" class="tab" data-tab="settings">Settings</div>
     </div>
-    
+
     <div id="options-tab" class="tab-content active">
-      <div class="form-group">
-        <label data-i18n="suspendInactiveTabsAfter" for="suspendTime">Suspend inactive tabs after (minutes):</label>
-        <div class="time-input-group">
-          <input type="number" id="suspendTime" min="1" max="1440">
+      <div class="form-grid" style="margin-bottom: 8px;">
+        <div class="form-group" style="margin-bottom: 0;">
+          <label data-i18n="suspendInactiveTabsAfter" for="suspendTime">Suspend after (min):</label>
+          <div class="time-input-group">
+            <input type="number" id="suspendTime" min="1" max="1440" style="width: 100%;">
+          </div>
+        </div>
+        <div class="form-group" style="margin-bottom: 0;">
+          <label data-i18n="tabTitleIndicator" for="suspendEmoji">Tab Status Indicator:</label>
+          <select id="suspendEmoji"
+            style="width: 100%; padding: 8px 12px; border: 1px solid var(--border-color); border-radius: 6px; background-color: var(--input-bg); color: var(--text-color); font-family: inherit; font-size: 14px; box-sizing: border-box;">
+            <option value="💤">💤 Zzz</option>
+            <option value="😴">😴 Sleeping</option>
+            <option value="🛌">🛌 In Bed</option>
+            <option value="🌙">🌙 Moon</option>
+            <option value="🧊">🧊 Ice Cube</option>
+            <option value="❄️">❄️ Snowflake</option>
+            <option value="⏸️">⏸️ Pause</option>
+            <option value="none">None</option>
+          </select>
         </div>
       </div>
-      
-      <div class="form-group">
-        <label data-i18n="darkMode">Dark Mode</label>
-        <label class="switch">
+
+      <div
+        style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border-color);">
+        <label data-i18n="darkMode" style="margin: 0; font-weight: 600;">Dark Mode</label>
+        <label class="switch" style="margin: 0;">
           <input type="checkbox" id="darkModeSwitch">
           <span class="slider"></span>
         </label>
       </div>
 
-      <div class="checkbox-group">
-        <div class="checkbox-item">
+      <div class="checkbox-group" style="margin-top: 0; display: grid; grid-template-columns: 1fr; gap: 6px;">
+        <div class="checkbox-item" style="margin-bottom: 0;">
           <input type="checkbox" id="enableScreenshots">
-          <label data-i18n="enableTabScreenshotsUses" for="enableScreenshots">Enable tab screenshots (uses more memory)</label>
+          <label data-i18n="enableTabScreenshotsUses" for="enableScreenshots">Enable tab screenshots (uses more
+            memory)</label>
         </div>
-      </div>
-      
-      <div class="checkbox-group">
-        <div class="checkbox-item">
+        <div class="checkbox-item" style="margin-bottom: 0;">
           <input type="checkbox" id="ignoreAudio">
           <label data-i18n="dontSuspendTabsPlaying" for="ignoreAudio">Don't suspend tabs playing audio</label>
         </div>
-        <div class="checkbox-item">
+        <div class="checkbox-item" style="margin-bottom: 0;">
           <input type="checkbox" id="ignoreFormInput">
           <label data-i18n="dontSuspendTabsInput" for="ignoreFormInput">Don't suspend tabs with form input</label>
         </div>
-        <div class="checkbox-item">
+        <div class="checkbox-item" style="margin-bottom: 0;">
           <input type="checkbox" id="ignoreNotifications">
-          <label data-i18n="dontSuspendTabsNotification" for="ignoreNotifications">Don't suspend tabs with notifications</label>
+          <label data-i18n="dontSuspendTabsNotification" for="ignoreNotifications">Don't suspend tabs with
+            notifications</label>
         </div>
-        <div class="checkbox-item">
+        <div class="checkbox-item" style="margin-bottom: 0;">
           <input type="checkbox" id="ignorePinned">
           <label data-i18n="dontSuspendPinnedTabs" for="ignorePinned">Don't suspend pinned tabs</label>
         </div>
       </div>
-      
+
       <!-- NEW: Save button for the whole tab -->
-      <button data-i18n="saveOptions" id="saveOptionsButton" class="btn btn-full">Save Options</button>
+      <button data-i18n="saveOptions" id="saveOptionsButton" class="btn btn-full" style="margin-top: 8px;">Save
+        Options</button>
     </div>
-    
+
     <div id="whitelist-tab" class="tab-content">
       <div class="whitelist-actions">
-        <button data-i18n="whitelistCurrentDomain" id="whitelistDomainBtn" class="btn whitelist-btn">Whitelist Current Domain</button>
-        <button data-i18n="whitelistCurrentPage" id="whitelistPageBtn" class="btn whitelist-btn">Whitelist Current Page</button>
+        <button data-i18n="whitelistCurrentDomain" id="whitelistDomainBtn" class="btn whitelist-btn">Whitelist Current
+          Domain</button>
+        <button data-i18n="whitelistCurrentPage" id="whitelistPageBtn" class="btn whitelist-btn">Whitelist Current
+          Page</button>
       </div>
       <div class="whitelist-container" id="whitelist"></div>
     </div>
 
     <div id="screenshot-tab" class="tab-content">
-      <p data-i18n="configureScreenshotCapture" class="description">Configure screenshot capture and resize settings. Smaller images save memory.</p>
-      
+      <p data-i18n="configureScreenshotCapture" class="description">Configure screenshot capture and resize settings.
+        Smaller images save memory.</p>
+
       <div class="form-group">
         <label data-i18n="captureQuality5100" for="captureQuality">Capture Quality (5-100)</label>
         <input type="number" id="captureQuality" min="5" max="100" step="5">
@@ -458,19 +490,21 @@
           <input type="number" id="resizeHeight" min="100" step="10">
         </div>
       </div>
-      
+
       <div class="form-group">
         <label data-i18n="resizeQuality0110" for="resizeQuality">Resize Quality (0.1 - 1.0)</label>
         <input type="number" id="resizeQuality" min="0.1" max="1.0" step="0.1">
       </div>
 
-      <button data-i18n="saveScreenshotSettings" id="saveScreenshotSettings" class="btn btn-full">Save Screenshot Settings</button>
+      <button data-i18n="saveScreenshotSettings" id="saveScreenshotSettings" class="btn btn-full">Save Screenshot
+        Settings</button>
     </div>
 
     <div id="settings-tab" class="tab-content">
       <div class="setting-item">
         <h4 data-i18n="keyboardShortcuts">Keyboard Shortcuts</h4>
-        <p data-i18n="configureKeyboardShortcuts" class="description">Keyboard shortcut support is available! Configure it in addon settings by following the guide.</p>
+        <p data-i18n="configureKeyboardShortcuts" class="description">Keyboard shortcut support is available! Configure
+          it in addon settings by following the guide.</p>
         <div class="button-group">
           <button id="configureShortcutsBtn" class="btn">Read the guide</button>
         </div>
@@ -478,7 +512,8 @@
 
       <div class="setting-item">
         <h4 data-i18n="dataManagement">Data Management</h4>
-        <p data-i18n="importExportSettingsWhitelist" class="description">Import or export your settings and whitelist.</p>
+        <p data-i18n="importExportSettingsWhitelist" class="description">Import or export your settings and whitelist.
+        </p>
         <div class="button-group">
           <button data-i18n="openDataManager" id="manageDataBtn" class="btn">Open Data Manager</button>
         </div>
@@ -488,8 +523,8 @@
     <div data-i18n="settingsSaved" id="status" class="status">Settings saved!</div>
 
   </div>
-  
+
   <script src="popup.js"></script>
 </body>
-</html>
 
+</html>
