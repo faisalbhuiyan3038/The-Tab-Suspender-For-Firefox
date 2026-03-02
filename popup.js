@@ -123,7 +123,8 @@ const SYNC_SETTINGS_KEYS = [
   'resizeWidth',
   'resizeHeight',
   'resizeQuality',
-  'suspendEmoji'
+  'suspendEmoji',
+  'pauseUntil'
 ];
 
 /**
@@ -137,6 +138,10 @@ async function loadAndDisplaySettings() {
     ]);
 
     const settings = { ...syncSettings, ...localSettings };
+
+    // Pause UI Setup
+    const pauseUntil = settings.pauseUntil || 0;
+    updatePauseUI(pauseUntil);
 
     const defaultTime = 40; // 40 minutes default
     const suspendTime = settings.suspendTime || defaultTime;
@@ -357,5 +362,72 @@ document.getElementById('configureShortcutsBtn').addEventListener('click', () =>
     url: 'https://support.mozilla.org/en-US/kb/manage-extension-shortcuts-firefox'
   });
   window.close();
+});
+
+// --- Pause UI Logic ---
+let pauseInterval;
+
+function updatePauseUI(pauseUntil) {
+  const pauseOptions = document.getElementById('pauseOptions');
+  const pauseActive = document.getElementById('pauseActive');
+  const pauseCountdown = document.getElementById('pauseCountdown');
+
+  if (pauseInterval) {
+    clearInterval(pauseInterval);
+  }
+
+  const now = Date.now();
+  if (pauseUntil > now) {
+    pauseOptions.style.display = 'none';
+    pauseActive.style.display = 'block';
+
+    const updateCountdown = () => {
+      const remaining = pauseUntil - Date.now();
+      if (remaining <= 0) {
+        clearInterval(pauseInterval);
+        pauseOptions.style.display = 'grid';
+        pauseActive.style.display = 'none';
+        browser.storage.sync.set({ pauseUntil: 0 });
+        return;
+      }
+
+      const totalSeconds = Math.floor(remaining / 1000);
+      const hours = Math.floor(totalSeconds / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+
+      pauseCountdown.textContent =
+        `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    };
+
+    updateCountdown();
+    pauseInterval = setInterval(updateCountdown, 1000);
+  } else {
+    pauseOptions.style.display = 'grid';
+    pauseActive.style.display = 'none';
+  }
+}
+
+document.querySelectorAll('.btn-pause').forEach(btn => {
+  btn.addEventListener('click', async (e) => {
+    const minutes = parseInt(e.target.dataset.time, 10);
+    const pauseUntil = Date.now() + (minutes * 60 * 1000);
+
+    await browser.storage.sync.set({ pauseUntil });
+    updatePauseUI(pauseUntil);
+    showMainStatus(`Suspension paused for ${minutes}m`);
+
+    // Tell background script to reload settings to apply pause logic immediately
+    const bg = await browser.runtime.getBackgroundPage();
+    if (bg && bg.loadSettings) {
+      bg.loadSettings();
+    }
+  });
+});
+
+document.getElementById('cancelPauseBtn').addEventListener('click', async () => {
+  await browser.storage.sync.set({ pauseUntil: 0 });
+  updatePauseUI(0);
+  showMainStatus('Pause cancelled');
 });
 

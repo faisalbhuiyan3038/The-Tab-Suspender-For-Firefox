@@ -501,6 +501,26 @@
     </div>
 
     <div id="settings-tab" class="tab-content">
+      <div class="setting-item" id="pauseContainer">
+        <h4 data-i18n="pauseSuspension">Pause Suspension</h4>
+        <p data-i18n="pauseSuspensionDesc" class="description">Temporarily disable automatic tab suspensions.</p>
+        
+        <div id="pauseOptions" class="button-group" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;">
+          <button class="btn btn-pause" data-time="30" style="padding: 6px 0; width: 100%;">30m</button>
+          <button class="btn btn-pause" data-time="60" style="padding: 6px 0; width: 100%;">1h</button>
+          <button class="btn btn-pause" data-time="90" style="padding: 6px 0; width: 100%;">1.5h</button>
+          <button class="btn btn-pause" data-time="120" style="padding: 6px 0; width: 100%;">2h</button>
+        </div>
+        
+        <div id="pauseActive" style="display: none; background-color: var(--input-bg); border: 1px solid var(--border-color); border-radius: 6px; padding: 12px; margin-top: 8px; text-align: center;">
+          <div style="font-weight: 600; font-size: 16px; margin-bottom: 4px; color: var(--accent-color);">
+            Paused
+          </div>
+          <div id="pauseCountdown" style="font-family: inherit; font-size: 16px; font-weight: bold; margin-bottom: 8px;">--:--:--</div>
+          <button id="cancelPauseBtn" class="btn" style="background-color: #f56565; width: 100%;">Cancel Pause</button>
+        </div>
+      </div>
+
       <div class="setting-item">
         <h4 data-i18n="keyboardShortcuts">Keyboard Shortcuts</h4>
         <p data-i18n="configureKeyboardShortcuts" class="description">Keyboard shortcut support is available! Configure

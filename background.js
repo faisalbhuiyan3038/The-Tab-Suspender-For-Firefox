@@ -18,8 +18,10 @@ let settings = {
   whitelistedDomains: [],
   whitelistedUrls: [],
   autoDiscard: true,       // Enable auto-discard after suspension
-  rediscardDelay: 30       // Seconds to wait before re-discarding a suspended tab
+  rediscardDelay: 30,      // Seconds to wait before re-discarding a suspended tab
+  pauseUntil: 0
 };
+let pauseExpirationTimer = null;
 
 // --- Storage Management ---
 
@@ -38,7 +40,8 @@ const SYNC_SETTINGS_KEYS = [
   'resizeHeight',
   'resizeQuality',
   'autoDiscard',
-  'rediscardDelay'
+  'rediscardDelay',
+  'pauseUntil'
 ];
 
 async function loadSettings() {
@@ -64,10 +67,32 @@ async function loadSettings() {
       whitelistedDomains: result.whitelistedDomains ?? [],
       whitelistedUrls: result.whitelistedUrls ?? [],
       autoDiscard: result.autoDiscard ?? true,
-      rediscardDelay: result.rediscardDelay ?? 30
+      rediscardDelay: result.rediscardDelay ?? 30,
+      pauseUntil: result.pauseUntil ?? 0
     };
 
     console.log('Settings loaded/reloaded:', settings, `Suspend Time: ${SUSPEND_TIME}`);
+
+    // Schedule resume if paused
+    if (pauseExpirationTimer) {
+      clearTimeout(pauseExpirationTimer);
+      pauseExpirationTimer = null;
+    }
+
+    if (settings.pauseUntil > Date.now()) {
+      const waitTime = settings.pauseUntil - Date.now();
+      console.log(`Scheduling pause expiration in ${waitTime}ms`);
+      pauseExpirationTimer = setTimeout(() => {
+        console.log('Pause expired. Re-initializing tab timers.');
+        settings.pauseUntil = 0;
+        browser.storage.sync.set({ pauseUntil: 0 });
+        initializeTimers();
+      }, waitTime);
+    } else if (settings.pauseUntil !== 0) {
+      // If we loaded settings and the pause is already historically over, fix it
+      settings.pauseUntil = 0;
+      browser.storage.sync.set({ pauseUntil: 0 });
+    }
 
   } catch (error) {
     console.error('Error loading settings:', error);
@@ -420,6 +445,14 @@ function initializeTimers() {
     }
 
     tabs.forEach(tab => {
+      // Do not reset timer if paused
+      if (settings.pauseUntil > Date.now()) {
+        if (tabTimers[tab.id]) {
+          clearTimeout(tabTimers[tab.id]);
+          delete tabTimers[tab.id];
+        }
+        return;
+      }
       if (!tab.active && !tab.url.startsWith(browser.runtime.getURL("suspended.html"))) {
         resetTabTimer(tab.id);
       }
@@ -495,6 +528,11 @@ async function shouldProtectTab(tab, force = false) {
 
   if (force) {
     return false;
+  }
+
+  // Check if suspension is paused globally
+  if (settings.pauseUntil > Date.now()) {
+    return true;
   }
 
   // Check for pinned tabs
