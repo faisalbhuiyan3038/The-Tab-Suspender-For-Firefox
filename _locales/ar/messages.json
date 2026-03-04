@@ -150,5 +150,21 @@
   "selectJsonFile": {
     "message": "اختر ملف JSON",
     "description": "تسمية في data_management.html"
+  },
+  "tabTitleIndicator": {
+    "message": "مؤشر حالة علامة التبويب:",
+    "description": ""
+  },
+  "disableSuspendedPage": {
+    "message": "تعطيل الصفحة المعلقة",
+    "description": ""
+  },
+  "pauseSuspension": {
+    "message": "وقفة تعليق",
+    "description": ""
+  },
+  "pauseSuspensionDesc": {
+    "message": "قم بتعطيل تعليق علامة التبويب التلقائي مؤقتًا.",
+    "description": ""
   }
 }

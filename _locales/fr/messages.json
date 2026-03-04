@@ -150,5 +150,21 @@
   "selectJsonFile": {
     "message": "Sélectionner un fichier JSON",
     "description": "label in data_management.html"
+  },
+  "tabTitleIndicator": {
+    "message": "Indicateur d'état de l'onglet :",
+    "description": ""
+  },
+  "disableSuspendedPage": {
+    "message": "Désactiver la page suspendue",
+    "description": ""
+  },
+  "pauseSuspension": {
+    "message": "Suspendre la suspension",
+    "description": ""
+  },
+  "pauseSuspensionDesc": {
+    "message": "Désactivez temporairement les suspensions automatiques des onglets.",
+    "description": ""
   }
 }

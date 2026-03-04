@@ -150,5 +150,21 @@
   "selectJsonFile": {
     "message": "JSON ఫైల్‌ను ఎంచుకోండి",
     "description": "label in data_management.html"
+  },
+  "tabTitleIndicator": {
+    "message": "ట్యాబ్ స్థితి సూచిక:",
+    "description": ""
+  },
+  "disableSuspendedPage": {
+    "message": "సస్పెండ్ చేయబడిన పేజీని నిలిపివేయండి",
+    "description": ""
+  },
+  "pauseSuspension": {
+    "message": "సస్పెన్షన్‌ను పాజ్ చేయండి",
+    "description": ""
+  },
+  "pauseSuspensionDesc": {
+    "message": "ఆటోమేటిక్ ట్యాబ్ సస్పెన్షన్‌లను తాత్కాలికంగా నిలిపివేయండి.",
+    "description": ""
   }
 }

@@ -150,5 +150,21 @@
   "selectJsonFile": {
     "message": "Seleccionar archivo JSON",
     "description": "label in data_management.html"
+  },
+  "tabTitleIndicator": {
+    "message": "Indicador de estado de pestaña:",
+    "description": ""
+  },
+  "disableSuspendedPage": {
+    "message": "Deshabilitar página suspendida",
+    "description": ""
+  },
+  "pauseSuspension": {
+    "message": "Pausa Suspensión",
+    "description": ""
+  },
+  "pauseSuspensionDesc": {
+    "message": "Desactive temporalmente las suspensiones automáticas de pestañas.",
+    "description": ""
   }
 }

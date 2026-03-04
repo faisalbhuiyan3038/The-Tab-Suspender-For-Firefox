@@ -150,5 +150,21 @@
   "selectJsonFile": {
     "message": "JSON 파일 선택",
     "description": "label in data_management.html"
+  },
+  "tabTitleIndicator": {
+    "message": "탭 상태 표시기:",
+    "description": ""
+  },
+  "disableSuspendedPage": {
+    "message": "일시 중단된 페이지 비활성화",
+    "description": ""
+  },
+  "pauseSuspension": {
+    "message": "정지 일시중지",
+    "description": ""
+  },
+  "pauseSuspensionDesc": {
+    "message": "자동 탭 정지를 일시적으로 비활성화합니다.",
+    "description": ""
   }
 }

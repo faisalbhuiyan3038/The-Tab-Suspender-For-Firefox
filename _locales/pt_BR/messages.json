@@ -150,5 +150,21 @@
   "selectJsonFile": {
     "message": "Selecionar arquivo JSON",
     "description": "label in data_management.html"
+  },
+  "tabTitleIndicator": {
+    "message": "Indicador de status da guia:",
+    "description": ""
+  },
+  "disableSuspendedPage": {
+    "message": "Desativar página suspensa",
+    "description": ""
+  },
+  "pauseSuspension": {
+    "message": "Pausar Suspensão",
+    "description": ""
+  },
+  "pauseSuspensionDesc": {
+    "message": "Desative temporariamente as suspensões automáticas de guias.",
+    "description": ""
   }
 }

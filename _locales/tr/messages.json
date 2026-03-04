@@ -150,5 +150,21 @@
   "selectJsonFile": {
     "message": "JSON Dosyası Seç",
     "description": "label in data_management.html"
+  },
+  "tabTitleIndicator": {
+    "message": "Sekme Durum Göstergesi:",
+    "description": ""
+  },
+  "disableSuspendedPage": {
+    "message": "Askıya Alınan Sayfayı Devre Dışı Bırak",
+    "description": ""
+  },
+  "pauseSuspension": {
+    "message": "Askıya Alma İşlemini Duraklat",
+    "description": ""
+  },
+  "pauseSuspensionDesc": {
+    "message": "Otomatik sekme askıya alma işlemlerini geçici olarak devre dışı bırakın.",
+    "description": ""
   }
 }

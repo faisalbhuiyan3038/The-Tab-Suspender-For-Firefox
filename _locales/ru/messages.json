@@ -150,5 +150,21 @@
   "selectJsonFile": {
     "message": "Выбрать файл JSON",
     "description": "label in data_management.html"
+  },
+  "tabTitleIndicator": {
+    "message": "Индикатор состояния вкладки:",
+    "description": ""
+  },
+  "disableSuspendedPage": {
+    "message": "Отключить приостановленную страницу",
+    "description": ""
+  },
+  "pauseSuspension": {
+    "message": "Пауза приостановки",
+    "description": ""
+  },
+  "pauseSuspensionDesc": {
+    "message": "Временно отключите автоматическую приостановку вкладок.",
+    "description": ""
   }
 }

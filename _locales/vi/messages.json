@@ -150,5 +150,21 @@
   "selectJsonFile": {
     "message": "Chọn tệp JSON",
     "description": "label in data_management.html"
+  },
+  "tabTitleIndicator": {
+    "message": "Chỉ báo trạng thái tab:",
+    "description": ""
+  },
+  "disableSuspendedPage": {
+    "message": "Tắt trang bị treo",
+    "description": ""
+  },
+  "pauseSuspension": {
+    "message": "Tạm dừng đình chỉ",
+    "description": ""
+  },
+  "pauseSuspensionDesc": {
+    "message": "Tạm thời vô hiệu hóa việc tạm dừng tab tự động.",
+    "description": ""
   }
 }

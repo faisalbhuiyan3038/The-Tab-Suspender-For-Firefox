@@ -150,5 +150,21 @@
   "selectJsonFile": {
     "message": "JSON-Datei auswählen",
     "description": "label in data_management.html"
+  },
+  "tabTitleIndicator": {
+    "message": "Tab-Statusanzeige:",
+    "description": ""
+  },
+  "disableSuspendedPage": {
+    "message": "Deaktivieren Sie die gesperrte Seite",
+    "description": ""
+  },
+  "pauseSuspension": {
+    "message": "Aussetzung pausieren",
+    "description": ""
+  },
+  "pauseSuspensionDesc": {
+    "message": "Deaktivieren Sie vorübergehend die automatische Tab-Sperrung.",
+    "description": ""
   }
 }

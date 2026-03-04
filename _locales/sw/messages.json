@@ -150,5 +150,21 @@
   "selectJsonFile": {
     "message": "Chagua Faili la JSON",
     "description": "label in data_management.html"
+  },
+  "tabTitleIndicator": {
+    "message": "Kiashiria cha Hali ya Kichupo:",
+    "description": ""
+  },
+  "disableSuspendedPage": {
+    "message": "Zima Ukurasa Uliosimamishwa",
+    "description": ""
+  },
+  "pauseSuspension": {
+    "message": "Sitisha Kusimamishwa",
+    "description": ""
+  },
+  "pauseSuspensionDesc": {
+    "message": "Lemaza kusimamishwa kwa vichupo kiotomatiki kwa muda.",
+    "description": ""
   }
 }

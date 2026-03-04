@@ -150,5 +150,21 @@
   "selectJsonFile": {
     "message": "เลือกไฟล์ JSON",
     "description": "label in data_management.html"
+  },
+  "tabTitleIndicator": {
+    "message": "ตัวบ่งชี้สถานะแท็บ:",
+    "description": ""
+  },
+  "disableSuspendedPage": {
+    "message": "ปิดการใช้งานเพจที่ถูกระงับ",
+    "description": ""
+  },
+  "pauseSuspension": {
+    "message": "หยุดการระงับชั่วคราว",
+    "description": ""
+  },
+  "pauseSuspensionDesc": {
+    "message": "ปิดการใช้งานการระงับแท็บอัตโนมัติชั่วคราว",
+    "description": ""
   }
 }

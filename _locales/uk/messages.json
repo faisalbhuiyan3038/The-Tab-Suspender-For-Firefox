@@ -150,5 +150,21 @@
   "selectJsonFile": {
     "message": "Вибрати файл JSON",
     "description": "label in data_management.html"
+  },
+  "tabTitleIndicator": {
+    "message": "Індикатор стану вкладки:",
+    "description": ""
+  },
+  "disableSuspendedPage": {
+    "message": "Вимкнути призупинену сторінку",
+    "description": ""
+  },
+  "pauseSuspension": {
+    "message": "Призупинити призупинення",
+    "description": ""
+  },
+  "pauseSuspensionDesc": {
+    "message": "Тимчасово вимкніть автоматичне призупинення вкладок.",
+    "description": ""
   }
 }

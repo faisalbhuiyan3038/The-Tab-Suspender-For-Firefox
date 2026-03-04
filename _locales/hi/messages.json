@@ -150,5 +150,21 @@
   "selectJsonFile": {
     "message": "JSON फ़ाइल चुनें",
     "description": "label in data_management.html"
+  },
+  "tabTitleIndicator": {
+    "message": "टैब स्थिति संकेतक:",
+    "description": ""
+  },
+  "disableSuspendedPage": {
+    "message": "निलंबित पृष्ठ अक्षम करें",
+    "description": ""
+  },
+  "pauseSuspension": {
+    "message": "निलंबन रोकें",
+    "description": ""
+  },
+  "pauseSuspensionDesc": {
+    "message": "स्वचालित टैब निलंबन को अस्थायी रूप से अक्षम करें।",
+    "description": ""
   }
 }

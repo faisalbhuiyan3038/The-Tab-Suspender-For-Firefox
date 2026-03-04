@@ -19,8 +19,17 @@ Significant Memory Savings:
 Native Tab Discarding (New in v1.7): 
 - Now utilizes the Chromium Native Discard API for maximum efficiency and stability while maintaining our signature "Click to Restore" interface.
 
+Configurable Tab Emojis:
+- User can choose from preset emojis (or none) to mark tabs that are suspended.
+
+Pause Tab Suspension:
+- Tab suspension can be paused and resumed automatically after a period of time when needed.
+
 Prevent Accidental Reloads: 
 - Suspended tabs do not auto-reload on focus. You decide when to load the content.
+
+Alternative Tab Discard options:
+- Suspended tabs can reload immediately on click by disabling suspended page in options.
 
 Visual Feedback: 
 - Suspended tabs are clearly marked with a "zzz" icon in the title and a dimmed favicon.

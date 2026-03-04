@@ -150,5 +150,21 @@
   "selectJsonFile": {
     "message": "Izaberi JSON fajl",
     "description": "label in data_management.html"
+  },
+  "tabTitleIndicator": {
+    "message": "Индикатор статуса картице:",
+    "description": ""
+  },
+  "disableSuspendedPage": {
+    "message": "Онемогућите суспендовану страницу",
+    "description": ""
+  },
+  "pauseSuspension": {
+    "message": "Паусе Суспенсион",
+    "description": ""
+  },
+  "pauseSuspensionDesc": {
+    "message": "Привремено онемогућите аутоматске суспензије картица.",
+    "description": ""
   }
 }

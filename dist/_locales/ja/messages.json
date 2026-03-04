@@ -150,5 +150,21 @@
   "selectJsonFile": {
     "message": "JSONファイルを選択",
     "description": "label in data_management.html"
+  },
+  "tabTitleIndicator": {
+    "message": "タブステータスインジケータ:",
+    "description": ""
+  },
+  "disableSuspendedPage": {
+    "message": "一時停止されたページを無効にする",
+    "description": ""
+  },
+  "pauseSuspension": {
+    "message": "一時停止",
+    "description": ""
+  },
+  "pauseSuspensionDesc": {
+    "message": "タブの自動停止を一時的に無効にします。",
+    "description": ""
   }
 }

@@ -150,5 +150,21 @@
   "selectJsonFile": {
     "message": "Välj JSON-fil",
     "description": "label in data_management.html"
+  },
+  "tabTitleIndicator": {
+    "message": "Flikstatusindikator:",
+    "description": ""
+  },
+  "disableSuspendedPage": {
+    "message": "Inaktivera avstängd sida",
+    "description": ""
+  },
+  "pauseSuspension": {
+    "message": "Pausa avstängning",
+    "description": ""
+  },
+  "pauseSuspensionDesc": {
+    "message": "Inaktivera tillfälligt automatiska flikavstängningar.",
+    "description": ""
   }
 }

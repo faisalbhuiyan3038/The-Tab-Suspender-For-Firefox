@@ -150,5 +150,21 @@
   "selectJsonFile": {
     "message": "Seleziona file JSON",
     "description": "label in data_management.html"
+  },
+  "tabTitleIndicator": {
+    "message": "Indicatore di stato della scheda:",
+    "description": ""
+  },
+  "disableSuspendedPage": {
+    "message": "Disabilita la pagina sospesa",
+    "description": ""
+  },
+  "pauseSuspension": {
+    "message": "Sospendere la sospensione",
+    "description": ""
+  },
+  "pauseSuspensionDesc": {
+    "message": "Disattiva temporaneamente le sospensioni automatiche delle schede.",
+    "description": ""
   }
 }

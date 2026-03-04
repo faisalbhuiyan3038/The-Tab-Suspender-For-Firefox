@@ -8,6 +8,8 @@ A Firefox extension that automatically suspends inactive tabs after a specified 
 ## Chrome Web Store Link
 - [Download it on Chromium](https://chromewebstore.google.com/detail/tab-suspender/blppipbokojojjkpkccbgcilkolfpalm)
 
+See the changelog [here](./CHANGELOG.md)
+
 ## Screenshots
 
 <div align="center">
@@ -15,39 +17,12 @@ A Firefox extension that automatically suspends inactive tabs after a specified 
   <p><img src="screenshots/suspended_state.png" alt="Suspended Tab State" width="800"/></p>
 </div>
 
-## New features and Changes in v1.6 release
-- Added new Experimental feature to save screenshots for suspended tabs, with configurable quality settings.
-- Refactored code to improve performance and reduce I/O operations and memory usage.
-
-## New features and Changes in v1.5 release
-- Settings are synced with your Firefox profile.
-- Allow exporting, importing whitelisted sites.
-- Add keyboard shortcuts for suspend, unsuspend and whitelist.
-- Add 'Ignore pinned tabs' option.
-- Original website favicon is now displayed in suspended page.
-- One-time migration added for migrating whitelisted sites from local to Firefox profile.
-- Bug fixes and refactor.
-
-## New features and Changes in v1.4 release
-- Added Suspend this page to context menu options.
-- Replaced Suspended: to 'zzz' icon in Tab title for suspended tabs.
-
-## New features and Changes in v1.2 release
-- Major UI Redesign: Completely overhauled the user interface for a more intuitive and visually appealing experience.
-- SVG with Dark/Light Themes: Added support for SVG graphics with seamless dark and light theme switching to match your browser's appearance.
-- ZZZ Animation: Introduced a playful "ZZZ" animation to visually indicate when tabs are suspended.
-- Whitelist Buttons in Popup: Added convenient whitelist buttons to the popup for quick management of excluded tabs.
-- Resolved various bugs to improve stability and performance.
-
-## New features and Changes in v1.1 release
-- Added ability to whitelist site by domain or page (Access it via context menu)
-- Added dark mode (Toggle it in popup settings)
-
 ## Features
 
 - Automatically suspends inactive tabs after a customizable time period (default 40 minutes)
 - Shows a clean suspended page with the original URL and title
 - Requires explicit click to restore the tab - no more accidental tab reloads!
+- Has an option to instantly reload suspended tab without any suspended page.
 - Enable/disable suspension with a simple toggle
 - Only suspends http/https pages (ignores about:, file:, etc.)
 - Keeps the active tab running even if inactive

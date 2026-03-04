@@ -150,5 +150,21 @@
   "selectJsonFile": {
     "message": "JSON கோப்பைத் தேர்ந்தெடுக்கவும்",
     "description": "label in data_management.html"
+  },
+  "tabTitleIndicator": {
+    "message": "தாவல் நிலை காட்டி:",
+    "description": ""
+  },
+  "disableSuspendedPage": {
+    "message": "இடைநிறுத்தப்பட்ட பக்கத்தை முடக்கு",
+    "description": ""
+  },
+  "pauseSuspension": {
+    "message": "இடைநிறுத்தம் இடைநிறுத்தம்",
+    "description": ""
+  },
+  "pauseSuspensionDesc": {
+    "message": "தானியங்கி தாவல் இடைநீக்கங்களை தற்காலிகமாக முடக்கு.",
+    "description": ""
   }
 }
