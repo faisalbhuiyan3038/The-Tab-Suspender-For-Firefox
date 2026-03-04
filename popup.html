@@ -431,6 +431,15 @@
         </label>
       </div>
 
+      <div
+        style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border-color);">
+        <label data-i18n="disableSuspendedPage" style="margin: 0; font-weight: 600;">Disable Suspended Page</label>
+        <label class="switch" style="margin: 0;">
+          <input type="checkbox" id="directDiscardSwitch">
+          <span class="slider"></span>
+        </label>
+      </div>
+
       <div class="checkbox-group" style="margin-top: 0; display: grid; grid-template-columns: 1fr; gap: 6px;">
         <div class="checkbox-item" style="margin-bottom: 0;">
           <input type="checkbox" id="enableScreenshots">
@@ -504,19 +513,22 @@
       <div class="setting-item" id="pauseContainer">
         <h4 data-i18n="pauseSuspension">Pause Suspension</h4>
         <p data-i18n="pauseSuspensionDesc" class="description">Temporarily disable automatic tab suspensions.</p>
-        
-        <div id="pauseOptions" class="button-group" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;">
+
+        <div id="pauseOptions" class="button-group"
+          style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;">
           <button class="btn btn-pause" data-time="30" style="padding: 6px 0; width: 100%;">30m</button>
           <button class="btn btn-pause" data-time="60" style="padding: 6px 0; width: 100%;">1h</button>
           <button class="btn btn-pause" data-time="90" style="padding: 6px 0; width: 100%;">1.5h</button>
           <button class="btn btn-pause" data-time="120" style="padding: 6px 0; width: 100%;">2h</button>
         </div>
-        
-        <div id="pauseActive" style="display: none; background-color: var(--input-bg); border: 1px solid var(--border-color); border-radius: 6px; padding: 12px; margin-top: 8px; text-align: center;">
+
+        <div id="pauseActive"
+          style="display: none; background-color: var(--input-bg); border: 1px solid var(--border-color); border-radius: 6px; padding: 12px; margin-top: 8px; text-align: center;">
           <div style="font-weight: 600; font-size: 16px; margin-bottom: 4px; color: var(--accent-color);">
             Paused
           </div>
-          <div id="pauseCountdown" style="font-family: inherit; font-size: 16px; font-weight: bold; margin-bottom: 8px;">--:--:--</div>
+          <div id="pauseCountdown"
+            style="font-family: inherit; font-size: 16px; font-weight: bold; margin-bottom: 8px;">--:--:--</div>
           <button id="cancelPauseBtn" class="btn" style="background-color: #f56565; width: 100%;">Cancel Pause</button>
         </div>
       </div>

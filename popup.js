@@ -124,7 +124,8 @@ const SYNC_SETTINGS_KEYS = [
   'resizeHeight',
   'resizeQuality',
   'suspendEmoji',
-  'pauseUntil'
+  'pauseUntil',
+  'directDiscard'
 ];
 
 /**
@@ -155,6 +156,7 @@ async function loadAndDisplaySettings() {
     document.getElementById('ignoreNotifications').checked = settings.ignoreNotifications ?? true;
     document.getElementById('ignorePinned').checked = settings.ignorePinned ?? true;
     document.getElementById('darkModeSwitch').checked = settings.darkMode ?? false;
+    document.getElementById('directDiscardSwitch').checked = settings.directDiscard ?? false;
     document.getElementById('enableScreenshots').checked = settings.enableScreenshots ?? false;
     document.getElementById('suspendEmoji').value = settings.suspendEmoji || 'none';
 
@@ -238,7 +240,8 @@ document.getElementById('saveOptionsButton').addEventListener('click', () => {
       ignoreFormInput: document.getElementById('ignoreFormInput').checked,
       ignoreNotifications: document.getElementById('ignoreNotifications').checked,
       ignorePinned: document.getElementById('ignorePinned').checked,
-      suspendEmoji: document.getElementById('suspendEmoji').value
+      suspendEmoji: document.getElementById('suspendEmoji').value,
+      directDiscard: document.getElementById('directDiscardSwitch').checked
     };
 
     browser.storage.sync.set(settingsToSave);

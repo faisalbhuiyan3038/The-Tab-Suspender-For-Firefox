@@ -19,7 +19,9 @@ let settings = {
   whitelistedUrls: [],
   autoDiscard: true,       // Enable auto-discard after suspension
   rediscardDelay: 30,      // Seconds to wait before re-discarding a suspended tab
-  pauseUntil: 0
+  pauseUntil: 0,
+  directDiscard: false,
+  suspendEmoji: 'none'
 };
 let pauseExpirationTimer = null;
 
@@ -41,7 +43,9 @@ const SYNC_SETTINGS_KEYS = [
   'resizeQuality',
   'autoDiscard',
   'rediscardDelay',
-  'pauseUntil'
+  'pauseUntil',
+  'directDiscard',
+  'suspendEmoji'
 ];
 
 async function loadSettings() {
@@ -68,7 +72,9 @@ async function loadSettings() {
       whitelistedUrls: result.whitelistedUrls ?? [],
       autoDiscard: result.autoDiscard ?? true,
       rediscardDelay: result.rediscardDelay ?? 30,
-      pauseUntil: result.pauseUntil ?? 0
+      pauseUntil: result.pauseUntil ?? 0,
+      directDiscard: result.directDiscard ?? false,
+      suspendEmoji: result.suspendEmoji ?? 'none'
     };
 
     console.log('Settings loaded/reloaded:', settings, `Suspend Time: ${SUSPEND_TIME}`);
@@ -216,6 +222,27 @@ async function suspendTab(tabId, force = false) {
       return;
     }
 
+    if (settings.directDiscard) {
+      try {
+        if (settings.suspendEmoji && settings.suspendEmoji !== 'none') {
+          try {
+            await browser.tabs.executeScript(tabId, {
+              code: `if (!document.title.startsWith('${settings.suspendEmoji} ')) { document.title = '${settings.suspendEmoji} ' + document.title; }`
+            });
+            // Brief delay to allow the title change to register in the browser UI before discarding
+            await new Promise(r => setTimeout(r, 100));
+          } catch (scriptErr) {
+            console.log('Could not inject title script (may be a protected or discarded page).', scriptErr);
+          }
+        }
+        await browser.tabs.discard(tabId);
+        console.log(`Native discarded tab ${tabId}`);
+        return true;
+      } catch (e) {
+        console.error('Error with native discard:', e);
+        return false;
+      }
+    }
 
     suspendedTabs[tabId] = {
       url: tab.url,
