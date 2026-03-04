@@ -1,0 +1,18 @@
+{
+  "tabTitleIndicator": {
+    "message": "Tab Status Indicator:",
+    "description": "Tab Indicator"
+  },
+  "disableSuspendedPage": {
+    "message": "Disable Suspended Page",
+    "description": "Option to disable suspended page content"
+  },
+  "pauseSuspension": {
+    "message": "Pause Suspension",
+    "description": "Option to pause suspension of tabs"
+  },
+  "pauseSuspensionDesc": {
+    "message": "Temporarily disable automatic tab suspensions.",
+    "description": "Description for the pause suspension option"
+  }
+}
