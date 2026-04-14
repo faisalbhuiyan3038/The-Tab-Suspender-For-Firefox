@@ -133,11 +133,42 @@ async function cleanupOrphanedEntries() {
       if (!existingTabIds.has(tabId)) {
         // This tab no longer exists - check if the tab at least shows our suspended page
         // (which would mean it's a valid suspended tab)
-        const matchingTab = tabs.find(t => t.id === tabId);
-        if (!matchingTab) {
+        const matchingTab = tabs.find(t => {
+          if (t.url && t.url.startsWith(browser.runtime.getURL("suspended.html"))) {
+            try { return new URL(t.url).searchParams.get("tabId") === tabIdStr; } catch (e) {}
+          }
+          return false;
+        });
+
+        if (matchingTab) {
+          console.log(`Migrating tab data from ${tabIdStr} to ${matchingTab.id}`);
+          suspendedTabs[matchingTab.id] = suspendedTabs[tabIdStr];
+          delete suspendedTabs[tabIdStr];
+          
+          const oldThumb = "thumbnail_" + tabIdStr;
+          const newThumb = "thumbnail_" + matchingTab.id;
+          const oldTemp = "temp_img_" + tabIdStr;
+          const newTemp = "temp_img_" + matchingTab.id;
+          
+          browser.storage.local.get([oldThumb, oldTemp]).then(data => {
+            const toSet = {};
+            if (data[oldThumb]) toSet[newThumb] = data[oldThumb];
+            if (data[oldTemp]) toSet[newTemp] = data[oldTemp];
+            if (Object.keys(toSet).length > 0) browser.storage.local.set(toSet);
+          });
+          
+          orphanThumbnails.push(oldThumb, oldTemp);
+          orphansRemoved++; // Trigger cleanup save processing
+          
+          try {
+            const urlObj = new URL(matchingTab.url);
+            urlObj.searchParams.set("tabId", matchingTab.id);
+            browser.tabs.update(matchingTab.id, { url: urlObj.toString() });
+          } catch (e) {}
+        } else {
           console.log(`Cleanup: Removing orphaned entry for non-existent tab ${tabId}`);
           delete suspendedTabs[tabIdStr];
-          orphanThumbnails.push("thumbnail_" + tabId);
+          orphanThumbnails.push("thumbnail_" + tabId, "temp_img_" + tabId);
           orphansRemoved++;
         }
       }
@@ -511,34 +542,17 @@ browser.contextMenus.onClicked.addListener(async (info, tab) => {
       if (!settings.whitelistedDomains.includes(domain)) {
         const newDomains = [...settings.whitelistedDomains, domain];
         await browser.storage.sync.set({ whitelistedDomains: newDomains });
-        browser.notifications.create({
-          type: 'basic',
-          iconUrl: 'icons/icon48.png',
-          title: 'Domain Whitelisted',
-          message: `${domain} has been added to the whitelist`
-        });
       }
     } else if (info.menuItemId === 'whitelistUrl') {
       const pageUrl = tab.url;
       if (!settings.whitelistedUrls.includes(pageUrl)) {
         const newUrls = [...settings.whitelistedUrls, pageUrl];
         await browser.storage.sync.set({ whitelistedUrls: newUrls });
-        browser.notifications.create({
-          type: 'basic',
-          iconUrl: 'icons/icon48.png',
-          title: 'Page Whitelisted',
-          message: 'This page has been added to the whitelist'
-        });
       }
     } else if (info.menuItemId === 'suspendPage') {
       const success = await suspendTab(tab.id, true);
       if (success) {
-        browser.notifications.create({
-          type: 'basic',
-          iconUrl: 'icons/icon48.png',
-          title: 'Page Suspended',
-          message: 'This page has been suspended'
-        });
+        // Tab suspended successfully
       }
     }
   } catch (error) {
@@ -669,12 +683,7 @@ browser.commands.onCommand.addListener(async (commandName) => {
     case "suspend-current-tab": {
       const success = await suspendTab(tab.id, true); // Force suspend
       if (success) {
-        browser.notifications.create({
-          type: 'basic',
-          iconUrl: 'icons/icon48.png',
-          title: 'Tab Suspended',
-          message: 'The current tab has been suspended.'
-        });
+        // Tab suspended successfully
       }
       break;
     }
@@ -686,19 +695,6 @@ browser.commands.onCommand.addListener(async (commandName) => {
           const newUrls = [...settings.whitelistedUrls, pageUrl];
           settings.whitelistedUrls = newUrls;
           await browser.storage.sync.set({ whitelistedUrls: newUrls });
-          browser.notifications.create({
-            type: 'basic',
-            iconUrl: 'icons/icon48.png',
-            title: 'Page Whitelisted',
-            message: 'This page has been added to the whitelist.'
-          });
-        } else {
-          browser.notifications.create({
-            type: 'basic',
-            iconUrl: 'icons/icon48.png',
-            title: 'Page Already Whitelisted',
-            message: 'This page is already in the whitelist.'
-          });
         }
       } catch (error) {
         console.error('Error whitelisting page:', error);
@@ -722,13 +718,6 @@ browser.commands.onCommand.addListener(async (commandName) => {
           "temp_img_" + tab.id
         ]);
         await browser.tabs.update(tab.id, { url: origUrl });
-      } else {
-        browser.notifications.create({
-          type: 'basic',
-          iconUrl: 'icons/icon48.png',
-          title: 'Tab Not Suspended',
-          message: 'This tab is not currently suspended.'
-        });
       }
       break;
     }
@@ -950,13 +939,7 @@ async function recoverSuspendedTabs() {
     console.log(`Re-created ${restoredCount} suspended tabs from storage.`);
 
     if (restoredCount > 0) {
-      // Notify user that tabs were restored
-      browser.notifications.create({
-        type: 'basic',
-        iconUrl: 'icons/icon48.png',
-        title: 'Tabs Restored',
-        message: `${restoredCount} suspended tab(s) were restored after the extension update.`
-      });
+      console.log(`${restoredCount} suspended tab(s) were restored.`);
     }
 
   } catch (error) {
@@ -985,18 +968,6 @@ browser.runtime.onInstalled.addListener(async (details) => {
 browser.runtime.onStartup.addListener(() => {
   initialize();
 
-  browser.tabs.query({}).then(tabs => {
-    tabs.forEach(tab => {
-      if (suspendedTabs[tab.id] && suspendedTabs[tab.id].url === tab.url) {
-        const originalTab = suspendedTabs[tab.id];
-        const suspendedPageURL = browser.runtime.getURL("suspended.html") +
-          "?origUrl=" + encodeURIComponent(originalTab.url) +
-          "&title=" + encodeURIComponent(originalTab.title) +
-          "&favIconUrl=" + encodeURIComponent(originalTab.favIconUrl || '') +
-          "&tabId=" + tab.id; // Always include tabId
-        browser.tabs.update(tab.id, { url: suspendedPageURL });
-      }
-    });
-  });
+  // Initialization handles tab state loading
 });
 
