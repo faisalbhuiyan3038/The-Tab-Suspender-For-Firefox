@@ -78,8 +78,8 @@ async function init() {
   const hasCapture = params.hasCapture === 'true';
 
   const [localSettings, syncSettings] = await Promise.all([
-    browser.storage.local.get(['darkMode']),
-    browser.storage.sync.get(['resizeWidth', 'resizeHeight', 'resizeQuality', 'suspendEmoji'])
+    chrome.storage.local.get(['darkMode']),
+    chrome.storage.sync.get(['resizeWidth', 'resizeHeight', 'resizeQuality', 'suspendEmoji'])
   ]);
 
   applyTheme(localSettings.darkMode ?? false);
@@ -108,13 +108,13 @@ async function init() {
 
   document.body.addEventListener('click', () => {
     if (origUrl) {
-      browser.runtime.sendMessage({ action: "resumeTab", origUrl });
+      chrome.runtime.sendMessage({ action: "resumeTab", origUrl });
     }
   });
 
   if (tabId) {
     try {
-      const thumbData = await browser.storage.local.get("thumbnail_" + tabId);
+      const thumbData = await chrome.storage.local.get("thumbnail_" + tabId);
       const existingThumbnail = thumbData["thumbnail_" + tabId];
 
       // Case 1: Thumbnail already exists in storage
@@ -125,7 +125,7 @@ async function init() {
         // Case 2: First-time suspension, need to process temp image
       } else if (hasCapture) {
         console.log("Processing new screenshot...");
-        const tempData = await browser.storage.local.get("temp_img_" + tabId);
+        const tempData = await chrome.storage.local.get("temp_img_" + tabId);
         const fullResImage = tempData["temp_img_" + tabId];
 
         if (fullResImage) {
@@ -136,20 +136,20 @@ async function init() {
           const smallDataUrl = await resizeImage(fullResImage, width, height, quality);
 
           // Save the small thumbnail to *its own* key
-          await browser.storage.local.set({ ["thumbnail_" + tabId]: smallDataUrl });
+          await chrome.storage.local.set({ ["thumbnail_" + tabId]: smallDataUrl });
 
           // Display the new thumbnail
           displayThumbnail(smallDataUrl);
 
           // Clean up the large temporary image
-          await browser.storage.local.remove("temp_img_" + tabId);
+          await chrome.storage.local.remove("temp_img_" + tabId);
         }
       }
     } catch (error) {
       console.error("Error during screenshot processing:", error);
       // Clean up temp image just in case
       if (tabId) {
-        await browser.storage.local.remove("temp_img_" + tabId);
+        await chrome.storage.local.remove("temp_img_" + tabId);
       }
     }
   }
@@ -157,9 +157,8 @@ async function init() {
 
 init();
 
-browser.runtime.onMessage.addListener((message) => {
+chrome.runtime.onMessage.addListener((message) => {
   if (message.action === 'updateTheme') {
     applyTheme(message.isDark);
   }
 });
-

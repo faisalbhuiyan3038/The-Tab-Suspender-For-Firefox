@@ -135,8 +135,8 @@ const SYNC_SETTINGS_KEYS = [
 async function loadAndDisplaySettings() {
   try {
     const [syncSettings, localSettings] = await Promise.all([
-      browser.storage.sync.get(SYNC_SETTINGS_KEYS),
-      browser.storage.local.get(['darkMode'])
+      chrome.storage.sync.get(SYNC_SETTINGS_KEYS),
+      chrome.storage.local.get(['darkMode'])
     ]);
 
     const settings = { ...syncSettings, ...localSettings };
@@ -168,7 +168,7 @@ async function loadAndDisplaySettings() {
     document.getElementById('resizeQuality').value = settings.resizeQuality || 0.5;
 
     // Active Tab & Site Settings UI Setup
-    const activeTab = (await browser.tabs.query({ active: true, currentWindow: true }))[0];
+    const activeTab = (await chrome.tabs.query({ active: true, currentWindow: true }))[0];
     let domain = '';
     const isCustomizable = activeTab && activeTab.url && activeTab.url.match(/^https?:\/\//);
 
@@ -277,7 +277,7 @@ async function loadAndDisplaySettings() {
         saveBtn.dataset.listenerAdded = 'true';
         saveBtn.addEventListener('click', async () => {
           try {
-            const currentSettings = await browser.storage.sync.get(['siteSettings']);
+            const currentSettings = await chrome.storage.sync.get(['siteSettings']);
             const updatedSiteSettings = currentSettings.siteSettings || {};
 
             if (overrideSwitch.checked) {
@@ -310,12 +310,12 @@ async function loadAndDisplaySettings() {
               if (ignorePinned !== undefined) config.ignorePinned = ignorePinned;
 
               updatedSiteSettings[domain] = config;
-              await browser.storage.sync.set({ siteSettings: updatedSiteSettings });
+              await chrome.storage.sync.set({ siteSettings: updatedSiteSettings });
               showMainStatus('Site options saved!');
             } else {
               if (updatedSiteSettings[domain]) {
                 delete updatedSiteSettings[domain];
-                await browser.storage.sync.set({ siteSettings: updatedSiteSettings });
+                await chrome.storage.sync.set({ siteSettings: updatedSiteSettings });
               }
               showMainStatus('Site overrides cleared!');
             }
@@ -348,14 +348,14 @@ document.getElementById('whitelist').addEventListener('click', async (e) => {
     const type = e.target.dataset.type;
     const value = e.target.dataset.value;
 
-    const result = await browser.storage.sync.get(['whitelistedDomains', 'whitelistedUrls']);
+    const result = await chrome.storage.sync.get(['whitelistedDomains', 'whitelistedUrls']);
 
     const listKey = type === 'domain' ? 'whitelistedDomains' : 'whitelistedUrls';
     const list = result[listKey] || [];
 
     const newList = list.filter(item => item !== value);
 
-    await browser.storage.sync.set({ [listKey]: newList });
+    await chrome.storage.sync.set({ [listKey]: newList });
 
     const whitelistedDomains = type === 'domain' ? newList : (result.whitelistedDomains || []);
     const whitelistedUrls = type === 'url' ? newList : (result.whitelistedUrls || []);
@@ -369,16 +369,16 @@ document.getElementById('whitelist').addEventListener('click', async (e) => {
 
 document.getElementById('enableSwitch').addEventListener('change', (e) => {
   const isEnabled = e.target.checked;
-  browser.storage.sync.set({ isEnabled });
+  chrome.storage.sync.set({ isEnabled });
   showMainStatus();
 });
 
 document.getElementById('darkModeSwitch').addEventListener('change', (event) => {
   const isDark = event.target.checked;
-  browser.storage.local.set({ darkMode: isDark });
+  chrome.storage.local.set({ darkMode: isDark });
   applyTheme(isDark);
 
-  browser.runtime.sendMessage({ action: 'updateTheme', isDark });
+  chrome.runtime.sendMessage({ action: 'updateTheme', isDark });
 
   showMainStatus();
 });
@@ -404,7 +404,7 @@ document.getElementById('saveOptionsButton').addEventListener('click', () => {
       directDiscard: document.getElementById('directDiscardSwitch').checked
     };
 
-    browser.storage.sync.set(settingsToSave);
+    chrome.storage.sync.set(settingsToSave);
     showMainStatus('Options saved!');
 
   } catch (error) {
@@ -440,7 +440,7 @@ document.getElementById('saveScreenshotSettings').addEventListener('click', () =
       return;
     }
 
-    browser.storage.sync.set({
+    chrome.storage.sync.set({
       captureQuality,
       resizeWidth,
       resizeHeight,
@@ -456,7 +456,7 @@ document.getElementById('saveScreenshotSettings').addEventListener('click', () =
 
 
 async function getCurrentTab() {
-  const tabs = await browser.tabs.query({ active: true, currentWindow: true });
+  const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
   return tabs[0];
 }
 
@@ -468,14 +468,14 @@ document.getElementById('whitelistDomainBtn').addEventListener('click', async ()
     const url = new URL(tab.url);
     const domain = url.hostname;
 
-    const result = await browser.storage.sync.get(['whitelistedDomains']);
+    const result = await chrome.storage.sync.get(['whitelistedDomains']);
     const whitelistedDomains = result.whitelistedDomains || [];
 
     if (!whitelistedDomains.includes(domain)) {
       whitelistedDomains.push(domain);
-      await browser.storage.sync.set({ whitelistedDomains });
+      await chrome.storage.sync.set({ whitelistedDomains });
 
-      const whitelistResult = await browser.storage.sync.get(['whitelistedUrls']);
+      const whitelistResult = await chrome.storage.sync.get(['whitelistedUrls']);
       displayWhitelist(whitelistedDomains, whitelistResult.whitelistedUrls || []);
 
       showMainStatus(`Domain ${domain} whitelisted!`);
@@ -494,14 +494,14 @@ document.getElementById('whitelistPageBtn').addEventListener('click', async () =
 
     const pageUrl = tab.url;
 
-    const result = await browser.storage.sync.get(['whitelistedUrls']);
+    const result = await chrome.storage.sync.get(['whitelistedUrls']);
     const whitelistedUrls = result.whitelistedUrls || [];
 
     if (!whitelistedUrls.includes(pageUrl)) {
       whitelistedUrls.push(pageUrl);
-      await browser.storage.sync.set({ whitelistedUrls });
+      await chrome.storage.sync.set({ whitelistedUrls });
 
-      const whitelistResult = await browser.storage.sync.get(['whitelistedDomains']);
+      const whitelistResult = await chrome.storage.sync.get(['whitelistedDomains']);
       displayWhitelist(whitelistResult.whitelistedDomains || [], whitelistedUrls);
 
       showMainStatus('Current page whitelisted!');
@@ -514,16 +514,23 @@ document.getElementById('whitelistPageBtn').addEventListener('click', async () =
 });
 
 document.getElementById('manageDataBtn').addEventListener('click', () => {
-  browser.tabs.create({
-    url: browser.runtime.getURL('data_management.html')
+  chrome.tabs.create({
+    url: chrome.runtime.getURL('data_management.html')
   });
   window.close();
 });
 
 document.getElementById('configureShortcutsBtn').addEventListener('click', () => {
-  browser.tabs.create({
-    url: 'https://support.mozilla.org/en-US/kb/manage-extension-shortcuts-firefox'
-  });
+  const isFirefox = chrome.runtime.getURL('').startsWith('moz-extension:');
+  if (isFirefox) {
+    chrome.tabs.create({
+      url: 'https://support.mozilla.org/en-US/kb/manage-extension-shortcuts-firefox'
+    });
+  } else {
+    chrome.tabs.create({
+      url: 'chrome://extensions/shortcuts'
+    });
+  }
   window.close();
 });
 
@@ -550,7 +557,7 @@ function updatePauseUI(pauseUntil) {
         clearInterval(pauseInterval);
         pauseOptions.style.display = 'grid';
         pauseActive.style.display = 'none';
-        browser.storage.sync.set({ pauseUntil: 0 });
+        chrome.storage.sync.set({ pauseUntil: 0 });
         return;
       }
 
@@ -576,21 +583,14 @@ document.querySelectorAll('.btn-pause').forEach(btn => {
     const minutes = parseInt(e.target.dataset.time, 10);
     const pauseUntil = Date.now() + (minutes * 60 * 1000);
 
-    await browser.storage.sync.set({ pauseUntil });
+    await chrome.storage.sync.set({ pauseUntil });
     updatePauseUI(pauseUntil);
     showMainStatus(`Suspension paused for ${minutes}m`);
-
-    // Tell background script to reload settings to apply pause logic immediately
-    const bg = await browser.runtime.getBackgroundPage();
-    if (bg && bg.loadSettings) {
-      bg.loadSettings();
-    }
   });
 });
 
 document.getElementById('cancelPauseBtn').addEventListener('click', async () => {
-  await browser.storage.sync.set({ pauseUntil: 0 });
+  await chrome.storage.sync.set({ pauseUntil: 0 });
   updatePauseUI(0);
   showMainStatus('Pause cancelled');
 });
-

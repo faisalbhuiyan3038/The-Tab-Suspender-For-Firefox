@@ -47,7 +47,7 @@ const SYNC_SETTINGS_KEYS = [
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
-  browser.storage.local.get(['darkMode']).then(result => {
+  chrome.storage.local.get(['darkMode']).then(result => {
     applyTheme(result.darkMode ?? false);
   });
 });
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // --- Import/Export Logic ---
 document.getElementById('exportSettingsBtn').addEventListener('click', async () => {
   try {
-    const settings = await browser.storage.sync.get(SYNC_SETTINGS_KEYS);
+    const settings = await chrome.storage.sync.get(SYNC_SETTINGS_KEYS);
     const jsonString = JSON.stringify(settings, null, 2);
     const blob = new Blob([jsonString], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
@@ -98,7 +98,7 @@ document.getElementById('importSettingsInput').addEventListener('change', (event
 
     try {
       
-      const localSettings = await browser.storage.sync.get(SYNC_SETTINGS_KEYS);
+      const localSettings = await chrome.storage.sync.get(SYNC_SETTINGS_KEYS);
       
       const newSettings = {};
 
@@ -166,7 +166,7 @@ document.getElementById('importSettingsInput').addEventListener('change', (event
         throw new Error("File contains no valid or recognized settings.");
       }
 
-      await browser.storage.sync.set(newSettings);
+      await chrome.storage.sync.set(newSettings);
       
       showDataStatus('Settings imported successfully!');
 

@@ -1,0 +1,73 @@
+{
+  "manifest_version": 3,
+  "name": "__MSG_extName__",
+  "version": "1.9",
+  "description": "__MSG_extDescription__",
+  "default_locale": "en",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "64": "icons/icon64.png",
+    "96": "icons/icon96.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": [
+    "tabs",
+    "storage",
+    "webNavigation",
+    "notifications",
+    "contextMenus",
+    "scripting",
+    "alarms"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Tab Suspender Settings",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "96": "icons/icon96.png"
+    }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "suspended.html",
+        "data_management.html",
+        "icons/icon32.png"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ],
+  "commands": {
+    "suspend-current-tab": {
+      "description": "Suspend the current active tab"
+    },
+    "whitelist-current-page": {
+      "description": "Whitelist the current active page"
+    },
+    "unsuspend-current-tab": {
+      "description": "Unsuspend/Restore the current active tab"
+    },
+    "toggle-site-override": {
+      "description": "Toggle custom settings override for the current site"
+    }
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{669407ff-70f0-4512-a010-ea4530c5e716}"
+    }
+  }
+}

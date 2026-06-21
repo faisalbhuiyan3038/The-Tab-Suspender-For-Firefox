@@ -3,9 +3,9 @@ let SUSPEND_TIME = 40 * 60 * 1000;
 let isEnabled = true; // Enabled by default
 let activeTabId = null;
 let suspendedTabs = {};
-let tabTimers = {};
-let discardTimers = {};  // Track re-discard timers for suspended tabs
+let discardTimers = {};  // Track short-lived re-discard timers for suspended tabs
 let settings = {
+  suspendTime: 40,
   ignoreAudio: true,
   ignoreFormInput: true,
   ignoreNotifications: true,
@@ -25,6 +25,9 @@ let settings = {
   siteSettings: {}         // Site-specific settings overrides
 };
 let pauseExpirationTimer = null;
+
+const SUSPEND_ALARM_PREFIX = 'suspend_tab_';
+const DISCARD_ALARM_PREFIX = 'discard_tab_';
 
 // --- Storage Management ---
 
@@ -52,7 +55,7 @@ const SYNC_SETTINGS_KEYS = [
 
 async function loadSettings() {
   try {
-    const result = await browser.storage.sync.get(SYNC_SETTINGS_KEYS);
+    const result = await chrome.storage.sync.get(SYNC_SETTINGS_KEYS);
 
     if (result.suspendTime) {
       SUSPEND_TIME = result.suspendTime * 60 * 1000;
@@ -95,13 +98,12 @@ async function loadSettings() {
       pauseExpirationTimer = setTimeout(() => {
         console.log('Pause expired. Re-initializing tab timers.');
         settings.pauseUntil = 0;
-        browser.storage.sync.set({ pauseUntil: 0 });
+        chrome.storage.sync.set({ pauseUntil: 0 });
         initializeTimers();
       }, waitTime);
     } else if (settings.pauseUntil !== 0) {
-      // If we loaded settings and the pause is already historically over, fix it
       settings.pauseUntil = 0;
-      browser.storage.sync.set({ pauseUntil: 0 });
+      chrome.storage.sync.set({ pauseUntil: 0 });
     }
 
   } catch (error) {
@@ -109,70 +111,72 @@ async function loadSettings() {
   }
 }
 
+// Load suspended tabs from storage
 async function loadSuspendedTabs() {
   try {
-    const result = await browser.storage.local.get('suspendedTabs');
+    const result = await chrome.storage.local.get('suspendedTabs');
     if (result.suspendedTabs) {
       suspendedTabs = result.suspendedTabs;
+      console.log(`Loaded ${Object.keys(suspendedTabs).length} suspended tabs from storage.`);
     }
   } catch (error) {
     console.error('Error loading suspended tabs:', error);
   }
 }
 
-/**
- * Removes suspendedTabs entries for tabs that no longer exist.
- * This handles edge cases like browser crashes, extension updates where recovery failed, etc.
- */
+// Clean up orphaned thumbnails/temp images from storage
 async function cleanupOrphanedEntries() {
   try {
-    const tabs = await browser.tabs.query({});
-    const existingTabIds = new Set(tabs.map(t => t.id));
+    const tabs = await chrome.tabs.query({});
+    const activeTabIds = new Set(tabs.map(t => t.id));
 
+    // Identify and remove orphaned local records
     let orphansRemoved = 0;
-    const orphanThumbnails = [];
+    const keysToRemove = [];
 
     for (const tabIdStr of Object.keys(suspendedTabs)) {
       const tabId = parseInt(tabIdStr, 10);
-      if (!existingTabIds.has(tabId)) {
-        // This tab no longer exists - check if the tab at least shows our suspended page
-        // (which would mean it's a valid suspended tab)
+      if (!activeTabIds.has(tabId)) {
+        // Look if there's any active tab displaying this suspended URL with matching tabId parameter
         const matchingTab = tabs.find(t => {
-          if (t.url && t.url.startsWith(browser.runtime.getURL("suspended.html"))) {
-            try { return new URL(t.url).searchParams.get("tabId") === tabIdStr; } catch (e) {}
+          if (t.url && t.url.startsWith(chrome.runtime.getURL("suspended.html"))) {
+            try {
+              const urlParams = new URL(t.url).searchParams;
+              return urlParams.get('tabId') === tabIdStr;
+            } catch (e) {}
           }
           return false;
         });
 
         if (matchingTab) {
-          console.log(`Migrating tab data from ${tabIdStr} to ${matchingTab.id}`);
+          console.log(`Migration: Re-mapping tab record from old ID ${tabIdStr} to active ID ${matchingTab.id}`);
           suspendedTabs[matchingTab.id] = suspendedTabs[tabIdStr];
           delete suspendedTabs[tabIdStr];
-          
+
           const oldThumb = "thumbnail_" + tabIdStr;
           const newThumb = "thumbnail_" + matchingTab.id;
           const oldTemp = "temp_img_" + tabIdStr;
           const newTemp = "temp_img_" + matchingTab.id;
-          
-          browser.storage.local.get([oldThumb, oldTemp]).then(data => {
+
+          chrome.storage.local.get([oldThumb, oldTemp]).then(data => {
             const toSet = {};
             if (data[oldThumb]) toSet[newThumb] = data[oldThumb];
             if (data[oldTemp]) toSet[newTemp] = data[oldTemp];
-            if (Object.keys(toSet).length > 0) browser.storage.local.set(toSet);
+            if (Object.keys(toSet).length > 0) chrome.storage.local.set(toSet);
           });
-          
-          orphanThumbnails.push(oldThumb, oldTemp);
-          orphansRemoved++; // Trigger cleanup save processing
-          
+
+          keysToRemove.push(oldThumb, oldTemp);
+          orphansRemoved++;
+
           try {
             const urlObj = new URL(matchingTab.url);
-            urlObj.searchParams.set("tabId", matchingTab.id);
-            browser.tabs.update(matchingTab.id, { url: urlObj.toString() });
+            urlObj.searchParams.set('tabId', String(matchingTab.id));
+            chrome.tabs.update(matchingTab.id, { url: urlObj.toString() });
           } catch (e) {}
         } else {
-          console.log(`Cleanup: Removing orphaned entry for non-existent tab ${tabId}`);
+          console.log(`Cleanup: Removing orphaned tab record for tab ID ${tabIdStr}`);
           delete suspendedTabs[tabIdStr];
-          orphanThumbnails.push("thumbnail_" + tabId, "temp_img_" + tabId);
+          keysToRemove.push("thumbnail_" + tabIdStr, "temp_img_" + tabIdStr);
           orphansRemoved++;
         }
       }
@@ -180,61 +184,84 @@ async function cleanupOrphanedEntries() {
 
     if (orphansRemoved > 0) {
       saveSuspendedTabsState();
-      if (orphanThumbnails.length > 0) {
-        await browser.storage.local.remove(orphanThumbnails);
+      if (keysToRemove.length > 0) {
+        await chrome.storage.local.remove(keysToRemove);
       }
       console.log(`Cleanup: Removed ${orphansRemoved} orphaned entries from storage.`);
     }
   } catch (error) {
-    console.error('Error during orphan cleanup:', error);
+    console.error('Error during cleanup:', error);
   }
 }
 
 async function initialize() {
   await loadSettings();
-  // Only load from storage if suspendedTabs wasn't already populated (e.g., by recoverSuspendedTabs)
   if (Object.keys(suspendedTabs).length === 0) {
     await loadSuspendedTabs();
   }
-  // Clean up any orphaned entries (from crashes, failed recoveries, etc.)
   await cleanupOrphanedEntries();
-  initializeTimers();
+  await initializeTimers();
 }
 
-// --- Tab Timer Logic ---
+// --- Tab Timer & Alarm Logic ---
 
-/**
- * Resets (or creates) the suspension timer for a given tab.
- */
 async function resetTabTimer(tabId) {
-  if (tabTimers[tabId]) {
-    clearTimeout(tabTimers[tabId]);
-    delete tabTimers[tabId];
-  }
+  const alarmName = SUSPEND_ALARM_PREFIX + tabId;
+  await chrome.alarms.clear(alarmName);
 
   try {
-    const tab = await browser.tabs.get(tabId);
+    const tab = await chrome.tabs.get(tabId);
 
-    if (tab.url.startsWith(browser.runtime.getURL("suspended.html"))) {
+    if (tab.url.startsWith(chrome.runtime.getURL("suspended.html"))) {
       return;
     }
 
     if (isEnabled && tabId !== activeTabId) {
-      if (tabTimers[tabId]) {
-        clearTimeout(tabTimers[tabId]);
-      }
-
       const tabSettings = getTabSettings(tab);
-      const suspendTimeMs = tabSettings.suspendTime * 60 * 1000;
-
-      tabTimers[tabId] = setTimeout(() => {
-        suspendTab(tabId);
-      }, suspendTimeMs);
+      const delayInMinutes = tabSettings.suspendTime;
+      await chrome.alarms.create(alarmName, { delayInMinutes });
+      console.log(`Created suspend alarm for tab ${tabId}, will fire in ${delayInMinutes} minutes`);
     }
   } catch (error) {
     console.error(`Error in resetTabTimer for tab ${tabId}:`, error);
   }
 }
+
+async function clearTabTimer(tabId) {
+  const alarmName = SUSPEND_ALARM_PREFIX + tabId;
+  await chrome.alarms.clear(alarmName);
+}
+
+async function setDiscardTimer(tabId, delaySeconds) {
+  const alarmName = DISCARD_ALARM_PREFIX + tabId;
+  await chrome.alarms.clear(alarmName);
+  const delayInMinutes = Math.max(delaySeconds / 60, 0.1);
+  await chrome.alarms.create(alarmName, { delayInMinutes });
+  console.log(`Created discard alarm for tab ${tabId}, will fire in ${delayInMinutes} minutes`);
+}
+
+async function clearDiscardTimer(tabId) {
+  const alarmName = DISCARD_ALARM_PREFIX + tabId;
+  await chrome.alarms.clear(alarmName);
+}
+
+// Handle Alarms
+chrome.alarms.onAlarm.addListener(async (alarm) => {
+  console.log(`Alarm fired: ${alarm.name}`);
+
+  if (alarm.name.startsWith(SUSPEND_ALARM_PREFIX)) {
+    const tabId = parseInt(alarm.name.replace(SUSPEND_ALARM_PREFIX, ''), 10);
+    await suspendTab(tabId);
+  } else if (alarm.name.startsWith(DISCARD_ALARM_PREFIX)) {
+    const tabId = parseInt(alarm.name.replace(DISCARD_ALARM_PREFIX, ''), 10);
+    try {
+      await chrome.tabs.discard(tabId);
+      console.log(`Discarded suspended tab ${tabId} via alarm`);
+    } catch (e) {
+      // Tab might be active or closed
+    }
+  }
+});
 
 /**
  * Suspends the tab by saving its original URL and updating it
@@ -243,14 +270,25 @@ async function resetTabTimer(tabId) {
  * @param {boolean} [force=false] - If true, will suspend even if the tab is active
  */
 async function suspendTab(tabId, force = false) {
+  await loadSettings();
+  await loadSuspendedTabs();
+
+  // Update active tab ID check
+  try {
+    const [activeTab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    if (activeTab) {
+      activeTabId = activeTab.id;
+    }
+  } catch (e) {}
+
   if (!force && tabId === activeTabId) {
     return;
   }
 
   try {
-    const tab = await browser.tabs.get(tabId);
+    const tab = await chrome.tabs.get(tabId);
 
-    if (tab.url.startsWith(browser.runtime.getURL("suspended.html"))) {
+    if (tab.url.startsWith(chrome.runtime.getURL("suspended.html"))) {
       return;
     }
 
@@ -265,21 +303,26 @@ async function suspendTab(tabId, force = false) {
       try {
         if (settings.suspendEmoji && settings.suspendEmoji !== 'none') {
           try {
-            await browser.tabs.executeScript(tabId, {
-              code: `if (!document.title.startsWith('${settings.suspendEmoji} ')) { document.title = '${settings.suspendEmoji} ' + document.title; }`
+            await chrome.scripting.executeScript({
+              target: { tabId },
+              func: (emoji) => {
+                if (!document.title.startsWith(emoji + ' ')) {
+                  document.title = emoji + ' ' + document.title;
+                }
+              },
+              args: [settings.suspendEmoji]
             });
             // Brief delay to allow the title change to register in the browser UI before discarding
             await new Promise(r => setTimeout(r, 100));
           } catch (scriptErr) {
-            console.log('Could not inject title script (may be a protected or discarded page).', scriptErr);
+            console.log('Could not inject title script.', scriptErr);
           }
         }
-        await browser.tabs.discard(tabId);
+        await chrome.tabs.discard(tabId);
         console.log(`Native discarded tab ${tabId}`);
         return true;
       } catch (e) {
         console.error('Error with native discard, falling back to suspended page:', e);
-        // Fall through to custom suspended page logic
       }
     }
 
@@ -291,7 +334,7 @@ async function suspendTab(tabId, force = false) {
 
     saveSuspendedTabsState();
 
-    let suspendedPageURL = browser.runtime.getURL("suspended.html") +
+    let suspendedPageURL = chrome.runtime.getURL("suspended.html") +
       "?origUrl=" + encodeURIComponent(tab.url) +
       "&title=" + encodeURIComponent(tab.title) +
       "&favIconUrl=" + encodeURIComponent(tab.favIconUrl || '') +
@@ -299,29 +342,32 @@ async function suspendTab(tabId, force = false) {
 
     if (settings.enableScreenshots) {
       try {
-        const fullResImage = await browser.tabs.captureTab(tabId, {
-          format: "jpeg",
-          quality: settings.captureQuality
-        });
+        const currentWindow = await chrome.windows.get(tab.windowId);
+        if (currentWindow.focused) {
+          const fullResImage = await chrome.tabs.captureVisibleTab(tab.windowId, {
+            format: "jpeg",
+            quality: settings.captureQuality
+          });
 
-        await browser.storage.local.set({ ["temp_img_" + tabId]: fullResImage });
-        suspendedPageURL += "&hasCapture=true";
-        console.log(`Captured screenshot for tab ${tabId}`);
+          await chrome.storage.local.set({ ["temp_img_" + tabId]: fullResImage });
+          suspendedPageURL += "&hasCapture=true";
+          console.log(`Captured screenshot for tab ${tabId}`);
+        }
       } catch (captureError) {
         console.error(`Failed to capture tab ${tabId}:`, captureError);
       }
     }
 
-    browser.tabs.update(tabId, { url: suspendedPageURL });
+    await chrome.tabs.update(tabId, { url: suspendedPageURL });
 
     // Auto-discard the tab after suspension to free memory
     if (settings.autoDiscard) {
       setTimeout(async () => {
         try {
-          await browser.tabs.discard(tabId);
+          await chrome.tabs.discard(tabId);
           console.log(`Discarded suspended tab ${tabId}`);
         } catch (e) {
-          // Tab might be active or already closed - this is expected
+          // Tab might be active or already closed
         }
       }, 1500);
     }
@@ -334,11 +380,12 @@ async function suspendTab(tabId, force = false) {
 }
 
 // --- Event Listeners (Tabs, Windows) ---
-browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+
+chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   if (changeInfo.status === 'complete') {
-    if (!tab.url.startsWith(browser.runtime.getURL("suspended.html"))) {
+    if (!tab.url.startsWith(chrome.runtime.getURL("suspended.html"))) {
       if (tabId !== activeTabId) {
-        resetTabTimer(tabId);
+        await resetTabTimer(tabId);
       }
     }
   }
@@ -347,184 +394,228 @@ browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     const originalTab = suspendedTabs[tabId];
 
     if (tab.url === originalTab.url) {
-      // Logic to re-suspend a tab that was navigated "back" to
-      let suspendedPageURL = browser.runtime.getURL("suspended.html") +
+      let suspendedPageURL = chrome.runtime.getURL("suspended.html") +
         "?origUrl=" + encodeURIComponent(originalTab.url) +
         "&title=" + encodeURIComponent(originalTab.title) +
         "&favIconUrl=" + encodeURIComponent(originalTab.favIconUrl || '') +
         "&tabId=" + tabId;
 
-      browser.tabs.update(tabId, { url: suspendedPageURL });
+      await chrome.tabs.update(tabId, { url: suspendedPageURL });
     }
   }
 });
 
-browser.tabs.onActivated.addListener((activeInfo) => {
+chrome.tabs.onActivated.addListener(async (activeInfo) => {
   const previousActiveTab = activeTabId;
   activeTabId = activeInfo.tabId;
 
-  // Clear suspension timer for newly active tab
-  if (tabTimers[activeTabId]) {
-    clearTimeout(tabTimers[activeTabId]);
-    delete tabTimers[activeTabId];
-  }
-
-  // Clear any pending re-discard timer for the newly active tab
-  if (discardTimers[activeTabId]) {
-    clearTimeout(discardTimers[activeTabId]);
-    delete discardTimers[activeTabId];
-  }
+  // Clear suspension timers for newly active tab
+  await clearTabTimer(activeTabId);
+  await clearDiscardTimer(activeTabId);
 
   if (previousActiveTab && previousActiveTab !== activeTabId) {
-    browser.tabs.get(previousActiveTab).then(tab => {
-      const isSuspendedPage = tab.url.startsWith(browser.runtime.getURL("suspended.html"));
+    try {
+      const tab = await chrome.tabs.get(previousActiveTab);
+      const isSuspendedPage = tab.url.startsWith(chrome.runtime.getURL("suspended.html"));
 
       if (isSuspendedPage && settings.autoDiscard) {
-        // Previous tab was a suspended page that wasn't restored
         // Start a re-discard timer
-        if (discardTimers[previousActiveTab]) {
-          clearTimeout(discardTimers[previousActiveTab]);
-        }
-        discardTimers[previousActiveTab] = setTimeout(async () => {
-          try {
-            await browser.tabs.discard(previousActiveTab);
-            console.log(`Re-discarded suspended tab ${previousActiveTab} after inactivity`);
-          } catch (e) {
-            // Tab might be closed or active again
-          }
-          delete discardTimers[previousActiveTab];
-        }, settings.rediscardDelay * 1000);
+        await setDiscardTimer(previousActiveTab, settings.rediscardDelay);
       } else if (!isSuspendedPage) {
-        // Normal tab - start suspension timer
-        resetTabTimer(previousActiveTab);
+        await resetTabTimer(previousActiveTab);
       }
-    }).catch(() => { /* Tab might be closed */ });
+    } catch (e) {}
   }
 });
 
-browser.windows.onFocusChanged.addListener((windowId) => {
-  if (windowId === browser.windows.WINDOW_ID_NONE) return;
+chrome.windows.onFocusChanged.addListener(async (windowId) => {
+  if (windowId === chrome.windows.WINDOW_ID_NONE) return;
 
-  browser.tabs.query({ active: true, windowId }).then(tabs => {
+  try {
+    const tabs = await chrome.tabs.query({ active: true, windowId });
     if (tabs[0]) {
       const previousActiveTab = activeTabId;
       activeTabId = tabs[0].id;
 
-      // Clear suspension timer for newly active tab
-      if (tabTimers[activeTabId]) {
-        clearTimeout(tabTimers[activeTabId]);
-        delete tabTimers[activeTabId];
-      }
-
-      // Clear any pending re-discard timer for the newly active tab
-      if (discardTimers[activeTabId]) {
-        clearTimeout(discardTimers[activeTabId]);
-        delete discardTimers[activeTabId];
-      }
+      // Clear suspension timers for newly active tab
+      await clearTabTimer(activeTabId);
+      await clearDiscardTimer(activeTabId);
 
       if (previousActiveTab && previousActiveTab !== activeTabId) {
-        browser.tabs.get(previousActiveTab).then(tab => {
-          const isSuspendedPage = tab.url.startsWith(browser.runtime.getURL("suspended.html"));
+        try {
+          const tab = await chrome.tabs.get(previousActiveTab);
+          const isSuspendedPage = tab.url.startsWith(chrome.runtime.getURL("suspended.html"));
 
           if (isSuspendedPage && settings.autoDiscard) {
-            // Previous tab was a suspended page that wasn't restored
             // Start a re-discard timer
-            if (discardTimers[previousActiveTab]) {
-              clearTimeout(discardTimers[previousActiveTab]);
-            }
-            discardTimers[previousActiveTab] = setTimeout(async () => {
-              try {
-                await browser.tabs.discard(previousActiveTab);
-                console.log(`Re-discarded suspended tab ${previousActiveTab} after window focus change`);
-              } catch (e) {
-                // Tab might be closed or active again
-              }
-              delete discardTimers[previousActiveTab];
-            }, settings.rediscardDelay * 1000);
+            await setDiscardTimer(previousActiveTab, settings.rediscardDelay);
           } else if (!isSuspendedPage) {
-            // Normal tab - start suspension timer
-            resetTabTimer(previousActiveTab);
+            await resetTabTimer(previousActiveTab);
           }
-        }).catch(() => { /* Tab might be closed */ });
+        } catch (e) {}
       }
     }
-  });
+  } catch (e) {
+    console.error('Error in window focus changed:', e);
+  }
 });
 
 // --- Event Listeners (Runtime, Storage) ---
-browser.runtime.onMessage.addListener(async (message, sender) => {
+
+chrome.runtime.onMessage.addListener(async (message, sender) => {
   if (message.action === 'updateTheme') {
-    browser.tabs.query({}).then(tabs => {
+    chrome.tabs.query({}).then(tabs => {
       tabs.forEach(tab => {
         if (suspendedTabs[tab.id]) {
-          browser.tabs.sendMessage(tab.id, {
+          chrome.tabs.sendMessage(tab.id, {
             action: 'updateTheme',
             isDark: message.isDark
-          });
+          }).catch(() => {});
         }
       });
     });
     return;
   }
+
   if (message.action === "resumeTab" && sender.tab) {
     const origUrl = message.origUrl;
     const tabId = sender.tab.id;
 
-    // Clear any pending re-discard timer
-    if (discardTimers[tabId]) {
-      clearTimeout(discardTimers[tabId]);
-      delete discardTimers[tabId];
-    }
+    await clearDiscardTimer(tabId);
 
     if (suspendedTabs[tabId]) {
       delete suspendedTabs[tabId];
       saveSuspendedTabsState();
     }
-    await browser.storage.local.remove([
+    await chrome.storage.local.remove([
       "thumbnail_" + tabId,
       "temp_img_" + tabId
     ]);
-    browser.tabs.update(tabId, { url: origUrl });
+    await chrome.tabs.update(tabId, { url: origUrl });
   }
 });
 
-browser.storage.onChanged.addListener((changes, areaName) => {
+chrome.storage.onChanged.addListener((changes, areaName) => {
   if (areaName === 'sync') {
     const settingsChanged = SYNC_SETTINGS_KEYS.some(key => changes.hasOwnProperty(key));
 
     if (settingsChanged) {
       console.log('Sync settings changed, reloading...');
-      loadSettings().then(() => {
-        Object.keys(tabTimers).forEach(tabId => {
-          resetTabTimer(parseInt(tabId, 10));
-        });
+      loadSettings().then(async () => {
+        // Reset all active suspend alarms
+        const alarms = await chrome.alarms.getAll();
+        for (const alarm of alarms) {
+          if (alarm.name.startsWith(SUSPEND_ALARM_PREFIX)) {
+            const tabId = parseInt(alarm.name.replace(SUSPEND_ALARM_PREFIX, ''), 10);
+            await resetTabTimer(tabId);
+          }
+        }
       });
     }
   }
 });
 
-function initializeTimers() {
-  browser.tabs.query({}).then(tabs => {
+async function initializeTimers() {
+  try {
+    const tabs = await chrome.tabs.query({});
     const activeTab = tabs.find(tab => tab.active);
     if (activeTab) {
       activeTabId = activeTab.id;
     }
 
-    tabs.forEach(tab => {
-      // Do not reset timer if paused
+    const existingAlarms = await chrome.alarms.getAll();
+    const tabsWithAlarms = new Set(
+      existingAlarms
+        .filter(a => a.name.startsWith(SUSPEND_ALARM_PREFIX))
+        .map(a => parseInt(a.name.replace(SUSPEND_ALARM_PREFIX, ''), 10))
+    );
+
+    for (const tab of tabs) {
       if (settings.pauseUntil > Date.now()) {
-        if (tabTimers[tab.id]) {
-          clearTimeout(tabTimers[tab.id]);
-          delete tabTimers[tab.id];
+        await clearTabTimer(tab.id);
+        continue;
+      }
+      if (!tab.active && !tab.url.startsWith(chrome.runtime.getURL("suspended.html"))) {
+        if (!tabsWithAlarms.has(tab.id)) {
+          await resetTabTimer(tab.id);
         }
-        return;
       }
-      if (!tab.active && !tab.url.startsWith(browser.runtime.getURL("suspended.html"))) {
-        resetTabTimer(tab.id);
-      }
-    });
-  });
+    }
+  } catch (error) {
+    console.error('Error in initializeTimers:', error);
+  }
 }
+
+// --- Context Menus ---
+
+chrome.runtime.onInstalled.addListener(async (details) => {
+  chrome.contextMenus.create({
+    id: 'whitelistDomain',
+    title: 'Whitelist this domain',
+    contexts: ['page']
+  });
+  chrome.contextMenus.create({
+    id: 'whitelistUrl',
+    title: 'Whitelist this page',
+    contexts: ['page']
+  });
+  chrome.contextMenus.create({
+    id: 'toggleSiteOverride',
+    title: chrome.i18n.getMessage('toggleSiteOverride') || 'Toggle custom settings override for this site',
+    contexts: ['page']
+  });
+  chrome.contextMenus.create({
+    id: 'suspendPage',
+    title: 'Suspend This Page',
+    contexts: ['page']
+  });
+
+  console.log(`Addon event: ${details.reason}`);
+
+  if (details.reason === "update" || details.reason === "install") {
+    console.log("Running migration...");
+    await runMigration();
+    console.log("Attempting to recover suspended tabs...");
+    await recoverSuspendedTabs();
+  }
+  await initialize();
+});
+
+chrome.runtime.onStartup.addListener(() => {
+  console.log('Service worker starting up...');
+  initialize();
+});
+
+// Initialize on script load
+initialize();
+
+chrome.contextMenus.onClicked.addListener(async (info, tab) => {
+  await loadSettings();
+  await loadSuspendedTabs();
+
+  try {
+    if (info.menuItemId === 'whitelistDomain') {
+      const url = new URL(tab.url);
+      const domain = url.hostname;
+      if (!settings.whitelistedDomains.includes(domain)) {
+        const newDomains = [...settings.whitelistedDomains, domain];
+        await chrome.storage.sync.set({ whitelistedDomains: newDomains });
+      }
+    } else if (info.menuItemId === 'whitelistUrl') {
+      const pageUrl = tab.url;
+      if (!settings.whitelistedUrls.includes(pageUrl)) {
+        const newUrls = [...settings.whitelistedUrls, pageUrl];
+        await chrome.storage.sync.set({ whitelistedUrls: newUrls });
+      }
+    } else if (info.menuItemId === 'toggleSiteOverride') {
+      await toggleSiteOverrideForTab(tab);
+    } else if (info.menuItemId === 'suspendPage') {
+      await suspendTab(tab.id, true);
+    }
+  } catch (error) {
+    console.error('Error in context menu action:', error);
+  }
+});
 
 async function toggleSiteOverrideForTab(tab) {
   if (!tab || !tab.url || !tab.url.match(/^https?:\/\//)) {
@@ -551,13 +642,13 @@ async function toggleSiteOverrideForTab(tab) {
       message = `Custom settings enabled for ${domain}`;
     }
 
-    await browser.storage.sync.set({ siteSettings: newSiteSettings });
+    await chrome.storage.sync.set({ siteSettings: newSiteSettings });
     console.log(message);
 
     try {
-      browser.notifications.create({
+      chrome.notifications.create({
         type: 'basic',
-        iconUrl: browser.runtime.getURL('icons/icon48.png'),
+        iconUrl: chrome.runtime.getURL('icons/icon48.png'),
         title: 'Tab Suspender',
         message: message
       });
@@ -569,56 +660,8 @@ async function toggleSiteOverrideForTab(tab) {
   }
 }
 
-browser.contextMenus.create({
-  id: 'whitelistDomain',
-  title: 'Whitelist this domain',
-  contexts: ['page']
-});
-browser.contextMenus.create({
-  id: 'whitelistUrl',
-  title: 'Whitelist this page',
-  contexts: ['page']
-});
-browser.contextMenus.create({
-  id: 'toggleSiteOverride',
-  title: chrome.i18n.getMessage('toggleSiteOverride') || 'Toggle custom settings override for this site',
-  contexts: ['page']
-});
-browser.contextMenus.create({
-  id: 'suspendPage',
-  title: 'Suspend This Page',
-  contexts: ['page']
-});
-
-browser.contextMenus.onClicked.addListener(async (info, tab) => {
-  try {
-    if (info.menuItemId === 'whitelistDomain') {
-      const url = new URL(tab.url);
-      const domain = url.hostname;
-      if (!settings.whitelistedDomains.includes(domain)) {
-        const newDomains = [...settings.whitelistedDomains, domain];
-        await browser.storage.sync.set({ whitelistedDomains: newDomains });
-      }
-    } else if (info.menuItemId === 'whitelistUrl') {
-      const pageUrl = tab.url;
-      if (!settings.whitelistedUrls.includes(pageUrl)) {
-        const newUrls = [...settings.whitelistedUrls, pageUrl];
-        await browser.storage.sync.set({ whitelistedUrls: newUrls });
-      }
-    } else if (info.menuItemId === 'toggleSiteOverride') {
-      await toggleSiteOverrideForTab(tab);
-    } else if (info.menuItemId === 'suspendPage') {
-      const success = await suspendTab(tab.id, true);
-      if (success) {
-        // Tab suspended successfully
-      }
-    }
-  } catch (error) {
-    console.error('Error in context menu action:', error);
-  }
-});
-
 // --- Protection Logic ---
+
 function getTabSettings(tab) {
   let domain = '';
   if (tab && tab.url) {
@@ -632,11 +675,11 @@ function getTabSettings(tab) {
   const siteConfig = domain && settings.siteSettings && settings.siteSettings[domain];
   if (siteConfig) {
     return {
-      ignoreAudio: siteConfig.ignoreAudio ?? settings.ignoreAudio,
-      ignoreFormInput: siteConfig.ignoreFormInput ?? settings.ignoreFormInput,
-      ignoreNotifications: siteConfig.ignoreNotifications ?? settings.ignoreNotifications,
-      ignorePinned: siteConfig.ignorePinned ?? settings.ignorePinned,
-      directDiscard: siteConfig.directDiscard ?? settings.directDiscard,
+      ignoreAudio: siteConfig.ignoreAudio !== undefined ? siteConfig.ignoreAudio : settings.ignoreAudio,
+      ignoreFormInput: siteConfig.ignoreFormInput !== undefined ? siteConfig.ignoreFormInput : settings.ignoreFormInput,
+      ignoreNotifications: siteConfig.ignoreNotifications !== undefined ? siteConfig.ignoreNotifications : settings.ignoreNotifications,
+      ignorePinned: siteConfig.ignorePinned !== undefined ? siteConfig.ignorePinned : settings.ignorePinned,
+      directDiscard: siteConfig.directDiscard !== undefined ? siteConfig.directDiscard : settings.directDiscard,
       suspendTime: siteConfig.suspendTime !== undefined ? siteConfig.suspendTime : (settings.suspendTime || 40)
     };
   }
@@ -652,7 +695,6 @@ function getTabSettings(tab) {
 }
 
 async function shouldProtectTab(tab, force = false) {
-  // Check for non-http(s) pages (like about:, moz-extension:, etc.)
   if (!tab.url.match(/^https?:\/\//)) {
     return true;
   }
@@ -661,20 +703,17 @@ async function shouldProtectTab(tab, force = false) {
     return false;
   }
 
-  // Check if suspension is paused globally
   if (settings.pauseUntil > Date.now()) {
     return true;
   }
 
   const tabSettings = getTabSettings(tab);
 
-  // Check for pinned tabs
   if (tabSettings.ignorePinned && tab.pinned) {
     return true;
   }
 
   try {
-    // Check whitelist
     try {
       const url = new URL(tab.url);
       if (settings.whitelistedDomains.includes(url.hostname)) {
@@ -687,123 +726,100 @@ async function shouldProtectTab(tab, force = false) {
       console.error('Error checking whitelist:', error);
     }
 
-    // Check for audio
     if (tabSettings.ignoreAudio && tab.audible) {
       return true;
     }
 
-    // Check for form changes and notifications
     try {
-      const results = await browser.tabs.executeScript(tab.id, {
-        code: `
-          {
-            const formProtection = ${tabSettings.ignoreFormInput} && (() => {
-              const inputs = document.querySelectorAll('input, textarea, select');
-              return Array.from(inputs).some(input => {
-                const tagName = input.tagName.toUpperCase();
-                const type = (input.type || '').toLowerCase();
-                const ignoredTypes = ['hidden', 'button', 'submit', 'reset', 'image'];
-                if (tagName === 'INPUT' && ignoredTypes.includes(type)) {
-                  return false;
-                }
-                if (tagName === 'INPUT' && (type === 'checkbox' || type === 'radio')) {
-                  return input.checked !== input.defaultChecked;
-                }
-                if (tagName === 'SELECT') {
-                  if (input.multiple) {
-                    return Array.from(input.options).some(opt => opt.selected !== opt.defaultSelected);
-                  } else {
-                    let defaultSelectedIndex = -1;
-                    for (let i = 0; i < input.options.length; i++) {
-                      if (input.options[i].defaultSelected) {
-                        defaultSelectedIndex = i;
-                        break;
-                      }
+      const results = await chrome.scripting.executeScript({
+        target: { tabId: tab.id },
+        func: (ignoreFormInput, ignoreNotifications) => {
+          const formProtection = ignoreFormInput && (() => {
+            const inputs = document.querySelectorAll('input, textarea, select');
+            return Array.from(inputs).some(input => {
+              const tagName = input.tagName.toUpperCase();
+              const type = (input.type || '').toLowerCase();
+              const ignoredTypes = ['hidden', 'button', 'submit', 'reset', 'image'];
+              if (tagName === 'INPUT' && ignoredTypes.includes(type)) {
+                return false;
+              }
+              if (tagName === 'INPUT' && (type === 'checkbox' || type === 'radio')) {
+                return input.checked !== input.defaultChecked;
+              }
+              if (tagName === 'SELECT') {
+                if (input.multiple) {
+                  return Array.from(input.options).some(opt => opt.selected !== opt.defaultSelected);
+                } else {
+                  let defaultSelectedIndex = -1;
+                  for (let i = 0; i < input.options.length; i++) {
+                    if (input.options[i].defaultSelected) {
+                      defaultSelectedIndex = i;
+                      break;
                     }
-                    if (defaultSelectedIndex === -1 && input.options.length > 0) {
-                      defaultSelectedIndex = 0;
-                    }
-                    return input.selectedIndex !== defaultSelectedIndex;
                   }
+                  if (defaultSelectedIndex === -1 && input.options.length > 0) {
+                    defaultSelectedIndex = 0;
+                  }
+                  return input.selectedIndex !== defaultSelectedIndex;
                 }
-                return input.value !== input.defaultValue;
-              });
-            })();
-            const notificationProtection = ${tabSettings.ignoreNotifications} &&
-              'Notification' in window &&
-              Notification.permission === 'granted';
-            ({ formProtection, notificationProtection })
-          }
-        `
+              }
+              return input.value !== input.defaultValue;
+            });
+          })();
+          const notificationProtection = ignoreNotifications &&
+            'Notification' in window &&
+            Notification.permission === 'granted';
+          return { formProtection, notificationProtection };
+        },
+        args: [tabSettings.ignoreFormInput, tabSettings.ignoreNotifications]
       });
 
-      const { formProtection, notificationProtection } = results[0];
-      if (formProtection) return true;
-      if (notificationProtection) return true;
-
+      if (results && results[0] && results[0].result) {
+        const { formProtection, notificationProtection } = results[0].result;
+        if (formProtection) return true;
+        if (notificationProtection) return true;
+      }
     } catch (error) {
-      // Can't execute script (e.g., on some protected pages)
       return true;
     }
 
     return false;
-
   } catch (e) {
     return true;
   }
 }
 
 // --- Utility Functions ---
+
 function saveSuspendedTabsState() {
-  browser.storage.local.set({ suspendedTabs });
+  chrome.storage.local.set({ suspendedTabs });
 }
 
-browser.tabs.onRemoved.addListener(async (tabId) => {
-  // Clear any pending discard timer
-  if (discardTimers[tabId]) {
-    clearTimeout(discardTimers[tabId]);
-    delete discardTimers[tabId];
-  }
+chrome.tabs.onRemoved.addListener(async (tabId) => {
+  await clearTabTimer(tabId);
+  await clearDiscardTimer(tabId);
 
   if (suspendedTabs[tabId]) {
     delete suspendedTabs[tabId];
     saveSuspendedTabsState();
   }
-  // Clean up all associated storage
-  await browser.storage.local.remove([
+  await chrome.storage.local.remove([
     "thumbnail_" + tabId,
     "temp_img_" + tabId
   ]);
 });
 
-browser.runtime.onStartup.addListener(() => {
-  browser.tabs.query({}).then(tabs => {
-    tabs.forEach(tab => {
-      if (suspendedTabs[tab.id] && suspendedTabs[tab.id].url === tab.url) {
-        const originalTab = suspendedTabs[tab.id];
-        const suspendedPageURL = browser.runtime.getURL("suspended.html") +
-          "?origUrl=" + encodeURIComponent(originalTab.url) +
-          "&title=" + encodeURIComponent(originalTab.title) +
-          "&favIconUrl=" + encodeURIComponent(originalTab.favIconUrl || '') +
-          "&tabId=" + tab.id; // Always include tabId
-        browser.tabs.update(tab.id, { url: suspendedPageURL });
-      }
-    });
-  });
-});
+chrome.commands.onCommand.addListener(async (commandName) => {
+  await loadSettings();
+  await loadSuspendedTabs();
 
-
-browser.commands.onCommand.addListener(async (commandName) => {
-  const tabs = await browser.tabs.query({ active: true, currentWindow: true });
+  const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
   if (tabs.length === 0) return;
   const tab = tabs[0];
 
   switch (commandName) {
     case "suspend-current-tab": {
-      const success = await suspendTab(tab.id, true); // Force suspend
-      if (success) {
-        // Tab suspended successfully
-      }
+      await suspendTab(tab.id, true);
       break;
     }
 
@@ -813,7 +829,7 @@ browser.commands.onCommand.addListener(async (commandName) => {
         if (!settings.whitelistedUrls.includes(pageUrl)) {
           const newUrls = [...settings.whitelistedUrls, pageUrl];
           settings.whitelistedUrls = newUrls;
-          await browser.storage.sync.set({ whitelistedUrls: newUrls });
+          await chrome.storage.sync.set({ whitelistedUrls: newUrls });
         }
       } catch (error) {
         console.error('Error whitelisting page:', error);
@@ -822,21 +838,17 @@ browser.commands.onCommand.addListener(async (commandName) => {
     }
 
     case "unsuspend-current-tab": {
-      // Clear any pending re-discard timer
-      if (discardTimers[tab.id]) {
-        clearTimeout(discardTimers[tab.id]);
-        delete discardTimers[tab.id];
-      }
+      await clearDiscardTimer(tab.id);
 
       if (suspendedTabs[tab.id]) {
         const origUrl = suspendedTabs[tab.id].url;
         delete suspendedTabs[tab.id];
         saveSuspendedTabsState();
-        await browser.storage.local.remove([
+        await chrome.storage.local.remove([
           "thumbnail_" + tab.id,
           "temp_img_" + tab.id
         ]);
-        await browser.tabs.update(tab.id, { url: origUrl });
+        await chrome.tabs.update(tab.id, { url: origUrl });
       }
       break;
     }
@@ -848,12 +860,7 @@ browser.commands.onCommand.addListener(async (commandName) => {
   }
 });
 
-/**
- * Moves settings from browser.storage.local to browser.storage.sync
- * AND migrates local tab storage to new format
- */
 async function runMigration() {
-  // 1. Migrate SYNC settings
   const keysToMigrate = [
     'suspendTime',
     'isEnabled',
@@ -866,7 +873,7 @@ async function runMigration() {
   ];
 
   try {
-    const localData = await browser.storage.local.get(keysToMigrate);
+    const localData = await chrome.storage.local.get(keysToMigrate);
     if (Object.keys(localData).length > 0) {
       console.log("Migration: Found old settings in local storage. Migrating to sync...");
       let settingsToSync = {};
@@ -876,21 +883,17 @@ async function runMigration() {
         }
       }
       if (Object.keys(settingsToSync).length > 0) {
-        await browser.storage.sync.set(settingsToSync);
-        console.log("Migration: Successfully moved settings to sync storage.", settingsToSync);
-        await browser.storage.local.remove(keysToMigrate);
-        console.log("Migration: Cleaned up old settings from local storage.");
+        await chrome.storage.sync.set(settingsToSync);
+        await chrome.storage.local.remove(keysToMigrate);
+        console.log("Migration: Settings migrated to sync.");
       }
-    } else {
-      console.log("Migration check: No local settings found to migrate.");
     }
   } catch (error) {
     console.error("Sync Migration failed:", error);
   }
 
-  //  Migrate LOCAL tab storage
   try {
-    const oldStorage = await browser.storage.local.get("suspendedTabs");
+    const oldStorage = await chrome.storage.local.get("suspendedTabs");
     if (oldStorage.suspendedTabs) {
       console.log("Migration: Found old 'suspendedTabs' blob. Migrating to new format...");
       const oldTabs = oldStorage.suspendedTabs;
@@ -898,61 +901,38 @@ async function runMigration() {
       let newThumbnails = {};
 
       for (const [tabId, data] of Object.entries(oldTabs)) {
-        if (data && data.url) { // Check if data is valid
+        if (data && data.url) {
           const { thumbnail, ...rest } = data;
-          newSuspendedTabs[tabId] = rest; // Add text data to new blob
+          newSuspendedTabs[tabId] = rest;
           if (thumbnail) {
-            newThumbnails["thumbnail_" + tabId] = thumbnail; // Add thumbnail to its own key
+            newThumbnails["thumbnail_" + tabId] = thumbnail;
           }
         }
       }
 
       if (Object.keys(newThumbnails).length > 0) {
-        await browser.storage.local.set(newThumbnails);
-        console.log(`Migration: Migrated ${Object.keys(newThumbnails).length} thumbnails.`);
+        await chrome.storage.local.set(newThumbnails);
       }
 
-      await browser.storage.local.set({ suspendedTabs: newSuspendedTabs });
-      console.log("Migration: New text-only 'suspendedTabs' saved. Migration complete.");
-
-      // Update in-memory object
+      await chrome.storage.local.set({ suspendedTabs: newSuspendedTabs });
       suspendedTabs = newSuspendedTabs;
-
-    } else {
-      console.log("Migration check: No old 'suspendedTabs' blob found. No local data migration needed.");
     }
   } catch (error) {
     console.error("Local Tab Storage Migration failed:", error);
   }
 }
 
-/**
- * Recovers suspended tabs after addon update.
- * 
- * Strategy:
- * 1. First, try to find existing tabs showing old extension URLs (works for about:debugging reloads)
- * 2. If no tabs found but we have data in suspendedTabs (from migration), re-create the tabs
- * 
- * Firefox closes/invalidates extension pages when an extension is updated,
- * so we need to re-create the tabs from our stored data.
- */
 async function recoverSuspendedTabs() {
   try {
-    const currentBase = browser.runtime.getURL("suspended.html");
-    console.log("Current extension base:", currentBase);
+    const suspendedPagePattern = /^(chrome-extension|moz-extension):\/\/[^/]+\/suspended\.html\?/;
+    const currentBase = chrome.runtime.getURL("suspended.html");
 
-    // Step 1: Try to find any existing suspended tabs (may work for about:debugging)
-    const suspendedPagePattern = /^moz-extension:\/\/[^/]+\/suspended\.html\?/;
-    const tabs = await browser.tabs.query({});
-    console.log(`Found ${tabs.length} total tabs. Checking for suspended pages...`);
-
-    let recoveredFromTabs = 0;
+    const tabs = await chrome.tabs.query({});
+    console.log(`Found ${tabs.length} tabs. Checking recovery...`);
+    let recoveredCount = 0;
 
     for (const tab of tabs) {
-      console.log(`Tab ${tab.id}: ${tab.url?.substring(0, 100)}...`);
-
       if (tab.url && suspendedPagePattern.test(tab.url)) {
-        console.log(`Found existing suspended tab ${tab.id}`);
         try {
           const url = new URL(tab.url);
           const origUrl = url.searchParams.get('origUrl');
@@ -965,133 +945,27 @@ async function recoverSuspendedTabs() {
               title: decodeURIComponent(title || ''),
               favIconUrl: decodeURIComponent(favIconUrl || '')
             };
-            recoveredFromTabs++;
+            recoveredCount++;
 
-            // Navigate to the NEW extension's suspended.html URL
             const newSuspendedURL = currentBase +
               "?origUrl=" + encodeURIComponent(suspendedTabs[tab.id].url) +
               "&title=" + encodeURIComponent(suspendedTabs[tab.id].title) +
               "&favIconUrl=" + encodeURIComponent(suspendedTabs[tab.id].favIconUrl) +
               "&tabId=" + tab.id;
 
-            await browser.tabs.update(tab.id, { url: newSuspendedURL });
-            console.log(`Updated tab ${tab.id} to new extension URL`);
+            await chrome.tabs.update(tab.id, { url: newSuspendedURL });
           }
         } catch (parseError) {
-          console.error(`Failed to parse suspended tab URL for tab ${tab.id}:`, parseError);
+          console.error(`Failed to parse suspended URL:`, parseError);
         }
       }
     }
 
-    if (recoveredFromTabs > 0) {
+    if (recoveredCount > 0) {
       saveSuspendedTabsState();
-      console.log(`Recovered ${recoveredFromTabs} suspended tabs from existing browser tabs.`);
-      return;
+      console.log(`Recovered ${recoveredCount} tabs.`);
     }
-
-    // Step 2: No existing tabs found - check if we have stored data to restore from
-    // The suspendedTabs object may have been populated by runMigration() earlier
-    const storedTabsCount = Object.keys(suspendedTabs).length;
-
-    if (storedTabsCount === 0) {
-      console.log("No suspended tabs found to recover (none in tabs, none in storage).");
-      return;
-    }
-
-    console.log(`No browser tabs found, but have ${storedTabsCount} entries in storage. Re-creating tabs...`);
-
-    // Re-create tabs from storage
-    // We need to create new tabs and update our suspendedTabs with new IDs
-    const oldEntries = Object.entries(suspendedTabs);
-    const newSuspendedTabs = {};
-
-    for (const [oldTabId, data] of oldEntries) {
-      if (!data || !data.url) continue;
-
-      try {
-        // Create the suspended page URL
-        const suspendedURL = currentBase +
-          "?origUrl=" + encodeURIComponent(data.url) +
-          "&title=" + encodeURIComponent(data.title || '') +
-          "&favIconUrl=" + encodeURIComponent(data.favIconUrl || '');
-
-        // Create a new tab with the suspended page
-        // Note: We'll add tabId param after we know the new tab's ID
-        const newTab = await browser.tabs.create({
-          url: suspendedURL,
-          active: false  // Don't activate - keep them suspended in background
-        });
-
-        // Update the URL to include the correct tabId
-        const finalURL = suspendedURL + "&tabId=" + newTab.id;
-        await browser.tabs.update(newTab.id, { url: finalURL });
-
-        // Register with new tab ID
-        newSuspendedTabs[newTab.id] = {
-          url: data.url,
-          title: data.title || '',
-          favIconUrl: data.favIconUrl || ''
-        };
-
-        console.log(`Re-created suspended tab: old ID ${oldTabId} -> new ID ${newTab.id}: ${data.url}`);
-
-        // Try to migrate thumbnail if it exists
-        try {
-          const thumbKey = "thumbnail_" + oldTabId;
-          const thumbData = await browser.storage.local.get(thumbKey);
-          if (thumbData[thumbKey]) {
-            // Save with new tab ID
-            await browser.storage.local.set({ ["thumbnail_" + newTab.id]: thumbData[thumbKey] });
-            // Remove old thumbnail
-            await browser.storage.local.remove(thumbKey);
-            console.log(`Migrated thumbnail from tab ${oldTabId} to ${newTab.id}`);
-          }
-        } catch (thumbError) {
-          console.error(`Failed to migrate thumbnail for tab ${oldTabId}:`, thumbError);
-        }
-
-      } catch (createError) {
-        console.error(`Failed to re-create tab for ${data.url}:`, createError);
-      }
-    }
-
-    // Replace old suspendedTabs with new ones (with correct tab IDs)
-    suspendedTabs = newSuspendedTabs;
-    saveSuspendedTabsState();
-
-    const restoredCount = Object.keys(newSuspendedTabs).length;
-    console.log(`Re-created ${restoredCount} suspended tabs from storage.`);
-
-    if (restoredCount > 0) {
-      console.log(`${restoredCount} suspended tab(s) were restored.`);
-    }
-
   } catch (error) {
-    console.error('Error recovering suspended tabs:', error);
+    console.error('Error recovering tabs:', error);
   }
 }
-
-// --- Addon Startup Logic ---
-
-// Listen for installation or update
-browser.runtime.onInstalled.addListener(async (details) => {
-  console.log(`Addon event: ${details.reason}`);
-
-  if (details.reason === "update" || details.reason === "install") {
-    console.log("Running migration...");
-    await runMigration();
-
-    // Recover any existing suspended tabs (handles both update and reload via about:debugging)
-    console.log("Attempting to recover suspended tabs...");
-    await recoverSuspendedTabs();
-  }
-  initialize();
-});
-
-// For regular browser startups (not an install/update)
-browser.runtime.onStartup.addListener(() => {
-  initialize();
-
-  // Initialization handles tab state loading
-});
-

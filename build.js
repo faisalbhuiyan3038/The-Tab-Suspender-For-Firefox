@@ -4,6 +4,8 @@ const { execSync } = require('child_process');
 const path = require('path');
 
 const DIST_DIR = './dist';
+const CHROME_DIST = path.join(DIST_DIR, 'chrome');
+const FIREFOX_DIST = path.join(DIST_DIR, 'firefox');
 
 // JS files to bundle/minify
 const jsFiles = [
@@ -11,7 +13,7 @@ const jsFiles = [
     'popup.js',
     'suspended.js',
     'data_management.js',
-    'i18n-loader.js'  // Added i18n-loader
+    'i18n-loader.js'
 ];
 
 const htmlFiles = [
@@ -20,11 +22,9 @@ const htmlFiles = [
     'data_management.html'
 ];
 
-async function build() {
-    // Clean dist folder
-    console.log('🧹 Cleaning dist folder...');
-    fs.removeSync(DIST_DIR);
-    fs.mkdirSync(DIST_DIR, { recursive: true });
+async function buildTarget(targetDir, manifestFile) {
+    console.log(`\n🏗️ Building target to ${targetDir}...`);
+    fs.mkdirSync(targetDir, { recursive: true });
 
     // Minify JS files with esbuild
     console.log('📦 Minifying JavaScript...');
@@ -32,7 +32,7 @@ async function build() {
         if (fs.existsSync(file)) {
             await esbuild.build({
                 entryPoints: [file],
-                outfile: path.join(DIST_DIR, file),
+                outfile: path.join(targetDir, file),
                 bundle: false,
                 minify: true,
                 minifyWhitespace: true,
@@ -51,27 +51,33 @@ async function build() {
     console.log('📄 Minifying HTML...');
     htmlFiles.forEach(file => {
         if (fs.existsSync(file)) {
-            execSync(`npx html-minifier-terser --collapse-whitespace --remove-comments --minify-css true --minify-js true -o ${path.join(DIST_DIR, file)} ${file}`);
+            execSync(`npx html-minifier-terser --collapse-whitespace --remove-comments --minify-css true --minify-js true -o ${path.join(targetDir, file)} ${file}`);
             console.log(`   ✓ ${file}`);
         } else {
             console.log(`   ⚠ ${file} not found, skipping...`);
         }
     });
 
-    // Copy manifest.json
-    console.log('📋 Copying manifest.json...');
-    fs.copySync('manifest.json', path.join(DIST_DIR, 'manifest.json'));
-    console.log('   ✓ manifest.json');
+    // Copy and rename manifest.json
+    console.log(`📋 Copying ${manifestFile} as manifest.json...`);
+    if (fs.existsSync(manifestFile)) {
+        fs.copySync(manifestFile, path.join(targetDir, 'manifest.json'));
+        console.log(`   ✓ ${manifestFile} -> manifest.json`);
+    } else {
+        throw new Error(`Critical manifest file not found: ${manifestFile}`);
+    }
 
     // Copy icons
     console.log('🖼️  Copying icons...');
-    fs.copySync('icons', path.join(DIST_DIR, 'icons'));
-    console.log('   ✓ icons/');
+    if (fs.existsSync('icons')) {
+        fs.copySync('icons', path.join(targetDir, 'icons'));
+        console.log('   ✓ icons/');
+    }
 
     // Copy _locales folder
     console.log('🌍 Copying locales...');
     if (fs.existsSync('_locales')) {
-        fs.copySync('_locales', path.join(DIST_DIR, '_locales'));
+        fs.copySync('_locales', path.join(targetDir, '_locales'));
 
         // Count locales
         const locales = fs.readdirSync('_locales').filter(f =>
@@ -82,13 +88,23 @@ async function build() {
         console.log('   ⚠ _locales not found, skipping...');
     }
 
+    const totalSize = getTotalSize(targetDir);
+    console.log(`📊 Size: ${formatBytes(totalSize)}`);
+}
+
+async function build() {
+    // Clean dist folder
+    console.log('🧹 Cleaning dist folder...');
+    fs.removeSync(DIST_DIR);
+
+    await buildTarget(CHROME_DIST, 'manifest.chrome.json');
+    await buildTarget(FIREFOX_DIST, 'manifest.firefox.json');
+
     // Build summary
     console.log('\n✅ Build complete!');
-    console.log(`📁 Output: ${path.resolve(DIST_DIR)}`);
-
-    // Show folder size
-    const totalSize = getTotalSize(DIST_DIR);
-    console.log(`📊 Total size: ${formatBytes(totalSize)}`);
+    console.log(`📁 Output directories:`);
+    console.log(`   Chrome:  ${path.resolve(CHROME_DIST)}`);
+    console.log(`   Firefox: ${path.resolve(FIREFOX_DIST)}`);
 }
 
 // Helper: Calculate folder size
