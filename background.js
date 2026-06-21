@@ -253,7 +253,7 @@ async function suspendTab(tabId, force = false) {
       return;
     }
 
-    if (settings.directDiscard) {
+    if (settings.directDiscard && !tab.active) {
       try {
         if (settings.suspendEmoji && settings.suspendEmoji !== 'none') {
           try {
@@ -270,8 +270,8 @@ async function suspendTab(tabId, force = false) {
         console.log(`Native discarded tab ${tabId}`);
         return true;
       } catch (e) {
-        console.error('Error with native discard:', e);
-        return false;
+        console.error('Error with native discard, falling back to suspended page:', e);
+        // Fall through to custom suspended page logic
       }
     }
 
@@ -605,11 +605,38 @@ async function shouldProtectTab(tab, force = false) {
       const results = await browser.tabs.executeScript(tab.id, {
         code: `
           {
-            const formProtection = ${settings.ignoreFormInput} &&
-              Array.from(document.getElementsByTagName('form')).some(form => {
-                const inputs = form.querySelectorAll('input, textarea, select');
-                return Array.from(inputs).some(input => input.value !== input.defaultValue);
+            const formProtection = ${settings.ignoreFormInput} && (() => {
+              const inputs = document.querySelectorAll('input, textarea, select');
+              return Array.from(inputs).some(input => {
+                const tagName = input.tagName.toUpperCase();
+                const type = (input.type || '').toLowerCase();
+                const ignoredTypes = ['hidden', 'button', 'submit', 'reset', 'image'];
+                if (tagName === 'INPUT' && ignoredTypes.includes(type)) {
+                  return false;
+                }
+                if (tagName === 'INPUT' && (type === 'checkbox' || type === 'radio')) {
+                  return input.checked !== input.defaultChecked;
+                }
+                if (tagName === 'SELECT') {
+                  if (input.multiple) {
+                    return Array.from(input.options).some(opt => opt.selected !== opt.defaultSelected);
+                  } else {
+                    let defaultSelectedIndex = -1;
+                    for (let i = 0; i < input.options.length; i++) {
+                      if (input.options[i].defaultSelected) {
+                        defaultSelectedIndex = i;
+                        break;
+                      }
+                    }
+                    if (defaultSelectedIndex === -1 && input.options.length > 0) {
+                      defaultSelectedIndex = 0;
+                    }
+                    return input.selectedIndex !== defaultSelectedIndex;
+                  }
+                }
+                return input.value !== input.defaultValue;
               });
+            })();
             const notificationProtection = ${settings.ignoreNotifications} &&
               'Notification' in window &&
               Notification.permission === 'granted';
