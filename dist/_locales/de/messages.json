@@ -166,5 +166,29 @@
   "pauseSuspensionDesc": {
     "message": "Deaktivieren Sie vorübergehend die automatische Tab-Sperrung.",
     "description": ""
+  },
+  "siteSettings": {
+    "message": "Diese Seite",
+    "description": ""
+  },
+  "overrideGlobalSettings": {
+    "message": "Globale Einstellungen überschreiben",
+    "description": ""
+  },
+  "saveSiteOptions": {
+    "message": "Site-Optionen speichern",
+    "description": ""
+  },
+  "customSettingsNotSupported": {
+    "message": "Benutzerdefinierte Site-Einstellungen werden auf dieser Seite nicht unterstützt.",
+    "description": ""
+  },
+  "siteSettingsDesc": {
+    "message": "Konfigurieren Sie das Tab-Suspendierungsverhalten für diese Site.",
+    "description": ""
+  },
+  "toggleSiteOverride": {
+    "message": "Schalten Sie die Überschreibung benutzerdefinierter Einstellungen für diese Site um",
+    "description": ""
   }
 }

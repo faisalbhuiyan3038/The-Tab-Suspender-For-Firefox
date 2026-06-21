@@ -166,5 +166,29 @@
   "pauseSuspensionDesc": {
     "message": "Временно отключите автоматическую приостановку вкладок.",
     "description": ""
+  },
+  "siteSettings": {
+    "message": "Этот сайт",
+    "description": ""
+  },
+  "overrideGlobalSettings": {
+    "message": "Переопределить глобальные настройки",
+    "description": ""
+  },
+  "saveSiteOptions": {
+    "message": "Сохранить параметры сайта",
+    "description": ""
+  },
+  "customSettingsNotSupported": {
+    "message": "На этой странице не поддерживаются пользовательские настройки сайта.",
+    "description": ""
+  },
+  "siteSettingsDesc": {
+    "message": "Настройте поведение приостановки вкладок для этого сайта.",
+    "description": ""
+  },
+  "toggleSiteOverride": {
+    "message": "Включить переопределение пользовательских настроек для этого сайта",
+    "description": ""
   }
 }

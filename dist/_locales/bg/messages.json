@@ -166,5 +166,29 @@
   "pauseSuspensionDesc": {
     "message": "Временно деактивирайте автоматичното спиране на раздели.",
     "description": ""
+  },
+  "siteSettings": {
+    "message": "Този сайт",
+    "description": ""
+  },
+  "overrideGlobalSettings": {
+    "message": "Замяна на глобалните настройки",
+    "description": ""
+  },
+  "saveSiteOptions": {
+    "message": "Запазете опциите на сайта",
+    "description": ""
+  },
+  "customSettingsNotSupported": {
+    "message": "Персонализираните настройки на сайта не се поддържат на тази страница.",
+    "description": ""
+  },
+  "siteSettingsDesc": {
+    "message": "Конфигурирайте поведението за спиране на раздели за този сайт.",
+    "description": ""
+  },
+  "toggleSiteOverride": {
+    "message": "Превключване на отмяната на персонализирани настройки за този сайт",
+    "description": ""
   }
 }

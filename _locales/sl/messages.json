@@ -166,5 +166,29 @@
   "pauseSuspensionDesc": {
     "message": "Začasno onemogočite samodejne prekinitve zavihkov.",
     "description": ""
+  },
+  "siteSettings": {
+    "message": "To spletno mesto",
+    "description": ""
+  },
+  "overrideGlobalSettings": {
+    "message": "Preglasi globalne nastavitve",
+    "description": ""
+  },
+  "saveSiteOptions": {
+    "message": "Shrani možnosti spletnega mesta",
+    "description": ""
+  },
+  "customSettingsNotSupported": {
+    "message": "Nastavitve mesta po meri na tej strani niso podprte.",
+    "description": ""
+  },
+  "siteSettingsDesc": {
+    "message": "Konfigurirajte vedenje prekinitve zavihka za to spletno mesto.",
+    "description": ""
+  },
+  "toggleSiteOverride": {
+    "message": "Preklopi preglasitev nastavitev po meri za to spletno mesto",
+    "description": ""
   }
 }

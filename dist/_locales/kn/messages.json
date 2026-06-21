@@ -166,5 +166,29 @@
   "pauseSuspensionDesc": {
     "message": "ಸ್ವಯಂಚಾಲಿತ ಟ್ಯಾಬ್ ಅಮಾನತುಗಳನ್ನು ತಾತ್ಕಾಲಿಕವಾಗಿ ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿ.",
     "description": ""
+  },
+  "siteSettings": {
+    "message": "ಈ ಸೈಟ್",
+    "description": ""
+  },
+  "overrideGlobalSettings": {
+    "message": "ಜಾಗತಿಕ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಅತಿಕ್ರಮಿಸಿ",
+    "description": ""
+  },
+  "saveSiteOptions": {
+    "message": "ಸೈಟ್ ಆಯ್ಕೆಗಳನ್ನು ಉಳಿಸಿ",
+    "description": ""
+  },
+  "customSettingsNotSupported": {
+    "message": "ಈ ಪುಟದಲ್ಲಿ ಕಸ್ಟಮ್ ಸೈಟ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಬೆಂಬಲಿಸುವುದಿಲ್ಲ.",
+    "description": ""
+  },
+  "siteSettingsDesc": {
+    "message": "ಈ ಸೈಟ್‌ಗಾಗಿ ಟ್ಯಾಬ್ ಅಮಾನತು ನಡವಳಿಕೆಯನ್ನು ಕಾನ್ಫಿಗರ್ ಮಾಡಿ.",
+    "description": ""
+  },
+  "toggleSiteOverride": {
+    "message": "ಈ ಸೈಟ್‌ಗಾಗಿ ಕಸ್ಟಮ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಅತಿಕ್ರಮಿಸಿ ಟಾಗಲ್ ಮಾಡಿ",
+    "description": ""
   }
 }

@@ -166,5 +166,29 @@
   "pauseSuspensionDesc": {
     "message": "Désactivez temporairement les suspensions automatiques des onglets.",
     "description": ""
+  },
+  "siteSettings": {
+    "message": "Ce site",
+    "description": ""
+  },
+  "overrideGlobalSettings": {
+    "message": "Remplacer les paramètres globaux",
+    "description": ""
+  },
+  "saveSiteOptions": {
+    "message": "Enregistrer les options du site",
+    "description": ""
+  },
+  "customSettingsNotSupported": {
+    "message": "Les paramètres de site personnalisés ne sont pas pris en charge sur cette page.",
+    "description": ""
+  },
+  "siteSettingsDesc": {
+    "message": "Configurez le comportement de suspension des onglets pour ce site.",
+    "description": ""
+  },
+  "toggleSiteOverride": {
+    "message": "Activer/désactiver le remplacement des paramètres personnalisés pour ce site",
+    "description": ""
   }
 }

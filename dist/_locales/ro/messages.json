@@ -166,5 +166,29 @@
   "pauseSuspensionDesc": {
     "message": "Dezactivați temporar suspendările automate ale filelor.",
     "description": ""
+  },
+  "siteSettings": {
+    "message": "Acest site",
+    "description": ""
+  },
+  "overrideGlobalSettings": {
+    "message": "Ignorați setările globale",
+    "description": ""
+  },
+  "saveSiteOptions": {
+    "message": "Salvați opțiunile site-ului",
+    "description": ""
+  },
+  "customSettingsNotSupported": {
+    "message": "Setările personalizate ale site-ului nu sunt acceptate pe această pagină.",
+    "description": ""
+  },
+  "siteSettingsDesc": {
+    "message": "Configurați comportamentul de suspendare a filei pentru acest site.",
+    "description": ""
+  },
+  "toggleSiteOverride": {
+    "message": "Comutați anularea setărilor personalizate pentru acest site",
+    "description": ""
   }
 }

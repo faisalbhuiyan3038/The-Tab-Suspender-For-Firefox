@@ -166,5 +166,29 @@
   "pauseSuspensionDesc": {
     "message": "تعلیق خودکار برگه ها را به طور موقت غیرفعال کنید.",
     "description": ""
+  },
+  "siteSettings": {
+    "message": "این سایت",
+    "description": ""
+  },
+  "overrideGlobalSettings": {
+    "message": "لغو تنظیمات جهانی",
+    "description": ""
+  },
+  "saveSiteOptions": {
+    "message": "ذخیره گزینه های سایت",
+    "description": ""
+  },
+  "customSettingsNotSupported": {
+    "message": "تنظیمات سفارشی سایت در این صفحه پشتیبانی نمی شود.",
+    "description": ""
+  },
+  "siteSettingsDesc": {
+    "message": "رفتار تعلیق برگه را برای این سایت پیکربندی کنید.",
+    "description": ""
+  },
+  "toggleSiteOverride": {
+    "message": "لغو تنظیمات سفارشی برای این سایت",
+    "description": ""
   }
 }

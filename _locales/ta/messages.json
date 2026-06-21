@@ -166,5 +166,29 @@
   "pauseSuspensionDesc": {
     "message": "தானியங்கி தாவல் இடைநீக்கங்களை தற்காலிகமாக முடக்கு.",
     "description": ""
+  },
+  "siteSettings": {
+    "message": "இந்த தளம்",
+    "description": ""
+  },
+  "overrideGlobalSettings": {
+    "message": "உலகளாவிய அமைப்புகளை மேலெழுதவும்",
+    "description": ""
+  },
+  "saveSiteOptions": {
+    "message": "தள விருப்பங்களைச் சேமிக்கவும்",
+    "description": ""
+  },
+  "customSettingsNotSupported": {
+    "message": "தனிப்பயன் தள அமைப்புகள் இந்தப் பக்கத்தில் ஆதரிக்கப்படவில்லை.",
+    "description": ""
+  },
+  "siteSettingsDesc": {
+    "message": "இந்தத் தளத்திற்கான தாவல் இடைநீக்க நடத்தையை உள்ளமைக்கவும்.",
+    "description": ""
+  },
+  "toggleSiteOverride": {
+    "message": "இந்த தளத்திற்கான தனிப்பயன் அமைப்புகளை மேலெழுத நிலைமாற்றவும்",
+    "description": ""
   }
 }

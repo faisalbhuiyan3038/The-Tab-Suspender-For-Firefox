@@ -166,5 +166,29 @@
   "pauseSuspensionDesc": {
     "message": "タブの自動停止を一時的に無効にします。",
     "description": ""
+  },
+  "siteSettings": {
+    "message": "このサイト",
+    "description": ""
+  },
+  "overrideGlobalSettings": {
+    "message": "グローバル設定を上書きする",
+    "description": ""
+  },
+  "saveSiteOptions": {
+    "message": "サイトの保存オプション",
+    "description": ""
+  },
+  "customSettingsNotSupported": {
+    "message": "このページではカスタム サイト設定はサポートされていません。",
+    "description": ""
+  },
+  "siteSettingsDesc": {
+    "message": "このサイトのタブ一時停止動作を構成します。",
+    "description": ""
+  },
+  "toggleSiteOverride": {
+    "message": "このサイトのカスタム設定の上書きを切り替えます",
+    "description": ""
   }
 }

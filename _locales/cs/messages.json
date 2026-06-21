@@ -166,5 +166,29 @@
   "pauseSuspensionDesc": {
     "message": "Dočasně deaktivujte automatické pozastavení karet.",
     "description": ""
+  },
+  "siteSettings": {
+    "message": "Tato stránka",
+    "description": ""
+  },
+  "overrideGlobalSettings": {
+    "message": "Přepsat globální nastavení",
+    "description": ""
+  },
+  "saveSiteOptions": {
+    "message": "Uložit možnosti webu",
+    "description": ""
+  },
+  "customSettingsNotSupported": {
+    "message": "Vlastní nastavení webu nejsou na této stránce podporována.",
+    "description": ""
+  },
+  "siteSettingsDesc": {
+    "message": "Nakonfigurujte chování pozastavení karty pro tento web.",
+    "description": ""
+  },
+  "toggleSiteOverride": {
+    "message": "Přepnout přepsání vlastních nastavení pro tento web",
+    "description": ""
   }
 }

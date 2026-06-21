@@ -166,5 +166,29 @@
   "pauseSuspensionDesc": {
     "message": "Deaktiver automatisk faneoppheng midlertidig.",
     "description": ""
+  },
+  "siteSettings": {
+    "message": "Dette nettstedet",
+    "description": ""
+  },
+  "overrideGlobalSettings": {
+    "message": "Overstyr globale innstillinger",
+    "description": ""
+  },
+  "saveSiteOptions": {
+    "message": "Lagre nettstedsalternativer",
+    "description": ""
+  },
+  "customSettingsNotSupported": {
+    "message": "Egendefinerte nettstedinnstillinger støttes ikke på denne siden.",
+    "description": ""
+  },
+  "siteSettingsDesc": {
+    "message": "Konfigurer fanesuspenderingsadferd for dette nettstedet.",
+    "description": ""
+  },
+  "toggleSiteOverride": {
+    "message": "Slå av/på overstyring av egendefinerte innstillinger for dette nettstedet",
+    "description": ""
   }
 }

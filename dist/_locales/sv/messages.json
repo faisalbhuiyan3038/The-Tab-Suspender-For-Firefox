@@ -166,5 +166,29 @@
   "pauseSuspensionDesc": {
     "message": "Inaktivera tillfälligt automatiska flikavstängningar.",
     "description": ""
+  },
+  "siteSettings": {
+    "message": "Denna webbplats",
+    "description": ""
+  },
+  "overrideGlobalSettings": {
+    "message": "Åsidosätt globala inställningar",
+    "description": ""
+  },
+  "saveSiteOptions": {
+    "message": "Spara webbplatsalternativ",
+    "description": ""
+  },
+  "customSettingsNotSupported": {
+    "message": "Anpassade webbplatsinställningar stöds inte på den här sidan.",
+    "description": ""
+  },
+  "siteSettingsDesc": {
+    "message": "Konfigurera flikavstängningsbeteende för den här webbplatsen.",
+    "description": ""
+  },
+  "toggleSiteOverride": {
+    "message": "Växla åsidosättande av anpassade inställningar för den här webbplatsen",
+    "description": ""
   }
 }

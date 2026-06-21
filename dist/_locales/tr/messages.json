@@ -166,5 +166,29 @@
   "pauseSuspensionDesc": {
     "message": "Otomatik sekme askıya alma işlemlerini geçici olarak devre dışı bırakın.",
     "description": ""
+  },
+  "siteSettings": {
+    "message": "Bu Site",
+    "description": ""
+  },
+  "overrideGlobalSettings": {
+    "message": "Genel Ayarları Geçersiz Kıl",
+    "description": ""
+  },
+  "saveSiteOptions": {
+    "message": "Site Seçeneklerini Kaydet",
+    "description": ""
+  },
+  "customSettingsNotSupported": {
+    "message": "Özel site ayarları bu sayfada desteklenmiyor.",
+    "description": ""
+  },
+  "siteSettingsDesc": {
+    "message": "Bu site için sekmeyi askıya alma davranışını yapılandırın.",
+    "description": ""
+  },
+  "toggleSiteOverride": {
+    "message": "Bu site için özel ayarları geçersiz kılmayı değiştir",
+    "description": ""
   }
 }

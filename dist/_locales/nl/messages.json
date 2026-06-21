@@ -166,5 +166,29 @@
   "pauseSuspensionDesc": {
     "message": "Schakel het automatisch opschorten van tabbladen tijdelijk uit.",
     "description": ""
+  },
+  "siteSettings": {
+    "message": "Deze site",
+    "description": ""
+  },
+  "overrideGlobalSettings": {
+    "message": "Algemene instellingen negeren",
+    "description": ""
+  },
+  "saveSiteOptions": {
+    "message": "Site-opties opslaan",
+    "description": ""
+  },
+  "customSettingsNotSupported": {
+    "message": "Aangepaste site-instellingen worden niet ondersteund op deze pagina.",
+    "description": ""
+  },
+  "siteSettingsDesc": {
+    "message": "Configureer het gedrag van tabbladopschorting voor deze site.",
+    "description": ""
+  },
+  "toggleSiteOverride": {
+    "message": "Schakel het overschrijven van aangepaste instellingen voor deze site in",
+    "description": ""
   }
 }

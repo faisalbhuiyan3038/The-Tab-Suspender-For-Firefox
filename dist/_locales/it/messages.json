@@ -166,5 +166,29 @@
   "pauseSuspensionDesc": {
     "message": "Disattiva temporaneamente le sospensioni automatiche delle schede.",
     "description": ""
+  },
+  "siteSettings": {
+    "message": "Questo sito",
+    "description": ""
+  },
+  "overrideGlobalSettings": {
+    "message": "Sostituisci le impostazioni globali",
+    "description": ""
+  },
+  "saveSiteOptions": {
+    "message": "Salva opzioni del sito",
+    "description": ""
+  },
+  "customSettingsNotSupported": {
+    "message": "Le impostazioni del sito personalizzato non sono supportate in questa pagina.",
+    "description": ""
+  },
+  "siteSettingsDesc": {
+    "message": "Configura il comportamento di sospensione delle schede per questo sito.",
+    "description": ""
+  },
+  "toggleSiteOverride": {
+    "message": "Attiva/disattiva l'override delle impostazioni personalizzate per questo sito",
+    "description": ""
   }
 }

@@ -166,5 +166,29 @@
   "pauseSuspensionDesc": {
     "message": "Lumpuhkan penggantungan tab automatik buat sementara waktu.",
     "description": ""
+  },
+  "siteSettings": {
+    "message": "Laman ini",
+    "description": ""
+  },
+  "overrideGlobalSettings": {
+    "message": "Gantikan Tetapan Global",
+    "description": ""
+  },
+  "saveSiteOptions": {
+    "message": "Simpan Pilihan Tapak",
+    "description": ""
+  },
+  "customSettingsNotSupported": {
+    "message": "Tetapan tapak tersuai tidak disokong pada halaman ini.",
+    "description": ""
+  },
+  "siteSettingsDesc": {
+    "message": "Konfigurasikan tingkah laku penggantungan tab untuk tapak ini.",
+    "description": ""
+  },
+  "toggleSiteOverride": {
+    "message": "Togol ganti tetapan tersuai untuk tapak ini",
+    "description": ""
   }
 }

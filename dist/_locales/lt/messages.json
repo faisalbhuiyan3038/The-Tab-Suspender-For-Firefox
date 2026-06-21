@@ -166,5 +166,25 @@
   "pauseSuspensionDesc": {
     "message": "Laikinai išjungti automatinį skirtukų sustabdymą.",
     "description": ""
+  },
+  "siteSettings": {
+    "message": "Ši svetainė",
+    "description": ""
+  },
+  "saveSiteOptions": {
+    "message": "Išsaugoti svetainės parinktis",
+    "description": ""
+  },
+  "customSettingsNotSupported": {
+    "message": "Šiame puslapyje tinkinti svetainės nustatymai nepalaikomi.",
+    "description": ""
+  },
+  "siteSettingsDesc": {
+    "message": "Konfigūruokite šios svetainės skirtukų sustabdymo veikimą.",
+    "description": ""
+  },
+  "toggleSiteOverride": {
+    "message": "Perjungti šios svetainės tinkintų nustatymų nepaisymą",
+    "description": ""
   }
 }

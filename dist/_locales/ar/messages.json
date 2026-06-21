@@ -166,5 +166,29 @@
   "pauseSuspensionDesc": {
     "message": "قم بتعطيل تعليق علامة التبويب التلقائي مؤقتًا.",
     "description": ""
+  },
+  "siteSettings": {
+    "message": "هذا الموقع",
+    "description": ""
+  },
+  "overrideGlobalSettings": {
+    "message": "تجاوز الإعدادات العالمية",
+    "description": ""
+  },
+  "saveSiteOptions": {
+    "message": "حفظ خيارات الموقع",
+    "description": ""
+  },
+  "customSettingsNotSupported": {
+    "message": "إعدادات الموقع المخصصة غير مدعومة في هذه الصفحة.",
+    "description": ""
+  },
+  "siteSettingsDesc": {
+    "message": "تكوين سلوك تعليق علامة التبويب لهذا الموقع.",
+    "description": ""
+  },
+  "toggleSiteOverride": {
+    "message": "تبديل تجاوز الإعدادات المخصصة لهذا الموقع",
+    "description": ""
   }
 }

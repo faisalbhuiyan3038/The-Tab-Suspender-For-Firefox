@@ -166,5 +166,29 @@
   "pauseSuspensionDesc": {
     "message": "स्वचालित टैब निलंबन को अस्थायी रूप से अक्षम करें।",
     "description": ""
+  },
+  "siteSettings": {
+    "message": "यह कार्यस्थल",
+    "description": ""
+  },
+  "overrideGlobalSettings": {
+    "message": "वैश्विक सेटिंग्स को ओवरराइड करें",
+    "description": ""
+  },
+  "saveSiteOptions": {
+    "message": "साइट विकल्प सहेजें",
+    "description": ""
+  },
+  "customSettingsNotSupported": {
+    "message": "इस पृष्ठ पर कस्टम साइट सेटिंग समर्थित नहीं हैं.",
+    "description": ""
+  },
+  "siteSettingsDesc": {
+    "message": "इस साइट के लिए टैब निलंबन व्यवहार कॉन्फ़िगर करें.",
+    "description": ""
+  },
+  "toggleSiteOverride": {
+    "message": "इस साइट के लिए कस्टम सेटिंग्स ओवरराइड टॉगल करें",
+    "description": ""
   }
 }

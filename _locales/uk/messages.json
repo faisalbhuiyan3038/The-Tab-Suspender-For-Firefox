@@ -166,5 +166,29 @@
   "pauseSuspensionDesc": {
     "message": "Тимчасово вимкніть автоматичне призупинення вкладок.",
     "description": ""
+  },
+  "siteSettings": {
+    "message": "Цей сайт",
+    "description": ""
+  },
+  "overrideGlobalSettings": {
+    "message": "Перевизначити глобальні налаштування",
+    "description": ""
+  },
+  "saveSiteOptions": {
+    "message": "Зберегти параметри сайту",
+    "description": ""
+  },
+  "customSettingsNotSupported": {
+    "message": "Спеціальні налаштування сайту не підтримуються на цій сторінці.",
+    "description": ""
+  },
+  "siteSettingsDesc": {
+    "message": "Налаштувати поведінку призупинення вкладки для цього сайту.",
+    "description": ""
+  },
+  "toggleSiteOverride": {
+    "message": "Увімкнути перевизначення користувацьких налаштувань для цього сайту",
+    "description": ""
   }
 }

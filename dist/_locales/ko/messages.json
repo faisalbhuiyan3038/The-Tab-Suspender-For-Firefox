@@ -166,5 +166,29 @@
   "pauseSuspensionDesc": {
     "message": "자동 탭 정지를 일시적으로 비활성화합니다.",
     "description": ""
+  },
+  "siteSettings": {
+    "message": "이 사이트",
+    "description": ""
+  },
+  "overrideGlobalSettings": {
+    "message": "전역 설정 재정의",
+    "description": ""
+  },
+  "saveSiteOptions": {
+    "message": "사이트 옵션 저장",
+    "description": ""
+  },
+  "customSettingsNotSupported": {
+    "message": "이 페이지에서는 사용자 정의 사이트 설정이 지원되지 않습니다.",
+    "description": ""
+  },
+  "siteSettingsDesc": {
+    "message": "이 사이트에 대한 탭 정지 동작을 구성합니다.",
+    "description": ""
+  },
+  "toggleSiteOverride": {
+    "message": "이 사이트에 대한 사용자 정의 설정 재정의 전환",
+    "description": ""
   }
 }

@@ -125,7 +125,8 @@ const SYNC_SETTINGS_KEYS = [
   'resizeQuality',
   'suspendEmoji',
   'pauseUntil',
-  'directDiscard'
+  'directDiscard',
+  'siteSettings'
 ];
 
 /**
@@ -166,6 +167,165 @@ async function loadAndDisplaySettings() {
     document.getElementById('resizeHeight').value = settings.resizeHeight || 720;
     document.getElementById('resizeQuality').value = settings.resizeQuality || 0.5;
 
+    // Active Tab & Site Settings UI Setup
+    const activeTab = (await browser.tabs.query({ active: true, currentWindow: true }))[0];
+    let domain = '';
+    const isCustomizable = activeTab && activeTab.url && activeTab.url.match(/^https?:\/\//);
+
+    if (!isCustomizable) {
+      document.getElementById('siteSettingsAvailable').style.display = 'none';
+      document.getElementById('siteSettingsUnavailable').style.display = 'block';
+    } else {
+      document.getElementById('siteSettingsAvailable').style.display = 'block';
+      document.getElementById('siteSettingsUnavailable').style.display = 'none';
+
+      try {
+        domain = new URL(activeTab.url).hostname;
+      } catch (e) {
+        // Ignore
+      }
+      document.getElementById('siteSettingsDomain').textContent = domain;
+
+      const siteSettings = settings.siteSettings || {};
+      const siteConfig = siteSettings[domain];
+
+      const overrideForm = document.getElementById('siteOverrideForm');
+      const overrideSwitch = document.getElementById('siteOverrideSwitch');
+
+      // Helper function to update input states based on inherit/custom choices
+      const updateSiteFields = () => {
+        const isCustomTime = document.getElementById('siteSuspendTimeOption').value === 'custom';
+        const timeInput = document.getElementById('siteSuspendTime');
+        timeInput.disabled = !isCustomTime;
+        if (!isCustomTime) {
+          timeInput.value = document.getElementById('suspendTime').value; // Sync with global input value
+        }
+      };
+
+      if (siteConfig) {
+        overrideSwitch.checked = true;
+        overrideForm.style.opacity = '1';
+        overrideForm.style.pointerEvents = 'auto';
+
+        if (siteConfig.suspendTime !== undefined) {
+          document.getElementById('siteSuspendTimeOption').value = 'custom';
+          document.getElementById('siteSuspendTime').value = siteConfig.suspendTime;
+        } else {
+          document.getElementById('siteSuspendTimeOption').value = 'inherit';
+          document.getElementById('siteSuspendTime').value = suspendTime;
+        }
+
+        const setSelectValue = (id, val) => {
+          document.getElementById(id).value = val !== undefined ? String(val) : 'inherit';
+        };
+
+        setSelectValue('siteDirectDiscard', siteConfig.directDiscard);
+        setSelectValue('siteIgnoreAudio', siteConfig.ignoreAudio);
+        setSelectValue('siteIgnoreFormInput', siteConfig.ignoreFormInput);
+        setSelectValue('siteIgnoreNotifications', siteConfig.ignoreNotifications);
+        setSelectValue('siteIgnorePinned', siteConfig.ignorePinned);
+
+      } else {
+        overrideSwitch.checked = false;
+        overrideForm.style.opacity = '0.5';
+        overrideForm.style.pointerEvents = 'none';
+
+        document.getElementById('siteSuspendTimeOption').value = 'inherit';
+        document.getElementById('siteSuspendTime').value = suspendTime;
+        document.getElementById('siteDirectDiscard').value = 'inherit';
+        document.getElementById('siteIgnoreAudio').value = 'inherit';
+        document.getElementById('siteIgnoreFormInput').value = 'inherit';
+        document.getElementById('siteIgnoreNotifications').value = 'inherit';
+        document.getElementById('siteIgnorePinned').value = 'inherit';
+      }
+
+      updateSiteFields();
+
+      // Listen for time option changes
+      if (!document.getElementById('siteSuspendTimeOption').dataset.listenerAdded) {
+        document.getElementById('siteSuspendTimeOption').dataset.listenerAdded = 'true';
+        document.getElementById('siteSuspendTimeOption').addEventListener('change', updateSiteFields);
+      }
+
+      // Sync the read-only site time when global time value changes
+      if (!document.getElementById('suspendTime').dataset.syncListenerAdded) {
+        document.getElementById('suspendTime').dataset.syncListenerAdded = 'true';
+        document.getElementById('suspendTime').addEventListener('input', () => {
+          if (document.getElementById('siteSuspendTimeOption').value === 'inherit') {
+            document.getElementById('siteSuspendTime').value = document.getElementById('suspendTime').value;
+          }
+        });
+      }
+
+      // Add switch toggle behavior
+      if (!overrideSwitch.dataset.listenerAdded) {
+        overrideSwitch.dataset.listenerAdded = 'true';
+        overrideSwitch.addEventListener('change', (e) => {
+          if (e.target.checked) {
+            overrideForm.style.opacity = '1';
+            overrideForm.style.pointerEvents = 'auto';
+          } else {
+            overrideForm.style.opacity = '0.5';
+            overrideForm.style.pointerEvents = 'none';
+          }
+        });
+      }
+
+      // Add save behavior
+      const saveBtn = document.getElementById('saveSiteOptionsButton');
+      if (!saveBtn.dataset.listenerAdded) {
+        saveBtn.dataset.listenerAdded = 'true';
+        saveBtn.addEventListener('click', async () => {
+          try {
+            const currentSettings = await browser.storage.sync.get(['siteSettings']);
+            const updatedSiteSettings = currentSettings.siteSettings || {};
+
+            if (overrideSwitch.checked) {
+              const config = {};
+
+              if (document.getElementById('siteSuspendTimeOption').value === 'custom') {
+                const siteTime = parseInt(document.getElementById('siteSuspendTime').value, 10);
+                if (isNaN(siteTime) || siteTime < 1 || siteTime > 1440) {
+                  showMainStatus('Time must be between 1 and 1440');
+                  return;
+                }
+                config.suspendTime = siteTime;
+              }
+
+              const getVal = (id) => {
+                const val = document.getElementById(id).value;
+                return val === 'inherit' ? undefined : (val === 'true');
+              };
+
+              const directDiscard = getVal('siteDirectDiscard');
+              const ignoreAudio = getVal('siteIgnoreAudio');
+              const ignoreFormInput = getVal('siteIgnoreFormInput');
+              const ignoreNotifications = getVal('siteIgnoreNotifications');
+              const ignorePinned = getVal('siteIgnorePinned');
+
+              if (directDiscard !== undefined) config.directDiscard = directDiscard;
+              if (ignoreAudio !== undefined) config.ignoreAudio = ignoreAudio;
+              if (ignoreFormInput !== undefined) config.ignoreFormInput = ignoreFormInput;
+              if (ignoreNotifications !== undefined) config.ignoreNotifications = ignoreNotifications;
+              if (ignorePinned !== undefined) config.ignorePinned = ignorePinned;
+
+              updatedSiteSettings[domain] = config;
+              await browser.storage.sync.set({ siteSettings: updatedSiteSettings });
+              showMainStatus('Site options saved!');
+            } else {
+              if (updatedSiteSettings[domain]) {
+                delete updatedSiteSettings[domain];
+                await browser.storage.sync.set({ siteSettings: updatedSiteSettings });
+              }
+              showMainStatus('Site overrides cleared!');
+            }
+          } catch (err) {
+            console.error('Error saving site options:', err);
+            showMainStatus('Error saving site options');
+          }
+        });
+      }
+    }
 
     applyTheme(settings.darkMode ?? false);
 

@@ -166,5 +166,29 @@
   "pauseSuspensionDesc": {
     "message": "Lemaza kusimamishwa kwa vichupo kiotomatiki kwa muda.",
     "description": ""
+  },
+  "siteSettings": {
+    "message": "Tovuti Hii",
+    "description": ""
+  },
+  "overrideGlobalSettings": {
+    "message": "Batilisha Mipangilio ya Ulimwenguni",
+    "description": ""
+  },
+  "saveSiteOptions": {
+    "message": "Hifadhi Chaguzi za Tovuti",
+    "description": ""
+  },
+  "customSettingsNotSupported": {
+    "message": "Mipangilio maalum ya tovuti haitumiki kwenye ukurasa huu.",
+    "description": ""
+  },
+  "siteSettingsDesc": {
+    "message": "Sanidi tabia ya kusimamisha kichupo kwa tovuti hii.",
+    "description": ""
+  },
+  "toggleSiteOverride": {
+    "message": "Geuza ubatilishaji wa mipangilio maalum ya tovuti hii",
+    "description": ""
   }
 }

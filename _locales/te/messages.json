@@ -166,5 +166,29 @@
   "pauseSuspensionDesc": {
     "message": "ఆటోమేటిక్ ట్యాబ్ సస్పెన్షన్‌లను తాత్కాలికంగా నిలిపివేయండి.",
     "description": ""
+  },
+  "siteSettings": {
+    "message": "ఈ సైట్",
+    "description": ""
+  },
+  "overrideGlobalSettings": {
+    "message": "గ్లోబల్ సెట్టింగ్‌లను భర్తీ చేయండి",
+    "description": ""
+  },
+  "saveSiteOptions": {
+    "message": "సైట్ ఎంపికలను సేవ్ చేయండి",
+    "description": ""
+  },
+  "customSettingsNotSupported": {
+    "message": "ఈ పేజీలో అనుకూల సైట్ సెట్టింగ్‌లకు మద్దతు లేదు.",
+    "description": ""
+  },
+  "siteSettingsDesc": {
+    "message": "ఈ సైట్ కోసం ట్యాబ్ సస్పెన్షన్ ప్రవర్తనను కాన్ఫిగర్ చేయండి.",
+    "description": ""
+  },
+  "toggleSiteOverride": {
+    "message": "ఈ సైట్ కోసం అనుకూల సెట్టింగ్‌లను భర్తీ చేయడాన్ని టోగుల్ చేయండి",
+    "description": ""
   }
 }

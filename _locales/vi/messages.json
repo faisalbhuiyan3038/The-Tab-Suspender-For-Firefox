@@ -166,5 +166,29 @@
   "pauseSuspensionDesc": {
     "message": "Tạm thời vô hiệu hóa việc tạm dừng tab tự động.",
     "description": ""
+  },
+  "siteSettings": {
+    "message": "Trang web này",
+    "description": ""
+  },
+  "overrideGlobalSettings": {
+    "message": "Ghi đè cài đặt chung",
+    "description": ""
+  },
+  "saveSiteOptions": {
+    "message": "Lưu tùy chọn trang web",
+    "description": ""
+  },
+  "customSettingsNotSupported": {
+    "message": "Cài đặt trang tùy chỉnh không được hỗ trợ trên trang này.",
+    "description": ""
+  },
+  "siteSettingsDesc": {
+    "message": "Định cấu hình hành vi tạm dừng tab cho trang web này.",
+    "description": ""
+  },
+  "toggleSiteOverride": {
+    "message": "Chuyển đổi ghi đè cài đặt tùy chỉnh cho trang web này",
+    "description": ""
   }
 }

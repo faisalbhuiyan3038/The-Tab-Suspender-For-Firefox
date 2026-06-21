@@ -31,8 +31,19 @@ const SYNC_SETTINGS_KEYS = [
   'ignoreAudio',
   'ignoreFormInput',
   'ignoreNotifications',
+  'ignorePinned',
   'whitelistedDomains',
-  'whitelistedUrls'
+  'whitelistedUrls',
+  'enableScreenshots',
+  'captureQuality',
+  'resizeWidth',
+  'resizeHeight',
+  'resizeQuality',
+  'autoDiscard',
+  'rediscardDelay',
+  'directDiscard',
+  'suspendEmoji',
+  'siteSettings'
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -91,7 +102,7 @@ document.getElementById('importSettingsInput').addEventListener('change', (event
       
       const newSettings = {};
 
-      const booleanKeys = ['isEnabled', 'ignoreAudio', 'ignoreFormInput', 'ignoreNotifications'];
+      const booleanKeys = ['isEnabled', 'ignoreAudio', 'ignoreFormInput', 'ignoreNotifications', 'ignorePinned', 'enableScreenshots', 'autoDiscard', 'directDiscard'];
       for (const key of booleanKeys) {
         if (importedSettings.hasOwnProperty(key) && typeof importedSettings[key] === 'boolean') {
           newSettings[key] = importedSettings[key];
@@ -103,6 +114,36 @@ document.getElementById('importSettingsInput').addEventListener('change', (event
         if (!isNaN(time) && time >= 1 && time <= 1440) {
           newSettings.suspendTime = time;
         }
+      }
+
+      const numericSettings = {
+        captureQuality: { min: 5, max: 100 },
+        resizeWidth: { min: 100 },
+        resizeHeight: { min: 100 },
+        rediscardDelay: { min: 1 }
+      };
+      for (const [key, rules] of Object.entries(numericSettings)) {
+        if (importedSettings.hasOwnProperty(key)) {
+          const val = parseInt(importedSettings[key], 10);
+          if (!isNaN(val) && val >= (rules.min ?? -Infinity) && val <= (rules.max ?? Infinity)) {
+            newSettings[key] = val;
+          }
+        }
+      }
+
+      if (importedSettings.hasOwnProperty('resizeQuality')) {
+        const val = parseFloat(importedSettings.resizeQuality);
+        if (!isNaN(val) && val >= 0.1 && val <= 1.0) {
+          newSettings.resizeQuality = val;
+        }
+      }
+
+      if (importedSettings.hasOwnProperty('suspendEmoji') && typeof importedSettings.suspendEmoji === 'string') {
+        newSettings.suspendEmoji = importedSettings.suspendEmoji;
+      }
+
+      if (importedSettings.hasOwnProperty('siteSettings') && typeof importedSettings.siteSettings === 'object' && importedSettings.siteSettings !== null) {
+        newSettings.siteSettings = importedSettings.siteSettings;
       }
 
       const arrayKeys = ['whitelistedDomains', 'whitelistedUrls'];

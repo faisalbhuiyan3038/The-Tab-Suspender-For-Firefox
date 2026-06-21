@@ -166,5 +166,29 @@
   "pauseSuspensionDesc": {
     "message": "Nonaktifkan sementara penangguhan tab otomatis.",
     "description": ""
+  },
+  "siteSettings": {
+    "message": "Situs ini",
+    "description": ""
+  },
+  "overrideGlobalSettings": {
+    "message": "Ganti Pengaturan Global",
+    "description": ""
+  },
+  "saveSiteOptions": {
+    "message": "Simpan Opsi Situs",
+    "description": ""
+  },
+  "customSettingsNotSupported": {
+    "message": "Pengaturan situs kustom tidak didukung di halaman ini.",
+    "description": ""
+  },
+  "siteSettingsDesc": {
+    "message": "Konfigurasikan perilaku penangguhan tab untuk situs ini.",
+    "description": ""
+  },
+  "toggleSiteOverride": {
+    "message": "Alihkan penggantian pengaturan khusus untuk situs ini",
+    "description": ""
   }
 }

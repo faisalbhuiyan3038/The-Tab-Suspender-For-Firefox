@@ -166,5 +166,29 @@
   "pauseSuspensionDesc": {
     "message": "Poista automaattiset välilehtien jäädytykset väliaikaisesti käytöstä.",
     "description": ""
+  },
+  "siteSettings": {
+    "message": "Tämä sivusto",
+    "description": ""
+  },
+  "overrideGlobalSettings": {
+    "message": "Ohita yleiset asetukset",
+    "description": ""
+  },
+  "saveSiteOptions": {
+    "message": "Tallenna sivuston asetukset",
+    "description": ""
+  },
+  "customSettingsNotSupported": {
+    "message": "Mukautettuja sivustoasetuksia ei tueta tällä sivulla.",
+    "description": ""
+  },
+  "siteSettingsDesc": {
+    "message": "Määritä välilehtien jäädytystoiminta tälle sivustolle.",
+    "description": ""
+  },
+  "toggleSiteOverride": {
+    "message": "Ota tämän sivuston mukautettujen asetusten ohitus päälle/pois",
+    "description": ""
   }
 }

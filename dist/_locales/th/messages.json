@@ -166,5 +166,29 @@
   "pauseSuspensionDesc": {
     "message": "ปิดการใช้งานการระงับแท็บอัตโนมัติชั่วคราว",
     "description": ""
+  },
+  "siteSettings": {
+    "message": "ไซต์นี้",
+    "description": ""
+  },
+  "overrideGlobalSettings": {
+    "message": "แทนที่การตั้งค่าส่วนกลาง",
+    "description": ""
+  },
+  "saveSiteOptions": {
+    "message": "บันทึกตัวเลือกไซต์",
+    "description": ""
+  },
+  "customSettingsNotSupported": {
+    "message": "การตั้งค่าไซต์แบบกำหนดเองไม่ได้รับการสนับสนุนบนหน้านี้",
+    "description": ""
+  },
+  "siteSettingsDesc": {
+    "message": "กำหนดค่าลักษณะการระงับแท็บสำหรับไซต์นี้",
+    "description": ""
+  },
+  "toggleSiteOverride": {
+    "message": "สลับการตั้งค่าแบบกำหนดเองแทนที่สำหรับไซต์นี้",
+    "description": ""
   }
 }

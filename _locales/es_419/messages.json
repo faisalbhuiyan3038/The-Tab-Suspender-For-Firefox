@@ -166,5 +166,29 @@
   "pauseSuspensionDesc": {
     "message": "Desactive temporalmente las suspensiones automáticas de pestañas.",
     "description": ""
+  },
+  "siteSettings": {
+    "message": "Este sitio",
+    "description": ""
+  },
+  "overrideGlobalSettings": {
+    "message": "Anular la configuración global",
+    "description": ""
+  },
+  "saveSiteOptions": {
+    "message": "Guardar opciones del sitio",
+    "description": ""
+  },
+  "customSettingsNotSupported": {
+    "message": "La configuración personalizada del sitio no se admite en esta página.",
+    "description": ""
+  },
+  "siteSettingsDesc": {
+    "message": "Configure el comportamiento de suspensión de pestañas para este sitio.",
+    "description": ""
+  },
+  "toggleSiteOverride": {
+    "message": "Alternar anulación de configuración personalizada para este sitio",
+    "description": ""
   }
 }

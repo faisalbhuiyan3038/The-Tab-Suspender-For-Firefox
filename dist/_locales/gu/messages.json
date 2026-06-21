@@ -166,5 +166,29 @@
   "pauseSuspensionDesc": {
     "message": "સ્વચાલિત ટેબ સસ્પેન્શનને અસ્થાયી રૂપે અક્ષમ કરો.",
     "description": ""
+  },
+  "siteSettings": {
+    "message": "આ સાઇટ",
+    "description": ""
+  },
+  "overrideGlobalSettings": {
+    "message": "વૈશ્વિક સેટિંગ્સને ઓવરરાઇડ કરો",
+    "description": ""
+  },
+  "saveSiteOptions": {
+    "message": "સાઇટ વિકલ્પો સાચવો",
+    "description": ""
+  },
+  "customSettingsNotSupported": {
+    "message": "કસ્ટમ સાઇટ સેટિંગ્સ આ પૃષ્ઠ પર સમર્થિત નથી.",
+    "description": ""
+  },
+  "siteSettingsDesc": {
+    "message": "આ સાઇટ માટે ટેબ સસ્પેન્શન વર્તન ગોઠવો.",
+    "description": ""
+  },
+  "toggleSiteOverride": {
+    "message": "આ સાઇટ માટે કસ્ટમ સેટિંગ્સ ઓવરરાઇડને ટૉગલ કરો",
+    "description": ""
   }
 }

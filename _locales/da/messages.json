@@ -166,5 +166,29 @@
   "pauseSuspensionDesc": {
     "message": "Deaktiver midlertidigt automatisk faneophængning.",
     "description": ""
+  },
+  "siteSettings": {
+    "message": "Dette websted",
+    "description": ""
+  },
+  "overrideGlobalSettings": {
+    "message": "Tilsidesæt globale indstillinger",
+    "description": ""
+  },
+  "saveSiteOptions": {
+    "message": "Gem webstedsindstillinger",
+    "description": ""
+  },
+  "customSettingsNotSupported": {
+    "message": "Tilpassede webstedsindstillinger understøttes ikke på denne side.",
+    "description": ""
+  },
+  "siteSettingsDesc": {
+    "message": "Konfigurer fanesuspenderingsadfærd for dette websted.",
+    "description": ""
+  },
+  "toggleSiteOverride": {
+    "message": "Skift tilsidesættelse af tilpassede indstillinger for dette websted",
+    "description": ""
   }
 }

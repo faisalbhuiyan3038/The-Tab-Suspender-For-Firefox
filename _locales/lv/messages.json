@@ -166,5 +166,29 @@
   "pauseSuspensionDesc": {
     "message": "Īslaicīgi atspējojiet automātisko ciļņu apturēšanu.",
     "description": ""
+  },
+  "siteSettings": {
+    "message": "Šī vietne",
+    "description": ""
+  },
+  "overrideGlobalSettings": {
+    "message": "Ignorēt globālos iestatījumus",
+    "description": ""
+  },
+  "saveSiteOptions": {
+    "message": "Saglabāt vietnes opcijas",
+    "description": ""
+  },
+  "customSettingsNotSupported": {
+    "message": "Pielāgotie vietnes iestatījumi šajā lapā netiek atbalstīti.",
+    "description": ""
+  },
+  "siteSettingsDesc": {
+    "message": "Konfigurējiet ciļņu apturēšanas darbību šai vietnei.",
+    "description": ""
+  },
+  "toggleSiteOverride": {
+    "message": "Pārslēgt pielāgoto iestatījumu ignorēšanu šai vietnei",
+    "description": ""
   }
 }

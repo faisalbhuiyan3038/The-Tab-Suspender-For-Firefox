@@ -166,5 +166,29 @@
   "pauseSuspensionDesc": {
     "message": "Desative temporariamente as suspensões automáticas de guias.",
     "description": ""
+  },
+  "siteSettings": {
+    "message": "Este site",
+    "description": ""
+  },
+  "overrideGlobalSettings": {
+    "message": "Substituir configurações globais",
+    "description": ""
+  },
+  "saveSiteOptions": {
+    "message": "Salvar opções do site",
+    "description": ""
+  },
+  "customSettingsNotSupported": {
+    "message": "As configurações personalizadas do site não são suportadas nesta página.",
+    "description": ""
+  },
+  "siteSettingsDesc": {
+    "message": "Configure o comportamento de suspensão de guias para este site.",
+    "description": ""
+  },
+  "toggleSiteOverride": {
+    "message": "Alternar substituição de configurações personalizadas para este site",
+    "description": ""
   }
 }

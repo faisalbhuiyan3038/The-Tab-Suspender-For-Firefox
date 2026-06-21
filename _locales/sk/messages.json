@@ -166,5 +166,29 @@
   "pauseSuspensionDesc": {
     "message": "Dočasne zakážte automatické pozastavenie kariet.",
     "description": ""
+  },
+  "siteSettings": {
+    "message": "Táto stránka",
+    "description": ""
+  },
+  "overrideGlobalSettings": {
+    "message": "Prepísať globálne nastavenia",
+    "description": ""
+  },
+  "saveSiteOptions": {
+    "message": "Uložiť možnosti lokality",
+    "description": ""
+  },
+  "customSettingsNotSupported": {
+    "message": "Vlastné nastavenia lokality nie sú na tejto stránke podporované.",
+    "description": ""
+  },
+  "siteSettingsDesc": {
+    "message": "Nakonfigurujte správanie pozastavenia karty pre túto stránku.",
+    "description": ""
+  },
+  "toggleSiteOverride": {
+    "message": "Prepnúť prepísanie vlastných nastavení pre túto lokalitu",
+    "description": ""
   }
 }

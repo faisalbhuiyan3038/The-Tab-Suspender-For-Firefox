@@ -166,5 +166,29 @@
   "pauseSuspensionDesc": {
     "message": "Vahelehtede automaatse peatamise ajutiselt keelamine.",
     "description": ""
+  },
+  "siteSettings": {
+    "message": "See sait",
+    "description": ""
+  },
+  "overrideGlobalSettings": {
+    "message": "Alista globaalsed sätted",
+    "description": ""
+  },
+  "saveSiteOptions": {
+    "message": "Salvesta saidi valikud",
+    "description": ""
+  },
+  "customSettingsNotSupported": {
+    "message": "Sellel lehel kohandatud saidi seadeid ei toetata.",
+    "description": ""
+  },
+  "siteSettingsDesc": {
+    "message": "Konfigureerige selle saidi vahelehtede peatamise käitumine.",
+    "description": ""
+  },
+  "toggleSiteOverride": {
+    "message": "Selle saidi kohandatud seadete alistamise sisse- ja väljalülitamine",
+    "description": ""
   }
 }

@@ -40,8 +40,8 @@
     }
 
     body {
-      width: 360px;
-      /* MODIFIED: Was 340px */
+      width: 420px;
+      /* MODIFIED: Was 360px */
       margin: 0;
       padding: 0;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -296,9 +296,10 @@
     }
 
     .tab {
-      padding: 8px 10px;
-      /* MODIFIED: Was 8px 12px */
-      font-size: 14px;
+      padding: 8px 4px;
+      /* MODIFIED: Was 8px 10px */
+      font-size: 13px;
+      /* MODIFIED: Was 14px */
       font-weight: 500;
       cursor: pointer;
       border-bottom: 2px solid transparent;
@@ -393,6 +394,7 @@
 
     <div class="tabs">
       <div data-i18n="options" class="tab active" data-tab="options">Options</div>
+      <div data-i18n="siteSettings" class="tab" data-tab="site-settings">This Site</div>
       <div data-i18n="whitelist" class="tab" data-tab="whitelist">Whitelist</div>
       <div data-i18n="screenshot" class="tab" data-tab="screenshot">Screenshot</div>
       <div data-i18n="settings" class="tab" data-tab="settings">Settings</div>
@@ -468,6 +470,92 @@
       <!-- NEW: Save button for the whole tab -->
       <button data-i18n="saveOptions" id="saveOptionsButton" class="btn btn-full" style="margin-top: 8px;">Save
         Options</button>
+    </div>
+
+    <div id="site-settings-tab" class="tab-content">
+      <div id="siteSettingsAvailable">
+        <div style="margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border-color);">
+          <h4 style="margin: 0 0 4px 0;" id="siteSettingsTitle">Site: <span id="siteSettingsDomain" style="color: var(--accent-color);">example.com</span></h4>
+          <p style="font-size: 12px; opacity: 0.7; margin: 0;" data-i18n="siteSettingsDesc">Configure tab suspension behavior for this site.</p>
+        </div>
+
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border-color);">
+          <label data-i18n="overrideGlobalSettings" style="margin: 0; font-weight: 600;">Override Global Settings</label>
+          <label class="switch" style="margin: 0;">
+            <input type="checkbox" id="siteOverrideSwitch">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div id="siteOverrideForm" style="opacity: 0.5; pointer-events: none; transition: opacity 0.3s;">
+          <div class="form-grid" style="margin-bottom: 12px; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div class="form-group" style="margin-bottom: 0;">
+              <label for="siteSuspendTimeOption">Suspend Time:</label>
+              <select id="siteSuspendTimeOption" style="width: 100%; padding: 8px 12px; border: 1px solid var(--border-color); border-radius: 6px; background-color: var(--input-bg); color: var(--text-color); font-family: inherit; font-size: 14px; box-sizing: border-box;">
+                <option value="inherit">Inherit</option>
+                <option value="custom">Custom</option>
+              </select>
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <label for="siteSuspendTime">Time (minutes):</label>
+              <input type="number" id="siteSuspendTime" min="1" max="1440" style="width: 100%;">
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 12px;">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <label style="margin: 0; font-size: 14px; font-weight: 500;">Disable Suspended Page:</label>
+              <select id="siteDirectDiscard" style="width: 160px; padding: 6px 10px; border: 1px solid var(--border-color); border-radius: 6px; background-color: var(--input-bg); color: var(--text-color); font-family: inherit; font-size: 14px; box-sizing: border-box;">
+                <option value="inherit">Inherit</option>
+                <option value="true">Disable (Discard)</option>
+                <option value="false">Enable (Show page)</option>
+              </select>
+            </div>
+
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <label style="margin: 0; font-size: 14px; font-weight: 500;">Ignore Playing Audio:</label>
+              <select id="siteIgnoreAudio" style="width: 160px; padding: 6px 10px; border: 1px solid var(--border-color); border-radius: 6px; background-color: var(--input-bg); color: var(--text-color); font-family: inherit; font-size: 14px; box-sizing: border-box;">
+                <option value="inherit">Inherit</option>
+                <option value="true">Don't Suspend</option>
+                <option value="false">Allow Suspend</option>
+              </select>
+            </div>
+
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <label style="margin: 0; font-size: 14px; font-weight: 500;">Ignore Form Input:</label>
+              <select id="siteIgnoreFormInput" style="width: 160px; padding: 6px 10px; border: 1px solid var(--border-color); border-radius: 6px; background-color: var(--input-bg); color: var(--text-color); font-family: inherit; font-size: 14px; box-sizing: border-box;">
+                <option value="inherit">Inherit</option>
+                <option value="true">Don't Suspend</option>
+                <option value="false">Allow Suspend</option>
+              </select>
+            </div>
+
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <label style="margin: 0; font-size: 14px; font-weight: 500;">Ignore Notifications:</label>
+              <select id="siteIgnoreNotifications" style="width: 160px; padding: 6px 10px; border: 1px solid var(--border-color); border-radius: 6px; background-color: var(--input-bg); color: var(--text-color); font-family: inherit; font-size: 14px; box-sizing: border-box;">
+                <option value="inherit">Inherit</option>
+                <option value="true">Don't Suspend</option>
+                <option value="false">Allow Suspend</option>
+              </select>
+            </div>
+
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <label style="margin: 0; font-size: 14px; font-weight: 500;">Ignore Pinned Tabs:</label>
+              <select id="siteIgnorePinned" style="width: 160px; padding: 6px 10px; border: 1px solid var(--border-color); border-radius: 6px; background-color: var(--input-bg); color: var(--text-color); font-family: inherit; font-size: 14px; box-sizing: border-box;">
+                <option value="inherit">Inherit</option>
+                <option value="true">Don't Suspend</option>
+                <option value="false">Allow Suspend</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <button data-i18n="saveSiteOptions" id="saveSiteOptionsButton" class="btn btn-full" style="margin-top: 8px;">Save Site Options</button>
+      </div>
+      
+      <div id="siteSettingsUnavailable" style="display: none; text-align: center; padding: 20px 0; color: var(--text-color); opacity: 0.7;">
+        <p data-i18n="customSettingsNotSupported">Custom site settings are not supported on this page.</p>
+      </div>
     </div>
 
     <div id="whitelist-tab" class="tab-content">

@@ -166,5 +166,29 @@
   "pauseSuspensionDesc": {
     "message": "Privremeno onemogući automatsko obustavljanje kartica.",
     "description": ""
+  },
+  "siteSettings": {
+    "message": "Ova stranica",
+    "description": ""
+  },
+  "overrideGlobalSettings": {
+    "message": "Nadjačaj globalne postavke",
+    "description": ""
+  },
+  "saveSiteOptions": {
+    "message": "Spremi opcije web mjesta",
+    "description": ""
+  },
+  "customSettingsNotSupported": {
+    "message": "Prilagođene postavke web mjesta nisu podržane na ovoj stranici.",
+    "description": ""
+  },
+  "siteSettingsDesc": {
+    "message": "Konfigurirajte ponašanje obustave kartice za ovu stranicu.",
+    "description": ""
+  },
+  "toggleSiteOverride": {
+    "message": "Uključi/isključi nadjačavanje prilagođenih postavki za ovu stranicu",
+    "description": ""
   }
 }

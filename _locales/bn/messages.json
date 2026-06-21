@@ -166,5 +166,29 @@
   "pauseSuspensionDesc": {
     "message": "অস্থায়ীভাবে স্বয়ংক্রিয় ট্যাব সাসপেনশন অক্ষম করুন।",
     "description": ""
+  },
+  "siteSettings": {
+    "message": "এই সাইট",
+    "description": ""
+  },
+  "overrideGlobalSettings": {
+    "message": "গ্লোবাল সেটিংস ওভাররাইড করুন",
+    "description": ""
+  },
+  "saveSiteOptions": {
+    "message": "সাইট অপশন সংরক্ষণ করুন",
+    "description": ""
+  },
+  "customSettingsNotSupported": {
+    "message": "কাস্টম সাইট সেটিংস এই পৃষ্ঠায় সমর্থিত নয়.",
+    "description": ""
+  },
+  "siteSettingsDesc": {
+    "message": "এই সাইটের জন্য ট্যাব সাসপেনশন আচরণ কনফিগার করুন।",
+    "description": ""
+  },
+  "toggleSiteOverride": {
+    "message": "এই সাইটের জন্য কাস্টম সেটিংস ওভাররাইড টগল করুন",
+    "description": ""
   }
 }

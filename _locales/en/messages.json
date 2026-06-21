@@ -166,5 +166,29 @@
   "pauseSuspensionDesc": {
     "message": "Temporarily disable automatic tab suspensions.",
     "description": "Description for the pause suspension option"
+  },
+  "siteSettings": {
+    "message": "This Site",
+    "description": "Tab name in popup"
+  },
+  "overrideGlobalSettings": {
+    "message": "Override Global Settings",
+    "description": "Switch label to override settings for a site"
+  },
+  "saveSiteOptions": {
+    "message": "Save Site Options",
+    "description": "Button text to save site-specific settings"
+  },
+  "customSettingsNotSupported": {
+    "message": "Custom site settings are not supported on this page.",
+    "description": "Message shown when domain configuration is unavailable"
+  },
+  "siteSettingsDesc": {
+    "message": "Configure tab suspension behavior for this site.",
+    "description": "Description of the site settings tab"
+  },
+  "toggleSiteOverride": {
+    "message": "Toggle custom settings override for this site",
+    "description": "Context menu title"
   }
 }

@@ -166,5 +166,29 @@
   "pauseSuspensionDesc": {
     "message": "Tymczasowo wyłącz automatyczne zawieszanie kart.",
     "description": ""
+  },
+  "siteSettings": {
+    "message": "Ta witryna",
+    "description": ""
+  },
+  "overrideGlobalSettings": {
+    "message": "Zastąp ustawienia globalne",
+    "description": ""
+  },
+  "saveSiteOptions": {
+    "message": "Zapisz opcje witryny",
+    "description": ""
+  },
+  "customSettingsNotSupported": {
+    "message": "Niestandardowe ustawienia witryny nie są obsługiwane na tej stronie.",
+    "description": ""
+  },
+  "siteSettingsDesc": {
+    "message": "Skonfiguruj zachowanie zawieszenia karty dla tej witryny.",
+    "description": ""
+  },
+  "toggleSiteOverride": {
+    "message": "Przełącz zastąpienie ustawień niestandardowych dla tej witryny",
+    "description": ""
   }
 }

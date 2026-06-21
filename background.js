@@ -21,7 +21,8 @@ let settings = {
   rediscardDelay: 30,      // Seconds to wait before re-discarding a suspended tab
   pauseUntil: 0,
   directDiscard: false,
-  suspendEmoji: 'none'
+  suspendEmoji: 'none',
+  siteSettings: {}         // Site-specific settings overrides
 };
 let pauseExpirationTimer = null;
 
@@ -45,7 +46,8 @@ const SYNC_SETTINGS_KEYS = [
   'rediscardDelay',
   'pauseUntil',
   'directDiscard',
-  'suspendEmoji'
+  'suspendEmoji',
+  'siteSettings'
 ];
 
 async function loadSettings() {
@@ -59,6 +61,7 @@ async function loadSettings() {
       isEnabled = result.isEnabled;
     }
     settings = {
+      suspendTime: result.suspendTime || 40,
       ignoreAudio: result.ignoreAudio ?? true,
       ignoreFormInput: result.ignoreFormInput ?? true,
       ignoreNotifications: result.ignoreNotifications ?? true,
@@ -74,7 +77,8 @@ async function loadSettings() {
       rediscardDelay: result.rediscardDelay ?? 30,
       pauseUntil: result.pauseUntil ?? 0,
       directDiscard: result.directDiscard ?? false,
-      suspendEmoji: result.suspendEmoji ?? 'none'
+      suspendEmoji: result.suspendEmoji ?? 'none',
+      siteSettings: result.siteSettings ?? {}
     };
 
     console.log('Settings loaded/reloaded:', settings, `Suspend Time: ${SUSPEND_TIME}`);
@@ -220,9 +224,12 @@ async function resetTabTimer(tabId) {
         clearTimeout(tabTimers[tabId]);
       }
 
+      const tabSettings = getTabSettings(tab);
+      const suspendTimeMs = tabSettings.suspendTime * 60 * 1000;
+
       tabTimers[tabId] = setTimeout(() => {
         suspendTab(tabId);
-      }, SUSPEND_TIME);
+      }, suspendTimeMs);
     }
   } catch (error) {
     console.error(`Error in resetTabTimer for tab ${tabId}:`, error);
@@ -253,7 +260,8 @@ async function suspendTab(tabId, force = false) {
       return;
     }
 
-    if (settings.directDiscard && !tab.active) {
+    const tabSettings = getTabSettings(tab);
+    if (tabSettings.directDiscard && !tab.active) {
       try {
         if (settings.suspendEmoji && settings.suspendEmoji !== 'none') {
           try {
@@ -518,6 +526,49 @@ function initializeTimers() {
   });
 }
 
+async function toggleSiteOverrideForTab(tab) {
+  if (!tab || !tab.url || !tab.url.match(/^https?:\/\//)) {
+    return;
+  }
+
+  try {
+    const domain = new URL(tab.url).hostname;
+    const newSiteSettings = { ...settings.siteSettings };
+    let message = '';
+
+    if (newSiteSettings[domain]) {
+      delete newSiteSettings[domain];
+      message = `Custom settings disabled for ${domain}`;
+    } else {
+      newSiteSettings[domain] = {
+        ignoreAudio: settings.ignoreAudio,
+        ignoreFormInput: settings.ignoreFormInput,
+        ignoreNotifications: settings.ignoreNotifications,
+        ignorePinned: settings.ignorePinned,
+        directDiscard: settings.directDiscard,
+        suspendTime: settings.suspendTime || 40
+      };
+      message = `Custom settings enabled for ${domain}`;
+    }
+
+    await browser.storage.sync.set({ siteSettings: newSiteSettings });
+    console.log(message);
+
+    try {
+      browser.notifications.create({
+        type: 'basic',
+        iconUrl: browser.runtime.getURL('icons/icon48.png'),
+        title: 'Tab Suspender',
+        message: message
+      });
+    } catch (notifErr) {
+      console.error('Failed to show notification:', notifErr);
+    }
+  } catch (error) {
+    console.error('Error toggling site override:', error);
+  }
+}
+
 browser.contextMenus.create({
   id: 'whitelistDomain',
   title: 'Whitelist this domain',
@@ -526,6 +577,11 @@ browser.contextMenus.create({
 browser.contextMenus.create({
   id: 'whitelistUrl',
   title: 'Whitelist this page',
+  contexts: ['page']
+});
+browser.contextMenus.create({
+  id: 'toggleSiteOverride',
+  title: chrome.i18n.getMessage('toggleSiteOverride') || 'Toggle custom settings override for this site',
   contexts: ['page']
 });
 browser.contextMenus.create({
@@ -549,6 +605,8 @@ browser.contextMenus.onClicked.addListener(async (info, tab) => {
         const newUrls = [...settings.whitelistedUrls, pageUrl];
         await browser.storage.sync.set({ whitelistedUrls: newUrls });
       }
+    } else if (info.menuItemId === 'toggleSiteOverride') {
+      await toggleSiteOverrideForTab(tab);
     } else if (info.menuItemId === 'suspendPage') {
       const success = await suspendTab(tab.id, true);
       if (success) {
@@ -561,6 +619,38 @@ browser.contextMenus.onClicked.addListener(async (info, tab) => {
 });
 
 // --- Protection Logic ---
+function getTabSettings(tab) {
+  let domain = '';
+  if (tab && tab.url) {
+    try {
+      domain = new URL(tab.url).hostname;
+    } catch (e) {
+      // Ignore
+    }
+  }
+
+  const siteConfig = domain && settings.siteSettings && settings.siteSettings[domain];
+  if (siteConfig) {
+    return {
+      ignoreAudio: siteConfig.ignoreAudio ?? settings.ignoreAudio,
+      ignoreFormInput: siteConfig.ignoreFormInput ?? settings.ignoreFormInput,
+      ignoreNotifications: siteConfig.ignoreNotifications ?? settings.ignoreNotifications,
+      ignorePinned: siteConfig.ignorePinned ?? settings.ignorePinned,
+      directDiscard: siteConfig.directDiscard ?? settings.directDiscard,
+      suspendTime: siteConfig.suspendTime !== undefined ? siteConfig.suspendTime : (settings.suspendTime || 40)
+    };
+  }
+
+  return {
+    ignoreAudio: settings.ignoreAudio,
+    ignoreFormInput: settings.ignoreFormInput,
+    ignoreNotifications: settings.ignoreNotifications,
+    ignorePinned: settings.ignorePinned,
+    directDiscard: settings.directDiscard,
+    suspendTime: settings.suspendTime || 40
+  };
+}
+
 async function shouldProtectTab(tab, force = false) {
   // Check for non-http(s) pages (like about:, moz-extension:, etc.)
   if (!tab.url.match(/^https?:\/\//)) {
@@ -576,8 +666,10 @@ async function shouldProtectTab(tab, force = false) {
     return true;
   }
 
+  const tabSettings = getTabSettings(tab);
+
   // Check for pinned tabs
-  if (settings.ignorePinned && tab.pinned) {
+  if (tabSettings.ignorePinned && tab.pinned) {
     return true;
   }
 
@@ -596,7 +688,7 @@ async function shouldProtectTab(tab, force = false) {
     }
 
     // Check for audio
-    if (settings.ignoreAudio && tab.audible) {
+    if (tabSettings.ignoreAudio && tab.audible) {
       return true;
     }
 
@@ -605,7 +697,7 @@ async function shouldProtectTab(tab, force = false) {
       const results = await browser.tabs.executeScript(tab.id, {
         code: `
           {
-            const formProtection = ${settings.ignoreFormInput} && (() => {
+            const formProtection = ${tabSettings.ignoreFormInput} && (() => {
               const inputs = document.querySelectorAll('input, textarea, select');
               return Array.from(inputs).some(input => {
                 const tagName = input.tagName.toUpperCase();
@@ -637,7 +729,7 @@ async function shouldProtectTab(tab, force = false) {
                 return input.value !== input.defaultValue;
               });
             })();
-            const notificationProtection = ${settings.ignoreNotifications} &&
+            const notificationProtection = ${tabSettings.ignoreNotifications} &&
               'Notification' in window &&
               Notification.permission === 'granted';
             ({ formProtection, notificationProtection })
@@ -746,6 +838,11 @@ browser.commands.onCommand.addListener(async (commandName) => {
         ]);
         await browser.tabs.update(tab.id, { url: origUrl });
       }
+      break;
+    }
+
+    case "toggle-site-override": {
+      await toggleSiteOverrideForTab(tab);
       break;
     }
   }
