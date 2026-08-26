@@ -1,3 +1,6 @@
+## New features and Changes in v2.1 release
+- Included used font locally so that we don't have to ping cloudflare every time the suspended placeholder page loads
+
 ## New features and Changes in v1.8 release
 - Suspended Tab Emoji is now configurable.
 - Added a Pause Suspension feature that will disable the extension for a period of time, and re-enable it automatically.
