@@ -58,6 +58,9 @@ async function build() {
         }
     });
 
+    fs.copySync('inter.min.css', path.join(DIST_DIR, 'inter.min.css'));
+    fs.copySync('fonts', path.join(DIST_DIR, 'fonts'));
+
     // Copy manifest.json
     console.log('📋 Copying manifest.json...');
     fs.copySync('manifest.json', path.join(DIST_DIR, 'manifest.json'));
