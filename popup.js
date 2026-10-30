@@ -524,6 +524,18 @@ document.getElementById('whitelistPageBtn').addEventListener('click', async () =
   }
 });
 
+document.getElementById('unsuspendAllBtn').addEventListener('click', async () => {
+  try {
+    const response = await chrome.runtime.sendMessage({ action: 'unsuspendAll' });
+    const count = (response && response.count) || 0;
+    showMainStatus(count > 0
+      ? t('statusUnsuspendedTabs', String(count), `Tabs unsuspended: ${count}`)
+      : t('statusNoSuspendedTabs', null, 'No suspended tabs'));
+  } catch (error) {
+    console.error('Error unsuspending tabs:', error);
+    showMainStatus(t('statusSaveError', null, 'Error saving options'));
+  }
+});
 document.getElementById('manageDataBtn').addEventListener('click', () => {
   chrome.tabs.create({
     url: chrome.runtime.getURL('data_management.html')

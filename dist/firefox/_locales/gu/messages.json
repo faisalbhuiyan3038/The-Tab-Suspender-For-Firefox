@@ -486,5 +486,27 @@
         "example": "example.com"
       }
     }
+  },
+  "unsuspendAllTabs": {
+    "message": "તમામ ટૅબ્સને સસ્પેન્ડ કરો",
+    "description": "Settings tab heading, button label and shortcut name: instantly restores every suspended tab"
+  },
+  "unsuspendAllDesc": {
+    "message": "બધી વિન્ડોઝમાં દરેક સસ્પેન્ડ કરેલ ટેબને તરત જ પુનઃસ્થાપિત કરો.",
+    "description": "paragraph in popup.html"
+  },
+  "statusUnsuspendedTabs": {
+    "message": "ટૅબ્સ અનસસ્પેન્ડ: $COUNT$",
+    "description": "Toast/notification after Unsuspend All; COUNT is a number",
+    "placeholders": {
+      "COUNT": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "statusNoSuspendedTabs": {
+    "message": "કોઈ સસ્પેન્ડેડ ટૅબ્સ નથી",
+    "description": "Toast/notification when Unsuspend All finds nothing to restore"
   }
 }

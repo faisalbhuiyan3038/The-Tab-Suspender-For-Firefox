@@ -486,5 +486,27 @@
         "example": "example.com"
       }
     }
+  },
+  "unsuspendAllTabs": {
+    "message": "Κατάργηση αναστολής όλων των καρτελών",
+    "description": "Settings tab heading, button label and shortcut name: instantly restores every suspended tab"
+  },
+  "unsuspendAllDesc": {
+    "message": "Επαναφέρετε άμεσα κάθε καρτέλα που έχει ανασταλεί σε όλα τα παράθυρα.",
+    "description": "paragraph in popup.html"
+  },
+  "statusUnsuspendedTabs": {
+    "message": "Οι καρτέλες δεν έχουν ανασταλεί: $COUNT$",
+    "description": "Toast/notification after Unsuspend All; COUNT is a number",
+    "placeholders": {
+      "COUNT": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "statusNoSuspendedTabs": {
+    "message": "Δεν υπάρχουν καρτέλες σε αναστολή",
+    "description": "Toast/notification when Unsuspend All finds nothing to restore"
   }
 }

@@ -486,5 +486,27 @@
         "example": "example.com"
       }
     }
+  },
+  "unsuspendAllTabs": {
+    "message": "Zrušte pozastavení všech karet",
+    "description": "Settings tab heading, button label and shortcut name: instantly restores every suspended tab"
+  },
+  "unsuspendAllDesc": {
+    "message": "Okamžitě obnovte každou pozastavenou kartu ve všech oknech.",
+    "description": "paragraph in popup.html"
+  },
+  "statusUnsuspendedTabs": {
+    "message": "Pozastavení karet: $COUNT$",
+    "description": "Toast/notification after Unsuspend All; COUNT is a number",
+    "placeholders": {
+      "COUNT": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "statusNoSuspendedTabs": {
+    "message": "Žádné pozastavené karty",
+    "description": "Toast/notification when Unsuspend All finds nothing to restore"
   }
 }

@@ -486,5 +486,27 @@
         "example": "example.com"
       }
     }
+  },
+  "unsuspendAllTabs": {
+    "message": "すべてのタブの一時停止を解除",
+    "description": "Settings tab heading, button label and shortcut name: instantly restores every suspended tab"
+  },
+  "unsuspendAllDesc": {
+    "message": "すべてのウィンドウで一時停止されたすべてのタブを即座に復元します。",
+    "description": "paragraph in popup.html"
+  },
+  "statusUnsuspendedTabs": {
+    "message": "タブの一時停止が解除されました: $COUNT$",
+    "description": "Toast/notification after Unsuspend All; COUNT is a number",
+    "placeholders": {
+      "COUNT": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "statusNoSuspendedTabs": {
+    "message": "一時停止されたタブはありません",
+    "description": "Toast/notification when Unsuspend All finds nothing to restore"
   }
 }

@@ -486,5 +486,27 @@
         "example": "example.com"
       }
     }
+  },
+  "unsuspendAllTabs": {
+    "message": "Anulați suspendarea tuturor filelor",
+    "description": "Settings tab heading, button label and shortcut name: instantly restores every suspended tab"
+  },
+  "unsuspendAllDesc": {
+    "message": "Restaurați instantaneu fiecare filă suspendată din toate ferestrele.",
+    "description": "paragraph in popup.html"
+  },
+  "statusUnsuspendedTabs": {
+    "message": "File nesuspendate: $COUNT$",
+    "description": "Toast/notification after Unsuspend All; COUNT is a number",
+    "placeholders": {
+      "COUNT": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "statusNoSuspendedTabs": {
+    "message": "Fără file suspendate",
+    "description": "Toast/notification when Unsuspend All finds nothing to restore"
   }
 }

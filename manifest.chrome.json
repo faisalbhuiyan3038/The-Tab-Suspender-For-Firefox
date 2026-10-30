@@ -59,6 +59,9 @@
     "unsuspend-current-tab": {
       "description": "Unsuspend/Restore the current active tab"
     },
+    "unsuspend-all-tabs": {
+      "description": "__MSG_unsuspendAllTabs__"
+    },
     "toggle-site-override": {
       "description": "Toggle custom settings override for the current site"
     }

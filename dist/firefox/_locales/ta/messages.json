@@ -486,5 +486,27 @@
         "example": "example.com"
       }
     }
+  },
+  "unsuspendAllTabs": {
+    "message": "அனைத்து தாவல்களையும் இடைநீக்கம் செய்",
+    "description": "Settings tab heading, button label and shortcut name: instantly restores every suspended tab"
+  },
+  "unsuspendAllDesc": {
+    "message": "அனைத்து சாளரங்களிலும் இடைநிறுத்தப்பட்ட ஒவ்வொரு தாவலையும் உடனடியாக மீட்டெடுக்கவும்.",
+    "description": "paragraph in popup.html"
+  },
+  "statusUnsuspendedTabs": {
+    "message": "தாவல்கள் இடைநீக்கம் செய்யப்படவில்லை: $COUNT$",
+    "description": "Toast/notification after Unsuspend All; COUNT is a number",
+    "placeholders": {
+      "COUNT": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "statusNoSuspendedTabs": {
+    "message": "இடைநிறுத்தப்பட்ட தாவல்கள் இல்லை",
+    "description": "Toast/notification when Unsuspend All finds nothing to restore"
   }
 }

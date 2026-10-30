@@ -486,5 +486,27 @@
         "example": "example.com"
       }
     }
+  },
+  "unsuspendAllTabs": {
+    "message": "Poista kaikkien välilehtien jäädytys",
+    "description": "Settings tab heading, button label and shortcut name: instantly restores every suspended tab"
+  },
+  "unsuspendAllDesc": {
+    "message": "Palauta välittömästi kaikki keskeytetyt välilehdet kaikissa ikkunoissa.",
+    "description": "paragraph in popup.html"
+  },
+  "statusUnsuspendedTabs": {
+    "message": "Jäädytetyt välilehdet: $COUNT$",
+    "description": "Toast/notification after Unsuspend All; COUNT is a number",
+    "placeholders": {
+      "COUNT": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "statusNoSuspendedTabs": {
+    "message": "Ei jäädytettyjä välilehtiä",
+    "description": "Toast/notification when Unsuspend All finds nothing to restore"
   }
 }

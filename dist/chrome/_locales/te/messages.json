@@ -486,5 +486,27 @@
         "example": "example.com"
       }
     }
+  },
+  "unsuspendAllTabs": {
+    "message": "అన్ని ట్యాబ్‌లను తాత్కాలికంగా నిలిపివేయండి",
+    "description": "Settings tab heading, button label and shortcut name: instantly restores every suspended tab"
+  },
+  "unsuspendAllDesc": {
+    "message": "అన్ని విండోలలో సస్పెండ్ చేయబడిన ప్రతి ట్యాబ్‌ను తక్షణమే పునరుద్ధరించండి.",
+    "description": "paragraph in popup.html"
+  },
+  "statusUnsuspendedTabs": {
+    "message": "ట్యాబ్‌లు సస్పెండ్ చేయబడలేదు: $COUNT$",
+    "description": "Toast/notification after Unsuspend All; COUNT is a number",
+    "placeholders": {
+      "COUNT": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "statusNoSuspendedTabs": {
+    "message": "సస్పెండ్ చేయబడిన ట్యాబ్‌లు లేవు",
+    "description": "Toast/notification when Unsuspend All finds nothing to restore"
   }
 }

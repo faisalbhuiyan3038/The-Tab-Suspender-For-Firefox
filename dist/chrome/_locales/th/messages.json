@@ -486,5 +486,27 @@
         "example": "example.com"
       }
     }
+  },
+  "unsuspendAllTabs": {
+    "message": "ยกเลิกการระงับแท็บทั้งหมด",
+    "description": "Settings tab heading, button label and shortcut name: instantly restores every suspended tab"
+  },
+  "unsuspendAllDesc": {
+    "message": "คืนค่าทุกแท็บที่ถูกระงับในหน้าต่างทั้งหมดทันที",
+    "description": "paragraph in popup.html"
+  },
+  "statusUnsuspendedTabs": {
+    "message": "แท็บที่ยกเลิกการระงับ: $COUNT$",
+    "description": "Toast/notification after Unsuspend All; COUNT is a number",
+    "placeholders": {
+      "COUNT": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "statusNoSuspendedTabs": {
+    "message": "ไม่มีแท็บที่ถูกระงับ",
+    "description": "Toast/notification when Unsuspend All finds nothing to restore"
   }
 }

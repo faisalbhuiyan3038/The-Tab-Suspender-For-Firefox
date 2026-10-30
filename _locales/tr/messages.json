@@ -486,5 +486,27 @@
         "example": "example.com"
       }
     }
+  },
+  "unsuspendAllTabs": {
+    "message": "Tüm Sekmelerin Askıya Alınmasını Kaldır",
+    "description": "Settings tab heading, button label and shortcut name: instantly restores every suspended tab"
+  },
+  "unsuspendAllDesc": {
+    "message": "Tüm pencerelerde askıya alınan her sekmeyi anında geri yükleyin.",
+    "description": "paragraph in popup.html"
+  },
+  "statusUnsuspendedTabs": {
+    "message": "Askıya alınan sekmelerin sayısı kaldırıldı: $COUNT$",
+    "description": "Toast/notification after Unsuspend All; COUNT is a number",
+    "placeholders": {
+      "COUNT": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "statusNoSuspendedTabs": {
+    "message": "Askıya alınan sekme yok",
+    "description": "Toast/notification when Unsuspend All finds nothing to restore"
   }
 }

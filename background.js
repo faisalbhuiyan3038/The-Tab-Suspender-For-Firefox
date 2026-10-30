@@ -534,7 +534,17 @@ chrome.windows.onFocusChanged.addListener(async (windowId) => {
 
 // --- Event Listeners (Runtime, Storage) ---
 
-chrome.runtime.onMessage.addListener(async (message, sender) => {
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.action === 'unsuspendAll') {
+    // Needs a reply, so answer through sendResponse and keep the channel open
+    unsuspendAllTabs().then(count => sendResponse({ count }), () => sendResponse({ count: 0 }));
+    return true;
+  }
+  handleMessage(message, sender);
+  return false;
+});
+
+async function handleMessage(message, sender) {
   if (message.action === 'updateTheme') {
     chrome.tabs.query({}).then(tabs => {
       tabs.forEach(tab => {
@@ -565,7 +575,46 @@ chrome.runtime.onMessage.addListener(async (message, sender) => {
     ]);
     await chrome.tabs.update(tabId, { url: origUrl });
   }
-});
+}
+
+/**
+ * Restores every tab (in all windows) that currently shows the suspended page, including
+ * ones the browser has already discarded. Returns how many tabs were restored.
+ */
+async function unsuspendAllTabs() {
+  await loadSuspendedTabs();
+
+  const suspendedBase = chrome.runtime.getURL("suspended.html");
+  const tabs = await chrome.tabs.query({});
+  const targets = [];
+
+  for (const tab of tabs) {
+    if (!tab.url || !tab.url.startsWith(suspendedBase)) continue;
+    let origUrl = suspendedTabs[tab.id] && suspendedTabs[tab.id].url;
+    try {
+      origUrl = new URL(tab.url).searchParams.get('origUrl') || origUrl;
+    } catch (e) {}
+    if (origUrl) targets.push({ id: tab.id, origUrl });
+  }
+  if (targets.length === 0) return 0;
+
+  // Drop all records first so the onUpdated listener doesn't send a restored tab back
+  const keysToRemove = [];
+  for (const { id } of targets) {
+    delete suspendedTabs[id];
+    keysToRemove.push("thumbnail_" + id, "temp_img_" + id);
+  }
+  saveSuspendedTabsState();
+  await chrome.storage.local.remove(keysToRemove);
+
+  const results = await Promise.allSettled(targets.map(async ({ id, origUrl }) => {
+    await clearDiscardTimer(id);
+    await chrome.tabs.update(id, { url: origUrl });
+  }));
+  const restored = results.filter(r => r.status === 'fulfilled').length;
+  console.log(`Unsuspended ${restored} of ${targets.length} tabs`);
+  return restored;
+}
 
 chrome.storage.onChanged.addListener((changes, areaName) => {
   if (areaName === 'sync') {
@@ -899,6 +948,23 @@ chrome.tabs.onRemoved.addListener(async (tabId) => {
 chrome.commands.onCommand.addListener(async (commandName) => {
   await loadSettings();
   await loadSuspendedTabs();
+
+  if (commandName === "unsuspend-all-tabs") {
+    const count = await unsuspendAllTabs();
+    try {
+      chrome.notifications.create({
+        type: 'basic',
+        iconUrl: chrome.runtime.getURL('icons/icon48.png'),
+        title: t('extName', null, 'Tab Suspender'),
+        message: count > 0
+          ? t('statusUnsuspendedTabs', String(count), `Tabs unsuspended: ${count}`)
+          : t('statusNoSuspendedTabs', null, 'No suspended tabs')
+      });
+    } catch (notifErr) {
+      console.error('Failed to show notification:', notifErr);
+    }
+    return;
+  }
 
   const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
   if (tabs.length === 0) return;

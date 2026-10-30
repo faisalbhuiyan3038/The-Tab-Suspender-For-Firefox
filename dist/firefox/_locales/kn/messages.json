@@ -486,5 +486,27 @@
         "example": "example.com"
       }
     }
+  },
+  "unsuspendAllTabs": {
+    "message": "ಎಲ್ಲಾ ಟ್ಯಾಬ್‌ಗಳನ್ನು ಅಮಾನತುಗೊಳಿಸಿ",
+    "description": "Settings tab heading, button label and shortcut name: instantly restores every suspended tab"
+  },
+  "unsuspendAllDesc": {
+    "message": "ಎಲ್ಲಾ ವಿಂಡೋಗಳಲ್ಲಿ ಪ್ರತಿ ಅಮಾನತುಗೊಳಿಸಲಾದ ಟ್ಯಾಬ್ ಅನ್ನು ತಕ್ಷಣವೇ ಮರುಸ್ಥಾಪಿಸಿ.",
+    "description": "paragraph in popup.html"
+  },
+  "statusUnsuspendedTabs": {
+    "message": "ಟ್ಯಾಬ್‌ಗಳನ್ನು ಅಮಾನತುಗೊಳಿಸಲಾಗಿಲ್ಲ: $COUNT$",
+    "description": "Toast/notification after Unsuspend All; COUNT is a number",
+    "placeholders": {
+      "COUNT": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "statusNoSuspendedTabs": {
+    "message": "ಅಮಾನತುಗೊಳಿಸಿದ ಟ್ಯಾಬ್‌ಗಳಿಲ್ಲ",
+    "description": "Toast/notification when Unsuspend All finds nothing to restore"
   }
 }

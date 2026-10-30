@@ -486,5 +486,27 @@
         "example": "example.com"
       }
     }
+  },
+  "unsuspendAllTabs": {
+    "message": "إلغاء تعليق كافة علامات التبويب",
+    "description": "Settings tab heading, button label and shortcut name: instantly restores every suspended tab"
+  },
+  "unsuspendAllDesc": {
+    "message": "قم باستعادة كل علامة تبويب معلقة في جميع النوافذ على الفور.",
+    "description": "paragraph in popup.html"
+  },
+  "statusUnsuspendedTabs": {
+    "message": "تم إلغاء تعليق علامات التبويب: $COUNT$",
+    "description": "Toast/notification after Unsuspend All; COUNT is a number",
+    "placeholders": {
+      "COUNT": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "statusNoSuspendedTabs": {
+    "message": "لا توجد علامات تبويب معلقة",
+    "description": "Toast/notification when Unsuspend All finds nothing to restore"
   }
 }

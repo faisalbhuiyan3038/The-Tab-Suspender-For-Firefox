@@ -486,5 +486,27 @@
         "example": "example.com"
       }
     }
+  },
+  "unsuspendAllTabs": {
+    "message": "সমস্ত ট্যাব সাসপেন্ড করুন",
+    "description": "Settings tab heading, button label and shortcut name: instantly restores every suspended tab"
+  },
+  "unsuspendAllDesc": {
+    "message": "তাত্ক্ষণিকভাবে সমস্ত উইন্ডোতে প্রতিটি স্থগিত ট্যাব পুনরুদ্ধার করুন৷",
+    "description": "paragraph in popup.html"
+  },
+  "statusUnsuspendedTabs": {
+    "message": "ট্যাবগুলি স্থগিত করা হয়নি: $COUNT$",
+    "description": "Toast/notification after Unsuspend All; COUNT is a number",
+    "placeholders": {
+      "COUNT": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "statusNoSuspendedTabs": {
+    "message": "কোন স্থগিত ট্যাব",
+    "description": "Toast/notification when Unsuspend All finds nothing to restore"
   }
 }
