@@ -1,154 +1,490 @@
 {
-    "extName": {
-        "message": "Tagasuspend ng Tab",
-        "description": "Extension name"
-    },
-    "extDescription": {
-        "message": "Kusang suspendhin ang mga hindi aktibong tab para makatipid ng memory",
-        "description": "Extension description"
-    },
-    "tabSuspender": {
-        "message": "Tagasuspend ng Tab",
-        "description": "heading in popup.html"
-    },
-    "options": {
-        "message": "Mga Pagpipilian",
-        "description": "div in popup.html"
-    },
-    "whitelist": {
-        "message": "Whitelist",
-        "description": "div in popup.html"
-    },
-    "screenshot": {
-        "message": "Screenshot",
-        "description": "div in popup.html"
-    },
-    "settings": {
-        "message": "Mga Setting",
-        "description": "div in popup.html"
-    },
-    "keyboardShortcuts": {
-        "message": "Mga Keyboard Shortcuts",
-        "description": "heading in popup.html"
-    },
-    "dataManagement": {
-        "message": "Pamamahala ng Data",
-        "description": "heading in popup.html"
-    },
-    "configureScreenshotCapture": {
-        "message": "I-configure ang pagkuha at pag-resize ng screenshot. Ang mas maliliit na larawan ay nakakatipid ng memory.",
-        "description": "paragraph in popup.html"
-    },
-    "configureKeyboardShortcuts": {
-        "message": "I-configure ang mga keyboard shortcut sa setting ng extension ng Chrome.",
-        "description": "paragraph in popup.html"
-    },
-    "importExportSettingsWhitelist": {
-        "message": "I-import o i-export ang iyong mga setting at whitelist.",
-        "description": "paragraph in popup.html"
-    },
-    "saveOptions": {
-        "message": "I-save ang mga Pagpipilian",
-        "description": "button in popup.html"
-    },
-    "whitelistCurrentDomain": {
-        "message": "I-whitelist ang Kasalukuyang Domain",
-        "description": "button in popup.html"
-    },
-    "whitelistCurrentPage": {
-        "message": "I-whitelist ang Kasalukuyang Pahina",
-        "description": "button in popup.html"
-    },
-    "saveScreenshotSettings": {
-        "message": "I-save ang mga Setting ng Screenshot",
-        "description": "button in popup.html"
-    },
-    "configureShortcuts": {
-        "message": "I-configure ang mga Shortcut",
-        "description": "button in popup.html"
-    },
-    "openDataManager": {
-        "message": "Buksan ang Tagapamahala ng Data",
-        "description": "button in popup.html"
-    },
-    "suspendInactiveTabsAfter": {
-        "message": "Suspendihin ang mga hindi aktibong tab pagkatapos ng (minuto):",
-        "description": "label in popup.html"
-    },
-    "darkMode": {
-        "message": "Dark Mode",
-        "description": "label in popup.html"
-    },
-    "enableTabScreenshotsUses": {
-        "message": "Paganahin ang mga screenshot ng tab (gumagamit ng mas maraming memory)",
-        "description": "label in popup.html"
-    },
-    "dontSuspendTabsPlaying": {
-        "message": "Huwag suspendihin ang mga tab na nagtutugtog ng audio",
-        "description": "label in popup.html"
-    },
-    "dontSuspendTabsInput": {
-        "message": "Huwag suspendihin ang mga tab na may form input",
-        "description": "label in popup.html"
-    },
-    "dontSuspendTabsNotification": {
-        "message": "Huwag suspendihin ang mga tab na may notification",
-        "description": "label in popup.html"
-    },
-    "dontSuspendPinnedTabs": {
-        "message": "Huwag suspendihin ang mga naka-pin na tab",
-        "description": "label in popup.html"
-    },
-    "captureQuality5100": {
-        "message": "Capture Quality (5-100)",
-        "description": "label in popup.html"
-    },
-    "resizeWidthPx": {
-        "message": "Laki ng Width (px)",
-        "description": "label in popup.html"
-    },
-    "resizeHeightPx": {
-        "message": "Laki ng Height (px)",
-        "description": "label in popup.html"
-    },
-    "resizeQuality0110": {
-        "message": "Resize Quality (0.1 - 1.0)",
-        "description": "label in popup.html"
-    },
-    "settingsSaved": {
-        "message": "Nai-save ang mga setting!",
-        "description": "notification in popup.html"
-    },
-    "tabSuspended": {
-        "message": "Nasuspend ang Tab",
-        "description": "title in suspended.html"
-    },
-    "clickAnywhereToRestore": {
-        "message": "Mag-click kahit saan para ibalik ang tab na ito",
-        "description": "paragraph in suspended.html"
-    },
-    "dataManagementTabSuspender": {
-        "message": "Pamamahala ng Data - Tagasuspend ng Tab",
-        "description": "title in data_management.html"
-    },
-    "exportSettings": {
-        "message": "I-export ang mga Setting",
-        "description": "heading in data_management.html"
-    },
-    "importSettings": {
-        "message": "I-import ang mga Setting",
-        "description": "heading in data_management.html"
-    },
-    "exportDesc": {
-        "message": "I-save ang iyong whitelist at mga setting sa isang JSON file.",
-        "description": "paragraph in data_management.html"
-    },
-    "importDesc": {
-        "message": "Mag-load ng setting mula sa isang JSON file. Ito ay mag-o-override sa iyong kasalukuyang mga setting.",
-        "description": "paragraph in data_management.html"
-    },
-    "selectJsonFile": {
-        "message": "Pumili ng JSON File",
-        "description": "label in data_management.html"
+  "extName": {
+    "message": "Tagasuspend ng Tab",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Kusang suspendhin ang mga hindi aktibong tab para makatipid ng memory",
+    "description": "Extension description"
+  },
+  "tabSuspender": {
+    "message": "Tagasuspend ng Tab",
+    "description": "heading in popup.html"
+  },
+  "options": {
+    "message": "Mga Pagpipilian",
+    "description": "div in popup.html"
+  },
+  "whitelist": {
+    "message": "Whitelist",
+    "description": "div in popup.html"
+  },
+  "screenshot": {
+    "message": "Screenshot",
+    "description": "div in popup.html"
+  },
+  "settings": {
+    "message": "Mga Setting",
+    "description": "div in popup.html"
+  },
+  "keyboardShortcuts": {
+    "message": "Mga Keyboard Shortcuts",
+    "description": "heading in popup.html"
+  },
+  "dataManagement": {
+    "message": "Pamamahala ng Data",
+    "description": "heading in popup.html"
+  },
+  "configureScreenshotCapture": {
+    "message": "I-configure ang pagkuha at pag-resize ng screenshot. Ang mas maliliit na larawan ay nakakatipid ng memory.",
+    "description": "paragraph in popup.html"
+  },
+  "configureKeyboardShortcuts": {
+    "message": "Available ang suporta sa keyboard shortcut! I-configure ito sa mga setting ng extension ng iyong browser sa pamamagitan ng pagsunod sa gabay.",
+    "description": "paragraph in popup.html"
+  },
+  "importExportSettingsWhitelist": {
+    "message": "I-import o i-export ang iyong mga setting at whitelist.",
+    "description": "paragraph in popup.html"
+  },
+  "saveOptions": {
+    "message": "I-save ang mga Pagpipilian",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentDomain": {
+    "message": "I-whitelist ang Kasalukuyang Domain",
+    "description": "button in popup.html"
+  },
+  "whitelistCurrentPage": {
+    "message": "I-whitelist ang Kasalukuyang Pahina",
+    "description": "button in popup.html"
+  },
+  "saveScreenshotSettings": {
+    "message": "I-save ang mga Setting ng Screenshot",
+    "description": "button in popup.html"
+  },
+  "configureShortcuts": {
+    "message": "I-configure ang mga Shortcut",
+    "description": "button in popup.html"
+  },
+  "openDataManager": {
+    "message": "Buksan ang Tagapamahala ng Data",
+    "description": "button in popup.html"
+  },
+  "suspendInactiveTabsAfter": {
+    "message": "Suspindihin pagkatapos (min):",
+    "description": "label in popup.html"
+  },
+  "darkMode": {
+    "message": "Dark Mode",
+    "description": "label in popup.html"
+  },
+  "enableTabScreenshotsUses": {
+    "message": "Paganahin ang mga screenshot ng tab (gumagamit ng mas maraming memory)",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsPlaying": {
+    "message": "Huwag suspendihin ang mga tab na nagtutugtog ng audio",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsInput": {
+    "message": "Huwag suspendihin ang mga tab na may form input",
+    "description": "label in popup.html"
+  },
+  "dontSuspendTabsNotification": {
+    "message": "Huwag suspendihin ang mga tab na may notification",
+    "description": "label in popup.html"
+  },
+  "dontSuspendPinnedTabs": {
+    "message": "Huwag suspendihin ang mga naka-pin na tab",
+    "description": "label in popup.html"
+  },
+  "captureQuality5100": {
+    "message": "Capture Quality (5-100)",
+    "description": "label in popup.html"
+  },
+  "resizeWidthPx": {
+    "message": "Laki ng Width (px)",
+    "description": "label in popup.html"
+  },
+  "resizeHeightPx": {
+    "message": "Laki ng Height (px)",
+    "description": "label in popup.html"
+  },
+  "resizeQuality0110": {
+    "message": "Resize Quality (0.1 - 1.0)",
+    "description": "label in popup.html"
+  },
+  "settingsSaved": {
+    "message": "Nai-save ang mga setting!",
+    "description": "notification in popup.html"
+  },
+  "tabSuspended": {
+    "message": "Nasuspend ang Tab",
+    "description": "title in suspended.html"
+  },
+  "clickAnywhereToRestore": {
+    "message": "Mag-click kahit saan para ibalik ang tab na ito",
+    "description": "paragraph in suspended.html"
+  },
+  "dataManagementTabSuspender": {
+    "message": "Pamamahala ng Data - Tagasuspend ng Tab",
+    "description": "title in data_management.html"
+  },
+  "exportSettings": {
+    "message": "I-export ang mga Setting",
+    "description": "heading in data_management.html"
+  },
+  "importSettings": {
+    "message": "I-import ang mga Setting",
+    "description": "heading in data_management.html"
+  },
+  "exportDesc": {
+    "message": "I-save ang iyong whitelist at mga setting sa isang JSON file.",
+    "description": "paragraph in data_management.html"
+  },
+  "importDesc": {
+    "message": "Mag-load ng mga setting mula sa isang JSON file. Pinapalitan ng mga na-import na halaga ang iyong kasalukuyang mga setting; ang mga whitelist ay pinagsama sa mga umiiral na.",
+    "description": "paragraph in data_management.html"
+  },
+  "selectJsonFile": {
+    "message": "Pumili ng JSON File",
+    "description": "label in data_management.html"
+  },
+  "tabTitleIndicator": {
+    "message": "Tagapahiwatig ng Katayuan ng Tab:",
+    "description": "Tab Indicator"
+  },
+  "disableSuspendedPage": {
+    "message": "Huwag paganahin ang Nasuspindeng Pahina",
+    "description": "Option to disable suspended page content"
+  },
+  "pauseSuspension": {
+    "message": "I-pause ang Suspension",
+    "description": "Option to pause suspension of tabs"
+  },
+  "pauseSuspensionDesc": {
+    "message": "Pansamantalang i-disable ang mga awtomatikong pagsususpinde ng tab.",
+    "description": "Description for the pause suspension option"
+  },
+  "siteSettings": {
+    "message": "Ang Site na ito",
+    "description": "Tab name in popup"
+  },
+  "overrideGlobalSettings": {
+    "message": "I-override ang Mga Global Setting",
+    "description": "Switch label to override settings for a site"
+  },
+  "saveSiteOptions": {
+    "message": "I-save ang Mga Opsyon sa Site",
+    "description": "Button text to save site-specific settings"
+  },
+  "customSettingsNotSupported": {
+    "message": "Ang mga setting ng custom na site ay hindi suportado sa pahinang ito.",
+    "description": "Message shown when domain configuration is unavailable"
+  },
+  "siteSettingsDesc": {
+    "message": "I-configure ang gawi sa pagsususpinde ng tab para sa site na ito.",
+    "description": "Description of the site settings tab"
+  },
+  "toggleSiteOverride": {
+    "message": "I-toggle ang override ng mga custom na setting para sa site na ito",
+    "description": "Context menu title"
+  },
+  "whitelistNoItems": {
+    "message": "Walang mga naka-whitelist na item",
+    "description": "Shown when both whitelists are empty"
+  },
+  "whitelistedDomains": {
+    "message": "Mga Naka-whitelist na Domain",
+    "description": "Whitelist section heading"
+  },
+  "noDomainsWhitelisted": {
+    "message": "Walang mga domain na naka-whitelist",
+    "description": "Empty state of the domain whitelist"
+  },
+  "whitelistedPages": {
+    "message": "Mga Naka-whitelist na Pahina",
+    "description": "Whitelist section heading"
+  },
+  "noPagesWhitelisted": {
+    "message": "Walang mga page na naka-whitelist",
+    "description": "Empty state of the page whitelist"
+  },
+  "statusOptionsSaved": {
+    "message": "Nai-save ang mga opsyon!",
+    "description": "Toast after saving options"
+  },
+  "statusTimeRange": {
+    "message": "Ang oras ay dapat nasa pagitan ng 1 at 1440",
+    "description": "Validation error for the suspend time in minutes"
+  },
+  "statusSiteOptionsSaved": {
+    "message": "Na-save ang mga opsyon sa site!",
+    "description": "Toast after saving per-site options"
+  },
+  "statusSiteOverridesCleared": {
+    "message": "Na-clear ang mga override sa site!",
+    "description": "Toast after removing the per-site override"
+  },
+  "statusSiteSaveError": {
+    "message": "Error sa pag-save ng mga opsyon sa site",
+    "description": "Toast when saving per-site options fails"
+  },
+  "statusWhitelistUpdated": {
+    "message": "Na-update ang whitelist",
+    "description": "Toast after removing a whitelist entry"
+  },
+  "statusSaveError": {
+    "message": "Error sa pag-save ng mga opsyon",
+    "description": "Toast when saving options fails"
+  },
+  "statusCaptureQualityRange": {
+    "message": "Ang kalidad ng pagkuha ay dapat na 5-100",
+    "description": "Validation error"
+  },
+  "statusResizeWidthMin": {
+    "message": "Baguhin ang laki Lapad ay dapat na hindi bababa sa 100",
+    "description": "Validation error"
+  },
+  "statusResizeHeightMin": {
+    "message": "Baguhin ang laki Taas ay dapat na hindi bababa sa 100",
+    "description": "Validation error"
+  },
+  "statusResizeQualityRange": {
+    "message": "Ang kalidad ng pagbabago ay dapat na 0.1-1.0",
+    "description": "Validation error"
+  },
+  "statusScreenshotSaved": {
+    "message": "Na-save ang mga setting ng screenshot!",
+    "description": "Toast after saving screenshot settings"
+  },
+  "statusScreenshotSaveError": {
+    "message": "Error sa pag-save ng mga setting",
+    "description": "Toast when saving screenshot settings fails"
+  },
+  "statusDomainWhitelisted": {
+    "message": "Na-whitelist ang domain na $DOMAIN$!",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
     }
+  },
+  "statusDomainAlreadyWhitelisted": {
+    "message": "Na-whitelist na ang domain $DOMAIN$",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusPageWhitelisted": {
+    "message": "Naka-whitelist ang kasalukuyang page!",
+    "description": "Toast after whitelisting the current page"
+  },
+  "statusPageAlreadyWhitelisted": {
+    "message": "Naka-whitelist na ang kasalukuyang page",
+    "description": "Toast"
+  },
+  "statusPaused": {
+    "message": "Naka-pause ang pagsususpinde nang $MINUTES$ min",
+    "description": "Toast after pausing; MINUTES is a number",
+    "placeholders": {
+      "MINUTES": {
+        "content": "$1",
+        "example": "30"
+      }
+    }
+  },
+  "statusPauseCancelled": {
+    "message": "Kinansela ang pause",
+    "description": "Toast after cancelling the pause"
+  },
+  "pauseButton30": {
+    "message": "30m",
+    "description": "Pause button: 30 minutes (keep it very short)"
+  },
+  "pauseButton60": {
+    "message": "1h",
+    "description": "Pause button: 1 hour (keep it very short)"
+  },
+  "pauseButton90": {
+    "message": "1.5h",
+    "description": "Pause button: 1.5 hours (keep it very short)"
+  },
+  "pauseButton120": {
+    "message": "2h",
+    "description": "Pause button: 2 hours (keep it very short)"
+  },
+  "pausedLabel": {
+    "message": "Naka-pause",
+    "description": "Heading shown while suspension is paused"
+  },
+  "cancelPause": {
+    "message": "Kanselahin ang I-pause",
+    "description": "Button that ends the pause early"
+  },
+  "readTheGuide": {
+    "message": "Basahin ang gabay",
+    "description": "Button that opens the keyboard shortcut help page"
+  },
+  "emojiZzz": {
+    "message": "💤 Zzz",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSleeping": {
+    "message": "😴 Natutulog",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiInBed": {
+    "message": "🛌 Sa Kama",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiMoon": {
+    "message": "🌙 Buwan",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiIceCube": {
+    "message": "🧊 Ice Cube",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSnowflake": {
+    "message": "❄️ Snowflake",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiPause": {
+    "message": "⏸️ I-pause",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiNone": {
+    "message": "wala",
+    "description": "Tab title indicator choice: no indicator"
+  },
+  "siteLabel": {
+    "message": "Site:",
+    "description": "Label before the current site hostname"
+  },
+  "suspendTimeLabel": {
+    "message": "Suspendihin ang Oras:",
+    "description": "Per-site setting label"
+  },
+  "timeMinutesLabel": {
+    "message": "Oras (minuto):",
+    "description": "Per-site setting label"
+  },
+  "optInherit": {
+    "message": "Magmana",
+    "description": "Per-site choice: use the global setting"
+  },
+  "optCustom": {
+    "message": "Custom",
+    "description": "Per-site choice: use a custom value"
+  },
+  "optDisableDiscard": {
+    "message": "Huwag paganahin (Itapon)",
+    "description": "Per-site choice for Disable Suspended Page: discard the tab directly"
+  },
+  "optEnableShowPage": {
+    "message": "Paganahin (Ipakita ang pahina)",
+    "description": "Per-site choice for Disable Suspended Page: show the suspended page"
+  },
+  "optDontSuspend": {
+    "message": "Huwag Suspindihin",
+    "description": "Per-site choice: protect the tab"
+  },
+  "optAllowSuspend": {
+    "message": "Payagan ang Suspindihin",
+    "description": "Per-site choice: allow suspending the tab"
+  },
+  "labelDisableSuspendedPage": {
+    "message": "Huwag paganahin ang Nasuspindeng Pahina:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreAudio": {
+    "message": "Huwag pansinin ang Pagpe-play ng Audio:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreFormInput": {
+    "message": "Huwag pansinin ang Form Input:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreNotifications": {
+    "message": "Huwag pansinin ang Mga Notification:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnorePinned": {
+    "message": "Huwag pansinin ang Mga Naka-pin na Tab:",
+    "description": "Per-site setting label"
+  },
+  "dataExported": {
+    "message": "Na-export na ang mga setting!",
+    "description": "Toast after exporting"
+  },
+  "dataExportFailed": {
+    "message": "Nabigo ang pag-export",
+    "description": "Toast"
+  },
+  "dataImportInvalidJson": {
+    "message": "Nabigo ang pag-import: Di-wastong JSON file",
+    "description": "Toast"
+  },
+  "dataImportReadError": {
+    "message": "Nabigo ang pag-import: Hindi mabasa ang file",
+    "description": "Toast"
+  },
+  "dataImported": {
+    "message": "Matagumpay na na-import ang mga setting!",
+    "description": "Toast"
+  },
+  "dataImportFailed": {
+    "message": "Nabigo ang pag-import: $ERROR$",
+    "description": "Toast; ERROR is a technical error message",
+    "placeholders": {
+      "ERROR": {
+        "content": "$1",
+        "example": "Invalid file"
+      }
+    }
+  },
+  "dataImportNoValid": {
+    "message": "Walang valid o kinikilalang mga setting ang file.",
+    "description": "Error message for an import file with nothing usable"
+  },
+  "ctxWhitelistDomain": {
+    "message": "I-whitelist ang domain na ito",
+    "description": "Right-click menu item"
+  },
+  "ctxWhitelistPage": {
+    "message": "I-whitelist ang page na ito",
+    "description": "Right-click menu item"
+  },
+  "ctxSuspendPage": {
+    "message": "Suspindihin ang Pahinang Ito",
+    "description": "Right-click menu item"
+  },
+  "siteOverrideEnabled": {
+    "message": "Pinagana ang mga custom na setting para sa $DOMAIN$",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "siteOverrideDisabled": {
+    "message": "Na-disable ang mga custom na setting para sa $DOMAIN$",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  }
 }

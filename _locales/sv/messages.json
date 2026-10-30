@@ -40,7 +40,7 @@
     "description": "paragraph in popup.html"
   },
   "configureKeyboardShortcuts": {
-    "message": "Konfigurera tangentbordsgenvägar i Chromes tillägginställningar.",
+    "message": "Stöd för kortkommandon är tillgängligt! Konfigurera det i din webbläsares tilläggsinställningar genom att följa guiden.",
     "description": "paragraph in popup.html"
   },
   "importExportSettingsWhitelist": {
@@ -72,7 +72,7 @@
     "description": "button in popup.html"
   },
   "suspendInactiveTabsAfter": {
-    "message": "Pausa inaktiva flikar efter (minuter):",
+    "message": "Stäng av efter (min):",
     "description": "label in popup.html"
   },
   "darkMode": {
@@ -144,7 +144,7 @@
     "description": "paragraph in data_management.html"
   },
   "importDesc": {
-    "message": "Läs in inställningar från en JSON-fil. Detta kommer att skriva över dina nuvarande inställningar.",
+    "message": "Ladda inställningar från en JSON-fil. Importerade värden ersätter dina nuvarande inställningar; vitlistor slås samman med de befintliga.",
     "description": "paragraph in data_management.html"
   },
   "selectJsonFile": {
@@ -190,5 +190,301 @@
   "toggleSiteOverride": {
     "message": "Växla åsidosättande av anpassade inställningar för den här webbplatsen",
     "description": ""
+  },
+  "whitelistNoItems": {
+    "message": "Inga vitlistade objekt",
+    "description": "Shown when both whitelists are empty"
+  },
+  "whitelistedDomains": {
+    "message": "Vitlistade domäner",
+    "description": "Whitelist section heading"
+  },
+  "noDomainsWhitelisted": {
+    "message": "Inga domäner vitlistade",
+    "description": "Empty state of the domain whitelist"
+  },
+  "whitelistedPages": {
+    "message": "Vitlistade sidor",
+    "description": "Whitelist section heading"
+  },
+  "noPagesWhitelisted": {
+    "message": "Inga sidor vitlistade",
+    "description": "Empty state of the page whitelist"
+  },
+  "statusOptionsSaved": {
+    "message": "Alternativen sparade!",
+    "description": "Toast after saving options"
+  },
+  "statusTimeRange": {
+    "message": "Tiden måste vara mellan 1 och 1440",
+    "description": "Validation error for the suspend time in minutes"
+  },
+  "statusSiteOptionsSaved": {
+    "message": "Webbplatsalternativ sparade!",
+    "description": "Toast after saving per-site options"
+  },
+  "statusSiteOverridesCleared": {
+    "message": "Åsidosättningar av webbplatsen har rensats!",
+    "description": "Toast after removing the per-site override"
+  },
+  "statusSiteSaveError": {
+    "message": "Det gick inte att spara webbplatsalternativ",
+    "description": "Toast when saving per-site options fails"
+  },
+  "statusWhitelistUpdated": {
+    "message": "Vitlista uppdaterad",
+    "description": "Toast after removing a whitelist entry"
+  },
+  "statusSaveError": {
+    "message": "Det gick inte att spara alternativ",
+    "description": "Toast when saving options fails"
+  },
+  "statusCaptureQualityRange": {
+    "message": "Fångstkvaliteten måste vara 5-100",
+    "description": "Validation error"
+  },
+  "statusResizeWidthMin": {
+    "message": "Ändra storlek på bredd måste vara minst 100",
+    "description": "Validation error"
+  },
+  "statusResizeHeightMin": {
+    "message": "Ändra storlek på höjden måste vara minst 100",
+    "description": "Validation error"
+  },
+  "statusResizeQualityRange": {
+    "message": "Ändra storlek Kvalitet måste vara 0,1-1,0",
+    "description": "Validation error"
+  },
+  "statusScreenshotSaved": {
+    "message": "Skärmdumpinställningarna sparade!",
+    "description": "Toast after saving screenshot settings"
+  },
+  "statusScreenshotSaveError": {
+    "message": "Det gick inte att spara inställningar",
+    "description": "Toast when saving screenshot settings fails"
+  },
+  "statusDomainWhitelisted": {
+    "message": "Domän $DOMAIN$ vitlistad!",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusDomainAlreadyWhitelisted": {
+    "message": "Domänen $DOMAIN$ är redan vitlistad",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusPageWhitelisted": {
+    "message": "Aktuell sida vitlistad!",
+    "description": "Toast after whitelisting the current page"
+  },
+  "statusPageAlreadyWhitelisted": {
+    "message": "Den aktuella sidan är redan vitlistad",
+    "description": "Toast"
+  },
+  "statusPaused": {
+    "message": "Avstängning pausad i $MINUTES$ min",
+    "description": "Toast after pausing; MINUTES is a number",
+    "placeholders": {
+      "MINUTES": {
+        "content": "$1",
+        "example": "30"
+      }
+    }
+  },
+  "statusPauseCancelled": {
+    "message": "Paus avbröts",
+    "description": "Toast after cancelling the pause"
+  },
+  "pauseButton30": {
+    "message": "30m",
+    "description": "Pause button: 30 minutes (keep it very short)"
+  },
+  "pauseButton60": {
+    "message": "1h",
+    "description": "Pause button: 1 hour (keep it very short)"
+  },
+  "pauseButton90": {
+    "message": "1,5h",
+    "description": "Pause button: 1.5 hours (keep it very short)"
+  },
+  "pauseButton120": {
+    "message": "2h",
+    "description": "Pause button: 2 hours (keep it very short)"
+  },
+  "pausedLabel": {
+    "message": "Pausad",
+    "description": "Heading shown while suspension is paused"
+  },
+  "cancelPause": {
+    "message": "Avbryt Paus",
+    "description": "Button that ends the pause early"
+  },
+  "readTheGuide": {
+    "message": "Läs guiden",
+    "description": "Button that opens the keyboard shortcut help page"
+  },
+  "emojiZzz": {
+    "message": "💤 Zzz",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSleeping": {
+    "message": "😴 Sover",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiInBed": {
+    "message": "🛌 I sängen",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiMoon": {
+    "message": "🌙 Måne",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiIceCube": {
+    "message": "🧊 Iskub",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSnowflake": {
+    "message": "❄️ Snöflinga",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiPause": {
+    "message": "⏸️ Pausa",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiNone": {
+    "message": "Inga",
+    "description": "Tab title indicator choice: no indicator"
+  },
+  "siteLabel": {
+    "message": "Webbplats:",
+    "description": "Label before the current site hostname"
+  },
+  "suspendTimeLabel": {
+    "message": "Avstängningstid:",
+    "description": "Per-site setting label"
+  },
+  "timeMinutesLabel": {
+    "message": "Tid (minuter):",
+    "description": "Per-site setting label"
+  },
+  "optInherit": {
+    "message": "Ärva",
+    "description": "Per-site choice: use the global setting"
+  },
+  "optCustom": {
+    "message": "Anpassad",
+    "description": "Per-site choice: use a custom value"
+  },
+  "optDisableDiscard": {
+    "message": "Inaktivera (kassera)",
+    "description": "Per-site choice for Disable Suspended Page: discard the tab directly"
+  },
+  "optEnableShowPage": {
+    "message": "Aktivera (Visa sida)",
+    "description": "Per-site choice for Disable Suspended Page: show the suspended page"
+  },
+  "optDontSuspend": {
+    "message": "Stäng inte av",
+    "description": "Per-site choice: protect the tab"
+  },
+  "optAllowSuspend": {
+    "message": "Tillåt avstängning",
+    "description": "Per-site choice: allow suspending the tab"
+  },
+  "labelDisableSuspendedPage": {
+    "message": "Inaktivera avstängd sida:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreAudio": {
+    "message": "Ignorera att spela upp ljud:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreFormInput": {
+    "message": "Ignorera formulärinmatning:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreNotifications": {
+    "message": "Ignorera aviseringar:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnorePinned": {
+    "message": "Ignorera fästade flikar:",
+    "description": "Per-site setting label"
+  },
+  "dataExported": {
+    "message": "Inställningar exporterade!",
+    "description": "Toast after exporting"
+  },
+  "dataExportFailed": {
+    "message": "Exporten misslyckades",
+    "description": "Toast"
+  },
+  "dataImportInvalidJson": {
+    "message": "Import misslyckades: Ogiltig JSON-fil",
+    "description": "Toast"
+  },
+  "dataImportReadError": {
+    "message": "Import misslyckades: Kunde inte läsa filen",
+    "description": "Toast"
+  },
+  "dataImported": {
+    "message": "Inställningarna har importerats!",
+    "description": "Toast"
+  },
+  "dataImportFailed": {
+    "message": "Import misslyckades: $ERROR$",
+    "description": "Toast; ERROR is a technical error message",
+    "placeholders": {
+      "ERROR": {
+        "content": "$1",
+        "example": "Invalid file"
+      }
+    }
+  },
+  "dataImportNoValid": {
+    "message": "Filen innehåller inga giltiga eller erkända inställningar.",
+    "description": "Error message for an import file with nothing usable"
+  },
+  "ctxWhitelistDomain": {
+    "message": "Vitlista den här domänen",
+    "description": "Right-click menu item"
+  },
+  "ctxWhitelistPage": {
+    "message": "Vitlista den här sidan",
+    "description": "Right-click menu item"
+  },
+  "ctxSuspendPage": {
+    "message": "Stäng av den här sidan",
+    "description": "Right-click menu item"
+  },
+  "siteOverrideEnabled": {
+    "message": "Anpassade inställningar aktiverade för $DOMAIN$",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "siteOverrideDisabled": {
+    "message": "Anpassade inställningar inaktiverade för $DOMAIN$",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
   }
 }

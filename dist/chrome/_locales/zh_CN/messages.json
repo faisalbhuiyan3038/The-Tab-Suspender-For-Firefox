@@ -40,7 +40,7 @@
     "description": "paragraph in popup.html"
   },
   "configureKeyboardShortcuts": {
-    "message": "在 Chrome 扩展程序设置中配置键盘快捷键。",
+    "message": "键盘快捷键支持可用！按照指南在浏览器的扩展设置中配置它。",
     "description": "paragraph in popup.html"
   },
   "importExportSettingsWhitelist": {
@@ -72,7 +72,7 @@
     "description": "button in popup.html"
   },
   "suspendInactiveTabsAfter": {
-    "message": "多久后挂起非活动标签页（分钟）：",
+    "message": "暂停时间（分钟）：",
     "description": "label in popup.html"
   },
   "darkMode": {
@@ -144,11 +144,347 @@
     "description": "paragraph in data_management.html"
   },
   "importDesc": {
-    "message": "从 JSON 文件加载设置。这将覆盖您当前的设置。",
+    "message": "从 JSON 文件加载设置。导入的值替换您当前的设置；白名单与现有白名单合并。",
     "description": "paragraph in data_management.html"
   },
   "selectJsonFile": {
     "message": "选择 JSON 文件",
     "description": "label in data_management.html"
+  },
+  "tabTitleIndicator": {
+    "message": "选项卡状态指示器：",
+    "description": "Tab Indicator"
+  },
+  "disableSuspendedPage": {
+    "message": "禁用暂停页面",
+    "description": "Option to disable suspended page content"
+  },
+  "pauseSuspension": {
+    "message": "暂停暂停",
+    "description": "Option to pause suspension of tabs"
+  },
+  "pauseSuspensionDesc": {
+    "message": "暂时禁用自动选项卡暂停。",
+    "description": "Description for the pause suspension option"
+  },
+  "siteSettings": {
+    "message": "本网站",
+    "description": "Tab name in popup"
+  },
+  "overrideGlobalSettings": {
+    "message": "覆盖全局设置",
+    "description": "Switch label to override settings for a site"
+  },
+  "saveSiteOptions": {
+    "message": "保存站点选项",
+    "description": "Button text to save site-specific settings"
+  },
+  "customSettingsNotSupported": {
+    "message": "此页面不支持自定义站点设置。",
+    "description": "Message shown when domain configuration is unavailable"
+  },
+  "siteSettingsDesc": {
+    "message": "配置该站点的选项卡暂停行为。",
+    "description": "Description of the site settings tab"
+  },
+  "toggleSiteOverride": {
+    "message": "切换此网站的自定义设置覆盖",
+    "description": "Context menu title"
+  },
+  "whitelistNoItems": {
+    "message": "没有列入白名单的项目",
+    "description": "Shown when both whitelists are empty"
+  },
+  "whitelistedDomains": {
+    "message": "白名单域",
+    "description": "Whitelist section heading"
+  },
+  "noDomainsWhitelisted": {
+    "message": "没有域被列入白名单",
+    "description": "Empty state of the domain whitelist"
+  },
+  "whitelistedPages": {
+    "message": "白名单页面",
+    "description": "Whitelist section heading"
+  },
+  "noPagesWhitelisted": {
+    "message": "没有页面被列入白名单",
+    "description": "Empty state of the page whitelist"
+  },
+  "statusOptionsSaved": {
+    "message": "选项已保存！",
+    "description": "Toast after saving options"
+  },
+  "statusTimeRange": {
+    "message": "时间必须介于 1 到 1440 之间",
+    "description": "Validation error for the suspend time in minutes"
+  },
+  "statusSiteOptionsSaved": {
+    "message": "站点选项已保存！",
+    "description": "Toast after saving per-site options"
+  },
+  "statusSiteOverridesCleared": {
+    "message": "网站覆盖已清除！",
+    "description": "Toast after removing the per-site override"
+  },
+  "statusSiteSaveError": {
+    "message": "保存站点选项时出错",
+    "description": "Toast when saving per-site options fails"
+  },
+  "statusWhitelistUpdated": {
+    "message": "白名单已更新",
+    "description": "Toast after removing a whitelist entry"
+  },
+  "statusSaveError": {
+    "message": "保存选项时出错",
+    "description": "Toast when saving options fails"
+  },
+  "statusCaptureQualityRange": {
+    "message": "捕获质量必须为 5-100",
+    "description": "Validation error"
+  },
+  "statusResizeWidthMin": {
+    "message": "调整宽度必须至少为 100",
+    "description": "Validation error"
+  },
+  "statusResizeHeightMin": {
+    "message": "调整高度必须至少为 100",
+    "description": "Validation error"
+  },
+  "statusResizeQualityRange": {
+    "message": "调整大小质量必须为 0.1-1.0",
+    "description": "Validation error"
+  },
+  "statusScreenshotSaved": {
+    "message": "屏幕截图设置已保存！",
+    "description": "Toast after saving screenshot settings"
+  },
+  "statusScreenshotSaveError": {
+    "message": "保存设置时出错",
+    "description": "Toast when saving screenshot settings fails"
+  },
+  "statusDomainWhitelisted": {
+    "message": "域 $DOMAIN$ 已列入白名单！",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusDomainAlreadyWhitelisted": {
+    "message": "域 $DOMAIN$ 已列入白名单",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusPageWhitelisted": {
+    "message": "当前页面已列入白名单！",
+    "description": "Toast after whitelisting the current page"
+  },
+  "statusPageAlreadyWhitelisted": {
+    "message": "当前页面已列入白名单",
+    "description": "Toast"
+  },
+  "statusPaused": {
+    "message": "暂停已暂停 $MINUTES$ 分钟",
+    "description": "Toast after pausing; MINUTES is a number",
+    "placeholders": {
+      "MINUTES": {
+        "content": "$1",
+        "example": "30"
+      }
+    }
+  },
+  "statusPauseCancelled": {
+    "message": "暂停已取消",
+    "description": "Toast after cancelling the pause"
+  },
+  "pauseButton30": {
+    "message": "30m",
+    "description": "Pause button: 30 minutes (keep it very short)"
+  },
+  "pauseButton60": {
+    "message": "1小时",
+    "description": "Pause button: 1 hour (keep it very short)"
+  },
+  "pauseButton90": {
+    "message": "1.5小时",
+    "description": "Pause button: 1.5 hours (keep it very short)"
+  },
+  "pauseButton120": {
+    "message": "2小时",
+    "description": "Pause button: 2 hours (keep it very short)"
+  },
+  "pausedLabel": {
+    "message": "已暂停",
+    "description": "Heading shown while suspension is paused"
+  },
+  "cancelPause": {
+    "message": "取消暂停",
+    "description": "Button that ends the pause early"
+  },
+  "readTheGuide": {
+    "message": "阅读指南",
+    "description": "Button that opens the keyboard shortcut help page"
+  },
+  "emojiZzz": {
+    "message": "💤 兹兹",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSleeping": {
+    "message": "😴正在睡觉",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiInBed": {
+    "message": "🛌在床上",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiMoon": {
+    "message": "🌙月亮",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiIceCube": {
+    "message": "🧊冰块",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSnowflake": {
+    "message": "❄️ 雪花",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiPause": {
+    "message": "⏸️暂停",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiNone": {
+    "message": "无",
+    "description": "Tab title indicator choice: no indicator"
+  },
+  "siteLabel": {
+    "message": "站点：",
+    "description": "Label before the current site hostname"
+  },
+  "suspendTimeLabel": {
+    "message": "暂停时间：",
+    "description": "Per-site setting label"
+  },
+  "timeMinutesLabel": {
+    "message": "时间（分钟）：",
+    "description": "Per-site setting label"
+  },
+  "optInherit": {
+    "message": "继承",
+    "description": "Per-site choice: use the global setting"
+  },
+  "optCustom": {
+    "message": "定制",
+    "description": "Per-site choice: use a custom value"
+  },
+  "optDisableDiscard": {
+    "message": "禁用（丢弃）",
+    "description": "Per-site choice for Disable Suspended Page: discard the tab directly"
+  },
+  "optEnableShowPage": {
+    "message": "启用（显示页面）",
+    "description": "Per-site choice for Disable Suspended Page: show the suspended page"
+  },
+  "optDontSuspend": {
+    "message": "不要暂停",
+    "description": "Per-site choice: protect the tab"
+  },
+  "optAllowSuspend": {
+    "message": "允许暂停",
+    "description": "Per-site choice: allow suspending the tab"
+  },
+  "labelDisableSuspendedPage": {
+    "message": "禁用暂停页面：",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreAudio": {
+    "message": "忽略播放音频：",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreFormInput": {
+    "message": "忽略表单输入：",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreNotifications": {
+    "message": "忽略通知：",
+    "description": "Per-site setting label"
+  },
+  "labelIgnorePinned": {
+    "message": "忽略固定标签：",
+    "description": "Per-site setting label"
+  },
+  "dataExported": {
+    "message": "设置已导出！",
+    "description": "Toast after exporting"
+  },
+  "dataExportFailed": {
+    "message": "导出失败",
+    "description": "Toast"
+  },
+  "dataImportInvalidJson": {
+    "message": "导入失败：JSON 文件无效",
+    "description": "Toast"
+  },
+  "dataImportReadError": {
+    "message": "导入失败：无法读取文件",
+    "description": "Toast"
+  },
+  "dataImported": {
+    "message": "设置导入成功！",
+    "description": "Toast"
+  },
+  "dataImportFailed": {
+    "message": "导入失败：$ERROR$",
+    "description": "Toast; ERROR is a technical error message",
+    "placeholders": {
+      "ERROR": {
+        "content": "$1",
+        "example": "Invalid file"
+      }
+    }
+  },
+  "dataImportNoValid": {
+    "message": "文件不包含有效或可识别的设置。",
+    "description": "Error message for an import file with nothing usable"
+  },
+  "ctxWhitelistDomain": {
+    "message": "将此域列入白名单",
+    "description": "Right-click menu item"
+  },
+  "ctxWhitelistPage": {
+    "message": "将此页面列入白名单",
+    "description": "Right-click menu item"
+  },
+  "ctxSuspendPage": {
+    "message": "暂停此页面",
+    "description": "Right-click menu item"
+  },
+  "siteOverrideEnabled": {
+    "message": "为 $DOMAIN$ 启用自定义设置",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "siteOverrideDisabled": {
+    "message": "已禁用 $DOMAIN$ 的自定义设置",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
   }
 }

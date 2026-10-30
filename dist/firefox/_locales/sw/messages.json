@@ -40,7 +40,7 @@
     "description": "paragraph in popup.html"
   },
   "configureKeyboardShortcuts": {
-    "message": "Sanidi njia za kibodi katika mipangilio ya nyongeza ya Chrome.",
+    "message": "Usaidizi wa njia ya mkato ya kibodi unapatikana! Isanidi katika mipangilio ya kiendelezi ya kivinjari chako kwa kufuata mwongozo.",
     "description": "paragraph in popup.html"
   },
   "importExportSettingsWhitelist": {
@@ -72,7 +72,7 @@
     "description": "button in popup.html"
   },
   "suspendInactiveTabsAfter": {
-    "message": "Sahau vichwa visivyo hai baada ya (dakika):",
+    "message": "Sitisha baada ya (dakika):",
     "description": "label in popup.html"
   },
   "darkMode": {
@@ -144,7 +144,7 @@
     "description": "paragraph in data_management.html"
   },
   "importDesc": {
-    "message": "Pakia mipangilio kutoka kwenye faili la JSON. Hii itaandika juu ya mipangilio yako ya sasa.",
+    "message": "Pakia mipangilio kutoka kwa faili ya JSON. Thamani zilizoingizwa badala ya mipangilio yako ya sasa; orodha zilizoidhinishwa zimeunganishwa na zilizopo.",
     "description": "paragraph in data_management.html"
   },
   "selectJsonFile": {
@@ -190,5 +190,301 @@
   "toggleSiteOverride": {
     "message": "Geuza ubatilishaji wa mipangilio maalum ya tovuti hii",
     "description": ""
+  },
+  "whitelistNoItems": {
+    "message": "Hakuna vipengee vilivyoidhinishwa",
+    "description": "Shown when both whitelists are empty"
+  },
+  "whitelistedDomains": {
+    "message": "Vikoa Vilivyoidhinishwa",
+    "description": "Whitelist section heading"
+  },
+  "noDomainsWhitelisted": {
+    "message": "Hakuna vikoa vilivyoidhinishwa",
+    "description": "Empty state of the domain whitelist"
+  },
+  "whitelistedPages": {
+    "message": "Kurasa Zilizoidhinishwa",
+    "description": "Whitelist section heading"
+  },
+  "noPagesWhitelisted": {
+    "message": "Hakuna kurasa zilizoidhinishwa",
+    "description": "Empty state of the page whitelist"
+  },
+  "statusOptionsSaved": {
+    "message": "Chaguo zimehifadhiwa!",
+    "description": "Toast after saving options"
+  },
+  "statusTimeRange": {
+    "message": "Muda lazima uwe kati ya 1 na 1440",
+    "description": "Validation error for the suspend time in minutes"
+  },
+  "statusSiteOptionsSaved": {
+    "message": "Chaguo za tovuti zimehifadhiwa!",
+    "description": "Toast after saving per-site options"
+  },
+  "statusSiteOverridesCleared": {
+    "message": "Ubatilifu wa tovuti umeondolewa!",
+    "description": "Toast after removing the per-site override"
+  },
+  "statusSiteSaveError": {
+    "message": "Hitilafu katika kuhifadhi chaguo za tovuti",
+    "description": "Toast when saving per-site options fails"
+  },
+  "statusWhitelistUpdated": {
+    "message": "Orodha iliyoidhinishwa imesasishwa",
+    "description": "Toast after removing a whitelist entry"
+  },
+  "statusSaveError": {
+    "message": "Hitilafu katika kuhifadhi chaguo",
+    "description": "Toast when saving options fails"
+  },
+  "statusCaptureQualityRange": {
+    "message": "Ubora wa Kupiga Picha lazima uwe 5-100",
+    "description": "Validation error"
+  },
+  "statusResizeWidthMin": {
+    "message": "Badilisha ukubwa wa upana lazima iwe angalau 100",
+    "description": "Validation error"
+  },
+  "statusResizeHeightMin": {
+    "message": "Badilisha ukubwa Urefu lazima uwe angalau 100",
+    "description": "Validation error"
+  },
+  "statusResizeQualityRange": {
+    "message": "Badilisha ukubwa Ubora lazima uwe 0.1-1.0",
+    "description": "Validation error"
+  },
+  "statusScreenshotSaved": {
+    "message": "Mipangilio ya picha ya skrini imehifadhiwa!",
+    "description": "Toast after saving screenshot settings"
+  },
+  "statusScreenshotSaveError": {
+    "message": "Hitilafu katika kuhifadhi mipangilio",
+    "description": "Toast when saving screenshot settings fails"
+  },
+  "statusDomainWhitelisted": {
+    "message": "Kikoa $DOMAIN$ kimeidhinishwa!",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusDomainAlreadyWhitelisted": {
+    "message": "Kikoa $DOMAIN$ tayari kimeidhinishwa",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusPageWhitelisted": {
+    "message": "Ukurasa wa sasa umeidhinishwa!",
+    "description": "Toast after whitelisting the current page"
+  },
+  "statusPageAlreadyWhitelisted": {
+    "message": "Ukurasa wa sasa tayari umeidhinishwa",
+    "description": "Toast"
+  },
+  "statusPaused": {
+    "message": "Kusimamishwa kumesitishwa kwa dakika $MINUTES$",
+    "description": "Toast after pausing; MINUTES is a number",
+    "placeholders": {
+      "MINUTES": {
+        "content": "$1",
+        "example": "30"
+      }
+    }
+  },
+  "statusPauseCancelled": {
+    "message": "Usitishaji umeghairiwa",
+    "description": "Toast after cancelling the pause"
+  },
+  "pauseButton30": {
+    "message": "30m",
+    "description": "Pause button: 30 minutes (keep it very short)"
+  },
+  "pauseButton60": {
+    "message": "1h",
+    "description": "Pause button: 1 hour (keep it very short)"
+  },
+  "pauseButton90": {
+    "message": "Saa 1.5",
+    "description": "Pause button: 1.5 hours (keep it very short)"
+  },
+  "pauseButton120": {
+    "message": "2h",
+    "description": "Pause button: 2 hours (keep it very short)"
+  },
+  "pausedLabel": {
+    "message": "Imesitishwa",
+    "description": "Heading shown while suspension is paused"
+  },
+  "cancelPause": {
+    "message": "Ghairi Kusitisha",
+    "description": "Button that ends the pause early"
+  },
+  "readTheGuide": {
+    "message": "Soma mwongozo",
+    "description": "Button that opens the keyboard shortcut help page"
+  },
+  "emojiZzz": {
+    "message": "💤 Zzz",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSleeping": {
+    "message": "😴 Kulala",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiInBed": {
+    "message": "🛌 Kitandani",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiMoon": {
+    "message": "🌙 Mwezi",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiIceCube": {
+    "message": "🧊 Mchemraba wa Barafu",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSnowflake": {
+    "message": "❄️ Mwanga wa theluji",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiPause": {
+    "message": "⏸️ Sitisha",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiNone": {
+    "message": "Hakuna",
+    "description": "Tab title indicator choice: no indicator"
+  },
+  "siteLabel": {
+    "message": "Tovuti:",
+    "description": "Label before the current site hostname"
+  },
+  "suspendTimeLabel": {
+    "message": "Kusimamisha Muda:",
+    "description": "Per-site setting label"
+  },
+  "timeMinutesLabel": {
+    "message": "Muda (dakika):",
+    "description": "Per-site setting label"
+  },
+  "optInherit": {
+    "message": "Kurithi",
+    "description": "Per-site choice: use the global setting"
+  },
+  "optCustom": {
+    "message": "Desturi",
+    "description": "Per-site choice: use a custom value"
+  },
+  "optDisableDiscard": {
+    "message": "Zima (Tupa)",
+    "description": "Per-site choice for Disable Suspended Page: discard the tab directly"
+  },
+  "optEnableShowPage": {
+    "message": "Washa (Onyesha ukurasa)",
+    "description": "Per-site choice for Disable Suspended Page: show the suspended page"
+  },
+  "optDontSuspend": {
+    "message": "Usisitishe",
+    "description": "Per-site choice: protect the tab"
+  },
+  "optAllowSuspend": {
+    "message": "Ruhusu Kusimamisha",
+    "description": "Per-site choice: allow suspending the tab"
+  },
+  "labelDisableSuspendedPage": {
+    "message": "Lemaza Ukurasa Uliosimamishwa:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreAudio": {
+    "message": "Puuza Kucheza Sauti:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreFormInput": {
+    "message": "Puuza Ingizo la Fomu:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreNotifications": {
+    "message": "Puuza Arifa:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnorePinned": {
+    "message": "Puuza Vichupo Vilivyobandikwa:",
+    "description": "Per-site setting label"
+  },
+  "dataExported": {
+    "message": "Mipangilio imehamishwa!",
+    "description": "Toast after exporting"
+  },
+  "dataExportFailed": {
+    "message": "Imeshindwa kuhamisha",
+    "description": "Toast"
+  },
+  "dataImportInvalidJson": {
+    "message": "Imeshindwa kuleta: Faili ya JSON si sahihi",
+    "description": "Toast"
+  },
+  "dataImportReadError": {
+    "message": "Imeshindwa kuleta: Haikuweza kusoma faili",
+    "description": "Toast"
+  },
+  "dataImported": {
+    "message": "Mipangilio imefaulu kuletwa!",
+    "description": "Toast"
+  },
+  "dataImportFailed": {
+    "message": "Imeshindwa kuleta: $ERROR$",
+    "description": "Toast; ERROR is a technical error message",
+    "placeholders": {
+      "ERROR": {
+        "content": "$1",
+        "example": "Invalid file"
+      }
+    }
+  },
+  "dataImportNoValid": {
+    "message": "Faili haina mipangilio halali au inayotambulika.",
+    "description": "Error message for an import file with nothing usable"
+  },
+  "ctxWhitelistDomain": {
+    "message": "Orodhesha kikoa hiki",
+    "description": "Right-click menu item"
+  },
+  "ctxWhitelistPage": {
+    "message": "Orodhesha ukurasa huu",
+    "description": "Right-click menu item"
+  },
+  "ctxSuspendPage": {
+    "message": "Sitisha Ukurasa Huu",
+    "description": "Right-click menu item"
+  },
+  "siteOverrideEnabled": {
+    "message": "Mipangilio maalum imewezeshwa kwa $DOMAIN$",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "siteOverrideDisabled": {
+    "message": "Mipangilio maalum ya $DOMAIN$ imezimwa",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
   }
 }

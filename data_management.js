@@ -1,3 +1,5 @@
+const t = (key, subs, fallback) => chrome.i18n.getMessage(key, subs) || fallback || key;
+
 function applyTheme(isDark) {
   document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
 }
@@ -70,11 +72,11 @@ document.getElementById('exportSettingsBtn').addEventListener('click', async () 
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
     
-    showDataStatus('Settings exported!');
+    showDataStatus(t('dataExported', null, 'Settings exported!'));
   } catch (error)
  {
     console.error('Error exporting settings:', error);
-    showDataStatus('Export failed', true);
+    showDataStatus(t('dataExportFailed', null, 'Export failed'), true);
   }
 });
 
@@ -91,7 +93,7 @@ document.getElementById('importSettingsInput').addEventListener('change', (event
       importedSettings = JSON.parse(e.target.result);
     } catch (error) {
       console.error('Error parsing JSON:', error);
-      showDataStatus('Import failed: Invalid JSON file', true);
+      showDataStatus(t('dataImportInvalidJson', null, 'Import failed: Invalid JSON file'), true);
       event.target.value = null; // Reset file input
       return;
     }
@@ -163,16 +165,16 @@ document.getElementById('importSettingsInput').addEventListener('change', (event
       }
       
       if (Object.keys(newSettings).length === 0) {
-        throw new Error("File contains no valid or recognized settings.");
+        throw new Error(t('dataImportNoValid', null, 'File contains no valid or recognized settings.'));
       }
 
       await chrome.storage.sync.set(newSettings);
       
-      showDataStatus('Settings imported successfully!');
+      showDataStatus(t('dataImported', null, 'Settings imported successfully!'));
 
     } catch (error) {
       console.error('Error importing settings:', error);
-      showDataStatus(`Import failed: ${error.message}`, true);
+      showDataStatus(t('dataImportFailed', error.message, `Import failed: ${error.message}`), true);
     } finally {
       event.target.value = null;
     }
@@ -180,7 +182,7 @@ document.getElementById('importSettingsInput').addEventListener('change', (event
   
   reader.onerror = () => {
     console.error('File reading error');
-    showDataStatus('Import failed: Could not read file', true);
+    showDataStatus(t('dataImportReadError', null, 'Import failed: Could not read file'), true);
   };
 
   reader.readAsText(file);

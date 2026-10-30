@@ -40,7 +40,7 @@
     "description": "paragraph in popup.html"
   },
   "configureKeyboardShortcuts": {
-    "message": "Chrome 확장 프로그램 설정에서 키보드 단축키를 구성하세요.",
+    "message": "키보드 단축키 지원이 가능합니다! 가이드에 따라 브라우저의 확장 설정에서 구성하세요.",
     "description": "paragraph in popup.html"
   },
   "importExportSettingsWhitelist": {
@@ -72,7 +72,7 @@
     "description": "button in popup.html"
   },
   "suspendInactiveTabsAfter": {
-    "message": "다음 시간 후 사용하지 않는 탭 일시 중단(분):",
+    "message": "다음 시간 이후 일시중지(분):",
     "description": "label in popup.html"
   },
   "darkMode": {
@@ -144,7 +144,7 @@
     "description": "paragraph in data_management.html"
   },
   "importDesc": {
-    "message": "JSON 파일에서 설정을 불러옵니다. 현재 설정을 덮어씁니다.",
+    "message": "JSON 파일에서 설정을 로드합니다. 가져온 값이 현재 설정을 대체합니다. 화이트리스트는 기존 화이트리스트와 병합됩니다.",
     "description": "paragraph in data_management.html"
   },
   "selectJsonFile": {
@@ -190,5 +190,301 @@
   "toggleSiteOverride": {
     "message": "이 사이트에 대한 사용자 정의 설정 재정의 전환",
     "description": ""
+  },
+  "whitelistNoItems": {
+    "message": "허용된 항목 없음",
+    "description": "Shown when both whitelists are empty"
+  },
+  "whitelistedDomains": {
+    "message": "허용된 도메인",
+    "description": "Whitelist section heading"
+  },
+  "noDomainsWhitelisted": {
+    "message": "허용된 도메인이 없습니다",
+    "description": "Empty state of the domain whitelist"
+  },
+  "whitelistedPages": {
+    "message": "화이트리스트 페이지",
+    "description": "Whitelist section heading"
+  },
+  "noPagesWhitelisted": {
+    "message": "허용된 페이지가 없습니다",
+    "description": "Empty state of the page whitelist"
+  },
+  "statusOptionsSaved": {
+    "message": "옵션이 저장되었습니다!",
+    "description": "Toast after saving options"
+  },
+  "statusTimeRange": {
+    "message": "시간은 1에서 1440 사이여야 합니다",
+    "description": "Validation error for the suspend time in minutes"
+  },
+  "statusSiteOptionsSaved": {
+    "message": "사이트 옵션이 저장되었습니다!",
+    "description": "Toast after saving per-site options"
+  },
+  "statusSiteOverridesCleared": {
+    "message": "사이트 재정의가 삭제되었습니다!",
+    "description": "Toast after removing the per-site override"
+  },
+  "statusSiteSaveError": {
+    "message": "사이트 옵션을 저장하는 중에 오류가 발생했습니다",
+    "description": "Toast when saving per-site options fails"
+  },
+  "statusWhitelistUpdated": {
+    "message": "허용 목록이 업데이트되었습니다",
+    "description": "Toast after removing a whitelist entry"
+  },
+  "statusSaveError": {
+    "message": "옵션을 저장하는 중에 오류가 발생했습니다",
+    "description": "Toast when saving options fails"
+  },
+  "statusCaptureQualityRange": {
+    "message": "캡처 품질은 5-100이어야 합니다",
+    "description": "Validation error"
+  },
+  "statusResizeWidthMin": {
+    "message": "크기 조정 너비는 100 이상이어야 합니다",
+    "description": "Validation error"
+  },
+  "statusResizeHeightMin": {
+    "message": "크기 조정 높이는 100 이상이어야 합니다",
+    "description": "Validation error"
+  },
+  "statusResizeQualityRange": {
+    "message": "크기 조정 품질은 0.1-1.0이어야 합니다",
+    "description": "Validation error"
+  },
+  "statusScreenshotSaved": {
+    "message": "스크린샷 설정이 저장되었습니다!",
+    "description": "Toast after saving screenshot settings"
+  },
+  "statusScreenshotSaveError": {
+    "message": "설정을 저장하는 중에 오류가 발생했습니다",
+    "description": "Toast when saving screenshot settings fails"
+  },
+  "statusDomainWhitelisted": {
+    "message": "도메인 $DOMAIN$이(가) 허용되었습니다!",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusDomainAlreadyWhitelisted": {
+    "message": "도메인 $DOMAIN$이(가) 이미 허용 목록에 포함되어 있습니다",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusPageWhitelisted": {
+    "message": "현재 페이지가 허용되었습니다!",
+    "description": "Toast after whitelisting the current page"
+  },
+  "statusPageAlreadyWhitelisted": {
+    "message": "현재 페이지가 이미 허용되었습니다",
+    "description": "Toast"
+  },
+  "statusPaused": {
+    "message": "정지가 $MINUTES$분 동안 일시중지되었습니다",
+    "description": "Toast after pausing; MINUTES is a number",
+    "placeholders": {
+      "MINUTES": {
+        "content": "$1",
+        "example": "30"
+      }
+    }
+  },
+  "statusPauseCancelled": {
+    "message": "일시중지가 취소되었습니다",
+    "description": "Toast after cancelling the pause"
+  },
+  "pauseButton30": {
+    "message": "30m",
+    "description": "Pause button: 30 minutes (keep it very short)"
+  },
+  "pauseButton60": {
+    "message": "1시간",
+    "description": "Pause button: 1 hour (keep it very short)"
+  },
+  "pauseButton90": {
+    "message": "1시간 30분",
+    "description": "Pause button: 1.5 hours (keep it very short)"
+  },
+  "pauseButton120": {
+    "message": "2시간",
+    "description": "Pause button: 2 hours (keep it very short)"
+  },
+  "pausedLabel": {
+    "message": "일시중지됨",
+    "description": "Heading shown while suspension is paused"
+  },
+  "cancelPause": {
+    "message": "일시정지 취소",
+    "description": "Button that ends the pause early"
+  },
+  "readTheGuide": {
+    "message": "가이드 읽기",
+    "description": "Button that opens the keyboard shortcut help page"
+  },
+  "emojiZzz": {
+    "message": "💤Zzz",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSleeping": {
+    "message": "😴 자고",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiInBed": {
+    "message": "🛌 침대에서",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiMoon": {
+    "message": "🌙 달",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiIceCube": {
+    "message": "🧊 아이스 큐브",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSnowflake": {
+    "message": "❄️ 눈송이",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiPause": {
+    "message": "⏸️ 일시중지",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiNone": {
+    "message": "없음",
+    "description": "Tab title indicator choice: no indicator"
+  },
+  "siteLabel": {
+    "message": "사이트:",
+    "description": "Label before the current site hostname"
+  },
+  "suspendTimeLabel": {
+    "message": "정지 시간:",
+    "description": "Per-site setting label"
+  },
+  "timeMinutesLabel": {
+    "message": "시간(분):",
+    "description": "Per-site setting label"
+  },
+  "optInherit": {
+    "message": "상속",
+    "description": "Per-site choice: use the global setting"
+  },
+  "optCustom": {
+    "message": "맞춤",
+    "description": "Per-site choice: use a custom value"
+  },
+  "optDisableDiscard": {
+    "message": "비활성화(폐기)",
+    "description": "Per-site choice for Disable Suspended Page: discard the tab directly"
+  },
+  "optEnableShowPage": {
+    "message": "활성화(페이지 표시)",
+    "description": "Per-site choice for Disable Suspended Page: show the suspended page"
+  },
+  "optDontSuspend": {
+    "message": "일시중단하지 마세요",
+    "description": "Per-site choice: protect the tab"
+  },
+  "optAllowSuspend": {
+    "message": "일시 중지 허용",
+    "description": "Per-site choice: allow suspending the tab"
+  },
+  "labelDisableSuspendedPage": {
+    "message": "일시 중단된 페이지 비활성화:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreAudio": {
+    "message": "오디오 재생 무시:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreFormInput": {
+    "message": "양식 입력 무시:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreNotifications": {
+    "message": "알림 무시:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnorePinned": {
+    "message": "고정된 탭 무시:",
+    "description": "Per-site setting label"
+  },
+  "dataExported": {
+    "message": "설정을 내보냈습니다.",
+    "description": "Toast after exporting"
+  },
+  "dataExportFailed": {
+    "message": "내보내기 실패",
+    "description": "Toast"
+  },
+  "dataImportInvalidJson": {
+    "message": "가져오기 실패: 잘못된 JSON 파일",
+    "description": "Toast"
+  },
+  "dataImportReadError": {
+    "message": "가져오기 실패: 파일을 읽을 수 없습니다",
+    "description": "Toast"
+  },
+  "dataImported": {
+    "message": "설정을 성공적으로 가져왔습니다!",
+    "description": "Toast"
+  },
+  "dataImportFailed": {
+    "message": "가져오기 실패: $ERROR$",
+    "description": "Toast; ERROR is a technical error message",
+    "placeholders": {
+      "ERROR": {
+        "content": "$1",
+        "example": "Invalid file"
+      }
+    }
+  },
+  "dataImportNoValid": {
+    "message": "파일에 유효하거나 인식되는 설정이 없습니다.",
+    "description": "Error message for an import file with nothing usable"
+  },
+  "ctxWhitelistDomain": {
+    "message": "이 도메인을 허용 목록에 추가하세요",
+    "description": "Right-click menu item"
+  },
+  "ctxWhitelistPage": {
+    "message": "이 페이지를 허용 목록에 추가하세요",
+    "description": "Right-click menu item"
+  },
+  "ctxSuspendPage": {
+    "message": "이 페이지를 일시 중지하세요",
+    "description": "Right-click menu item"
+  },
+  "siteOverrideEnabled": {
+    "message": "$DOMAIN$에 대한 맞춤 설정이 활성화되었습니다",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "siteOverrideDisabled": {
+    "message": "$DOMAIN$에 대한 맞춤 설정이 비활성화되었습니다",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
   }
 }

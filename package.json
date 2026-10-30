@@ -1,19 +1,19 @@
 {
   "name": "the-tab-suspender",
-  "version": "1.7",
+  "version": "1.9",
   "scripts": {
     "build": "node build.js",
-    "extract-strings": "node extract-strings.js",
-    "generate-locales": "node i18n-generator.js",
-    "update-html": "node update-html.js",
-    "i18n": "npm run extract-strings && npm run generate-locales && npm run update-html",
-    "clean": "rm -rf dist"
+    "prebuild": "npm run i18n:check",
+    "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
+    "translate": "node scripts/translate-locales.js",
+    "i18n:check": "node scripts/check-i18n.js"
   },
   "devDependencies": {
     "clean-css-cli": "^5.6.3",
     "esbuild": "^0.27.2",
     "fs-extra": "^11.3.3",
     "html-minifier-terser": "^7.2.0",
+    "puppeteer-core": "^25.16.0",
     "terser": "^5.44.1"
   }
 }

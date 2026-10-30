@@ -40,7 +40,7 @@
     "description": "paragraph in popup.html"
   },
   "configureKeyboardShortcuts": {
-    "message": "Chrome uzantı ayarlarında klavye kısayollarını yapılandırın.",
+    "message": "Klavye kısayolu desteği mevcut! Kılavuzu izleyerek tarayıcınızın uzantı ayarlarında yapılandırın.",
     "description": "paragraph in popup.html"
   },
   "importExportSettingsWhitelist": {
@@ -72,7 +72,7 @@
     "description": "button in popup.html"
   },
   "suspendInactiveTabsAfter": {
-    "message": "Etkin olmayan sekmeleri şu süre sonra askıya al (dakika):",
+    "message": "Şu süreden sonra askıya al (dakika):",
     "description": "label in popup.html"
   },
   "darkMode": {
@@ -144,7 +144,7 @@
     "description": "paragraph in data_management.html"
   },
   "importDesc": {
-    "message": "Ayarları bir JSON dosyasından yükleyin. Bu, mevcut ayarlarınızın üzerine yazacaktır.",
+    "message": "Ayarları bir JSON dosyasından yükleyin. İçe aktarılan değerler mevcut ayarlarınızın yerine geçer; beyaz listeler mevcut olanlarla birleştirilir.",
     "description": "paragraph in data_management.html"
   },
   "selectJsonFile": {
@@ -190,5 +190,301 @@
   "toggleSiteOverride": {
     "message": "Bu site için özel ayarları geçersiz kılmayı değiştir",
     "description": ""
+  },
+  "whitelistNoItems": {
+    "message": "Beyaz listeye eklenen öğe yok",
+    "description": "Shown when both whitelists are empty"
+  },
+  "whitelistedDomains": {
+    "message": "Beyaz Listedeki Alanlar",
+    "description": "Whitelist section heading"
+  },
+  "noDomainsWhitelisted": {
+    "message": "Beyaz listeye eklenmiş alan adı yok",
+    "description": "Empty state of the domain whitelist"
+  },
+  "whitelistedPages": {
+    "message": "Beyaz Listeye Eklenen Sayfalar",
+    "description": "Whitelist section heading"
+  },
+  "noPagesWhitelisted": {
+    "message": "Beyaz listeye eklenmiş sayfa yok",
+    "description": "Empty state of the page whitelist"
+  },
+  "statusOptionsSaved": {
+    "message": "Seçenekler kaydedildi!",
+    "description": "Toast after saving options"
+  },
+  "statusTimeRange": {
+    "message": "Zaman 1 ile 1440 arasında olmalıdır",
+    "description": "Validation error for the suspend time in minutes"
+  },
+  "statusSiteOptionsSaved": {
+    "message": "Site seçenekleri kaydedildi!",
+    "description": "Toast after saving per-site options"
+  },
+  "statusSiteOverridesCleared": {
+    "message": "Site geçersiz kılmaları temizlendi!",
+    "description": "Toast after removing the per-site override"
+  },
+  "statusSiteSaveError": {
+    "message": "Site seçenekleri kaydedilirken hata oluştu",
+    "description": "Toast when saving per-site options fails"
+  },
+  "statusWhitelistUpdated": {
+    "message": "Beyaz liste güncellendi",
+    "description": "Toast after removing a whitelist entry"
+  },
+  "statusSaveError": {
+    "message": "Seçenekler kaydedilirken hata oluştu",
+    "description": "Toast when saving options fails"
+  },
+  "statusCaptureQualityRange": {
+    "message": "Yakalama Kalitesi 5-100 olmalıdır",
+    "description": "Validation error"
+  },
+  "statusResizeWidthMin": {
+    "message": "Yeniden Boyutlandırma Genişliği en az 100 olmalıdır",
+    "description": "Validation error"
+  },
+  "statusResizeHeightMin": {
+    "message": "Yeniden Boyutlandırma Yüksekliği en az 100 olmalıdır",
+    "description": "Validation error"
+  },
+  "statusResizeQualityRange": {
+    "message": "Yeniden Boyutlandırma Kalitesi 0,1-1,0 olmalıdır",
+    "description": "Validation error"
+  },
+  "statusScreenshotSaved": {
+    "message": "Ekran görüntüsü ayarları kaydedildi!",
+    "description": "Toast after saving screenshot settings"
+  },
+  "statusScreenshotSaveError": {
+    "message": "Ayarlar kaydedilirken hata oluştu",
+    "description": "Toast when saving screenshot settings fails"
+  },
+  "statusDomainWhitelisted": {
+    "message": "$DOMAIN$ alanı beyaz listeye eklendi!",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusDomainAlreadyWhitelisted": {
+    "message": "$DOMAIN$ alanı zaten beyaz listeye eklendi",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusPageWhitelisted": {
+    "message": "Geçerli sayfa beyaz listeye alındı!",
+    "description": "Toast after whitelisting the current page"
+  },
+  "statusPageAlreadyWhitelisted": {
+    "message": "Geçerli sayfa zaten beyaz listeye alındı",
+    "description": "Toast"
+  },
+  "statusPaused": {
+    "message": "Askıya alma $MINUTES$ dakika süreyle duraklatıldı",
+    "description": "Toast after pausing; MINUTES is a number",
+    "placeholders": {
+      "MINUTES": {
+        "content": "$1",
+        "example": "30"
+      }
+    }
+  },
+  "statusPauseCancelled": {
+    "message": "Duraklatma iptal edildi",
+    "description": "Toast after cancelling the pause"
+  },
+  "pauseButton30": {
+    "message": "30 dakika",
+    "description": "Pause button: 30 minutes (keep it very short)"
+  },
+  "pauseButton60": {
+    "message": "1 saat",
+    "description": "Pause button: 1 hour (keep it very short)"
+  },
+  "pauseButton90": {
+    "message": "1,5 saat",
+    "description": "Pause button: 1.5 hours (keep it very short)"
+  },
+  "pauseButton120": {
+    "message": "2 saat",
+    "description": "Pause button: 2 hours (keep it very short)"
+  },
+  "pausedLabel": {
+    "message": "Duraklatıldı",
+    "description": "Heading shown while suspension is paused"
+  },
+  "cancelPause": {
+    "message": "Duraklatmayı İptal Et",
+    "description": "Button that ends the pause early"
+  },
+  "readTheGuide": {
+    "message": "Kılavuzu okuyun",
+    "description": "Button that opens the keyboard shortcut help page"
+  },
+  "emojiZzz": {
+    "message": "💤 Zzz",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSleeping": {
+    "message": "😴 Uyuyor",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiInBed": {
+    "message": "🛌 Yatakta",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiMoon": {
+    "message": "🌙 Ay",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiIceCube": {
+    "message": "🧊 Buz Küpü",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSnowflake": {
+    "message": "❄️ Kar Tanesi",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiPause": {
+    "message": "⏸️ Duraklat",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiNone": {
+    "message": "Yok",
+    "description": "Tab title indicator choice: no indicator"
+  },
+  "siteLabel": {
+    "message": "Site:",
+    "description": "Label before the current site hostname"
+  },
+  "suspendTimeLabel": {
+    "message": "Askıya Alma Süresi:",
+    "description": "Per-site setting label"
+  },
+  "timeMinutesLabel": {
+    "message": "Süre (dakika):",
+    "description": "Per-site setting label"
+  },
+  "optInherit": {
+    "message": "Devral",
+    "description": "Per-site choice: use the global setting"
+  },
+  "optCustom": {
+    "message": "Özel",
+    "description": "Per-site choice: use a custom value"
+  },
+  "optDisableDiscard": {
+    "message": "Devre Dışı Bırak (At)",
+    "description": "Per-site choice for Disable Suspended Page: discard the tab directly"
+  },
+  "optEnableShowPage": {
+    "message": "Etkinleştir (Sayfayı göster)",
+    "description": "Per-site choice for Disable Suspended Page: show the suspended page"
+  },
+  "optDontSuspend": {
+    "message": "Askıya Alma",
+    "description": "Per-site choice: protect the tab"
+  },
+  "optAllowSuspend": {
+    "message": "Askıya Almaya İzin Ver",
+    "description": "Per-site choice: allow suspending the tab"
+  },
+  "labelDisableSuspendedPage": {
+    "message": "Askıya Alınan Sayfayı Devre Dışı Bırak:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreAudio": {
+    "message": "Ses Çalmayı Yoksay:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreFormInput": {
+    "message": "Form Girişini Yoksay:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreNotifications": {
+    "message": "Bildirimleri Yoksay:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnorePinned": {
+    "message": "Sabitlenmiş Sekmeleri Yoksay:",
+    "description": "Per-site setting label"
+  },
+  "dataExported": {
+    "message": "Ayarlar dışa aktarıldı!",
+    "description": "Toast after exporting"
+  },
+  "dataExportFailed": {
+    "message": "Dışa aktarma başarısız oldu",
+    "description": "Toast"
+  },
+  "dataImportInvalidJson": {
+    "message": "İçe aktarma başarısız oldu: Geçersiz JSON dosyası",
+    "description": "Toast"
+  },
+  "dataImportReadError": {
+    "message": "İçe aktarma başarısız oldu: Dosya okunamadı",
+    "description": "Toast"
+  },
+  "dataImported": {
+    "message": "Ayarlar başarıyla içe aktarıldı!",
+    "description": "Toast"
+  },
+  "dataImportFailed": {
+    "message": "İçe aktarma başarısız oldu: $ERROR$",
+    "description": "Toast; ERROR is a technical error message",
+    "placeholders": {
+      "ERROR": {
+        "content": "$1",
+        "example": "Invalid file"
+      }
+    }
+  },
+  "dataImportNoValid": {
+    "message": "Dosya geçerli veya tanınan ayar içermiyor.",
+    "description": "Error message for an import file with nothing usable"
+  },
+  "ctxWhitelistDomain": {
+    "message": "Bu alanı beyaz listeye ekleyin",
+    "description": "Right-click menu item"
+  },
+  "ctxWhitelistPage": {
+    "message": "Bu sayfayı beyaz listeye ekleyin",
+    "description": "Right-click menu item"
+  },
+  "ctxSuspendPage": {
+    "message": "Bu Sayfayı Askıya Al",
+    "description": "Right-click menu item"
+  },
+  "siteOverrideEnabled": {
+    "message": "$DOMAIN$ için özel ayarlar etkinleştirildi",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "siteOverrideDisabled": {
+    "message": "$DOMAIN$ için özel ayarlar devre dışı bırakıldı",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
   }
 }

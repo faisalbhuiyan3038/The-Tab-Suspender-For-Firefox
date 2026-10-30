@@ -40,7 +40,7 @@
     "description": "paragraph in popup.html"
   },
   "configureKeyboardShortcuts": {
-    "message": "Konfigurējiet īsinājumtaustiņus Chrome paplašinājumu iestatījumos.",
+    "message": "Ir pieejams īsinājumtaustiņu atbalsts! Konfigurējiet to pārlūkprogrammas paplašinājuma iestatījumos, izpildot norādījumus.",
     "description": "paragraph in popup.html"
   },
   "importExportSettingsWhitelist": {
@@ -72,7 +72,7 @@
     "description": "button in popup.html"
   },
   "suspendInactiveTabsAfter": {
-    "message": "Apturēt neaktīvās cilnes pēc (minūtēm):",
+    "message": "Apturēt pēc (min):",
     "description": "label in popup.html"
   },
   "darkMode": {
@@ -144,7 +144,7 @@
     "description": "paragraph in data_management.html"
   },
   "importDesc": {
-    "message": "Ielādējiet iestatījumus no JSON faila. Tas pārrakstīs jūsu pašreizējos iestatījumus.",
+    "message": "Ielādējiet iestatījumus no JSON faila. Importētās vērtības aizstāj pašreizējos iestatījumus; baltie saraksti tiek apvienoti ar esošajiem.",
     "description": "paragraph in data_management.html"
   },
   "selectJsonFile": {
@@ -190,5 +190,301 @@
   "toggleSiteOverride": {
     "message": "Pārslēgt pielāgoto iestatījumu ignorēšanu šai vietnei",
     "description": ""
+  },
+  "whitelistNoItems": {
+    "message": "Nav baltajā sarakstā iekļautu vienumu",
+    "description": "Shown when both whitelists are empty"
+  },
+  "whitelistedDomains": {
+    "message": "Baltajā sarakstā iekļautie domēni",
+    "description": "Whitelist section heading"
+  },
+  "noDomainsWhitelisted": {
+    "message": "Baltajā sarakstā nav iekļauts neviens domēns",
+    "description": "Empty state of the domain whitelist"
+  },
+  "whitelistedPages": {
+    "message": "Baltajā sarakstā iekļautās lapas",
+    "description": "Whitelist section heading"
+  },
+  "noPagesWhitelisted": {
+    "message": "Baltajā sarakstā nav iekļauta neviena lapa",
+    "description": "Empty state of the page whitelist"
+  },
+  "statusOptionsSaved": {
+    "message": "Opcijas saglabātas!",
+    "description": "Toast after saving options"
+  },
+  "statusTimeRange": {
+    "message": "Laikam ir jābūt no 1 līdz 1440",
+    "description": "Validation error for the suspend time in minutes"
+  },
+  "statusSiteOptionsSaved": {
+    "message": "Vietnes opcijas ir saglabātas!",
+    "description": "Toast after saving per-site options"
+  },
+  "statusSiteOverridesCleared": {
+    "message": "Vietnes ignorēšanas gadījumi ir notīrīti!",
+    "description": "Toast after removing the per-site override"
+  },
+  "statusSiteSaveError": {
+    "message": "Saglabājot vietnes opcijas, radās kļūda",
+    "description": "Toast when saving per-site options fails"
+  },
+  "statusWhitelistUpdated": {
+    "message": "Baltais saraksts ir atjaunināts",
+    "description": "Toast after removing a whitelist entry"
+  },
+  "statusSaveError": {
+    "message": "Saglabājot opcijas, radās kļūda",
+    "description": "Toast when saving options fails"
+  },
+  "statusCaptureQualityRange": {
+    "message": "Uzņemšanas kvalitātei ir jābūt 5–100",
+    "description": "Validation error"
+  },
+  "statusResizeWidthMin": {
+    "message": "Izmēru maiņas platumam ir jābūt vismaz 100",
+    "description": "Validation error"
+  },
+  "statusResizeHeightMin": {
+    "message": "Izmēra maiņas augstumam ir jābūt vismaz 100",
+    "description": "Validation error"
+  },
+  "statusResizeQualityRange": {
+    "message": "Izmēru maiņas kvalitātei ir jābūt 0,1–1,0",
+    "description": "Validation error"
+  },
+  "statusScreenshotSaved": {
+    "message": "Ekrānuzņēmuma iestatījumi saglabāti!",
+    "description": "Toast after saving screenshot settings"
+  },
+  "statusScreenshotSaveError": {
+    "message": "Saglabājot iestatījumus, radās kļūda",
+    "description": "Toast when saving screenshot settings fails"
+  },
+  "statusDomainWhitelisted": {
+    "message": "Domēns $DOMAIN$ iekļauts baltajā sarakstā!",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusDomainAlreadyWhitelisted": {
+    "message": "Domēns $DOMAIN$ jau ir iekļauts baltajā sarakstā",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusPageWhitelisted": {
+    "message": "Pašreizējā lapa ir iekļauta baltajā sarakstā!",
+    "description": "Toast after whitelisting the current page"
+  },
+  "statusPageAlreadyWhitelisted": {
+    "message": "Pašreizējā lapa jau ir iekļauta baltajā sarakstā",
+    "description": "Toast"
+  },
+  "statusPaused": {
+    "message": "Apturēšana apturēta uz $MINUTES$ min",
+    "description": "Toast after pausing; MINUTES is a number",
+    "placeholders": {
+      "MINUTES": {
+        "content": "$1",
+        "example": "30"
+      }
+    }
+  },
+  "statusPauseCancelled": {
+    "message": "Pauze atcelta",
+    "description": "Toast after cancelling the pause"
+  },
+  "pauseButton30": {
+    "message": "30 m",
+    "description": "Pause button: 30 minutes (keep it very short)"
+  },
+  "pauseButton60": {
+    "message": "1h",
+    "description": "Pause button: 1 hour (keep it very short)"
+  },
+  "pauseButton90": {
+    "message": "1,5h",
+    "description": "Pause button: 1.5 hours (keep it very short)"
+  },
+  "pauseButton120": {
+    "message": "2h",
+    "description": "Pause button: 2 hours (keep it very short)"
+  },
+  "pausedLabel": {
+    "message": "Pauzēts",
+    "description": "Heading shown while suspension is paused"
+  },
+  "cancelPause": {
+    "message": "Atcelt pauzi",
+    "description": "Button that ends the pause early"
+  },
+  "readTheGuide": {
+    "message": "Izlasiet rokasgrāmatu",
+    "description": "Button that opens the keyboard shortcut help page"
+  },
+  "emojiZzz": {
+    "message": "💤 Zzz",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSleeping": {
+    "message": "😴 Guļ",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiInBed": {
+    "message": "🛌 gultā",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiMoon": {
+    "message": "🌙 Mēness",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiIceCube": {
+    "message": "🧊 ledus kubs",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSnowflake": {
+    "message": "❄️ Sniegpārsla",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiPause": {
+    "message": "⏸️ Pauze",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiNone": {
+    "message": "Nav",
+    "description": "Tab title indicator choice: no indicator"
+  },
+  "siteLabel": {
+    "message": "Vietne:",
+    "description": "Label before the current site hostname"
+  },
+  "suspendTimeLabel": {
+    "message": "Apturēšanas laiks:",
+    "description": "Per-site setting label"
+  },
+  "timeMinutesLabel": {
+    "message": "Laiks (minūtes):",
+    "description": "Per-site setting label"
+  },
+  "optInherit": {
+    "message": "Mantojums",
+    "description": "Per-site choice: use the global setting"
+  },
+  "optCustom": {
+    "message": "Pielāgots",
+    "description": "Per-site choice: use a custom value"
+  },
+  "optDisableDiscard": {
+    "message": "Atspējot (Atmest)",
+    "description": "Per-site choice for Disable Suspended Page: discard the tab directly"
+  },
+  "optEnableShowPage": {
+    "message": "Iespējot (Rādīt lapu)",
+    "description": "Per-site choice for Disable Suspended Page: show the suspended page"
+  },
+  "optDontSuspend": {
+    "message": "Neapturēt",
+    "description": "Per-site choice: protect the tab"
+  },
+  "optAllowSuspend": {
+    "message": "Atļaut apturēt",
+    "description": "Per-site choice: allow suspending the tab"
+  },
+  "labelDisableSuspendedPage": {
+    "message": "Atspējot apturēto lapu:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreAudio": {
+    "message": "Ignorēt audio atskaņošanu:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreFormInput": {
+    "message": "Ignorēt veidlapas ievadi:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreNotifications": {
+    "message": "Ignorēt paziņojumus:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnorePinned": {
+    "message": "Ignorēt piespraustās cilnes:",
+    "description": "Per-site setting label"
+  },
+  "dataExported": {
+    "message": "Iestatījumi eksportēti!",
+    "description": "Toast after exporting"
+  },
+  "dataExportFailed": {
+    "message": "Eksportēšana neizdevās",
+    "description": "Toast"
+  },
+  "dataImportInvalidJson": {
+    "message": "Importēšana neizdevās: nederīgs JSON fails",
+    "description": "Toast"
+  },
+  "dataImportReadError": {
+    "message": "Importēšana neizdevās: nevarēja nolasīt failu",
+    "description": "Toast"
+  },
+  "dataImported": {
+    "message": "Iestatījumi veiksmīgi importēti!",
+    "description": "Toast"
+  },
+  "dataImportFailed": {
+    "message": "Importēšana neizdevās: $ERROR$",
+    "description": "Toast; ERROR is a technical error message",
+    "placeholders": {
+      "ERROR": {
+        "content": "$1",
+        "example": "Invalid file"
+      }
+    }
+  },
+  "dataImportNoValid": {
+    "message": "Failā nav derīgu vai atpazītu iestatījumu.",
+    "description": "Error message for an import file with nothing usable"
+  },
+  "ctxWhitelistDomain": {
+    "message": "Baltajā sarakstā šis domēns",
+    "description": "Right-click menu item"
+  },
+  "ctxWhitelistPage": {
+    "message": "Baltajā sarakstā šī lapa",
+    "description": "Right-click menu item"
+  },
+  "ctxSuspendPage": {
+    "message": "Apturēt šo lapu",
+    "description": "Right-click menu item"
+  },
+  "siteOverrideEnabled": {
+    "message": "Vietnei $DOMAIN$ ir iespējoti pielāgoti iestatījumi",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "siteOverrideDisabled": {
+    "message": "Pielāgotie iestatījumi ir atspējoti $DOMAIN$",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
   }
 }

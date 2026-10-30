@@ -40,7 +40,7 @@
     "description": "paragraph in popup.html"
   },
   "configureKeyboardShortcuts": {
-    "message": "Configureer sneltoetsen in de Chrome-extensie-instellingen.",
+    "message": "Ondersteuning voor sneltoetsen is beschikbaar! Configureer het in de extensie-instellingen van uw browser door de handleiding te volgen.",
     "description": "paragraph in popup.html"
   },
   "importExportSettingsWhitelist": {
@@ -72,7 +72,7 @@
     "description": "button in popup.html"
   },
   "suspendInactiveTabsAfter": {
-    "message": "Pauzeer inactieve tabbladen na (minuten):",
+    "message": "Opschorten na (min):",
     "description": "label in popup.html"
   },
   "darkMode": {
@@ -144,7 +144,7 @@
     "description": "paragraph in data_management.html"
   },
   "importDesc": {
-    "message": "Laad instellingen uit een JSON-bestand. Dit overschrijft uw huidige instellingen.",
+    "message": "Instellingen laden vanuit een JSON-bestand. Geïmporteerde waarden vervangen uw huidige instellingen; witte lijsten worden samengevoegd met de bestaande.",
     "description": "paragraph in data_management.html"
   },
   "selectJsonFile": {
@@ -190,5 +190,301 @@
   "toggleSiteOverride": {
     "message": "Schakel het overschrijven van aangepaste instellingen voor deze site in",
     "description": ""
+  },
+  "whitelistNoItems": {
+    "message": "Geen items op de witte lijst",
+    "description": "Shown when both whitelists are empty"
+  },
+  "whitelistedDomains": {
+    "message": "Domeinen op de witte lijst",
+    "description": "Whitelist section heading"
+  },
+  "noDomainsWhitelisted": {
+    "message": "Geen domeinen op de witte lijst",
+    "description": "Empty state of the domain whitelist"
+  },
+  "whitelistedPages": {
+    "message": "Pagina's op de witte lijst",
+    "description": "Whitelist section heading"
+  },
+  "noPagesWhitelisted": {
+    "message": "Er zijn geen pagina's op de witte lijst gezet",
+    "description": "Empty state of the page whitelist"
+  },
+  "statusOptionsSaved": {
+    "message": "Opties opgeslagen!",
+    "description": "Toast after saving options"
+  },
+  "statusTimeRange": {
+    "message": "De tijd moet tussen 1 en 1440 liggen",
+    "description": "Validation error for the suspend time in minutes"
+  },
+  "statusSiteOptionsSaved": {
+    "message": "Site-opties opgeslagen!",
+    "description": "Toast after saving per-site options"
+  },
+  "statusSiteOverridesCleared": {
+    "message": "Site-overschrijvingen gewist!",
+    "description": "Toast after removing the per-site override"
+  },
+  "statusSiteSaveError": {
+    "message": "Fout bij het opslaan van site-opties",
+    "description": "Toast when saving per-site options fails"
+  },
+  "statusWhitelistUpdated": {
+    "message": "Witte lijst bijgewerkt",
+    "description": "Toast after removing a whitelist entry"
+  },
+  "statusSaveError": {
+    "message": "Fout bij opslaan van opties",
+    "description": "Toast when saving options fails"
+  },
+  "statusCaptureQualityRange": {
+    "message": "De opnamekwaliteit moet 5-100 zijn",
+    "description": "Validation error"
+  },
+  "statusResizeWidthMin": {
+    "message": "Formaat wijzigen Breedte moet minimaal 100 zijn",
+    "description": "Validation error"
+  },
+  "statusResizeHeightMin": {
+    "message": "Formaat wijzigen Hoogte moet minimaal 100 zijn",
+    "description": "Validation error"
+  },
+  "statusResizeQualityRange": {
+    "message": "De kwaliteit van het formaat wijzigen moet 0,1-1,0 zijn",
+    "description": "Validation error"
+  },
+  "statusScreenshotSaved": {
+    "message": "Screenshot-instellingen opgeslagen!",
+    "description": "Toast after saving screenshot settings"
+  },
+  "statusScreenshotSaveError": {
+    "message": "Fout bij opslaan van instellingen",
+    "description": "Toast when saving screenshot settings fails"
+  },
+  "statusDomainWhitelisted": {
+    "message": "Domein $DOMAIN$ op de witte lijst!",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusDomainAlreadyWhitelisted": {
+    "message": "Domein $DOMAIN$ staat al op de witte lijst",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusPageWhitelisted": {
+    "message": "Huidige pagina op de witte lijst!",
+    "description": "Toast after whitelisting the current page"
+  },
+  "statusPageAlreadyWhitelisted": {
+    "message": "Huidige pagina staat al op de witte lijst",
+    "description": "Toast"
+  },
+  "statusPaused": {
+    "message": "Opschorting onderbroken gedurende $MINUTES$ min",
+    "description": "Toast after pausing; MINUTES is a number",
+    "placeholders": {
+      "MINUTES": {
+        "content": "$1",
+        "example": "30"
+      }
+    }
+  },
+  "statusPauseCancelled": {
+    "message": "Pauze geannuleerd",
+    "description": "Toast after cancelling the pause"
+  },
+  "pauseButton30": {
+    "message": "30m",
+    "description": "Pause button: 30 minutes (keep it very short)"
+  },
+  "pauseButton60": {
+    "message": "1u",
+    "description": "Pause button: 1 hour (keep it very short)"
+  },
+  "pauseButton90": {
+    "message": "1,5 uur",
+    "description": "Pause button: 1.5 hours (keep it very short)"
+  },
+  "pauseButton120": {
+    "message": "2 uur",
+    "description": "Pause button: 2 hours (keep it very short)"
+  },
+  "pausedLabel": {
+    "message": "Gepauzeerd",
+    "description": "Heading shown while suspension is paused"
+  },
+  "cancelPause": {
+    "message": "Pauze annuleren",
+    "description": "Button that ends the pause early"
+  },
+  "readTheGuide": {
+    "message": "Lees de gids",
+    "description": "Button that opens the keyboard shortcut help page"
+  },
+  "emojiZzz": {
+    "message": "💤 Zzz",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSleeping": {
+    "message": "😴 Slapen",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiInBed": {
+    "message": "🛌 In bed",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiMoon": {
+    "message": "🌙 Maan",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiIceCube": {
+    "message": "🧊 IJsblokje",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSnowflake": {
+    "message": "❄️ Sneeuwvlok",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiPause": {
+    "message": "⏸️ Pauze",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiNone": {
+    "message": "Geen",
+    "description": "Tab title indicator choice: no indicator"
+  },
+  "siteLabel": {
+    "message": "Plaats:",
+    "description": "Label before the current site hostname"
+  },
+  "suspendTimeLabel": {
+    "message": "Tijd onderbreken:",
+    "description": "Per-site setting label"
+  },
+  "timeMinutesLabel": {
+    "message": "Tijd (minuten):",
+    "description": "Per-site setting label"
+  },
+  "optInherit": {
+    "message": "Erven",
+    "description": "Per-site choice: use the global setting"
+  },
+  "optCustom": {
+    "message": "Aangepast",
+    "description": "Per-site choice: use a custom value"
+  },
+  "optDisableDiscard": {
+    "message": "Uitschakelen (weggooien)",
+    "description": "Per-site choice for Disable Suspended Page: discard the tab directly"
+  },
+  "optEnableShowPage": {
+    "message": "Inschakelen (Pagina weergeven)",
+    "description": "Per-site choice for Disable Suspended Page: show the suspended page"
+  },
+  "optDontSuspend": {
+    "message": "Niet opschorten",
+    "description": "Per-site choice: protect the tab"
+  },
+  "optAllowSuspend": {
+    "message": "Sta opschorten toe",
+    "description": "Per-site choice: allow suspending the tab"
+  },
+  "labelDisableSuspendedPage": {
+    "message": "Schakel opgeschorte pagina uit:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreAudio": {
+    "message": "Negeer het afspelen van audio:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreFormInput": {
+    "message": "Formulierinvoer negeren:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreNotifications": {
+    "message": "Negeer meldingen:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnorePinned": {
+    "message": "Negeer vastgezette tabbladen:",
+    "description": "Per-site setting label"
+  },
+  "dataExported": {
+    "message": "Instellingen geëxporteerd!",
+    "description": "Toast after exporting"
+  },
+  "dataExportFailed": {
+    "message": "Exporteren is mislukt",
+    "description": "Toast"
+  },
+  "dataImportInvalidJson": {
+    "message": "Importeren mislukt: ongeldig JSON-bestand",
+    "description": "Toast"
+  },
+  "dataImportReadError": {
+    "message": "Importeren mislukt: kon bestand niet lezen",
+    "description": "Toast"
+  },
+  "dataImported": {
+    "message": "Instellingen geïmporteerd!",
+    "description": "Toast"
+  },
+  "dataImportFailed": {
+    "message": "Importeren mislukt: $ERROR$",
+    "description": "Toast; ERROR is a technical error message",
+    "placeholders": {
+      "ERROR": {
+        "content": "$1",
+        "example": "Invalid file"
+      }
+    }
+  },
+  "dataImportNoValid": {
+    "message": "Bestand bevat geen geldige of herkende instellingen.",
+    "description": "Error message for an import file with nothing usable"
+  },
+  "ctxWhitelistDomain": {
+    "message": "Zet dit domein op de witte lijst",
+    "description": "Right-click menu item"
+  },
+  "ctxWhitelistPage": {
+    "message": "Zet deze pagina op de witte lijst",
+    "description": "Right-click menu item"
+  },
+  "ctxSuspendPage": {
+    "message": "Deze pagina opschorten",
+    "description": "Right-click menu item"
+  },
+  "siteOverrideEnabled": {
+    "message": "Aangepaste instellingen ingeschakeld voor $DOMAIN$",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "siteOverrideDisabled": {
+    "message": "Aangepaste instellingen uitgeschakeld voor $DOMAIN$",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
   }
 }

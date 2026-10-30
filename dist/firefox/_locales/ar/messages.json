@@ -40,8 +40,8 @@
     "description": "فقرة في popup.html"
   },
   "configureKeyboardShortcuts": {
-    "message": "قم بتكوين اختصارات لوحة المفاتيح من إعدادات إضافات Chrome.",
-    "description": "فقرة في popup.html"
+    "message": "دعم اختصارات لوحة المفاتيح متاح! قم بتكوينه في إعدادات ملحق المتصفح الخاص بك باتباع الدليل.",
+    "description": "paragraph in popup.html"
   },
   "importExportSettingsWhitelist": {
     "message": "استيراد أو تصدير إعداداتك والقائمة البيضاء.",
@@ -72,8 +72,8 @@
     "description": "زر في popup.html"
   },
   "suspendInactiveTabsAfter": {
-    "message": "إيقاف النوافذ غير النشطة بعد (دقائق):",
-    "description": "تسمية في popup.html"
+    "message": "تعليق بعد (دقيقة):",
+    "description": "label in popup.html"
   },
   "darkMode": {
     "message": "الوضع الداكن",
@@ -144,8 +144,8 @@
     "description": "فقرة في data_management.html"
   },
   "importDesc": {
-    "message": "تحميل الإعدادات من ملف JSON. سيستبدل هذا إعداداتك الحالية.",
-    "description": "فقرة في data_management.html"
+    "message": "تحميل الإعدادات من ملف JSON. تحل القيم المستوردة محل إعداداتك الحالية؛ يتم دمج القوائم البيضاء مع القائمة.",
+    "description": "paragraph in data_management.html"
   },
   "selectJsonFile": {
     "message": "اختر ملف JSON",
@@ -190,5 +190,301 @@
   "toggleSiteOverride": {
     "message": "تبديل تجاوز الإعدادات المخصصة لهذا الموقع",
     "description": ""
+  },
+  "whitelistNoItems": {
+    "message": "لا توجد عناصر مدرجة في القائمة البيضاء",
+    "description": "Shown when both whitelists are empty"
+  },
+  "whitelistedDomains": {
+    "message": "النطاقات المدرجة في القائمة البيضاء",
+    "description": "Whitelist section heading"
+  },
+  "noDomainsWhitelisted": {
+    "message": "لم يتم إدراج أي نطاقات في القائمة البيضاء",
+    "description": "Empty state of the domain whitelist"
+  },
+  "whitelistedPages": {
+    "message": "الصفحات المدرجة في القائمة البيضاء",
+    "description": "Whitelist section heading"
+  },
+  "noPagesWhitelisted": {
+    "message": "لم يتم إدراج أية صفحات في القائمة البيضاء",
+    "description": "Empty state of the page whitelist"
+  },
+  "statusOptionsSaved": {
+    "message": "تم حفظ الخيارات!",
+    "description": "Toast after saving options"
+  },
+  "statusTimeRange": {
+    "message": "يجب أن يكون الوقت بين 1 و1440",
+    "description": "Validation error for the suspend time in minutes"
+  },
+  "statusSiteOptionsSaved": {
+    "message": "تم حفظ خيارات الموقع!",
+    "description": "Toast after saving per-site options"
+  },
+  "statusSiteOverridesCleared": {
+    "message": "تم مسح تجاوزات الموقع!",
+    "description": "Toast after removing the per-site override"
+  },
+  "statusSiteSaveError": {
+    "message": "خطأ في حفظ خيارات الموقع",
+    "description": "Toast when saving per-site options fails"
+  },
+  "statusWhitelistUpdated": {
+    "message": "تم تحديث القائمة البيضاء",
+    "description": "Toast after removing a whitelist entry"
+  },
+  "statusSaveError": {
+    "message": "خطأ في خيارات الحفظ",
+    "description": "Toast when saving options fails"
+  },
+  "statusCaptureQualityRange": {
+    "message": "يجب أن تكون جودة الالتقاط 5-100",
+    "description": "Validation error"
+  },
+  "statusResizeWidthMin": {
+    "message": "يجب أن يكون عرض تغيير الحجم 100 على الأقل",
+    "description": "Validation error"
+  },
+  "statusResizeHeightMin": {
+    "message": "يجب أن يكون ارتفاع تغيير الحجم 100 على الأقل",
+    "description": "Validation error"
+  },
+  "statusResizeQualityRange": {
+    "message": "يجب أن تكون جودة تغيير الحجم 0.1-1.0",
+    "description": "Validation error"
+  },
+  "statusScreenshotSaved": {
+    "message": "تم حفظ إعدادات لقطة الشاشة!",
+    "description": "Toast after saving screenshot settings"
+  },
+  "statusScreenshotSaveError": {
+    "message": "خطأ في حفظ الإعدادات",
+    "description": "Toast when saving screenshot settings fails"
+  },
+  "statusDomainWhitelisted": {
+    "message": "النطاق $DOMAIN$ مدرج في القائمة البيضاء!",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusDomainAlreadyWhitelisted": {
+    "message": "النطاق $DOMAIN$ مدرج بالفعل في القائمة البيضاء",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusPageWhitelisted": {
+    "message": "الصفحة الحالية مدرجة في القائمة البيضاء!",
+    "description": "Toast after whitelisting the current page"
+  },
+  "statusPageAlreadyWhitelisted": {
+    "message": "الصفحة الحالية مدرجة بالفعل في القائمة البيضاء",
+    "description": "Toast"
+  },
+  "statusPaused": {
+    "message": "تم إيقاف التعليق مؤقتًا لمدة $MINUTES$ دقيقة",
+    "description": "Toast after pausing; MINUTES is a number",
+    "placeholders": {
+      "MINUTES": {
+        "content": "$1",
+        "example": "30"
+      }
+    }
+  },
+  "statusPauseCancelled": {
+    "message": "تم إلغاء الإيقاف المؤقت",
+    "description": "Toast after cancelling the pause"
+  },
+  "pauseButton30": {
+    "message": "30 م",
+    "description": "Pause button: 30 minutes (keep it very short)"
+  },
+  "pauseButton60": {
+    "message": "ساعة واحدة",
+    "description": "Pause button: 1 hour (keep it very short)"
+  },
+  "pauseButton90": {
+    "message": "1.5 ساعة",
+    "description": "Pause button: 1.5 hours (keep it very short)"
+  },
+  "pauseButton120": {
+    "message": "2 ساعة",
+    "description": "Pause button: 2 hours (keep it very short)"
+  },
+  "pausedLabel": {
+    "message": "متوقف مؤقتًا",
+    "description": "Heading shown while suspension is paused"
+  },
+  "cancelPause": {
+    "message": "إلغاء الإيقاف المؤقت",
+    "description": "Button that ends the pause early"
+  },
+  "readTheGuide": {
+    "message": "اقرأ الدليل",
+    "description": "Button that opens the keyboard shortcut help page"
+  },
+  "emojiZzz": {
+    "message": "💤ززز",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSleeping": {
+    "message": "😴 النوم",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiInBed": {
+    "message": "🛌 في السرير",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiMoon": {
+    "message": "🌙 القمر",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiIceCube": {
+    "message": "🧊 مكعب ثلج",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSnowflake": {
+    "message": "❄️ ندفة الثلج",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiPause": {
+    "message": "⏸️ توقف مؤقتًا",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiNone": {
+    "message": "لا أحد",
+    "description": "Tab title indicator choice: no indicator"
+  },
+  "siteLabel": {
+    "message": "موقع:",
+    "description": "Label before the current site hostname"
+  },
+  "suspendTimeLabel": {
+    "message": "تعليق الوقت:",
+    "description": "Per-site setting label"
+  },
+  "timeMinutesLabel": {
+    "message": "الوقت (بالدقائق):",
+    "description": "Per-site setting label"
+  },
+  "optInherit": {
+    "message": "يرث",
+    "description": "Per-site choice: use the global setting"
+  },
+  "optCustom": {
+    "message": "مخصص",
+    "description": "Per-site choice: use a custom value"
+  },
+  "optDisableDiscard": {
+    "message": "تعطيل (تجاهل)",
+    "description": "Per-site choice for Disable Suspended Page: discard the tab directly"
+  },
+  "optEnableShowPage": {
+    "message": "تمكين (إظهار الصفحة)",
+    "description": "Per-site choice for Disable Suspended Page: show the suspended page"
+  },
+  "optDontSuspend": {
+    "message": "لا تعلق",
+    "description": "Per-site choice: protect the tab"
+  },
+  "optAllowSuspend": {
+    "message": "السماح بالتعليق",
+    "description": "Per-site choice: allow suspending the tab"
+  },
+  "labelDisableSuspendedPage": {
+    "message": "تعطيل الصفحة المعلقة:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreAudio": {
+    "message": "تجاهل تشغيل الصوت:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreFormInput": {
+    "message": "تجاهل إدخال النموذج:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreNotifications": {
+    "message": "تجاهل الإخطارات:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnorePinned": {
+    "message": "تجاهل علامات التبويب المثبتة:",
+    "description": "Per-site setting label"
+  },
+  "dataExported": {
+    "message": "تم تصدير الإعدادات!",
+    "description": "Toast after exporting"
+  },
+  "dataExportFailed": {
+    "message": "فشل التصدير",
+    "description": "Toast"
+  },
+  "dataImportInvalidJson": {
+    "message": "فشل الاستيراد: ملف JSON غير صالح",
+    "description": "Toast"
+  },
+  "dataImportReadError": {
+    "message": "فشل الاستيراد: تعذر قراءة الملف",
+    "description": "Toast"
+  },
+  "dataImported": {
+    "message": "تم استيراد الإعدادات بنجاح!",
+    "description": "Toast"
+  },
+  "dataImportFailed": {
+    "message": "فشل الاستيراد: $ERROR$",
+    "description": "Toast; ERROR is a technical error message",
+    "placeholders": {
+      "ERROR": {
+        "content": "$1",
+        "example": "Invalid file"
+      }
+    }
+  },
+  "dataImportNoValid": {
+    "message": "لا يحتوي الملف على إعدادات صالحة أو معروفة.",
+    "description": "Error message for an import file with nothing usable"
+  },
+  "ctxWhitelistDomain": {
+    "message": "القائمة البيضاء لهذا المجال",
+    "description": "Right-click menu item"
+  },
+  "ctxWhitelistPage": {
+    "message": "القائمة البيضاء لهذه الصفحة",
+    "description": "Right-click menu item"
+  },
+  "ctxSuspendPage": {
+    "message": "تعليق هذه الصفحة",
+    "description": "Right-click menu item"
+  },
+  "siteOverrideEnabled": {
+    "message": "تم تمكين الإعدادات المخصصة لـ $DOMAIN$",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "siteOverrideDisabled": {
+    "message": "تم تعطيل الإعدادات المخصصة لـ $DOMAIN$",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
   }
 }

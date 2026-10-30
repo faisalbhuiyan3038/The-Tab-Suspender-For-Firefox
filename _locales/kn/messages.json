@@ -40,7 +40,7 @@
     "description": "paragraph in popup.html"
   },
   "configureKeyboardShortcuts": {
-    "message": "Chrome ವಿಸ್ತರಣೆ ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ಕೀಬೋರ್ಡ್ ಶಾರ್ಟ್‌ಕಟ್‌ಗಳನ್ನು ಕಾನ್ಫಿಗರ್ ಮಾಡಿ.",
+    "message": "ಕೀಬೋರ್ಡ್ ಶಾರ್ಟ್‌ಕಟ್ ಬೆಂಬಲ ಲಭ್ಯವಿದೆ! ಮಾರ್ಗದರ್ಶಿಯನ್ನು ಅನುಸರಿಸುವ ಮೂಲಕ ಅದನ್ನು ನಿಮ್ಮ ಬ್ರೌಸರ್‌ನ ವಿಸ್ತರಣೆ ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ಕಾನ್ಫಿಗರ್ ಮಾಡಿ.",
     "description": "paragraph in popup.html"
   },
   "importExportSettingsWhitelist": {
@@ -72,7 +72,7 @@
     "description": "button in popup.html"
   },
   "suspendInactiveTabsAfter": {
-    "message": "ಇಷ್ಟು ಸಮಯದ ನಂತರ ನಿಷ್ಕ್ರಿಯ ಟ್ಯಾಬ್‌ಗಳನ್ನು ಸಸ್ಪೆಂಡ್ ಮಾಡಿ (ನಿಮಿಷಗಳು):",
+    "message": "ನಂತರ ಅಮಾನತುಗೊಳಿಸಿ (ನಿಮಿ):",
     "description": "label in popup.html"
   },
   "darkMode": {
@@ -144,7 +144,7 @@
     "description": "paragraph in data_management.html"
   },
   "importDesc": {
-    "message": "JSON ಫೈಲ್‌ನಿಂದ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಲೋಡ್ ಮಾಡಿ. ಇದು ನಿಮ್ಮ ಪ್ರಸ್ತುತ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಅಧಿಕೃತವಾಗಿ ಬದಲಾಯಿಸುತ್ತದೆ.",
+    "message": "JSON ಫೈಲ್‌ನಿಂದ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಲೋಡ್ ಮಾಡಿ. ಆಮದು ಮಾಡಿದ ಮೌಲ್ಯಗಳು ನಿಮ್ಮ ಪ್ರಸ್ತುತ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಬದಲಾಯಿಸುತ್ತವೆ; ಶ್ವೇತಪಟ್ಟಿಗಳನ್ನು ಅಸ್ತಿತ್ವದಲ್ಲಿರುವವುಗಳೊಂದಿಗೆ ವಿಲೀನಗೊಳಿಸಲಾಗಿದೆ.",
     "description": "paragraph in data_management.html"
   },
   "selectJsonFile": {
@@ -190,5 +190,301 @@
   "toggleSiteOverride": {
     "message": "ಈ ಸೈಟ್‌ಗಾಗಿ ಕಸ್ಟಮ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಅತಿಕ್ರಮಿಸಿ ಟಾಗಲ್ ಮಾಡಿ",
     "description": ""
+  },
+  "whitelistNoItems": {
+    "message": "ಯಾವುದೇ ಶ್ವೇತಪಟ್ಟಿ ಮಾಡಲಾದ ಐಟಂಗಳಿಲ್ಲ",
+    "description": "Shown when both whitelists are empty"
+  },
+  "whitelistedDomains": {
+    "message": "ಶ್ವೇತಪಟ್ಟಿ ಮಾಡಲಾದ ಡೊಮೇನ್‌ಗಳು",
+    "description": "Whitelist section heading"
+  },
+  "noDomainsWhitelisted": {
+    "message": "ಯಾವುದೇ ಡೊಮೇನ್‌ಗಳನ್ನು ಶ್ವೇತಪಟ್ಟಿ ಮಾಡಲಾಗಿಲ್ಲ",
+    "description": "Empty state of the domain whitelist"
+  },
+  "whitelistedPages": {
+    "message": "ಶ್ವೇತಪಟ್ಟಿ ಮಾಡಿದ ಪುಟಗಳು",
+    "description": "Whitelist section heading"
+  },
+  "noPagesWhitelisted": {
+    "message": "ಯಾವುದೇ ಪುಟಗಳನ್ನು ಶ್ವೇತಪಟ್ಟಿ ಮಾಡಲಾಗಿಲ್ಲ",
+    "description": "Empty state of the page whitelist"
+  },
+  "statusOptionsSaved": {
+    "message": "ಆಯ್ಕೆಗಳನ್ನು ಉಳಿಸಲಾಗಿದೆ!",
+    "description": "Toast after saving options"
+  },
+  "statusTimeRange": {
+    "message": "ಸಮಯವು 1 ಮತ್ತು 1440 ರ ನಡುವೆ ಇರಬೇಕು",
+    "description": "Validation error for the suspend time in minutes"
+  },
+  "statusSiteOptionsSaved": {
+    "message": "ಸೈಟ್ ಆಯ್ಕೆಗಳನ್ನು ಉಳಿಸಲಾಗಿದೆ!",
+    "description": "Toast after saving per-site options"
+  },
+  "statusSiteOverridesCleared": {
+    "message": "ಸೈಟ್ ಅತಿಕ್ರಮಣಗಳನ್ನು ತೆರವುಗೊಳಿಸಲಾಗಿದೆ!",
+    "description": "Toast after removing the per-site override"
+  },
+  "statusSiteSaveError": {
+    "message": "ಸೈಟ್ ಆಯ್ಕೆಗಳನ್ನು ಉಳಿಸುವಲ್ಲಿ ದೋಷ",
+    "description": "Toast when saving per-site options fails"
+  },
+  "statusWhitelistUpdated": {
+    "message": "ಶ್ವೇತಪಟ್ಟಿಯನ್ನು ನವೀಕರಿಸಲಾಗಿದೆ",
+    "description": "Toast after removing a whitelist entry"
+  },
+  "statusSaveError": {
+    "message": "ಆಯ್ಕೆಗಳನ್ನು ಉಳಿಸುವಲ್ಲಿ ದೋಷ",
+    "description": "Toast when saving options fails"
+  },
+  "statusCaptureQualityRange": {
+    "message": "ಕ್ಯಾಪ್ಚರ್ ಗುಣಮಟ್ಟವು 5-100 ಆಗಿರಬೇಕು",
+    "description": "Validation error"
+  },
+  "statusResizeWidthMin": {
+    "message": "ಮರುಗಾತ್ರಗೊಳಿಸಿ ಅಗಲ ಕನಿಷ್ಠ 100 ಆಗಿರಬೇಕು",
+    "description": "Validation error"
+  },
+  "statusResizeHeightMin": {
+    "message": "ಮರುಗಾತ್ರದ ಎತ್ತರ ಕನಿಷ್ಠ 100 ಆಗಿರಬೇಕು",
+    "description": "Validation error"
+  },
+  "statusResizeQualityRange": {
+    "message": "ಮರುಗಾತ್ರಗೊಳಿಸಿ ಗುಣಮಟ್ಟವು 0.1-1.0 ಆಗಿರಬೇಕು",
+    "description": "Validation error"
+  },
+  "statusScreenshotSaved": {
+    "message": "ಸ್ಕ್ರೀನ್‌ಶಾಟ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಉಳಿಸಲಾಗಿದೆ!",
+    "description": "Toast after saving screenshot settings"
+  },
+  "statusScreenshotSaveError": {
+    "message": "ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಉಳಿಸುವಲ್ಲಿ ದೋಷ",
+    "description": "Toast when saving screenshot settings fails"
+  },
+  "statusDomainWhitelisted": {
+    "message": "ಡೊಮೇನ್ $DOMAIN$ ಶ್ವೇತಪಟ್ಟಿ ಮಾಡಲಾಗಿದೆ!",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusDomainAlreadyWhitelisted": {
+    "message": "ಡೊಮೇನ್ $DOMAIN$ ಈಗಾಗಲೇ ಶ್ವೇತಪಟ್ಟಿಯಲ್ಲಿದೆ",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusPageWhitelisted": {
+    "message": "ಪ್ರಸ್ತುತ ಪುಟವನ್ನು ಶ್ವೇತಪಟ್ಟಿ ಮಾಡಲಾಗಿದೆ!",
+    "description": "Toast after whitelisting the current page"
+  },
+  "statusPageAlreadyWhitelisted": {
+    "message": "ಪ್ರಸ್ತುತ ಪುಟವನ್ನು ಈಗಾಗಲೇ ಶ್ವೇತಪಟ್ಟಿ ಮಾಡಲಾಗಿದೆ",
+    "description": "Toast"
+  },
+  "statusPaused": {
+    "message": "ಅಮಾನತುಗೊಳಿಸುವಿಕೆಯನ್ನು $MINUTES$ ನಿಮಿಷಕ್ಕೆ ವಿರಾಮಗೊಳಿಸಲಾಗಿದೆ",
+    "description": "Toast after pausing; MINUTES is a number",
+    "placeholders": {
+      "MINUTES": {
+        "content": "$1",
+        "example": "30"
+      }
+    }
+  },
+  "statusPauseCancelled": {
+    "message": "ವಿರಾಮ ರದ್ದುಗೊಳಿಸಲಾಗಿದೆ",
+    "description": "Toast after cancelling the pause"
+  },
+  "pauseButton30": {
+    "message": "30ಮೀ",
+    "description": "Pause button: 30 minutes (keep it very short)"
+  },
+  "pauseButton60": {
+    "message": "1ಗಂ",
+    "description": "Pause button: 1 hour (keep it very short)"
+  },
+  "pauseButton90": {
+    "message": "1.5ಗಂ",
+    "description": "Pause button: 1.5 hours (keep it very short)"
+  },
+  "pauseButton120": {
+    "message": "2ಗಂ",
+    "description": "Pause button: 2 hours (keep it very short)"
+  },
+  "pausedLabel": {
+    "message": "ವಿರಾಮಗೊಳಿಸಲಾಗಿದೆ",
+    "description": "Heading shown while suspension is paused"
+  },
+  "cancelPause": {
+    "message": "ವಿರಾಮವನ್ನು ರದ್ದುಮಾಡಿ",
+    "description": "Button that ends the pause early"
+  },
+  "readTheGuide": {
+    "message": "ಮಾರ್ಗದರ್ಶಿ ಓದಿ",
+    "description": "Button that opens the keyboard shortcut help page"
+  },
+  "emojiZzz": {
+    "message": "💤 Zzz",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSleeping": {
+    "message": "😴 ನಿದ್ರಿಸುವುದು",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiInBed": {
+    "message": "🛌 ಹಾಸಿಗೆಯಲ್ಲಿ",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiMoon": {
+    "message": "🌙 ಚಂದ್ರ",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiIceCube": {
+    "message": "🧊 ಐಸ್ ಕ್ಯೂಬ್",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSnowflake": {
+    "message": "❄️ ಸ್ನೋಫ್ಲೇಕ್",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiPause": {
+    "message": "⏸️ ವಿರಾಮ",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiNone": {
+    "message": "ಯಾವುದೂ ಇಲ್ಲ",
+    "description": "Tab title indicator choice: no indicator"
+  },
+  "siteLabel": {
+    "message": "ಸೈಟ್:",
+    "description": "Label before the current site hostname"
+  },
+  "suspendTimeLabel": {
+    "message": "ಅಮಾನತು ಸಮಯ:",
+    "description": "Per-site setting label"
+  },
+  "timeMinutesLabel": {
+    "message": "ಸಮಯ (ನಿಮಿಷಗಳು):",
+    "description": "Per-site setting label"
+  },
+  "optInherit": {
+    "message": "ಆನುವಂಶಿಕವಾಗಿ",
+    "description": "Per-site choice: use the global setting"
+  },
+  "optCustom": {
+    "message": "ಕಸ್ಟಮ್",
+    "description": "Per-site choice: use a custom value"
+  },
+  "optDisableDiscard": {
+    "message": "ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿ (ತಿರಸ್ಕರಿಸಿ)",
+    "description": "Per-site choice for Disable Suspended Page: discard the tab directly"
+  },
+  "optEnableShowPage": {
+    "message": "ಸಕ್ರಿಯಗೊಳಿಸಿ (ಪುಟವನ್ನು ತೋರಿಸು)",
+    "description": "Per-site choice for Disable Suspended Page: show the suspended page"
+  },
+  "optDontSuspend": {
+    "message": "ಅಮಾನತು ಮಾಡಬೇಡಿ",
+    "description": "Per-site choice: protect the tab"
+  },
+  "optAllowSuspend": {
+    "message": "ಅಮಾನತುಗೊಳಿಸಲು ಅನುಮತಿಸಿ",
+    "description": "Per-site choice: allow suspending the tab"
+  },
+  "labelDisableSuspendedPage": {
+    "message": "ಅಮಾನತುಗೊಳಿಸಿದ ಪುಟವನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿ:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreAudio": {
+    "message": "ಆಡಿಯೋ ಪ್ಲೇ ಮಾಡುವುದನ್ನು ನಿರ್ಲಕ್ಷಿಸಿ:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreFormInput": {
+    "message": "ಫಾರ್ಮ್ ಇನ್‌ಪುಟ್ ನಿರ್ಲಕ್ಷಿಸಿ:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreNotifications": {
+    "message": "ಅಧಿಸೂಚನೆಗಳನ್ನು ನಿರ್ಲಕ್ಷಿಸಿ:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnorePinned": {
+    "message": "ಪಿನ್ ಮಾಡಿದ ಟ್ಯಾಬ್‌ಗಳನ್ನು ನಿರ್ಲಕ್ಷಿಸಿ:",
+    "description": "Per-site setting label"
+  },
+  "dataExported": {
+    "message": "ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ರಫ್ತು ಮಾಡಲಾಗಿದೆ!",
+    "description": "Toast after exporting"
+  },
+  "dataExportFailed": {
+    "message": "ರಫ್ತು ವಿಫಲವಾಗಿದೆ",
+    "description": "Toast"
+  },
+  "dataImportInvalidJson": {
+    "message": "ಆಮದು ವಿಫಲವಾಗಿದೆ: ಅಮಾನ್ಯ JSON ಫೈಲ್",
+    "description": "Toast"
+  },
+  "dataImportReadError": {
+    "message": "ಆಮದು ವಿಫಲವಾಗಿದೆ: ಫೈಲ್ ಅನ್ನು ಓದಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ",
+    "description": "Toast"
+  },
+  "dataImported": {
+    "message": "ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಆಮದು ಮಾಡಲಾಗಿದೆ!",
+    "description": "Toast"
+  },
+  "dataImportFailed": {
+    "message": "ಆಮದು ವಿಫಲವಾಗಿದೆ: $ERROR$",
+    "description": "Toast; ERROR is a technical error message",
+    "placeholders": {
+      "ERROR": {
+        "content": "$1",
+        "example": "Invalid file"
+      }
+    }
+  },
+  "dataImportNoValid": {
+    "message": "ಫೈಲ್ ಮಾನ್ಯ ಅಥವಾ ಮಾನ್ಯತೆ ಪಡೆದ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಹೊಂದಿಲ್ಲ.",
+    "description": "Error message for an import file with nothing usable"
+  },
+  "ctxWhitelistDomain": {
+    "message": "ಈ ಡೊಮೇನ್ ಅನ್ನು ಶ್ವೇತಪಟ್ಟಿ ಮಾಡಿ",
+    "description": "Right-click menu item"
+  },
+  "ctxWhitelistPage": {
+    "message": "ಈ ಪುಟವನ್ನು ಶ್ವೇತಪಟ್ಟಿ ಮಾಡಿ",
+    "description": "Right-click menu item"
+  },
+  "ctxSuspendPage": {
+    "message": "ಈ ಪುಟವನ್ನು ಅಮಾನತುಗೊಳಿಸಿ",
+    "description": "Right-click menu item"
+  },
+  "siteOverrideEnabled": {
+    "message": "$DOMAIN$ ಗಾಗಿ ಕಸ್ಟಮ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "siteOverrideDisabled": {
+    "message": "$DOMAIN$ ಗಾಗಿ ಕಸ್ಟಮ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
   }
 }

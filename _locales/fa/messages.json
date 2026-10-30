@@ -40,7 +40,7 @@
     "description": "paragraph in popup.html"
   },
   "configureKeyboardShortcuts": {
-    "message": "میانبرهای صفحه کلید را در تنظیمات افزونه کروم پیکربندی کنید.",
+    "message": "پشتیبانی از میانبر صفحه کلید در دسترس است! با دنبال کردن راهنما، آن را در تنظیمات افزونه مرورگر خود پیکربندی کنید.",
     "description": "paragraph in popup.html"
   },
   "importExportSettingsWhitelist": {
@@ -72,7 +72,7 @@
     "description": "button in popup.html"
   },
   "suspendInactiveTabsAfter": {
-    "message": "تعلیق تب‌های غیرفعال پس از (دقیقه):",
+    "message": "تعلیق پس از (دقیقه):",
     "description": "label in popup.html"
   },
   "darkMode": {
@@ -144,7 +144,7 @@
     "description": "paragraph in data_management.html"
   },
   "importDesc": {
-    "message": "بارگذاری تنظیمات از یک فایل JSON. این کار تنظیمات فعلی شما را بازنویسی می‌کند.",
+    "message": "تنظیمات را از یک فایل JSON بارگیری کنید. مقادیر وارد شده جایگزین تنظیمات فعلی شما می شوند. لیست های سفید با لیست های موجود ادغام می شوند.",
     "description": "paragraph in data_management.html"
   },
   "selectJsonFile": {
@@ -190,5 +190,301 @@
   "toggleSiteOverride": {
     "message": "لغو تنظیمات سفارشی برای این سایت",
     "description": ""
+  },
+  "whitelistNoItems": {
+    "message": "هیچ موردی در لیست سفید وجود ندارد",
+    "description": "Shown when both whitelists are empty"
+  },
+  "whitelistedDomains": {
+    "message": "دامنه های در لیست سفید",
+    "description": "Whitelist section heading"
+  },
+  "noDomainsWhitelisted": {
+    "message": "هیچ دامنه ای در لیست سفید قرار نگرفت",
+    "description": "Empty state of the domain whitelist"
+  },
+  "whitelistedPages": {
+    "message": "صفحات در لیست سفید",
+    "description": "Whitelist section heading"
+  },
+  "noPagesWhitelisted": {
+    "message": "هیچ صفحه ای در لیست سفید قرار نگرفت",
+    "description": "Empty state of the page whitelist"
+  },
+  "statusOptionsSaved": {
+    "message": "گزینه ها ذخیره شد!",
+    "description": "Toast after saving options"
+  },
+  "statusTimeRange": {
+    "message": "زمان باید بین 1 تا 1440 باشد",
+    "description": "Validation error for the suspend time in minutes"
+  },
+  "statusSiteOptionsSaved": {
+    "message": "گزینه های سایت ذخیره شد!",
+    "description": "Toast after saving per-site options"
+  },
+  "statusSiteOverridesCleared": {
+    "message": "موارد لغو سایت پاک شد!",
+    "description": "Toast after removing the per-site override"
+  },
+  "statusSiteSaveError": {
+    "message": "خطا در ذخیره گزینه های سایت",
+    "description": "Toast when saving per-site options fails"
+  },
+  "statusWhitelistUpdated": {
+    "message": "لیست سفید به روز شد",
+    "description": "Toast after removing a whitelist entry"
+  },
+  "statusSaveError": {
+    "message": "خطا در ذخیره گزینه ها",
+    "description": "Toast when saving options fails"
+  },
+  "statusCaptureQualityRange": {
+    "message": "کیفیت عکسبرداری باید 5-100 باشد",
+    "description": "Validation error"
+  },
+  "statusResizeWidthMin": {
+    "message": "تغییر اندازه عرض باید حداقل 100 باشد",
+    "description": "Validation error"
+  },
+  "statusResizeHeightMin": {
+    "message": "ارتفاع تغییر اندازه باید حداقل 100 باشد",
+    "description": "Validation error"
+  },
+  "statusResizeQualityRange": {
+    "message": "کیفیت تغییر اندازه باید 0.1-1.0 باشد",
+    "description": "Validation error"
+  },
+  "statusScreenshotSaved": {
+    "message": "تنظیمات اسکرین شات ذخیره شد!",
+    "description": "Toast after saving screenshot settings"
+  },
+  "statusScreenshotSaveError": {
+    "message": "خطا در ذخیره تنظیمات",
+    "description": "Toast when saving screenshot settings fails"
+  },
+  "statusDomainWhitelisted": {
+    "message": "دامنه $DOMAIN$ در لیست سفید قرار گرفت!",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusDomainAlreadyWhitelisted": {
+    "message": "دامنه $DOMAIN$ قبلاً در لیست سفید قرار گرفته است",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusPageWhitelisted": {
+    "message": "صفحه فعلی در لیست سفید قرار گرفته است!",
+    "description": "Toast after whitelisting the current page"
+  },
+  "statusPageAlreadyWhitelisted": {
+    "message": "صفحه فعلی قبلاً در لیست سفید قرار گرفته است",
+    "description": "Toast"
+  },
+  "statusPaused": {
+    "message": "تعلیق برای $MINUTES$ دقیقه متوقف شد",
+    "description": "Toast after pausing; MINUTES is a number",
+    "placeholders": {
+      "MINUTES": {
+        "content": "$1",
+        "example": "30"
+      }
+    }
+  },
+  "statusPauseCancelled": {
+    "message": "مکث لغو شد",
+    "description": "Toast after cancelling the pause"
+  },
+  "pauseButton30": {
+    "message": "30 متر",
+    "description": "Pause button: 30 minutes (keep it very short)"
+  },
+  "pauseButton60": {
+    "message": "1 ساعت",
+    "description": "Pause button: 1 hour (keep it very short)"
+  },
+  "pauseButton90": {
+    "message": "1.5 ساعت",
+    "description": "Pause button: 1.5 hours (keep it very short)"
+  },
+  "pauseButton120": {
+    "message": "2 ساعت",
+    "description": "Pause button: 2 hours (keep it very short)"
+  },
+  "pausedLabel": {
+    "message": "مکث کرد",
+    "description": "Heading shown while suspension is paused"
+  },
+  "cancelPause": {
+    "message": "لغو مکث",
+    "description": "Button that ends the pause early"
+  },
+  "readTheGuide": {
+    "message": "راهنما را بخوانید",
+    "description": "Button that opens the keyboard shortcut help page"
+  },
+  "emojiZzz": {
+    "message": "💤 Zzz",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSleeping": {
+    "message": "😴 خوابیدن",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiInBed": {
+    "message": "🛌 در رختخواب",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiMoon": {
+    "message": "🌙 ماه",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiIceCube": {
+    "message": "🧊 مکعب یخ",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSnowflake": {
+    "message": "❄️ دانه برف",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiPause": {
+    "message": "⏸️ مکث کنید",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiNone": {
+    "message": "هیچ کدام",
+    "description": "Tab title indicator choice: no indicator"
+  },
+  "siteLabel": {
+    "message": "سایت:",
+    "description": "Label before the current site hostname"
+  },
+  "suspendTimeLabel": {
+    "message": "زمان تعلیق:",
+    "description": "Per-site setting label"
+  },
+  "timeMinutesLabel": {
+    "message": "زمان (دقیقه):",
+    "description": "Per-site setting label"
+  },
+  "optInherit": {
+    "message": "ارث ببرد",
+    "description": "Per-site choice: use the global setting"
+  },
+  "optCustom": {
+    "message": "سفارشی",
+    "description": "Per-site choice: use a custom value"
+  },
+  "optDisableDiscard": {
+    "message": "غیرفعال کردن (رد کردن)",
+    "description": "Per-site choice for Disable Suspended Page: discard the tab directly"
+  },
+  "optEnableShowPage": {
+    "message": "فعال کردن (نمایش صفحه)",
+    "description": "Per-site choice for Disable Suspended Page: show the suspended page"
+  },
+  "optDontSuspend": {
+    "message": "تعلیق نکنید",
+    "description": "Per-site choice: protect the tab"
+  },
+  "optAllowSuspend": {
+    "message": "اجازه تعلیق",
+    "description": "Per-site choice: allow suspending the tab"
+  },
+  "labelDisableSuspendedPage": {
+    "message": "غیرفعال کردن صفحه معلق:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreAudio": {
+    "message": "نادیده گرفتن پخش صدا:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreFormInput": {
+    "message": "نادیده گرفتن ورودی فرم:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreNotifications": {
+    "message": "نادیده گرفتن اعلان ها:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnorePinned": {
+    "message": "نادیده گرفتن برگه های پین شده:",
+    "description": "Per-site setting label"
+  },
+  "dataExported": {
+    "message": "تنظیمات صادر شد!",
+    "description": "Toast after exporting"
+  },
+  "dataExportFailed": {
+    "message": "صادرات انجام نشد",
+    "description": "Toast"
+  },
+  "dataImportInvalidJson": {
+    "message": "وارد کردن انجام نشد: فایل JSON نامعتبر است",
+    "description": "Toast"
+  },
+  "dataImportReadError": {
+    "message": "وارد کردن انجام نشد: فایل خوانده نشد",
+    "description": "Toast"
+  },
+  "dataImported": {
+    "message": "تنظیمات با موفقیت وارد شد!",
+    "description": "Toast"
+  },
+  "dataImportFailed": {
+    "message": "واردات انجام نشد: $ERROR$",
+    "description": "Toast; ERROR is a technical error message",
+    "placeholders": {
+      "ERROR": {
+        "content": "$1",
+        "example": "Invalid file"
+      }
+    }
+  },
+  "dataImportNoValid": {
+    "message": "فایل فاقد تنظیمات معتبر یا شناسایی شده است.",
+    "description": "Error message for an import file with nothing usable"
+  },
+  "ctxWhitelistDomain": {
+    "message": "این دامنه را در لیست سفید قرار دهید",
+    "description": "Right-click menu item"
+  },
+  "ctxWhitelistPage": {
+    "message": "این صفحه را در لیست سفید قرار دهید",
+    "description": "Right-click menu item"
+  },
+  "ctxSuspendPage": {
+    "message": "این صفحه را به حالت تعلیق درآورید",
+    "description": "Right-click menu item"
+  },
+  "siteOverrideEnabled": {
+    "message": "تنظیمات سفارشی برای $DOMAIN$ فعال شد",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "siteOverrideDisabled": {
+    "message": "تنظیمات سفارشی برای $DOMAIN$ غیرفعال شد",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
   }
 }

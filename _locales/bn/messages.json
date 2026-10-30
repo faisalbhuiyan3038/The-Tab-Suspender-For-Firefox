@@ -40,7 +40,7 @@
     "description": "paragraph in popup.html"
   },
   "configureKeyboardShortcuts": {
-    "message": "ক্রোম এক্সটেনশন সেটিংসে কীবোর্ড শর্টকাট কনফিগার করুন।",
+    "message": "কীবোর্ড শর্টকাট সমর্থন উপলব্ধ! গাইড অনুসরণ করে আপনার ব্রাউজারের এক্সটেনশন সেটিংসে এটি কনফিগার করুন।",
     "description": "paragraph in popup.html"
   },
   "importExportSettingsWhitelist": {
@@ -72,7 +72,7 @@
     "description": "button in popup.html"
   },
   "suspendInactiveTabsAfter": {
-    "message": "নিষ্ক্রিয় ট্যাবগুলো এত পরে সাসপেন্ড করুন (মিনিট):",
+    "message": "(মিনিট) পরে স্থগিত করুন:",
     "description": "label in popup.html"
   },
   "darkMode": {
@@ -144,7 +144,7 @@
     "description": "paragraph in data_management.html"
   },
   "importDesc": {
-    "message": "JSON ফাইল থেকে সেটিংস লোড করুন। এটি আপনার বর্তমান সেটিংস মুছে ফেলবে।",
+    "message": "একটি JSON ফাইল থেকে সেটিংস লোড করুন। আমদানি করা মান আপনার বর্তমান সেটিংস প্রতিস্থাপন; শ্বেত তালিকাগুলি বিদ্যমানগুলির সাথে একত্রিত করা হয়েছে।",
     "description": "paragraph in data_management.html"
   },
   "selectJsonFile": {
@@ -190,5 +190,301 @@
   "toggleSiteOverride": {
     "message": "এই সাইটের জন্য কাস্টম সেটিংস ওভাররাইড টগল করুন",
     "description": ""
+  },
+  "whitelistNoItems": {
+    "message": "কোনো সাদাতালিকাভুক্ত আইটেম নেই",
+    "description": "Shown when both whitelists are empty"
+  },
+  "whitelistedDomains": {
+    "message": "সাদা তালিকাভুক্ত ডোমেন",
+    "description": "Whitelist section heading"
+  },
+  "noDomainsWhitelisted": {
+    "message": "কোনো ডোমেইন সাদা তালিকাভুক্ত নয়",
+    "description": "Empty state of the domain whitelist"
+  },
+  "whitelistedPages": {
+    "message": "সাদা তালিকাভুক্ত পৃষ্ঠাগুলি",
+    "description": "Whitelist section heading"
+  },
+  "noPagesWhitelisted": {
+    "message": "কোন পৃষ্ঠা সাদা তালিকাভুক্ত",
+    "description": "Empty state of the page whitelist"
+  },
+  "statusOptionsSaved": {
+    "message": "অপশন সংরক্ষিত!",
+    "description": "Toast after saving options"
+  },
+  "statusTimeRange": {
+    "message": "সময় 1 এবং 1440 এর মধ্যে হতে হবে",
+    "description": "Validation error for the suspend time in minutes"
+  },
+  "statusSiteOptionsSaved": {
+    "message": "সাইট অপশন সংরক্ষিত!",
+    "description": "Toast after saving per-site options"
+  },
+  "statusSiteOverridesCleared": {
+    "message": "সাইট ওভাররাইড সাফ করা হয়েছে!",
+    "description": "Toast after removing the per-site override"
+  },
+  "statusSiteSaveError": {
+    "message": "সাইটের বিকল্পগুলি সংরক্ষণে ত্রুটি৷",
+    "description": "Toast when saving per-site options fails"
+  },
+  "statusWhitelistUpdated": {
+    "message": "হোয়াইটলিস্ট আপডেট করা হয়েছে",
+    "description": "Toast after removing a whitelist entry"
+  },
+  "statusSaveError": {
+    "message": "বিকল্প সংরক্ষণে ত্রুটি",
+    "description": "Toast when saving options fails"
+  },
+  "statusCaptureQualityRange": {
+    "message": "ক্যাপচার কোয়ালিটি 5-100 হতে হবে",
+    "description": "Validation error"
+  },
+  "statusResizeWidthMin": {
+    "message": "রিসাইজ প্রস্থ কমপক্ষে 100 হতে হবে",
+    "description": "Validation error"
+  },
+  "statusResizeHeightMin": {
+    "message": "রিসাইজ উচ্চতা কমপক্ষে 100 হতে হবে",
+    "description": "Validation error"
+  },
+  "statusResizeQualityRange": {
+    "message": "রিসাইজ কোয়ালিটি অবশ্যই 0.1-1.0 হতে হবে",
+    "description": "Validation error"
+  },
+  "statusScreenshotSaved": {
+    "message": "স্ক্রিনশট সেটিংস সংরক্ষিত!",
+    "description": "Toast after saving screenshot settings"
+  },
+  "statusScreenshotSaveError": {
+    "message": "সেটিংস সংরক্ষণে ত্রুটি৷",
+    "description": "Toast when saving screenshot settings fails"
+  },
+  "statusDomainWhitelisted": {
+    "message": "ডোমেন $DOMAIN$ সাদা তালিকাভুক্ত!",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusDomainAlreadyWhitelisted": {
+    "message": "ডোমেন $DOMAIN$ ইতিমধ্যেই সাদা তালিকাভুক্ত৷",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusPageWhitelisted": {
+    "message": "বর্তমান পৃষ্ঠা সাদা তালিকাভুক্ত!",
+    "description": "Toast after whitelisting the current page"
+  },
+  "statusPageAlreadyWhitelisted": {
+    "message": "বর্তমান পৃষ্ঠাটি ইতিমধ্যেই সাদা তালিকাভুক্ত৷",
+    "description": "Toast"
+  },
+  "statusPaused": {
+    "message": "সাসপেনশন $MINUTES$ মিনিটের জন্য থামানো হয়েছে৷",
+    "description": "Toast after pausing; MINUTES is a number",
+    "placeholders": {
+      "MINUTES": {
+        "content": "$1",
+        "example": "30"
+      }
+    }
+  },
+  "statusPauseCancelled": {
+    "message": "বিরাম বাতিল করা হয়েছে",
+    "description": "Toast after cancelling the pause"
+  },
+  "pauseButton30": {
+    "message": "30মি",
+    "description": "Pause button: 30 minutes (keep it very short)"
+  },
+  "pauseButton60": {
+    "message": "1ঘ",
+    "description": "Pause button: 1 hour (keep it very short)"
+  },
+  "pauseButton90": {
+    "message": "1.5 ঘন্টা",
+    "description": "Pause button: 1.5 hours (keep it very short)"
+  },
+  "pauseButton120": {
+    "message": "2ঘ",
+    "description": "Pause button: 2 hours (keep it very short)"
+  },
+  "pausedLabel": {
+    "message": "বিরতি দেওয়া হয়েছে",
+    "description": "Heading shown while suspension is paused"
+  },
+  "cancelPause": {
+    "message": "বিরতি বাতিল করুন",
+    "description": "Button that ends the pause early"
+  },
+  "readTheGuide": {
+    "message": "গাইড পড়ুন",
+    "description": "Button that opens the keyboard shortcut help page"
+  },
+  "emojiZzz": {
+    "message": "💤 Zzz",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSleeping": {
+    "message": "😴 ঘুমাচ্ছে",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiInBed": {
+    "message": "🛌 বিছানায়",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiMoon": {
+    "message": "🌙 চাঁদ",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiIceCube": {
+    "message": "🧊 আইস কিউব",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSnowflake": {
+    "message": "❄️ স্নোফ্লেক",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiPause": {
+    "message": "⏸️ বিরতি",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiNone": {
+    "message": "কোনোটিই নয়",
+    "description": "Tab title indicator choice: no indicator"
+  },
+  "siteLabel": {
+    "message": "সাইট:",
+    "description": "Label before the current site hostname"
+  },
+  "suspendTimeLabel": {
+    "message": "স্থগিত সময়:",
+    "description": "Per-site setting label"
+  },
+  "timeMinutesLabel": {
+    "message": "সময় (মিনিট):",
+    "description": "Per-site setting label"
+  },
+  "optInherit": {
+    "message": "উত্তরাধিকার",
+    "description": "Per-site choice: use the global setting"
+  },
+  "optCustom": {
+    "message": "কাস্টম",
+    "description": "Per-site choice: use a custom value"
+  },
+  "optDisableDiscard": {
+    "message": "অক্ষম করুন (বাদ দিন)",
+    "description": "Per-site choice for Disable Suspended Page: discard the tab directly"
+  },
+  "optEnableShowPage": {
+    "message": "সক্ষম করুন (পৃষ্ঠা দেখান)",
+    "description": "Per-site choice for Disable Suspended Page: show the suspended page"
+  },
+  "optDontSuspend": {
+    "message": "সাসপেন্ড করবেন না",
+    "description": "Per-site choice: protect the tab"
+  },
+  "optAllowSuspend": {
+    "message": "সাসপেন্ডের অনুমতি দিন",
+    "description": "Per-site choice: allow suspending the tab"
+  },
+  "labelDisableSuspendedPage": {
+    "message": "স্থগিত পৃষ্ঠা নিষ্ক্রিয় করুন:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreAudio": {
+    "message": "অডিও বাজানো উপেক্ষা করুন:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreFormInput": {
+    "message": "ফর্ম ইনপুট উপেক্ষা করুন:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreNotifications": {
+    "message": "বিজ্ঞপ্তি উপেক্ষা করুন:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnorePinned": {
+    "message": "পিন করা ট্যাবগুলি উপেক্ষা করুন:",
+    "description": "Per-site setting label"
+  },
+  "dataExported": {
+    "message": "সেটিংস রপ্তানি!",
+    "description": "Toast after exporting"
+  },
+  "dataExportFailed": {
+    "message": "রপ্তানি ব্যর্থ হয়েছে",
+    "description": "Toast"
+  },
+  "dataImportInvalidJson": {
+    "message": "আমদানি ব্যর্থ হয়েছে: অবৈধ JSON ফাইল৷",
+    "description": "Toast"
+  },
+  "dataImportReadError": {
+    "message": "আমদানি ব্যর্থ হয়েছে: ফাইল পড়া যায়নি",
+    "description": "Toast"
+  },
+  "dataImported": {
+    "message": "সেটিংস সফলভাবে আমদানি করা হয়েছে!",
+    "description": "Toast"
+  },
+  "dataImportFailed": {
+    "message": "আমদানি ব্যর্থ হয়েছে: $ERROR$",
+    "description": "Toast; ERROR is a technical error message",
+    "placeholders": {
+      "ERROR": {
+        "content": "$1",
+        "example": "Invalid file"
+      }
+    }
+  },
+  "dataImportNoValid": {
+    "message": "ফাইলে কোন বৈধ বা স্বীকৃত সেটিংস নেই।",
+    "description": "Error message for an import file with nothing usable"
+  },
+  "ctxWhitelistDomain": {
+    "message": "এই ডোমেনটিকে হোয়াইটলিস্ট করুন৷",
+    "description": "Right-click menu item"
+  },
+  "ctxWhitelistPage": {
+    "message": "এই পৃষ্ঠাটিকে হোয়াইটলিস্ট করুন",
+    "description": "Right-click menu item"
+  },
+  "ctxSuspendPage": {
+    "message": "এই পৃষ্ঠাটি সাসপেন্ড করুন",
+    "description": "Right-click menu item"
+  },
+  "siteOverrideEnabled": {
+    "message": "$DOMAIN$ এর জন্য কাস্টম সেটিংস সক্ষম করা হয়েছে",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "siteOverrideDisabled": {
+    "message": "$DOMAIN$ এর জন্য কাস্টম সেটিংস অক্ষম করা হয়েছে",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
   }
 }

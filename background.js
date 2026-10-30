@@ -24,10 +24,13 @@ let settings = {
   suspendEmoji: 'none',
   siteSettings: {}         // Site-specific settings overrides
 };
-let pauseExpirationTimer = null;
 
 const SUSPEND_ALARM_PREFIX = 'suspend_tab_';
 const DISCARD_ALARM_PREFIX = 'discard_tab_';
+const PAUSE_ALARM = 'pause_expiry';
+
+// Localized string with English fallback
+const t = (key, subs, fallback) => chrome.i18n.getMessage(key, subs) || fallback || key;
 
 // --- Storage Management ---
 
@@ -86,24 +89,15 @@ async function loadSettings() {
 
     console.log('Settings loaded/reloaded:', settings, `Suspend Time: ${SUSPEND_TIME}`);
 
-    // Schedule resume if paused
-    if (pauseExpirationTimer) {
-      clearTimeout(pauseExpirationTimer);
-      pauseExpirationTimer = null;
-    }
-
+    // Schedule resume if paused (alarm, so it survives service worker restarts)
     if (settings.pauseUntil > Date.now()) {
-      const waitTime = settings.pauseUntil - Date.now();
-      console.log(`Scheduling pause expiration in ${waitTime}ms`);
-      pauseExpirationTimer = setTimeout(() => {
-        console.log('Pause expired. Re-initializing tab timers.');
+      await chrome.alarms.create(PAUSE_ALARM, { when: settings.pauseUntil });
+    } else {
+      await chrome.alarms.clear(PAUSE_ALARM);
+      if (settings.pauseUntil !== 0) {
         settings.pauseUntil = 0;
         chrome.storage.sync.set({ pauseUntil: 0 });
-        initializeTimers();
-      }, waitTime);
-    } else if (settings.pauseUntil !== 0) {
-      settings.pauseUntil = 0;
-      chrome.storage.sync.set({ pauseUntil: 0 });
+      }
     }
 
   } catch (error) {
@@ -203,6 +197,66 @@ async function initialize() {
   await initializeTimers();
 }
 
+// --- Screenshot capture ---
+
+// Firefox can capture any tab by id. Chrome can only capture the visible tab, so there
+// the thumbnail is taken while the tab is active and reused when it is suspended later.
+const HAS_CAPTURE_TAB = typeof chrome.tabs.captureTab === 'function';
+const captureTimers = {};
+
+function blobToDataUrl(blob) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
+  });
+}
+
+async function downscaleToThumbnail(dataUrl) {
+  const bitmap = await createImageBitmap(await (await fetch(dataUrl)).blob());
+  let width = bitmap.width;
+  let height = bitmap.height;
+
+  if (width > height) {
+    if (width > settings.resizeWidth) {
+      height = Math.round(height * (settings.resizeWidth / width));
+      width = settings.resizeWidth;
+    }
+  } else if (height > settings.resizeHeight) {
+    width = Math.round(width * (settings.resizeHeight / height));
+    height = settings.resizeHeight;
+  }
+
+  const canvas = new OffscreenCanvas(width, height);
+  canvas.getContext('2d').drawImage(bitmap, 0, 0, width, height);
+  const blob = await canvas.convertToBlob({ type: 'image/webp', quality: settings.resizeQuality });
+  return blobToDataUrl(blob);
+}
+
+async function captureActiveTabThumbnail(tabId) {
+  const tab = await chrome.tabs.get(tabId);
+  if (!tab.active || !/^https?:\/\//.test(tab.url)) return;
+
+  const fullResImage = await chrome.tabs.captureVisibleTab(tab.windowId, {
+    format: "jpeg",
+    quality: settings.captureQuality
+  });
+  const thumbnail = await downscaleToThumbnail(fullResImage);
+  await chrome.storage.local.set({ ["thumbnail_" + tabId]: thumbnail });
+  console.log(`Stored thumbnail for tab ${tabId}`);
+}
+
+function scheduleThumbnailCapture(tabId) {
+  if (!settings.enableScreenshots || HAS_CAPTURE_TAB) return;
+  clearTimeout(captureTimers[tabId]);
+  // Give the page a moment to render before capturing
+  captureTimers[tabId] = setTimeout(() => {
+    delete captureTimers[tabId];
+    captureActiveTabThumbnail(tabId).catch(e => console.log(`Thumbnail capture skipped for tab ${tabId}:`, e.message));
+  }, 1500);
+}
+
 // --- Tab Timer & Alarm Logic ---
 
 async function resetTabTimer(tabId) {
@@ -249,7 +303,10 @@ async function clearDiscardTimer(tabId) {
 chrome.alarms.onAlarm.addListener(async (alarm) => {
   console.log(`Alarm fired: ${alarm.name}`);
 
-  if (alarm.name.startsWith(SUSPEND_ALARM_PREFIX)) {
+  if (alarm.name === PAUSE_ALARM) {
+    // Clearing pauseUntil triggers the storage listener, which re-arms every tab timer
+    await chrome.storage.sync.set({ pauseUntil: 0 });
+  } else if (alarm.name.startsWith(SUSPEND_ALARM_PREFIX)) {
     const tabId = parseInt(alarm.name.replace(SUSPEND_ALARM_PREFIX, ''), 10);
     await suspendTab(tabId);
   } else if (alarm.name.startsWith(DISCARD_ALARM_PREFIX)) {
@@ -342,9 +399,9 @@ async function suspendTab(tabId, force = false) {
 
     if (settings.enableScreenshots) {
       try {
-        const currentWindow = await chrome.windows.get(tab.windowId);
-        if (currentWindow.focused) {
-          const fullResImage = await chrome.tabs.captureVisibleTab(tab.windowId, {
+        if (HAS_CAPTURE_TAB) {
+          // Firefox: can capture any tab, visible or not
+          const fullResImage = await chrome.tabs.captureTab(tabId, {
             format: "jpeg",
             quality: settings.captureQuality
           });
@@ -352,7 +409,11 @@ async function suspendTab(tabId, force = false) {
           await chrome.storage.local.set({ ["temp_img_" + tabId]: fullResImage });
           suspendedPageURL += "&hasCapture=true";
           console.log(`Captured screenshot for tab ${tabId}`);
+        } else if (tab.active) {
+          // Chrome: only the visible tab can be captured, so refresh it now if it is visible
+          await captureActiveTabThumbnail(tabId);
         }
+        // Chrome, inactive tab: the thumbnail stored while the tab was last active is used
       } catch (captureError) {
         console.error(`Failed to capture tab ${tabId}:`, captureError);
       }
@@ -382,6 +443,16 @@ async function suspendTab(tabId, force = false) {
 // --- Event Listeners (Tabs, Windows) ---
 
 chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
+  const isSuspendedUrl = tab.url && tab.url.startsWith(chrome.runtime.getURL("suspended.html"));
+
+  // A new page invalidates the thumbnail taken for the previous one
+  if (changeInfo.url && !isSuspendedUrl && !HAS_CAPTURE_TAB) {
+    chrome.storage.local.remove("thumbnail_" + tabId);
+  }
+  if (changeInfo.status === 'complete' && tab.active && !isSuspendedUrl) {
+    scheduleThumbnailCapture(tabId);
+  }
+
   if (changeInfo.status === 'complete') {
     if (!tab.url.startsWith(chrome.runtime.getURL("suspended.html"))) {
       if (tabId !== activeTabId) {
@@ -412,6 +483,7 @@ chrome.tabs.onActivated.addListener(async (activeInfo) => {
   // Clear suspension timers for newly active tab
   await clearTabTimer(activeTabId);
   await clearDiscardTimer(activeTabId);
+  scheduleThumbnailCapture(activeTabId);
 
   if (previousActiveTab && previousActiveTab !== activeTabId) {
     try {
@@ -501,19 +573,34 @@ chrome.storage.onChanged.addListener((changes, areaName) => {
 
     if (settingsChanged) {
       console.log('Sync settings changed, reloading...');
-      loadSettings().then(async () => {
-        // Reset all active suspend alarms
-        const alarms = await chrome.alarms.getAll();
-        for (const alarm of alarms) {
-          if (alarm.name.startsWith(SUSPEND_ALARM_PREFIX)) {
-            const tabId = parseInt(alarm.name.replace(SUSPEND_ALARM_PREFIX, ''), 10);
-            await resetTabTimer(tabId);
-          }
-        }
-      });
+      // Re-arm every tab, not just those with a pending alarm: alarms that already fired
+      // while a tab was protected (or the extension disabled/paused) must be recreated.
+      loadSettings().then(rearmAllTimers);
     }
   }
 });
+
+async function rearmAllTimers() {
+  try {
+    const tabs = await chrome.tabs.query({});
+    const activeTab = tabs.find(tab => tab.active);
+    if (activeTab) {
+      activeTabId = activeTab.id;
+    }
+
+    const paused = settings.pauseUntil > Date.now();
+    const suspendedBase = chrome.runtime.getURL("suspended.html");
+    for (const tab of tabs) {
+      if (paused || tab.active || (tab.url && tab.url.startsWith(suspendedBase))) {
+        await clearTabTimer(tab.id);
+      } else {
+        await resetTabTimer(tab.id);
+      }
+    }
+  } catch (error) {
+    console.error('Error in rearmAllTimers:', error);
+  }
+}
 
 async function initializeTimers() {
   try {
@@ -551,22 +638,22 @@ async function initializeTimers() {
 chrome.runtime.onInstalled.addListener(async (details) => {
   chrome.contextMenus.create({
     id: 'whitelistDomain',
-    title: 'Whitelist this domain',
+    title: t('ctxWhitelistDomain', null, 'Whitelist this domain'),
     contexts: ['page']
   });
   chrome.contextMenus.create({
     id: 'whitelistUrl',
-    title: 'Whitelist this page',
+    title: t('ctxWhitelistPage', null, 'Whitelist this page'),
     contexts: ['page']
   });
   chrome.contextMenus.create({
     id: 'toggleSiteOverride',
-    title: chrome.i18n.getMessage('toggleSiteOverride') || 'Toggle custom settings override for this site',
+    title: t('toggleSiteOverride', null, 'Toggle custom settings override for this site'),
     contexts: ['page']
   });
   chrome.contextMenus.create({
     id: 'suspendPage',
-    title: 'Suspend This Page',
+    title: t('ctxSuspendPage', null, 'Suspend This Page'),
     contexts: ['page']
   });
 
@@ -629,7 +716,7 @@ async function toggleSiteOverrideForTab(tab) {
 
     if (newSiteSettings[domain]) {
       delete newSiteSettings[domain];
-      message = `Custom settings disabled for ${domain}`;
+      message = t('siteOverrideDisabled', domain, `Custom settings disabled for ${domain}`);
     } else {
       newSiteSettings[domain] = {
         ignoreAudio: settings.ignoreAudio,
@@ -639,7 +726,7 @@ async function toggleSiteOverrideForTab(tab) {
         directDiscard: settings.directDiscard,
         suspendTime: settings.suspendTime || 40
       };
-      message = `Custom settings enabled for ${domain}`;
+      message = t('siteOverrideEnabled', domain, `Custom settings enabled for ${domain}`);
     }
 
     await chrome.storage.sync.set({ siteSettings: newSiteSettings });
@@ -649,7 +736,7 @@ async function toggleSiteOverrideForTab(tab) {
       chrome.notifications.create({
         type: 'basic',
         iconUrl: chrome.runtime.getURL('icons/icon48.png'),
-        title: 'Tab Suspender',
+        title: t('extName', null, 'Tab Suspender'),
         message: message
       });
     } catch (notifErr) {

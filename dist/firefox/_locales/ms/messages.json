@@ -40,7 +40,7 @@
     "description": "paragraph in popup.html"
   },
   "configureKeyboardShortcuts": {
-    "message": "Konfigurasikan pintasan papan kekunci dalam tetapan sambungan Chrome.",
+    "message": "Sokongan pintasan papan kekunci tersedia! Konfigurasikannya dalam tetapan sambungan penyemak imbas anda dengan mengikuti panduan.",
     "description": "paragraph in popup.html"
   },
   "importExportSettingsWhitelist": {
@@ -72,7 +72,7 @@
     "description": "button in popup.html"
   },
   "suspendInactiveTabsAfter": {
-    "message": "Gantung tab yang tidak aktif selepas (minit):",
+    "message": "Gantung selepas (min):",
     "description": "label in popup.html"
   },
   "darkMode": {
@@ -144,7 +144,7 @@
     "description": "paragraph in data_management.html"
   },
   "importDesc": {
-    "message": "Muatkan tetapan dari fail JSON. Ini akan menulis ganti tetapan semasa anda.",
+    "message": "Muatkan tetapan daripada fail JSON. Nilai yang diimport menggantikan tetapan semasa anda; senarai putih digabungkan dengan yang sedia ada.",
     "description": "paragraph in data_management.html"
   },
   "selectJsonFile": {
@@ -190,5 +190,301 @@
   "toggleSiteOverride": {
     "message": "Togol ganti tetapan tersuai untuk tapak ini",
     "description": ""
+  },
+  "whitelistNoItems": {
+    "message": "Tiada item tersenarai putih",
+    "description": "Shown when both whitelists are empty"
+  },
+  "whitelistedDomains": {
+    "message": "Domain Disenarai Putih",
+    "description": "Whitelist section heading"
+  },
+  "noDomainsWhitelisted": {
+    "message": "Tiada domain disenarai putih",
+    "description": "Empty state of the domain whitelist"
+  },
+  "whitelistedPages": {
+    "message": "Halaman Disenarai Putih",
+    "description": "Whitelist section heading"
+  },
+  "noPagesWhitelisted": {
+    "message": "Tiada halaman disenarai putih",
+    "description": "Empty state of the page whitelist"
+  },
+  "statusOptionsSaved": {
+    "message": "Pilihan disimpan!",
+    "description": "Toast after saving options"
+  },
+  "statusTimeRange": {
+    "message": "Masa mestilah antara 1 dan 1440",
+    "description": "Validation error for the suspend time in minutes"
+  },
+  "statusSiteOptionsSaved": {
+    "message": "Pilihan tapak disimpan!",
+    "description": "Toast after saving per-site options"
+  },
+  "statusSiteOverridesCleared": {
+    "message": "Penggantian tapak dikosongkan!",
+    "description": "Toast after removing the per-site override"
+  },
+  "statusSiteSaveError": {
+    "message": "Ralat menyimpan pilihan tapak",
+    "description": "Toast when saving per-site options fails"
+  },
+  "statusWhitelistUpdated": {
+    "message": "Senarai putih dikemas kini",
+    "description": "Toast after removing a whitelist entry"
+  },
+  "statusSaveError": {
+    "message": "Ralat menyimpan pilihan",
+    "description": "Toast when saving options fails"
+  },
+  "statusCaptureQualityRange": {
+    "message": "Kualiti Tangkapan mestilah 5-100",
+    "description": "Validation error"
+  },
+  "statusResizeWidthMin": {
+    "message": "Ubah Saiz Lebar mestilah sekurang-kurangnya 100",
+    "description": "Validation error"
+  },
+  "statusResizeHeightMin": {
+    "message": "Ubah saiz Ketinggian mestilah sekurang-kurangnya 100",
+    "description": "Validation error"
+  },
+  "statusResizeQualityRange": {
+    "message": "Ubah saiz Kualiti mestilah 0.1-1.0",
+    "description": "Validation error"
+  },
+  "statusScreenshotSaved": {
+    "message": "Tetapan tangkapan skrin disimpan!",
+    "description": "Toast after saving screenshot settings"
+  },
+  "statusScreenshotSaveError": {
+    "message": "Ralat menyimpan tetapan",
+    "description": "Toast when saving screenshot settings fails"
+  },
+  "statusDomainWhitelisted": {
+    "message": "Domain $DOMAIN$ disenarai putih!",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusDomainAlreadyWhitelisted": {
+    "message": "Domain $DOMAIN$ sudah disenarai putih",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusPageWhitelisted": {
+    "message": "Halaman semasa disenarai putih!",
+    "description": "Toast after whitelisting the current page"
+  },
+  "statusPageAlreadyWhitelisted": {
+    "message": "Halaman semasa sudah disenarai putih",
+    "description": "Toast"
+  },
+  "statusPaused": {
+    "message": "Penggantungan dijeda selama $MINUTES$ min",
+    "description": "Toast after pausing; MINUTES is a number",
+    "placeholders": {
+      "MINUTES": {
+        "content": "$1",
+        "example": "30"
+      }
+    }
+  },
+  "statusPauseCancelled": {
+    "message": "Jeda dibatalkan",
+    "description": "Toast after cancelling the pause"
+  },
+  "pauseButton30": {
+    "message": "30m",
+    "description": "Pause button: 30 minutes (keep it very short)"
+  },
+  "pauseButton60": {
+    "message": "1j",
+    "description": "Pause button: 1 hour (keep it very short)"
+  },
+  "pauseButton90": {
+    "message": "1.5j",
+    "description": "Pause button: 1.5 hours (keep it very short)"
+  },
+  "pauseButton120": {
+    "message": "2j",
+    "description": "Pause button: 2 hours (keep it very short)"
+  },
+  "pausedLabel": {
+    "message": "Dijeda",
+    "description": "Heading shown while suspension is paused"
+  },
+  "cancelPause": {
+    "message": "Batal Jeda",
+    "description": "Button that ends the pause early"
+  },
+  "readTheGuide": {
+    "message": "Baca panduan",
+    "description": "Button that opens the keyboard shortcut help page"
+  },
+  "emojiZzz": {
+    "message": "💤 Zzz",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSleeping": {
+    "message": "😴 Tidur",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiInBed": {
+    "message": "🛌 Di Katil",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiMoon": {
+    "message": "🌙 Bulan",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiIceCube": {
+    "message": "🧊 Kiub Ais",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSnowflake": {
+    "message": "❄️ Kepingan salji",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiPause": {
+    "message": "⏸️ Jeda",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiNone": {
+    "message": "tiada",
+    "description": "Tab title indicator choice: no indicator"
+  },
+  "siteLabel": {
+    "message": "tapak:",
+    "description": "Label before the current site hostname"
+  },
+  "suspendTimeLabel": {
+    "message": "Menangguhkan Masa:",
+    "description": "Per-site setting label"
+  },
+  "timeMinutesLabel": {
+    "message": "Masa (minit):",
+    "description": "Per-site setting label"
+  },
+  "optInherit": {
+    "message": "mewarisi",
+    "description": "Per-site choice: use the global setting"
+  },
+  "optCustom": {
+    "message": "Adat",
+    "description": "Per-site choice: use a custom value"
+  },
+  "optDisableDiscard": {
+    "message": "Lumpuhkan (Buang)",
+    "description": "Per-site choice for Disable Suspended Page: discard the tab directly"
+  },
+  "optEnableShowPage": {
+    "message": "Dayakan (Tunjukkan halaman)",
+    "description": "Per-site choice for Disable Suspended Page: show the suspended page"
+  },
+  "optDontSuspend": {
+    "message": "Jangan Gantung",
+    "description": "Per-site choice: protect the tab"
+  },
+  "optAllowSuspend": {
+    "message": "Benarkan Gantung",
+    "description": "Per-site choice: allow suspending the tab"
+  },
+  "labelDisableSuspendedPage": {
+    "message": "Lumpuhkan Halaman Yang Digantung:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreAudio": {
+    "message": "Abaikan Memainkan Audio:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreFormInput": {
+    "message": "Abaikan Input Borang:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreNotifications": {
+    "message": "Abaikan Pemberitahuan:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnorePinned": {
+    "message": "Abaikan Tab yang Disemat:",
+    "description": "Per-site setting label"
+  },
+  "dataExported": {
+    "message": "Tetapan dieksport!",
+    "description": "Toast after exporting"
+  },
+  "dataExportFailed": {
+    "message": "Eksport gagal",
+    "description": "Toast"
+  },
+  "dataImportInvalidJson": {
+    "message": "Import gagal: Fail JSON tidak sah",
+    "description": "Toast"
+  },
+  "dataImportReadError": {
+    "message": "Import gagal: Tidak dapat membaca fail",
+    "description": "Toast"
+  },
+  "dataImported": {
+    "message": "Tetapan berjaya diimport!",
+    "description": "Toast"
+  },
+  "dataImportFailed": {
+    "message": "Import gagal: $ERROR$",
+    "description": "Toast; ERROR is a technical error message",
+    "placeholders": {
+      "ERROR": {
+        "content": "$1",
+        "example": "Invalid file"
+      }
+    }
+  },
+  "dataImportNoValid": {
+    "message": "Fail tidak mengandungi tetapan yang sah atau diiktiraf.",
+    "description": "Error message for an import file with nothing usable"
+  },
+  "ctxWhitelistDomain": {
+    "message": "Senaraikan putih domain ini",
+    "description": "Right-click menu item"
+  },
+  "ctxWhitelistPage": {
+    "message": "Senarai putih halaman ini",
+    "description": "Right-click menu item"
+  },
+  "ctxSuspendPage": {
+    "message": "Gantung Halaman Ini",
+    "description": "Right-click menu item"
+  },
+  "siteOverrideEnabled": {
+    "message": "Tetapan tersuai didayakan untuk $DOMAIN$",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "siteOverrideDisabled": {
+    "message": "Tetapan tersuai dilumpuhkan untuk $DOMAIN$",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
   }
 }

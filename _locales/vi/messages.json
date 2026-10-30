@@ -40,7 +40,7 @@
     "description": "paragraph in popup.html"
   },
   "configureKeyboardShortcuts": {
-    "message": "Cấu hình phím tắt trong cài đặt tiện ích mở rộng của Chrome.",
+    "message": "Hỗ trợ phím tắt có sẵn! Định cấu hình nó trong cài đặt tiện ích mở rộng của trình duyệt của bạn bằng cách làm theo hướng dẫn.",
     "description": "paragraph in popup.html"
   },
   "importExportSettingsWhitelist": {
@@ -72,7 +72,7 @@
     "description": "button in popup.html"
   },
   "suspendInactiveTabsAfter": {
-    "message": "Tạm dừng các tab không hoạt động sau (phút):",
+    "message": "Tạm dừng sau (phút):",
     "description": "label in popup.html"
   },
   "darkMode": {
@@ -144,7 +144,7 @@
     "description": "paragraph in data_management.html"
   },
   "importDesc": {
-    "message": "Tải cài đặt từ tệp JSON. Thao tác này sẽ ghi đè cài đặt hiện tại của bạn.",
+    "message": "Tải cài đặt từ tệp JSON. Các giá trị đã nhập sẽ thay thế cài đặt hiện tại của bạn; danh sách trắng được hợp nhất với danh sách hiện có.",
     "description": "paragraph in data_management.html"
   },
   "selectJsonFile": {
@@ -190,5 +190,301 @@
   "toggleSiteOverride": {
     "message": "Chuyển đổi ghi đè cài đặt tùy chỉnh cho trang web này",
     "description": ""
+  },
+  "whitelistNoItems": {
+    "message": "Không có mục nào trong danh sách trắng",
+    "description": "Shown when both whitelists are empty"
+  },
+  "whitelistedDomains": {
+    "message": "Tên miền thuộc danh sách trắng",
+    "description": "Whitelist section heading"
+  },
+  "noDomainsWhitelisted": {
+    "message": "Không có tên miền nào được đưa vào danh sách trắng",
+    "description": "Empty state of the domain whitelist"
+  },
+  "whitelistedPages": {
+    "message": "Các trang thuộc danh sách trắng",
+    "description": "Whitelist section heading"
+  },
+  "noPagesWhitelisted": {
+    "message": "Không có trang nào được đưa vào danh sách trắng",
+    "description": "Empty state of the page whitelist"
+  },
+  "statusOptionsSaved": {
+    "message": "Tùy chọn đã được lưu!",
+    "description": "Toast after saving options"
+  },
+  "statusTimeRange": {
+    "message": "Thời gian phải nằm trong khoảng từ 1 đến 1440",
+    "description": "Validation error for the suspend time in minutes"
+  },
+  "statusSiteOptionsSaved": {
+    "message": "Tùy chọn trang web đã được lưu!",
+    "description": "Toast after saving per-site options"
+  },
+  "statusSiteOverridesCleared": {
+    "message": "Đã xóa ghi đè trang web!",
+    "description": "Toast after removing the per-site override"
+  },
+  "statusSiteSaveError": {
+    "message": "Lỗi lưu tùy chọn trang web",
+    "description": "Toast when saving per-site options fails"
+  },
+  "statusWhitelistUpdated": {
+    "message": "Đã cập nhật danh sách trắng",
+    "description": "Toast after removing a whitelist entry"
+  },
+  "statusSaveError": {
+    "message": "Lỗi lưu tùy chọn",
+    "description": "Toast when saving options fails"
+  },
+  "statusCaptureQualityRange": {
+    "message": "Chất lượng chụp phải là 5-100",
+    "description": "Validation error"
+  },
+  "statusResizeWidthMin": {
+    "message": "Thay đổi kích thước Chiều rộng phải ít nhất là 100",
+    "description": "Validation error"
+  },
+  "statusResizeHeightMin": {
+    "message": "Thay đổi kích thước Chiều cao phải ít nhất là 100",
+    "description": "Validation error"
+  },
+  "statusResizeQualityRange": {
+    "message": "Chất lượng thay đổi kích thước phải là 0,1-1,0",
+    "description": "Validation error"
+  },
+  "statusScreenshotSaved": {
+    "message": "Đã lưu cài đặt ảnh chụp màn hình!",
+    "description": "Toast after saving screenshot settings"
+  },
+  "statusScreenshotSaveError": {
+    "message": "Lỗi lưu cài đặt",
+    "description": "Toast when saving screenshot settings fails"
+  },
+  "statusDomainWhitelisted": {
+    "message": "Tên miền $DOMAIN$ được đưa vào danh sách trắng!",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusDomainAlreadyWhitelisted": {
+    "message": "Tên miền $DOMAIN$ đã được đưa vào danh sách trắng",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusPageWhitelisted": {
+    "message": "Trang hiện tại được đưa vào danh sách trắng!",
+    "description": "Toast after whitelisting the current page"
+  },
+  "statusPageAlreadyWhitelisted": {
+    "message": "Trang hiện tại đã được đưa vào danh sách trắng",
+    "description": "Toast"
+  },
+  "statusPaused": {
+    "message": "Tạm dừng tạm dừng trong $MINUTES$ phút",
+    "description": "Toast after pausing; MINUTES is a number",
+    "placeholders": {
+      "MINUTES": {
+        "content": "$1",
+        "example": "30"
+      }
+    }
+  },
+  "statusPauseCancelled": {
+    "message": "Đã hủy tạm dừng",
+    "description": "Toast after cancelling the pause"
+  },
+  "pauseButton30": {
+    "message": "30m",
+    "description": "Pause button: 30 minutes (keep it very short)"
+  },
+  "pauseButton60": {
+    "message": "1 giờ",
+    "description": "Pause button: 1 hour (keep it very short)"
+  },
+  "pauseButton90": {
+    "message": "1,5 giờ",
+    "description": "Pause button: 1.5 hours (keep it very short)"
+  },
+  "pauseButton120": {
+    "message": "2 giờ",
+    "description": "Pause button: 2 hours (keep it very short)"
+  },
+  "pausedLabel": {
+    "message": "Đã tạm dừng",
+    "description": "Heading shown while suspension is paused"
+  },
+  "cancelPause": {
+    "message": "Hủy tạm dừng",
+    "description": "Button that ends the pause early"
+  },
+  "readTheGuide": {
+    "message": "Đọc hướng dẫn",
+    "description": "Button that opens the keyboard shortcut help page"
+  },
+  "emojiZzz": {
+    "message": "💤 Zzz",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSleeping": {
+    "message": "😴 Đang ngủ",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiInBed": {
+    "message": "🛌 Trên giường",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiMoon": {
+    "message": "🌙 Mặt trăng",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiIceCube": {
+    "message": "🧊 Khối băng",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSnowflake": {
+    "message": "❄️ Bông tuyết",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiPause": {
+    "message": "⏸️ Tạm dừng",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiNone": {
+    "message": "không có",
+    "description": "Tab title indicator choice: no indicator"
+  },
+  "siteLabel": {
+    "message": "Trang web:",
+    "description": "Label before the current site hostname"
+  },
+  "suspendTimeLabel": {
+    "message": "Đình chỉ thời gian:",
+    "description": "Per-site setting label"
+  },
+  "timeMinutesLabel": {
+    "message": "Thời gian (phút):",
+    "description": "Per-site setting label"
+  },
+  "optInherit": {
+    "message": "Kế thừa",
+    "description": "Per-site choice: use the global setting"
+  },
+  "optCustom": {
+    "message": "tùy chỉnh",
+    "description": "Per-site choice: use a custom value"
+  },
+  "optDisableDiscard": {
+    "message": "Vô hiệu hóa (Bỏ đi)",
+    "description": "Per-site choice for Disable Suspended Page: discard the tab directly"
+  },
+  "optEnableShowPage": {
+    "message": "Bật (Hiển thị trang)",
+    "description": "Per-site choice for Disable Suspended Page: show the suspended page"
+  },
+  "optDontSuspend": {
+    "message": "Đừng đình chỉ",
+    "description": "Per-site choice: protect the tab"
+  },
+  "optAllowSuspend": {
+    "message": "Cho phép tạm dừng",
+    "description": "Per-site choice: allow suspending the tab"
+  },
+  "labelDisableSuspendedPage": {
+    "message": "Tắt trang bị treo:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreAudio": {
+    "message": "Bỏ qua việc phát âm thanh:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreFormInput": {
+    "message": "Bỏ qua biểu mẫu nhập:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreNotifications": {
+    "message": "Bỏ qua thông báo:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnorePinned": {
+    "message": "Bỏ qua các tab được ghim:",
+    "description": "Per-site setting label"
+  },
+  "dataExported": {
+    "message": "Đã xuất cài đặt!",
+    "description": "Toast after exporting"
+  },
+  "dataExportFailed": {
+    "message": "Xuất không thành công",
+    "description": "Toast"
+  },
+  "dataImportInvalidJson": {
+    "message": "Nhập không thành công: Tệp JSON không hợp lệ",
+    "description": "Toast"
+  },
+  "dataImportReadError": {
+    "message": "Nhập không thành công: Không thể đọc tệp",
+    "description": "Toast"
+  },
+  "dataImported": {
+    "message": "Cài đặt đã được nhập thành công!",
+    "description": "Toast"
+  },
+  "dataImportFailed": {
+    "message": "Nhập không thành công: $ERROR$",
+    "description": "Toast; ERROR is a technical error message",
+    "placeholders": {
+      "ERROR": {
+        "content": "$1",
+        "example": "Invalid file"
+      }
+    }
+  },
+  "dataImportNoValid": {
+    "message": "Tệp không chứa cài đặt hợp lệ hoặc được công nhận.",
+    "description": "Error message for an import file with nothing usable"
+  },
+  "ctxWhitelistDomain": {
+    "message": "Đưa miền này vào danh sách trắng",
+    "description": "Right-click menu item"
+  },
+  "ctxWhitelistPage": {
+    "message": "Đưa trang này vào danh sách trắng",
+    "description": "Right-click menu item"
+  },
+  "ctxSuspendPage": {
+    "message": "Đình chỉ trang này",
+    "description": "Right-click menu item"
+  },
+  "siteOverrideEnabled": {
+    "message": "Đã bật cài đặt tùy chỉnh cho $DOMAIN$",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "siteOverrideDisabled": {
+    "message": "Cài đặt tùy chỉnh bị vô hiệu hóa cho $DOMAIN$",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
   }
 }

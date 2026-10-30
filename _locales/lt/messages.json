@@ -40,7 +40,7 @@
     "description": "paragraph in popup.html"
   },
   "configureKeyboardShortcuts": {
-    "message": "Konfigūruokite klaviatūros trumpinius „Chrome“ plėtinių nustatymuose.",
+    "message": "Galimas sparčiųjų klavišų palaikymas! Sukonfigūruokite jį naršyklės plėtinio nustatymuose vadovaudamiesi vadovu.",
     "description": "paragraph in popup.html"
   },
   "importExportSettingsWhitelist": {
@@ -72,7 +72,7 @@
     "description": "button in popup.html"
   },
   "suspendInactiveTabsAfter": {
-    "message": "Pristabdyti neaktyvius skirtukus po (minučių):",
+    "message": "Sustabdyti po (min.):",
     "description": "label in popup.html"
   },
   "darkMode": {
@@ -144,7 +144,7 @@
     "description": "paragraph in data_management.html"
   },
   "importDesc": {
-    "message": "Įkelkite nustatymus iš JSON failo. Tai pakeis jūsų dabartinius nustatymus.",
+    "message": "Įkelkite nustatymus iš JSON failo. Importuotos vertės pakeičia dabartinius nustatymus; baltieji sąrašai sujungiami su esamais.",
     "description": "paragraph in data_management.html"
   },
   "selectJsonFile": {
@@ -171,6 +171,10 @@
     "message": "Ši svetainė",
     "description": ""
   },
+  "overrideGlobalSettings": {
+    "message": "Nepaisyti visuotinių nustatymų",
+    "description": "Switch label to override settings for a site"
+  },
   "saveSiteOptions": {
     "message": "Išsaugoti svetainės parinktis",
     "description": ""
@@ -186,5 +190,301 @@
   "toggleSiteOverride": {
     "message": "Perjungti šios svetainės tinkintų nustatymų nepaisymą",
     "description": ""
+  },
+  "whitelistNoItems": {
+    "message": "Nėra elementų, įtrauktų į baltąjį sąrašą",
+    "description": "Shown when both whitelists are empty"
+  },
+  "whitelistedDomains": {
+    "message": "Į baltąjį sąrašą įtraukti domenai",
+    "description": "Whitelist section heading"
+  },
+  "noDomainsWhitelisted": {
+    "message": "Nėra domenų, įtrauktų į baltąjį sąrašą",
+    "description": "Empty state of the domain whitelist"
+  },
+  "whitelistedPages": {
+    "message": "Į baltąjį sąrašą įtraukti puslapiai",
+    "description": "Whitelist section heading"
+  },
+  "noPagesWhitelisted": {
+    "message": "Nėra puslapių, įtrauktų į baltąjį sąrašą",
+    "description": "Empty state of the page whitelist"
+  },
+  "statusOptionsSaved": {
+    "message": "Parinktys išsaugotos!",
+    "description": "Toast after saving options"
+  },
+  "statusTimeRange": {
+    "message": "Laikas turi būti nuo 1 iki 1440",
+    "description": "Validation error for the suspend time in minutes"
+  },
+  "statusSiteOptionsSaved": {
+    "message": "Svetainės parinktys išsaugotos!",
+    "description": "Toast after saving per-site options"
+  },
+  "statusSiteOverridesCleared": {
+    "message": "Svetainės nepaisymas išvalytas!",
+    "description": "Toast after removing the per-site override"
+  },
+  "statusSiteSaveError": {
+    "message": "Išsaugant svetainės parinktis įvyko klaida",
+    "description": "Toast when saving per-site options fails"
+  },
+  "statusWhitelistUpdated": {
+    "message": "Baltasis sąrašas atnaujintas",
+    "description": "Toast after removing a whitelist entry"
+  },
+  "statusSaveError": {
+    "message": "Išsaugant parinktis įvyko klaida",
+    "description": "Toast when saving options fails"
+  },
+  "statusCaptureQualityRange": {
+    "message": "Užfiksavimo kokybė turi būti 5–100",
+    "description": "Validation error"
+  },
+  "statusResizeWidthMin": {
+    "message": "Dydžio keitimo plotis turi būti bent 100",
+    "description": "Validation error"
+  },
+  "statusResizeHeightMin": {
+    "message": "Pakeisti dydį Aukštis turi būti bent 100",
+    "description": "Validation error"
+  },
+  "statusResizeQualityRange": {
+    "message": "Dydžio keitimo kokybė turi būti 0,1–1,0",
+    "description": "Validation error"
+  },
+  "statusScreenshotSaved": {
+    "message": "Ekrano kopijos nustatymai išsaugoti!",
+    "description": "Toast after saving screenshot settings"
+  },
+  "statusScreenshotSaveError": {
+    "message": "Išsaugant nustatymus įvyko klaida",
+    "description": "Toast when saving screenshot settings fails"
+  },
+  "statusDomainWhitelisted": {
+    "message": "Domenas $DOMAIN$ įtrauktas į baltąjį sąrašą!",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusDomainAlreadyWhitelisted": {
+    "message": "Domenas $DOMAIN$ jau įtrauktas į baltąjį sąrašą",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusPageWhitelisted": {
+    "message": "Dabartinis puslapis įtrauktas į baltąjį sąrašą!",
+    "description": "Toast after whitelisting the current page"
+  },
+  "statusPageAlreadyWhitelisted": {
+    "message": "Dabartinis puslapis jau įtrauktas į baltąjį sąrašą",
+    "description": "Toast"
+  },
+  "statusPaused": {
+    "message": "Sustabdymas pristabdytas $MINUTES$ min",
+    "description": "Toast after pausing; MINUTES is a number",
+    "placeholders": {
+      "MINUTES": {
+        "content": "$1",
+        "example": "30"
+      }
+    }
+  },
+  "statusPauseCancelled": {
+    "message": "Pauzė atšaukta",
+    "description": "Toast after cancelling the pause"
+  },
+  "pauseButton30": {
+    "message": "30m",
+    "description": "Pause button: 30 minutes (keep it very short)"
+  },
+  "pauseButton60": {
+    "message": "1 val",
+    "description": "Pause button: 1 hour (keep it very short)"
+  },
+  "pauseButton90": {
+    "message": "1,5 val",
+    "description": "Pause button: 1.5 hours (keep it very short)"
+  },
+  "pauseButton120": {
+    "message": "2h",
+    "description": "Pause button: 2 hours (keep it very short)"
+  },
+  "pausedLabel": {
+    "message": "Pristabdyta",
+    "description": "Heading shown while suspension is paused"
+  },
+  "cancelPause": {
+    "message": "Atšaukti pristabdymą",
+    "description": "Button that ends the pause early"
+  },
+  "readTheGuide": {
+    "message": "Perskaitykite vadovą",
+    "description": "Button that opens the keyboard shortcut help page"
+  },
+  "emojiZzz": {
+    "message": "💤 Zzz",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSleeping": {
+    "message": "😴 Miegas",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiInBed": {
+    "message": "🛌 Lovoje",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiMoon": {
+    "message": "🌙 Mėnulis",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiIceCube": {
+    "message": "🧊 Ledo kubas",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSnowflake": {
+    "message": "❄️ Snaigė",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiPause": {
+    "message": "⏸️ Pristabdyti",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiNone": {
+    "message": "Nėra",
+    "description": "Tab title indicator choice: no indicator"
+  },
+  "siteLabel": {
+    "message": "Svetainė:",
+    "description": "Label before the current site hostname"
+  },
+  "suspendTimeLabel": {
+    "message": "Sustabdymo laikas:",
+    "description": "Per-site setting label"
+  },
+  "timeMinutesLabel": {
+    "message": "Laikas (minutės):",
+    "description": "Per-site setting label"
+  },
+  "optInherit": {
+    "message": "Paveldėti",
+    "description": "Per-site choice: use the global setting"
+  },
+  "optCustom": {
+    "message": "Pasirinktinis",
+    "description": "Per-site choice: use a custom value"
+  },
+  "optDisableDiscard": {
+    "message": "Išjungti (išmesti)",
+    "description": "Per-site choice for Disable Suspended Page: discard the tab directly"
+  },
+  "optEnableShowPage": {
+    "message": "Įgalinti (rodyti puslapį)",
+    "description": "Per-site choice for Disable Suspended Page: show the suspended page"
+  },
+  "optDontSuspend": {
+    "message": "Nesustabdyti",
+    "description": "Per-site choice: protect the tab"
+  },
+  "optAllowSuspend": {
+    "message": "Leisti sustabdyti",
+    "description": "Per-site choice: allow suspending the tab"
+  },
+  "labelDisableSuspendedPage": {
+    "message": "Išjungti sustabdytą puslapį:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreAudio": {
+    "message": "Ignoruoti garso grojimą:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreFormInput": {
+    "message": "Ignoruoti formos įvestį:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreNotifications": {
+    "message": "Ignoruoti pranešimus:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnorePinned": {
+    "message": "Ignoruoti prisegtus skirtukus:",
+    "description": "Per-site setting label"
+  },
+  "dataExported": {
+    "message": "Nustatymai eksportuoti!",
+    "description": "Toast after exporting"
+  },
+  "dataExportFailed": {
+    "message": "Eksportuoti nepavyko",
+    "description": "Toast"
+  },
+  "dataImportInvalidJson": {
+    "message": "Importuoti nepavyko: netinkamas JSON failas",
+    "description": "Toast"
+  },
+  "dataImportReadError": {
+    "message": "Nepavyko importuoti: nepavyko nuskaityti failo",
+    "description": "Toast"
+  },
+  "dataImported": {
+    "message": "Nustatymai sėkmingai importuoti!",
+    "description": "Toast"
+  },
+  "dataImportFailed": {
+    "message": "Importuoti nepavyko: $ERROR$",
+    "description": "Toast; ERROR is a technical error message",
+    "placeholders": {
+      "ERROR": {
+        "content": "$1",
+        "example": "Invalid file"
+      }
+    }
+  },
+  "dataImportNoValid": {
+    "message": "Faile nėra galiojančių arba pripažintų nustatymų.",
+    "description": "Error message for an import file with nothing usable"
+  },
+  "ctxWhitelistDomain": {
+    "message": "Į baltąjį sąrašą įtrauktas šis domenas",
+    "description": "Right-click menu item"
+  },
+  "ctxWhitelistPage": {
+    "message": "Į baltąjį sąrašą įtrauktas šis puslapis",
+    "description": "Right-click menu item"
+  },
+  "ctxSuspendPage": {
+    "message": "Sustabdyti šį puslapį",
+    "description": "Right-click menu item"
+  },
+  "siteOverrideEnabled": {
+    "message": "Tinkinti nustatymai įgalinti $DOMAIN$",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "siteOverrideDisabled": {
+    "message": "Tinkinti nustatymai išjungti $DOMAIN$",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
   }
 }

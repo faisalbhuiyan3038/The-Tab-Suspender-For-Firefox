@@ -40,7 +40,7 @@
     "description": "paragraph in popup.html"
   },
   "configureKeyboardShortcuts": {
-    "message": "Billentyűparancsok konfigurálása a Chrome bővítménybeállításaiban.",
+    "message": "A billentyűparancsok támogatása elérhető! Az útmutatót követve konfigurálja a böngésző kiterjesztés beállításaiban.",
     "description": "paragraph in popup.html"
   },
   "importExportSettingsWhitelist": {
@@ -72,7 +72,7 @@
     "description": "button in popup.html"
   },
   "suspendInactiveTabsAfter": {
-    "message": "Inaktív fülek felfüggesztése ennyi idő után (perc):",
+    "message": "Felfüggesztés után (perc):",
     "description": "label in popup.html"
   },
   "darkMode": {
@@ -144,7 +144,7 @@
     "description": "paragraph in data_management.html"
   },
   "importDesc": {
-    "message": "Beállítások betöltése JSON fájlból. Ez felülírja a jelenlegi beállításokat.",
+    "message": "Beállítások betöltése JSON-fájlból. Az importált értékek felváltják a jelenlegi beállításokat; a fehérlistákat összevonják a meglévőkkel.",
     "description": "paragraph in data_management.html"
   },
   "selectJsonFile": {
@@ -190,5 +190,301 @@
   "toggleSiteOverride": {
     "message": "Az egyéni beállítások felülbírálása ezen a webhelyen",
     "description": ""
+  },
+  "whitelistNoItems": {
+    "message": "Nincsenek engedélyezőlistán szereplő elemek",
+    "description": "Shown when both whitelists are empty"
+  },
+  "whitelistedDomains": {
+    "message": "Engedélyezőlistán szereplő domainek",
+    "description": "Whitelist section heading"
+  },
+  "noDomainsWhitelisted": {
+    "message": "Nincs domain az engedélyezőlistán",
+    "description": "Empty state of the domain whitelist"
+  },
+  "whitelistedPages": {
+    "message": "Engedélyezett oldalak",
+    "description": "Whitelist section heading"
+  },
+  "noPagesWhitelisted": {
+    "message": "Nincsenek engedélyezett oldalak",
+    "description": "Empty state of the page whitelist"
+  },
+  "statusOptionsSaved": {
+    "message": "Opciók mentve!",
+    "description": "Toast after saving options"
+  },
+  "statusTimeRange": {
+    "message": "Az időnek 1 és 1440 között kell lennie",
+    "description": "Validation error for the suspend time in minutes"
+  },
+  "statusSiteOptionsSaved": {
+    "message": "A webhely opciói mentve!",
+    "description": "Toast after saving per-site options"
+  },
+  "statusSiteOverridesCleared": {
+    "message": "A webhely felülbírálása törölve!",
+    "description": "Toast after removing the per-site override"
+  },
+  "statusSiteSaveError": {
+    "message": "Hiba a webhely beállításainak mentése közben",
+    "description": "Toast when saving per-site options fails"
+  },
+  "statusWhitelistUpdated": {
+    "message": "Az engedélyezőlista frissítve",
+    "description": "Toast after removing a whitelist entry"
+  },
+  "statusSaveError": {
+    "message": "Hiba a beállítások mentése közben",
+    "description": "Toast when saving options fails"
+  },
+  "statusCaptureQualityRange": {
+    "message": "A rögzítés minőségének 5-100 között kell lennie",
+    "description": "Validation error"
+  },
+  "statusResizeWidthMin": {
+    "message": "Az átméretezési szélességnek legalább 100-nak kell lennie",
+    "description": "Validation error"
+  },
+  "statusResizeHeightMin": {
+    "message": "Az átméretezés magasságának legalább 100-nak kell lennie",
+    "description": "Validation error"
+  },
+  "statusResizeQualityRange": {
+    "message": "Az átméretezés minőségének 0,1-1,0 értékűnek kell lennie",
+    "description": "Validation error"
+  },
+  "statusScreenshotSaved": {
+    "message": "A képernyőkép beállításai elmentve!",
+    "description": "Toast after saving screenshot settings"
+  },
+  "statusScreenshotSaveError": {
+    "message": "Hiba a beállítások mentésekor",
+    "description": "Toast when saving screenshot settings fails"
+  },
+  "statusDomainWhitelisted": {
+    "message": "A(z) $DOMAIN$ domain engedélyezőlistára került!",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusDomainAlreadyWhitelisted": {
+    "message": "A(z) $DOMAIN$ domain már az engedélyezőlistán szerepel",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusPageWhitelisted": {
+    "message": "Az aktuális oldal engedélyezőlistára került!",
+    "description": "Toast after whitelisting the current page"
+  },
+  "statusPageAlreadyWhitelisted": {
+    "message": "Az aktuális oldal már felkerült az engedélyezőlistára",
+    "description": "Toast"
+  },
+  "statusPaused": {
+    "message": "A felfüggesztés $MINUTES$ percre szünetel",
+    "description": "Toast after pausing; MINUTES is a number",
+    "placeholders": {
+      "MINUTES": {
+        "content": "$1",
+        "example": "30"
+      }
+    }
+  },
+  "statusPauseCancelled": {
+    "message": "Szünet törölve",
+    "description": "Toast after cancelling the pause"
+  },
+  "pauseButton30": {
+    "message": "30 m",
+    "description": "Pause button: 30 minutes (keep it very short)"
+  },
+  "pauseButton60": {
+    "message": "1 óra",
+    "description": "Pause button: 1 hour (keep it very short)"
+  },
+  "pauseButton90": {
+    "message": "1,5 óra",
+    "description": "Pause button: 1.5 hours (keep it very short)"
+  },
+  "pauseButton120": {
+    "message": "2 óra",
+    "description": "Pause button: 2 hours (keep it very short)"
+  },
+  "pausedLabel": {
+    "message": "Szüneteltetve",
+    "description": "Heading shown while suspension is paused"
+  },
+  "cancelPause": {
+    "message": "Szünet törlése",
+    "description": "Button that ends the pause early"
+  },
+  "readTheGuide": {
+    "message": "Olvassa el az útmutatót",
+    "description": "Button that opens the keyboard shortcut help page"
+  },
+  "emojiZzz": {
+    "message": "💤 Zzz",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSleeping": {
+    "message": "😴 Alvás",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiInBed": {
+    "message": "🛌 Az ágyban",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiMoon": {
+    "message": "🌙 Hold",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiIceCube": {
+    "message": "🧊 Jégkocka",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSnowflake": {
+    "message": "❄️ Hópehely",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiPause": {
+    "message": "⏸️ Szünet",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiNone": {
+    "message": "Egyik sem",
+    "description": "Tab title indicator choice: no indicator"
+  },
+  "siteLabel": {
+    "message": "Telek:",
+    "description": "Label before the current site hostname"
+  },
+  "suspendTimeLabel": {
+    "message": "Felfüggesztési idő:",
+    "description": "Per-site setting label"
+  },
+  "timeMinutesLabel": {
+    "message": "Idő (perc):",
+    "description": "Per-site setting label"
+  },
+  "optInherit": {
+    "message": "Örököl",
+    "description": "Per-site choice: use the global setting"
+  },
+  "optCustom": {
+    "message": "Szokás",
+    "description": "Per-site choice: use a custom value"
+  },
+  "optDisableDiscard": {
+    "message": "Letiltás (elvetés)",
+    "description": "Per-site choice for Disable Suspended Page: discard the tab directly"
+  },
+  "optEnableShowPage": {
+    "message": "Engedélyezés (Oldal megjelenítése)",
+    "description": "Per-site choice for Disable Suspended Page: show the suspended page"
+  },
+  "optDontSuspend": {
+    "message": "Ne függessze fel",
+    "description": "Per-site choice: protect the tab"
+  },
+  "optAllowSuspend": {
+    "message": "Felfüggesztés engedélyezése",
+    "description": "Per-site choice: allow suspending the tab"
+  },
+  "labelDisableSuspendedPage": {
+    "message": "Felfüggesztett oldal letiltása:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreAudio": {
+    "message": "Hanglejátszás figyelmen kívül hagyása:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreFormInput": {
+    "message": "Űrlapbevitel figyelmen kívül hagyása:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreNotifications": {
+    "message": "Értesítések figyelmen kívül hagyása:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnorePinned": {
+    "message": "Rögzített lapok figyelmen kívül hagyása:",
+    "description": "Per-site setting label"
+  },
+  "dataExported": {
+    "message": "Beállítások exportálva!",
+    "description": "Toast after exporting"
+  },
+  "dataExportFailed": {
+    "message": "Nem sikerült exportálni",
+    "description": "Toast"
+  },
+  "dataImportInvalidJson": {
+    "message": "Sikertelen importálás: Érvénytelen JSON-fájl",
+    "description": "Toast"
+  },
+  "dataImportReadError": {
+    "message": "Az importálás sikertelen: A fájl nem olvasható",
+    "description": "Toast"
+  },
+  "dataImported": {
+    "message": "A beállítások sikeresen importálva!",
+    "description": "Toast"
+  },
+  "dataImportFailed": {
+    "message": "Sikertelen importálás: $ERROR$",
+    "description": "Toast; ERROR is a technical error message",
+    "placeholders": {
+      "ERROR": {
+        "content": "$1",
+        "example": "Invalid file"
+      }
+    }
+  },
+  "dataImportNoValid": {
+    "message": "A fájl nem tartalmaz érvényes vagy felismert beállításokat.",
+    "description": "Error message for an import file with nothing usable"
+  },
+  "ctxWhitelistDomain": {
+    "message": "A domain engedélyezési listája",
+    "description": "Right-click menu item"
+  },
+  "ctxWhitelistPage": {
+    "message": "Az oldal engedélyezési listája",
+    "description": "Right-click menu item"
+  },
+  "ctxSuspendPage": {
+    "message": "Az oldal felfüggesztése",
+    "description": "Right-click menu item"
+  },
+  "siteOverrideEnabled": {
+    "message": "Egyéni beállítások engedélyezve a következőnél: $DOMAIN$",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "siteOverrideDisabled": {
+    "message": "Egyéni beállítások letiltva a következőnél: $DOMAIN$",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
   }
 }

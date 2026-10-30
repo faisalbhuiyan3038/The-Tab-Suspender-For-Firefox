@@ -40,7 +40,7 @@
     "description": "paragraph in popup.html"
   },
   "configureKeyboardShortcuts": {
-    "message": "Configurez les raccourcis clavier dans les paramètres des extensions Chrome.",
+    "message": "La prise en charge des raccourcis clavier est disponible ! Configurez-le dans les paramètres de l'extension de votre navigateur en suivant le guide.",
     "description": "paragraph in popup.html"
   },
   "importExportSettingsWhitelist": {
@@ -72,7 +72,7 @@
     "description": "button in popup.html"
   },
   "suspendInactiveTabsAfter": {
-    "message": "Suspendre les onglets inactifs après (minutes) :",
+    "message": "Suspendre après (min) :",
     "description": "label in popup.html"
   },
   "darkMode": {
@@ -144,7 +144,7 @@
     "description": "paragraph in data_management.html"
   },
   "importDesc": {
-    "message": "Chargez les paramètres depuis un fichier JSON. Cela remplacera vos paramètres actuels.",
+    "message": "Chargez les paramètres à partir d'un fichier JSON. Les valeurs importées remplacent vos paramètres actuels ; les listes blanches sont fusionnées avec celles existantes.",
     "description": "paragraph in data_management.html"
   },
   "selectJsonFile": {
@@ -190,5 +190,301 @@
   "toggleSiteOverride": {
     "message": "Activer/désactiver le remplacement des paramètres personnalisés pour ce site",
     "description": ""
+  },
+  "whitelistNoItems": {
+    "message": "Aucun élément sur liste blanche",
+    "description": "Shown when both whitelists are empty"
+  },
+  "whitelistedDomains": {
+    "message": "Domaines sur liste blanche",
+    "description": "Whitelist section heading"
+  },
+  "noDomainsWhitelisted": {
+    "message": "Aucun domaine sur liste blanche",
+    "description": "Empty state of the domain whitelist"
+  },
+  "whitelistedPages": {
+    "message": "Pages sur liste blanche",
+    "description": "Whitelist section heading"
+  },
+  "noPagesWhitelisted": {
+    "message": "Aucune page sur liste blanche",
+    "description": "Empty state of the page whitelist"
+  },
+  "statusOptionsSaved": {
+    "message": "Options enregistrées !",
+    "description": "Toast after saving options"
+  },
+  "statusTimeRange": {
+    "message": "L'heure doit être comprise entre 1 et 1440",
+    "description": "Validation error for the suspend time in minutes"
+  },
+  "statusSiteOptionsSaved": {
+    "message": "Options du site enregistrées !",
+    "description": "Toast after saving per-site options"
+  },
+  "statusSiteOverridesCleared": {
+    "message": "Les remplacements de site sont effacés !",
+    "description": "Toast after removing the per-site override"
+  },
+  "statusSiteSaveError": {
+    "message": "Erreur lors de l'enregistrement des options du site",
+    "description": "Toast when saving per-site options fails"
+  },
+  "statusWhitelistUpdated": {
+    "message": "Liste blanche mise à jour",
+    "description": "Toast after removing a whitelist entry"
+  },
+  "statusSaveError": {
+    "message": "Options d'enregistrement des erreurs",
+    "description": "Toast when saving options fails"
+  },
+  "statusCaptureQualityRange": {
+    "message": "La qualité de capture doit être comprise entre 5 et 100",
+    "description": "Validation error"
+  },
+  "statusResizeWidthMin": {
+    "message": "La largeur de redimensionnement doit être d'au moins 100",
+    "description": "Validation error"
+  },
+  "statusResizeHeightMin": {
+    "message": "La hauteur de redimensionnement doit être d'au moins 100",
+    "description": "Validation error"
+  },
+  "statusResizeQualityRange": {
+    "message": "La qualité du redimensionnement doit être comprise entre 0,1 et 1,0",
+    "description": "Validation error"
+  },
+  "statusScreenshotSaved": {
+    "message": "Paramètres de capture d'écran enregistrés !",
+    "description": "Toast after saving screenshot settings"
+  },
+  "statusScreenshotSaveError": {
+    "message": "Erreur lors de l'enregistrement des paramètres",
+    "description": "Toast when saving screenshot settings fails"
+  },
+  "statusDomainWhitelisted": {
+    "message": "Domaine $DOMAIN$ sur liste blanche !",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusDomainAlreadyWhitelisted": {
+    "message": "Domaine $DOMAIN$ déjà ajouté à la liste blanche",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusPageWhitelisted": {
+    "message": "Page actuelle sur liste blanche !",
+    "description": "Toast after whitelisting the current page"
+  },
+  "statusPageAlreadyWhitelisted": {
+    "message": "Page actuelle déjà sur liste blanche",
+    "description": "Toast"
+  },
+  "statusPaused": {
+    "message": "Suspension suspendue pendant $MINUTES$ minutes",
+    "description": "Toast after pausing; MINUTES is a number",
+    "placeholders": {
+      "MINUTES": {
+        "content": "$1",
+        "example": "30"
+      }
+    }
+  },
+  "statusPauseCancelled": {
+    "message": "Pause annulée",
+    "description": "Toast after cancelling the pause"
+  },
+  "pauseButton30": {
+    "message": "30m",
+    "description": "Pause button: 30 minutes (keep it very short)"
+  },
+  "pauseButton60": {
+    "message": "1h",
+    "description": "Pause button: 1 hour (keep it very short)"
+  },
+  "pauseButton90": {
+    "message": "1h30",
+    "description": "Pause button: 1.5 hours (keep it very short)"
+  },
+  "pauseButton120": {
+    "message": "2h",
+    "description": "Pause button: 2 hours (keep it very short)"
+  },
+  "pausedLabel": {
+    "message": "En pause",
+    "description": "Heading shown while suspension is paused"
+  },
+  "cancelPause": {
+    "message": "Annuler la pause",
+    "description": "Button that ends the pause early"
+  },
+  "readTheGuide": {
+    "message": "Lire le guide",
+    "description": "Button that opens the keyboard shortcut help page"
+  },
+  "emojiZzz": {
+    "message": "💤 Zzz",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSleeping": {
+    "message": "😴 Dormir",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiInBed": {
+    "message": "🛌 Au lit",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiMoon": {
+    "message": "🌙 Lune",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiIceCube": {
+    "message": "🧊 Glaçon",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSnowflake": {
+    "message": "❄️ Flocon de neige",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiPause": {
+    "message": "⏸️ Pause",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiNone": {
+    "message": "Aucun",
+    "description": "Tab title indicator choice: no indicator"
+  },
+  "siteLabel": {
+    "message": "Site:",
+    "description": "Label before the current site hostname"
+  },
+  "suspendTimeLabel": {
+    "message": "Temps de suspension :",
+    "description": "Per-site setting label"
+  },
+  "timeMinutesLabel": {
+    "message": "Temps (minutes) :",
+    "description": "Per-site setting label"
+  },
+  "optInherit": {
+    "message": "Hériter",
+    "description": "Per-site choice: use the global setting"
+  },
+  "optCustom": {
+    "message": "Coutume",
+    "description": "Per-site choice: use a custom value"
+  },
+  "optDisableDiscard": {
+    "message": "Désactiver (rejeter)",
+    "description": "Per-site choice for Disable Suspended Page: discard the tab directly"
+  },
+  "optEnableShowPage": {
+    "message": "Activer (Afficher la page)",
+    "description": "Per-site choice for Disable Suspended Page: show the suspended page"
+  },
+  "optDontSuspend": {
+    "message": "Ne suspendez pas",
+    "description": "Per-site choice: protect the tab"
+  },
+  "optAllowSuspend": {
+    "message": "Autoriser la suspension",
+    "description": "Per-site choice: allow suspending the tab"
+  },
+  "labelDisableSuspendedPage": {
+    "message": "Désactiver la page suspendue :",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreAudio": {
+    "message": "Ignorer la lecture audio :",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreFormInput": {
+    "message": "Ignorer la saisie du formulaire :",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreNotifications": {
+    "message": "Ignorer les notifications :",
+    "description": "Per-site setting label"
+  },
+  "labelIgnorePinned": {
+    "message": "Ignorer les onglets épinglés :",
+    "description": "Per-site setting label"
+  },
+  "dataExported": {
+    "message": "Paramètres exportés !",
+    "description": "Toast after exporting"
+  },
+  "dataExportFailed": {
+    "message": "Échec de l'exportation",
+    "description": "Toast"
+  },
+  "dataImportInvalidJson": {
+    "message": "Échec de l'importation : fichier JSON invalide",
+    "description": "Toast"
+  },
+  "dataImportReadError": {
+    "message": "Échec de l'importation : impossible de lire le fichier",
+    "description": "Toast"
+  },
+  "dataImported": {
+    "message": "Paramètres importés avec succès !",
+    "description": "Toast"
+  },
+  "dataImportFailed": {
+    "message": "Échec de l'importation : $ERROR$",
+    "description": "Toast; ERROR is a technical error message",
+    "placeholders": {
+      "ERROR": {
+        "content": "$1",
+        "example": "Invalid file"
+      }
+    }
+  },
+  "dataImportNoValid": {
+    "message": "Le fichier ne contient aucun paramètre valide ou reconnu.",
+    "description": "Error message for an import file with nothing usable"
+  },
+  "ctxWhitelistDomain": {
+    "message": "Ajouter ce domaine à la liste blanche",
+    "description": "Right-click menu item"
+  },
+  "ctxWhitelistPage": {
+    "message": "Ajouter cette page à la liste blanche",
+    "description": "Right-click menu item"
+  },
+  "ctxSuspendPage": {
+    "message": "Suspendre cette page",
+    "description": "Right-click menu item"
+  },
+  "siteOverrideEnabled": {
+    "message": "Paramètres personnalisés activés pour $DOMAIN$",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "siteOverrideDisabled": {
+    "message": "Paramètres personnalisés désactivés pour $DOMAIN$",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
   }
 }

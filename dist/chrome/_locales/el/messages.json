@@ -40,7 +40,7 @@
     "description": "paragraph in popup.html"
   },
   "configureKeyboardShortcuts": {
-    "message": "Ρυθμίστε τις συντομεύσεις πληκτρολογίου στις ρυθμίσεις επεκτάσεων του Chrome.",
+    "message": "Η υποστήριξη συντομεύσεων πληκτρολογίου είναι διαθέσιμη! Διαμορφώστε το στις ρυθμίσεις επέκτασης του προγράμματος περιήγησής σας ακολουθώντας τον οδηγό.",
     "description": "paragraph in popup.html"
   },
   "importExportSettingsWhitelist": {
@@ -72,7 +72,7 @@
     "description": "button in popup.html"
   },
   "suspendInactiveTabsAfter": {
-    "message": "Αναστολή αδρανών καρτελών μετά από (λεπτά):",
+    "message": "Αναστολή μετά από (λεπτά):",
     "description": "label in popup.html"
   },
   "darkMode": {
@@ -144,7 +144,7 @@
     "description": "paragraph in data_management.html"
   },
   "importDesc": {
-    "message": "Φόρτωση ρυθμίσεων από αρχείο JSON. Αυτό θα αντικαταστήσει τις τρέχουσες ρυθμίσεις σας.",
+    "message": "Φόρτωση ρυθμίσεων από ένα αρχείο JSON. Οι εισαγόμενες τιμές αντικαθιστούν τις τρέχουσες ρυθμίσεις σας. οι λευκές λίστες συγχωνεύονται με τις υπάρχουσες.",
     "description": "paragraph in data_management.html"
   },
   "selectJsonFile": {
@@ -190,5 +190,301 @@
   "toggleSiteOverride": {
     "message": "Εναλλαγή της παράκαμψης προσαρμοσμένων ρυθμίσεων για αυτόν τον ιστότοπο",
     "description": ""
+  },
+  "whitelistNoItems": {
+    "message": "Δεν υπάρχουν στοιχεία στη λίστα επιτρεπόμενων",
+    "description": "Shown when both whitelists are empty"
+  },
+  "whitelistedDomains": {
+    "message": "Τομείς στη λίστα επιτρεπόμενων",
+    "description": "Whitelist section heading"
+  },
+  "noDomainsWhitelisted": {
+    "message": "Δεν υπάρχουν τομείς επιτρεπόμενοι",
+    "description": "Empty state of the domain whitelist"
+  },
+  "whitelistedPages": {
+    "message": "Σελίδες στη λίστα επιτρεπόμενων",
+    "description": "Whitelist section heading"
+  },
+  "noPagesWhitelisted": {
+    "message": "Δεν υπάρχουν σελίδες στη λίστα επιτρεπόμενων",
+    "description": "Empty state of the page whitelist"
+  },
+  "statusOptionsSaved": {
+    "message": "Οι επιλογές αποθηκεύτηκαν!",
+    "description": "Toast after saving options"
+  },
+  "statusTimeRange": {
+    "message": "Ο χρόνος πρέπει να είναι μεταξύ 1 και 1440",
+    "description": "Validation error for the suspend time in minutes"
+  },
+  "statusSiteOptionsSaved": {
+    "message": "Οι επιλογές τοποθεσίας αποθηκεύτηκαν!",
+    "description": "Toast after saving per-site options"
+  },
+  "statusSiteOverridesCleared": {
+    "message": "Οι παρακάμψεις ιστότοπου διαγράφηκαν!",
+    "description": "Toast after removing the per-site override"
+  },
+  "statusSiteSaveError": {
+    "message": "Σφάλμα κατά την αποθήκευση των επιλογών ιστότοπου",
+    "description": "Toast when saving per-site options fails"
+  },
+  "statusWhitelistUpdated": {
+    "message": "Η λίστα επιτρεπόμενων ενημερώθηκε",
+    "description": "Toast after removing a whitelist entry"
+  },
+  "statusSaveError": {
+    "message": "Σφάλμα αποθήκευσης επιλογών",
+    "description": "Toast when saving options fails"
+  },
+  "statusCaptureQualityRange": {
+    "message": "Η ποιότητα λήψης πρέπει να είναι 5-100",
+    "description": "Validation error"
+  },
+  "statusResizeWidthMin": {
+    "message": "Το πλάτος αλλαγής μεγέθους πρέπει να είναι τουλάχιστον 100",
+    "description": "Validation error"
+  },
+  "statusResizeHeightMin": {
+    "message": "Το ύψος αλλαγής μεγέθους πρέπει να είναι τουλάχιστον 100",
+    "description": "Validation error"
+  },
+  "statusResizeQualityRange": {
+    "message": "Η ποιότητα αλλαγής μεγέθους πρέπει να είναι 0,1-1,0",
+    "description": "Validation error"
+  },
+  "statusScreenshotSaved": {
+    "message": "Οι ρυθμίσεις στιγμιότυπου οθόνης αποθηκεύτηκαν!",
+    "description": "Toast after saving screenshot settings"
+  },
+  "statusScreenshotSaveError": {
+    "message": "Σφάλμα αποθήκευσης ρυθμίσεων",
+    "description": "Toast when saving screenshot settings fails"
+  },
+  "statusDomainWhitelisted": {
+    "message": "Ο τομέας $DOMAIN$ στη λίστα επιτρεπόμενων!",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusDomainAlreadyWhitelisted": {
+    "message": "Ο τομέας $DOMAIN$ είναι ήδη στη λίστα επιτρεπόμενων",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusPageWhitelisted": {
+    "message": "Η τρέχουσα σελίδα είναι στη λίστα επιτρεπόμενων!",
+    "description": "Toast after whitelisting the current page"
+  },
+  "statusPageAlreadyWhitelisted": {
+    "message": "Η τρέχουσα σελίδα είναι ήδη στη λίστα επιτρεπόμενων",
+    "description": "Toast"
+  },
+  "statusPaused": {
+    "message": "Η αναστολή τέθηκε σε παύση για $MINUTES$ λεπτά",
+    "description": "Toast after pausing; MINUTES is a number",
+    "placeholders": {
+      "MINUTES": {
+        "content": "$1",
+        "example": "30"
+      }
+    }
+  },
+  "statusPauseCancelled": {
+    "message": "Η παύση ακυρώθηκε",
+    "description": "Toast after cancelling the pause"
+  },
+  "pauseButton30": {
+    "message": "30μ",
+    "description": "Pause button: 30 minutes (keep it very short)"
+  },
+  "pauseButton60": {
+    "message": "1 ώρα",
+    "description": "Pause button: 1 hour (keep it very short)"
+  },
+  "pauseButton90": {
+    "message": "1,5 ώρα",
+    "description": "Pause button: 1.5 hours (keep it very short)"
+  },
+  "pauseButton120": {
+    "message": "2h",
+    "description": "Pause button: 2 hours (keep it very short)"
+  },
+  "pausedLabel": {
+    "message": "Σε παύση",
+    "description": "Heading shown while suspension is paused"
+  },
+  "cancelPause": {
+    "message": "Ακύρωση Παύσης",
+    "description": "Button that ends the pause early"
+  },
+  "readTheGuide": {
+    "message": "Διαβάστε τον οδηγό",
+    "description": "Button that opens the keyboard shortcut help page"
+  },
+  "emojiZzz": {
+    "message": "💤 Zzz",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSleeping": {
+    "message": "😴 Ύπνος",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiInBed": {
+    "message": "🛌 Στο κρεβάτι",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiMoon": {
+    "message": "🌙 Σελήνη",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiIceCube": {
+    "message": "🧊 Ice Cube",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSnowflake": {
+    "message": "❄️ Νιφάδα χιονιού",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiPause": {
+    "message": "⏸️ Παύση",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiNone": {
+    "message": "Κανένας",
+    "description": "Tab title indicator choice: no indicator"
+  },
+  "siteLabel": {
+    "message": "Τοποθεσία:",
+    "description": "Label before the current site hostname"
+  },
+  "suspendTimeLabel": {
+    "message": "Χρόνος αναστολής:",
+    "description": "Per-site setting label"
+  },
+  "timeMinutesLabel": {
+    "message": "Χρόνος (λεπτά):",
+    "description": "Per-site setting label"
+  },
+  "optInherit": {
+    "message": "Κληρονομώ",
+    "description": "Per-site choice: use the global setting"
+  },
+  "optCustom": {
+    "message": "Εθιμο",
+    "description": "Per-site choice: use a custom value"
+  },
+  "optDisableDiscard": {
+    "message": "Απενεργοποίηση (Απόρριψη)",
+    "description": "Per-site choice for Disable Suspended Page: discard the tab directly"
+  },
+  "optEnableShowPage": {
+    "message": "Ενεργοποίηση (Εμφάνιση σελίδας)",
+    "description": "Per-site choice for Disable Suspended Page: show the suspended page"
+  },
+  "optDontSuspend": {
+    "message": "Μην αναστέλλετε",
+    "description": "Per-site choice: protect the tab"
+  },
+  "optAllowSuspend": {
+    "message": "Να επιτρέπεται η αναστολή",
+    "description": "Per-site choice: allow suspending the tab"
+  },
+  "labelDisableSuspendedPage": {
+    "message": "Απενεργοποίηση σελίδας σε αναστολή:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreAudio": {
+    "message": "Παράβλεψη αναπαραγωγής ήχου:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreFormInput": {
+    "message": "Παράβλεψη εισαγωγής φόρμας:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreNotifications": {
+    "message": "Παράβλεψη ειδοποιήσεων:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnorePinned": {
+    "message": "Παράβλεψη καρφιτσωμένων καρτελών:",
+    "description": "Per-site setting label"
+  },
+  "dataExported": {
+    "message": "Εξάγονται οι ρυθμίσεις!",
+    "description": "Toast after exporting"
+  },
+  "dataExportFailed": {
+    "message": "Η εξαγωγή απέτυχε",
+    "description": "Toast"
+  },
+  "dataImportInvalidJson": {
+    "message": "Η εισαγωγή απέτυχε: Μη έγκυρο αρχείο JSON",
+    "description": "Toast"
+  },
+  "dataImportReadError": {
+    "message": "Η εισαγωγή απέτυχε: Δεν ήταν δυνατή η ανάγνωση του αρχείου",
+    "description": "Toast"
+  },
+  "dataImported": {
+    "message": "Οι ρυθμίσεις εισήχθησαν με επιτυχία!",
+    "description": "Toast"
+  },
+  "dataImportFailed": {
+    "message": "Η εισαγωγή απέτυχε: $ERROR$",
+    "description": "Toast; ERROR is a technical error message",
+    "placeholders": {
+      "ERROR": {
+        "content": "$1",
+        "example": "Invalid file"
+      }
+    }
+  },
+  "dataImportNoValid": {
+    "message": "Το αρχείο δεν περιέχει έγκυρες ή αναγνωρισμένες ρυθμίσεις.",
+    "description": "Error message for an import file with nothing usable"
+  },
+  "ctxWhitelistDomain": {
+    "message": "Λίστα επιτρεπόμενων αυτού του τομέα",
+    "description": "Right-click menu item"
+  },
+  "ctxWhitelistPage": {
+    "message": "Λίστα επιτρεπόμενων αυτής της σελίδας",
+    "description": "Right-click menu item"
+  },
+  "ctxSuspendPage": {
+    "message": "Αναστολή αυτής της σελίδας",
+    "description": "Right-click menu item"
+  },
+  "siteOverrideEnabled": {
+    "message": "Οι προσαρμοσμένες ρυθμίσεις ενεργοποιήθηκαν για $DOMAIN$",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "siteOverrideDisabled": {
+    "message": "Οι προσαρμοσμένες ρυθμίσεις απενεργοποιήθηκαν για $DOMAIN$",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
   }
 }

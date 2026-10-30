@@ -40,7 +40,7 @@
     "description": "paragraph in popup.html"
   },
   "configureKeyboardShortcuts": {
-    "message": "Chromeの拡張機能設定でキーボードショートカットを設定します。",
+    "message": "キーボード ショートカットのサポートが利用可能です。ガイドに従って、ブラウザの拡張機能設定で設定します。",
     "description": "paragraph in popup.html"
   },
   "importExportSettingsWhitelist": {
@@ -72,7 +72,7 @@
     "description": "button in popup.html"
   },
   "suspendInactiveTabsAfter": {
-    "message": "この時間が経過したら非アクティブなタブをサスペンド（分）:",
+    "message": "(分) 後に一時停止:",
     "description": "label in popup.html"
   },
   "darkMode": {
@@ -144,7 +144,7 @@
     "description": "paragraph in data_management.html"
   },
   "importDesc": {
-    "message": "JSONファイルから設定を読み込みます。これにより現在の設定が上書きされます。",
+    "message": "JSON ファイルから設定を読み込みます。インポートされた値は現在の設定を置き換えます。ホワイトリストは既存のリストとマージされます。",
     "description": "paragraph in data_management.html"
   },
   "selectJsonFile": {
@@ -190,5 +190,301 @@
   "toggleSiteOverride": {
     "message": "このサイトのカスタム設定の上書きを切り替えます",
     "description": ""
+  },
+  "whitelistNoItems": {
+    "message": "ホワイトリストに登録された項目はありません",
+    "description": "Shown when both whitelists are empty"
+  },
+  "whitelistedDomains": {
+    "message": "ホワイトリストに登録されたドメイン",
+    "description": "Whitelist section heading"
+  },
+  "noDomainsWhitelisted": {
+    "message": "ホワイトリストにドメインが登録されていません",
+    "description": "Empty state of the domain whitelist"
+  },
+  "whitelistedPages": {
+    "message": "ホワイトリストに登録されたページ",
+    "description": "Whitelist section heading"
+  },
+  "noPagesWhitelisted": {
+    "message": "ホワイトリストに登録されたページはありません",
+    "description": "Empty state of the page whitelist"
+  },
+  "statusOptionsSaved": {
+    "message": "オプションが保存されました!",
+    "description": "Toast after saving options"
+  },
+  "statusTimeRange": {
+    "message": "時間は 1 ～ 1440 の間である必要があります",
+    "description": "Validation error for the suspend time in minutes"
+  },
+  "statusSiteOptionsSaved": {
+    "message": "サイトオプションを保存しました!",
+    "description": "Toast after saving per-site options"
+  },
+  "statusSiteOverridesCleared": {
+    "message": "サイトのオーバーライドがクリアされました。",
+    "description": "Toast after removing the per-site override"
+  },
+  "statusSiteSaveError": {
+    "message": "サイト オプションの保存中にエラーが発生しました",
+    "description": "Toast when saving per-site options fails"
+  },
+  "statusWhitelistUpdated": {
+    "message": "ホワイトリストが更新されました",
+    "description": "Toast after removing a whitelist entry"
+  },
+  "statusSaveError": {
+    "message": "オプションの保存中にエラーが発生しました",
+    "description": "Toast when saving options fails"
+  },
+  "statusCaptureQualityRange": {
+    "message": "キャプチャ品質は 5 ～ 100 である必要があります",
+    "description": "Validation error"
+  },
+  "statusResizeWidthMin": {
+    "message": "サイズ変更の幅は少なくとも 100 にする必要があります",
+    "description": "Validation error"
+  },
+  "statusResizeHeightMin": {
+    "message": "サイズ変更の高さは 100 以上にする必要があります",
+    "description": "Validation error"
+  },
+  "statusResizeQualityRange": {
+    "message": "サイズ変更の品質は 0.1 ～ 1.0 である必要があります",
+    "description": "Validation error"
+  },
+  "statusScreenshotSaved": {
+    "message": "スクリーンショット設定が保存されました!",
+    "description": "Toast after saving screenshot settings"
+  },
+  "statusScreenshotSaveError": {
+    "message": "設定の保存中にエラーが発生しました",
+    "description": "Toast when saving screenshot settings fails"
+  },
+  "statusDomainWhitelisted": {
+    "message": "ドメイン $DOMAIN$ がホワイトリストに登録されました!",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusDomainAlreadyWhitelisted": {
+    "message": "ドメイン $DOMAIN$ はすでにホワイトリストに登録されています",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusPageWhitelisted": {
+    "message": "現在のページがホワイトリストに登録されました。",
+    "description": "Toast after whitelisting the current page"
+  },
+  "statusPageAlreadyWhitelisted": {
+    "message": "現在のページはすでにホワイトリストに登録されています",
+    "description": "Toast"
+  },
+  "statusPaused": {
+    "message": "一時停止は $MINUTES$ 分間一時停止されました",
+    "description": "Toast after pausing; MINUTES is a number",
+    "placeholders": {
+      "MINUTES": {
+        "content": "$1",
+        "example": "30"
+      }
+    }
+  },
+  "statusPauseCancelled": {
+    "message": "一時停止がキャンセルされました",
+    "description": "Toast after cancelling the pause"
+  },
+  "pauseButton30": {
+    "message": "30メートル",
+    "description": "Pause button: 30 minutes (keep it very short)"
+  },
+  "pauseButton60": {
+    "message": "1時間",
+    "description": "Pause button: 1 hour (keep it very short)"
+  },
+  "pauseButton90": {
+    "message": "1.5時間",
+    "description": "Pause button: 1.5 hours (keep it very short)"
+  },
+  "pauseButton120": {
+    "message": "2時間",
+    "description": "Pause button: 2 hours (keep it very short)"
+  },
+  "pausedLabel": {
+    "message": "一時停止中",
+    "description": "Heading shown while suspension is paused"
+  },
+  "cancelPause": {
+    "message": "一時停止のキャンセル",
+    "description": "Button that ends the pause early"
+  },
+  "readTheGuide": {
+    "message": "ガイドを読む",
+    "description": "Button that opens the keyboard shortcut help page"
+  },
+  "emojiZzz": {
+    "message": "💤 ズズ",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSleeping": {
+    "message": "😴 寝ています",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiInBed": {
+    "message": "🛌 ベッドで",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiMoon": {
+    "message": "🌙 月",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiIceCube": {
+    "message": "🧊 アイスキューブ",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSnowflake": {
+    "message": "❄️ スノーフレーク",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiPause": {
+    "message": "⏸️ 一時停止",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiNone": {
+    "message": "なし",
+    "description": "Tab title indicator choice: no indicator"
+  },
+  "siteLabel": {
+    "message": "サイト:",
+    "description": "Label before the current site hostname"
+  },
+  "suspendTimeLabel": {
+    "message": "一時停止時間:",
+    "description": "Per-site setting label"
+  },
+  "timeMinutesLabel": {
+    "message": "時間 (分):",
+    "description": "Per-site setting label"
+  },
+  "optInherit": {
+    "message": "継承する",
+    "description": "Per-site choice: use the global setting"
+  },
+  "optCustom": {
+    "message": "カスタム",
+    "description": "Per-site choice: use a custom value"
+  },
+  "optDisableDiscard": {
+    "message": "無効化(破棄)",
+    "description": "Per-site choice for Disable Suspended Page: discard the tab directly"
+  },
+  "optEnableShowPage": {
+    "message": "有効にする (ページを表示)",
+    "description": "Per-site choice for Disable Suspended Page: show the suspended page"
+  },
+  "optDontSuspend": {
+    "message": "一時停止しないでください",
+    "description": "Per-site choice: protect the tab"
+  },
+  "optAllowSuspend": {
+    "message": "一時停止を許可する",
+    "description": "Per-site choice: allow suspending the tab"
+  },
+  "labelDisableSuspendedPage": {
+    "message": "一時停止されたページを無効にする:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreAudio": {
+    "message": "オーディオの再生を無視する:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreFormInput": {
+    "message": "フォーム入力を無視する:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreNotifications": {
+    "message": "通知を無視する:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnorePinned": {
+    "message": "固定されたタブを無視する:",
+    "description": "Per-site setting label"
+  },
+  "dataExported": {
+    "message": "設定がエクスポートされました!",
+    "description": "Toast after exporting"
+  },
+  "dataExportFailed": {
+    "message": "エクスポートに失敗しました",
+    "description": "Toast"
+  },
+  "dataImportInvalidJson": {
+    "message": "Import failed: Invalid JSON file",
+    "description": "Toast"
+  },
+  "dataImportReadError": {
+    "message": "Import failed: Could not read file",
+    "description": "Toast"
+  },
+  "dataImported": {
+    "message": "Settings imported successfully!",
+    "description": "Toast"
+  },
+  "dataImportFailed": {
+    "message": "インポートに失敗しました: $ERROR$",
+    "description": "Toast; ERROR is a technical error message",
+    "placeholders": {
+      "ERROR": {
+        "content": "$1",
+        "example": "Invalid file"
+      }
+    }
+  },
+  "dataImportNoValid": {
+    "message": "File contains no valid or recognized settings.",
+    "description": "Error message for an import file with nothing usable"
+  },
+  "ctxWhitelistDomain": {
+    "message": "このドメインをホワイトリストに登録する",
+    "description": "Right-click menu item"
+  },
+  "ctxWhitelistPage": {
+    "message": "このページをホワイトリストに登録する",
+    "description": "Right-click menu item"
+  },
+  "ctxSuspendPage": {
+    "message": "このページを一時停止する",
+    "description": "Right-click menu item"
+  },
+  "siteOverrideEnabled": {
+    "message": "Custom settings enabled for $DOMAIN$",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "siteOverrideDisabled": {
+    "message": "Custom settings disabled for $DOMAIN$",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
   }
 }

@@ -40,7 +40,7 @@
     "description": "paragraph in popup.html"
   },
   "configureKeyboardShortcuts": {
-    "message": "Määritä pikanäppäimet Chromen laajennusasetuksissa.",
+    "message": "Pikanäppäintuki on saatavilla! Määritä se selaimesi laajennusasetuksissa ohjeen mukaan.",
     "description": "paragraph in popup.html"
   },
   "importExportSettingsWhitelist": {
@@ -72,7 +72,7 @@
     "description": "button in popup.html"
   },
   "suspendInactiveTabsAfter": {
-    "message": "Keskeytä ei-aktiiviset välilehdet jälkeen (minuuttia):",
+    "message": "Keskeytä jälkeen (min):",
     "description": "label in popup.html"
   },
   "darkMode": {
@@ -144,7 +144,7 @@
     "description": "paragraph in data_management.html"
   },
   "importDesc": {
-    "message": "Lataa asetukset JSON-tiedostosta. Tämä korvaa nykyiset asetuksesi.",
+    "message": "Lataa asetukset JSON-tiedostosta. Tuodut arvot korvaavat nykyiset asetukset. sallittujen luettelot yhdistetään olemassa oleviin.",
     "description": "paragraph in data_management.html"
   },
   "selectJsonFile": {
@@ -190,5 +190,301 @@
   "toggleSiteOverride": {
     "message": "Ota tämän sivuston mukautettujen asetusten ohitus päälle/pois",
     "description": ""
+  },
+  "whitelistNoItems": {
+    "message": "Ei sallittujen luetteloon lisättyjä kohteita",
+    "description": "Shown when both whitelists are empty"
+  },
+  "whitelistedDomains": {
+    "message": "Sallittujen luetteloon lisätyt verkkotunnukset",
+    "description": "Whitelist section heading"
+  },
+  "noDomainsWhitelisted": {
+    "message": "Ei verkkotunnuksia sallittujen luettelossa",
+    "description": "Empty state of the domain whitelist"
+  },
+  "whitelistedPages": {
+    "message": "Sallittujen luetteloon lisätyt sivut",
+    "description": "Whitelist section heading"
+  },
+  "noPagesWhitelisted": {
+    "message": "Sivuja ei ole sallittujen luettelossa",
+    "description": "Empty state of the page whitelist"
+  },
+  "statusOptionsSaved": {
+    "message": "Vaihtoehdot tallennettu!",
+    "description": "Toast after saving options"
+  },
+  "statusTimeRange": {
+    "message": "Ajan on oltava välillä 1–1440",
+    "description": "Validation error for the suspend time in minutes"
+  },
+  "statusSiteOptionsSaved": {
+    "message": "Sivustovaihtoehdot tallennettu!",
+    "description": "Toast after saving per-site options"
+  },
+  "statusSiteOverridesCleared": {
+    "message": "Sivuston ohitukset tyhjennettiin!",
+    "description": "Toast after removing the per-site override"
+  },
+  "statusSiteSaveError": {
+    "message": "Virhe tallennettaessa sivuston vaihtoehtoja",
+    "description": "Toast when saving per-site options fails"
+  },
+  "statusWhitelistUpdated": {
+    "message": "Sallittujen lista päivitetty",
+    "description": "Toast after removing a whitelist entry"
+  },
+  "statusSaveError": {
+    "message": "Virhe vaihtoehtojen tallentamisessa",
+    "description": "Toast when saving options fails"
+  },
+  "statusCaptureQualityRange": {
+    "message": "Kuvauslaadun on oltava 5–100",
+    "description": "Validation error"
+  },
+  "statusResizeWidthMin": {
+    "message": "Resize Width on oltava vähintään 100",
+    "description": "Validation error"
+  },
+  "statusResizeHeightMin": {
+    "message": "Muutoskorkeuden on oltava vähintään 100",
+    "description": "Validation error"
+  },
+  "statusResizeQualityRange": {
+    "message": "Koonmuutoslaadun on oltava 0,1–1,0",
+    "description": "Validation error"
+  },
+  "statusScreenshotSaved": {
+    "message": "Kuvakaappausasetukset tallennettu!",
+    "description": "Toast after saving screenshot settings"
+  },
+  "statusScreenshotSaveError": {
+    "message": "Virhe asetusten tallentamisessa",
+    "description": "Toast when saving screenshot settings fails"
+  },
+  "statusDomainWhitelisted": {
+    "message": "Verkkotunnus $DOMAIN$ sallittujen luettelossa!",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusDomainAlreadyWhitelisted": {
+    "message": "Verkkotunnus $DOMAIN$ on jo lisätty sallittujen luetteloon",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusPageWhitelisted": {
+    "message": "Nykyinen sivu sallittujen luettelossa!",
+    "description": "Toast after whitelisting the current page"
+  },
+  "statusPageAlreadyWhitelisted": {
+    "message": "Nykyinen sivu on jo sallittujen luettelossa",
+    "description": "Toast"
+  },
+  "statusPaused": {
+    "message": "Keskeytys keskeytetty $MINUTES$ minuutiksi",
+    "description": "Toast after pausing; MINUTES is a number",
+    "placeholders": {
+      "MINUTES": {
+        "content": "$1",
+        "example": "30"
+      }
+    }
+  },
+  "statusPauseCancelled": {
+    "message": "Tauko peruttu",
+    "description": "Toast after cancelling the pause"
+  },
+  "pauseButton30": {
+    "message": "30m",
+    "description": "Pause button: 30 minutes (keep it very short)"
+  },
+  "pauseButton60": {
+    "message": "1h",
+    "description": "Pause button: 1 hour (keep it very short)"
+  },
+  "pauseButton90": {
+    "message": "1,5h",
+    "description": "Pause button: 1.5 hours (keep it very short)"
+  },
+  "pauseButton120": {
+    "message": "2h",
+    "description": "Pause button: 2 hours (keep it very short)"
+  },
+  "pausedLabel": {
+    "message": "Keskeytetty",
+    "description": "Heading shown while suspension is paused"
+  },
+  "cancelPause": {
+    "message": "Peruuta tauko",
+    "description": "Button that ends the pause early"
+  },
+  "readTheGuide": {
+    "message": "Lue ohje",
+    "description": "Button that opens the keyboard shortcut help page"
+  },
+  "emojiZzz": {
+    "message": "💤 Zzz",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSleeping": {
+    "message": "😴 Nukkumassa",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiInBed": {
+    "message": "🛌 Sängyssä",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiMoon": {
+    "message": "🌙 Kuu",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiIceCube": {
+    "message": "🧊 jääpala",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSnowflake": {
+    "message": "❄️ Lumihiutale",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiPause": {
+    "message": "⏸️ Keskeytä",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiNone": {
+    "message": "Ei mitään",
+    "description": "Tab title indicator choice: no indicator"
+  },
+  "siteLabel": {
+    "message": "Sivusto:",
+    "description": "Label before the current site hostname"
+  },
+  "suspendTimeLabel": {
+    "message": "Keskeytysaika:",
+    "description": "Per-site setting label"
+  },
+  "timeMinutesLabel": {
+    "message": "Aika (minuuttia):",
+    "description": "Per-site setting label"
+  },
+  "optInherit": {
+    "message": "Periä",
+    "description": "Per-site choice: use the global setting"
+  },
+  "optCustom": {
+    "message": "Mukautettu",
+    "description": "Per-site choice: use a custom value"
+  },
+  "optDisableDiscard": {
+    "message": "Poista käytöstä (hylkää)",
+    "description": "Per-site choice for Disable Suspended Page: discard the tab directly"
+  },
+  "optEnableShowPage": {
+    "message": "Ota käyttöön (Näytä sivu)",
+    "description": "Per-site choice for Disable Suspended Page: show the suspended page"
+  },
+  "optDontSuspend": {
+    "message": "Älä keskeytä",
+    "description": "Per-site choice: protect the tab"
+  },
+  "optAllowSuspend": {
+    "message": "Salli keskeyttää",
+    "description": "Per-site choice: allow suspending the tab"
+  },
+  "labelDisableSuspendedPage": {
+    "message": "Poista jäädytetty sivu käytöstä:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreAudio": {
+    "message": "Ohita äänen toisto:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreFormInput": {
+    "message": "Ohita lomakkeen syöttö:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreNotifications": {
+    "message": "Ohita ilmoitukset:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnorePinned": {
+    "message": "Ohita kiinnitetyt välilehdet:",
+    "description": "Per-site setting label"
+  },
+  "dataExported": {
+    "message": "Asetukset viety!",
+    "description": "Toast after exporting"
+  },
+  "dataExportFailed": {
+    "message": "Vienti epäonnistui",
+    "description": "Toast"
+  },
+  "dataImportInvalidJson": {
+    "message": "Tuonti epäonnistui: Virheellinen JSON-tiedosto",
+    "description": "Toast"
+  },
+  "dataImportReadError": {
+    "message": "Tuonti epäonnistui: tiedostoa ei voitu lukea",
+    "description": "Toast"
+  },
+  "dataImported": {
+    "message": "Asetusten tuonti onnistui!",
+    "description": "Toast"
+  },
+  "dataImportFailed": {
+    "message": "Tuonti epäonnistui: $ERROR$",
+    "description": "Toast; ERROR is a technical error message",
+    "placeholders": {
+      "ERROR": {
+        "content": "$1",
+        "example": "Invalid file"
+      }
+    }
+  },
+  "dataImportNoValid": {
+    "message": "Tiedostossa ei ole kelvollisia tai tunnistettuja asetuksia.",
+    "description": "Error message for an import file with nothing usable"
+  },
+  "ctxWhitelistDomain": {
+    "message": "Tämä verkkotunnus on sallittujen luettelossa",
+    "description": "Right-click menu item"
+  },
+  "ctxWhitelistPage": {
+    "message": "Tämä sivu on sallittujen luettelossa",
+    "description": "Right-click menu item"
+  },
+  "ctxSuspendPage": {
+    "message": "Keskeytä tämä sivu",
+    "description": "Right-click menu item"
+  },
+  "siteOverrideEnabled": {
+    "message": "Muokatut asetukset käytössä: $DOMAIN$",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "siteOverrideDisabled": {
+    "message": "Muokatut asetukset poistettu käytöstä verkkotunnuksessa $DOMAIN$",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
   }
 }

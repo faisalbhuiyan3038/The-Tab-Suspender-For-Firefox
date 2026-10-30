@@ -412,14 +412,14 @@
           <label data-i18n="tabTitleIndicator" for="suspendEmoji">Tab Status Indicator:</label>
           <select id="suspendEmoji"
             style="width: 100%; padding: 8px 12px; border: 1px solid var(--border-color); border-radius: 6px; background-color: var(--input-bg); color: var(--text-color); font-family: inherit; font-size: 14px; box-sizing: border-box;">
-            <option value="💤">💤 Zzz</option>
-            <option value="😴">😴 Sleeping</option>
-            <option value="🛌">🛌 In Bed</option>
-            <option value="🌙">🌙 Moon</option>
-            <option value="🧊">🧊 Ice Cube</option>
-            <option value="❄️">❄️ Snowflake</option>
-            <option value="⏸️">⏸️ Pause</option>
-            <option value="none">None</option>
+            <option value="💤" data-i18n="emojiZzz">💤 Zzz</option>
+            <option value="😴" data-i18n="emojiSleeping">😴 Sleeping</option>
+            <option value="🛌" data-i18n="emojiInBed">🛌 In Bed</option>
+            <option value="🌙" data-i18n="emojiMoon">🌙 Moon</option>
+            <option value="🧊" data-i18n="emojiIceCube">🧊 Ice Cube</option>
+            <option value="❄️" data-i18n="emojiSnowflake">❄️ Snowflake</option>
+            <option value="⏸️" data-i18n="emojiPause">⏸️ Pause</option>
+            <option value="none" data-i18n="emojiNone">None</option>
           </select>
         </div>
       </div>
@@ -475,7 +475,7 @@
     <div id="site-settings-tab" class="tab-content">
       <div id="siteSettingsAvailable">
         <div style="margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border-color);">
-          <h4 style="margin: 0 0 4px 0;" id="siteSettingsTitle">Site: <span id="siteSettingsDomain" style="color: var(--accent-color);">example.com</span></h4>
+          <h4 style="margin: 0 0 4px 0;" id="siteSettingsTitle"><span data-i18n="siteLabel">Site:</span> <span id="siteSettingsDomain" style="color: var(--accent-color);">example.com</span></h4>
           <p style="font-size: 12px; opacity: 0.7; margin: 0;" data-i18n="siteSettingsDesc">Configure tab suspension behavior for this site.</p>
         </div>
 
@@ -490,61 +490,61 @@
         <div id="siteOverrideForm" style="opacity: 0.5; pointer-events: none; transition: opacity 0.3s;">
           <div class="form-grid" style="margin-bottom: 12px; grid-template-columns: 1fr 1fr; gap: 12px;">
             <div class="form-group" style="margin-bottom: 0;">
-              <label for="siteSuspendTimeOption">Suspend Time:</label>
+              <label data-i18n="suspendTimeLabel" for="siteSuspendTimeOption">Suspend Time:</label>
               <select id="siteSuspendTimeOption" style="width: 100%; padding: 8px 12px; border: 1px solid var(--border-color); border-radius: 6px; background-color: var(--input-bg); color: var(--text-color); font-family: inherit; font-size: 14px; box-sizing: border-box;">
-                <option value="inherit">Inherit</option>
-                <option value="custom">Custom</option>
+                <option value="inherit" data-i18n="optInherit">Inherit</option>
+                <option value="custom" data-i18n="optCustom">Custom</option>
               </select>
             </div>
             <div class="form-group" style="margin-bottom: 0;">
-              <label for="siteSuspendTime">Time (minutes):</label>
+              <label data-i18n="timeMinutesLabel" for="siteSuspendTime">Time (minutes):</label>
               <input type="number" id="siteSuspendTime" min="1" max="1440" style="width: 100%;">
             </div>
           </div>
 
           <div style="display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 12px;">
             <div style="display: flex; align-items: center; justify-content: space-between;">
-              <label style="margin: 0; font-size: 14px; font-weight: 500;">Disable Suspended Page:</label>
+              <label data-i18n="labelDisableSuspendedPage" style="margin: 0; font-size: 14px; font-weight: 500;">Disable Suspended Page:</label>
               <select id="siteDirectDiscard" style="width: 160px; padding: 6px 10px; border: 1px solid var(--border-color); border-radius: 6px; background-color: var(--input-bg); color: var(--text-color); font-family: inherit; font-size: 14px; box-sizing: border-box;">
-                <option value="inherit">Inherit</option>
-                <option value="true">Disable (Discard)</option>
-                <option value="false">Enable (Show page)</option>
+                <option value="inherit" data-i18n="optInherit">Inherit</option>
+                <option value="true" data-i18n="optDisableDiscard">Disable (Discard)</option>
+                <option value="false" data-i18n="optEnableShowPage">Enable (Show page)</option>
               </select>
             </div>
 
             <div style="display: flex; align-items: center; justify-content: space-between;">
-              <label style="margin: 0; font-size: 14px; font-weight: 500;">Ignore Playing Audio:</label>
+              <label data-i18n="labelIgnoreAudio" style="margin: 0; font-size: 14px; font-weight: 500;">Ignore Playing Audio:</label>
               <select id="siteIgnoreAudio" style="width: 160px; padding: 6px 10px; border: 1px solid var(--border-color); border-radius: 6px; background-color: var(--input-bg); color: var(--text-color); font-family: inherit; font-size: 14px; box-sizing: border-box;">
-                <option value="inherit">Inherit</option>
-                <option value="true">Don't Suspend</option>
-                <option value="false">Allow Suspend</option>
+                <option value="inherit" data-i18n="optInherit">Inherit</option>
+                <option value="true" data-i18n="optDontSuspend">Don't Suspend</option>
+                <option value="false" data-i18n="optAllowSuspend">Allow Suspend</option>
               </select>
             </div>
 
             <div style="display: flex; align-items: center; justify-content: space-between;">
-              <label style="margin: 0; font-size: 14px; font-weight: 500;">Ignore Form Input:</label>
+              <label data-i18n="labelIgnoreFormInput" style="margin: 0; font-size: 14px; font-weight: 500;">Ignore Form Input:</label>
               <select id="siteIgnoreFormInput" style="width: 160px; padding: 6px 10px; border: 1px solid var(--border-color); border-radius: 6px; background-color: var(--input-bg); color: var(--text-color); font-family: inherit; font-size: 14px; box-sizing: border-box;">
-                <option value="inherit">Inherit</option>
-                <option value="true">Don't Suspend</option>
-                <option value="false">Allow Suspend</option>
+                <option value="inherit" data-i18n="optInherit">Inherit</option>
+                <option value="true" data-i18n="optDontSuspend">Don't Suspend</option>
+                <option value="false" data-i18n="optAllowSuspend">Allow Suspend</option>
               </select>
             </div>
 
             <div style="display: flex; align-items: center; justify-content: space-between;">
-              <label style="margin: 0; font-size: 14px; font-weight: 500;">Ignore Notifications:</label>
+              <label data-i18n="labelIgnoreNotifications" style="margin: 0; font-size: 14px; font-weight: 500;">Ignore Notifications:</label>
               <select id="siteIgnoreNotifications" style="width: 160px; padding: 6px 10px; border: 1px solid var(--border-color); border-radius: 6px; background-color: var(--input-bg); color: var(--text-color); font-family: inherit; font-size: 14px; box-sizing: border-box;">
-                <option value="inherit">Inherit</option>
-                <option value="true">Don't Suspend</option>
-                <option value="false">Allow Suspend</option>
+                <option value="inherit" data-i18n="optInherit">Inherit</option>
+                <option value="true" data-i18n="optDontSuspend">Don't Suspend</option>
+                <option value="false" data-i18n="optAllowSuspend">Allow Suspend</option>
               </select>
             </div>
 
             <div style="display: flex; align-items: center; justify-content: space-between;">
-              <label style="margin: 0; font-size: 14px; font-weight: 500;">Ignore Pinned Tabs:</label>
+              <label data-i18n="labelIgnorePinned" style="margin: 0; font-size: 14px; font-weight: 500;">Ignore Pinned Tabs:</label>
               <select id="siteIgnorePinned" style="width: 160px; padding: 6px 10px; border: 1px solid var(--border-color); border-radius: 6px; background-color: var(--input-bg); color: var(--text-color); font-family: inherit; font-size: 14px; box-sizing: border-box;">
-                <option value="inherit">Inherit</option>
-                <option value="true">Don't Suspend</option>
-                <option value="false">Allow Suspend</option>
+                <option value="inherit" data-i18n="optInherit">Inherit</option>
+                <option value="true" data-i18n="optDontSuspend">Don't Suspend</option>
+                <option value="false" data-i18n="optAllowSuspend">Allow Suspend</option>
               </select>
             </div>
           </div>
@@ -604,29 +604,26 @@
 
         <div id="pauseOptions" class="button-group"
           style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;">
-          <button class="btn btn-pause" data-time="30" style="padding: 6px 0; width: 100%;">30m</button>
-          <button class="btn btn-pause" data-time="60" style="padding: 6px 0; width: 100%;">1h</button>
-          <button class="btn btn-pause" data-time="90" style="padding: 6px 0; width: 100%;">1.5h</button>
-          <button class="btn btn-pause" data-time="120" style="padding: 6px 0; width: 100%;">2h</button>
+          <button data-i18n="pauseButton30" class="btn btn-pause" data-time="30" style="padding: 6px 0; width: 100%;">30m</button>
+          <button data-i18n="pauseButton60" class="btn btn-pause" data-time="60" style="padding: 6px 0; width: 100%;">1h</button>
+          <button data-i18n="pauseButton90" class="btn btn-pause" data-time="90" style="padding: 6px 0; width: 100%;">1.5h</button>
+          <button data-i18n="pauseButton120" class="btn btn-pause" data-time="120" style="padding: 6px 0; width: 100%;">2h</button>
         </div>
 
         <div id="pauseActive"
           style="display: none; background-color: var(--input-bg); border: 1px solid var(--border-color); border-radius: 6px; padding: 12px; margin-top: 8px; text-align: center;">
-          <div style="font-weight: 600; font-size: 16px; margin-bottom: 4px; color: var(--accent-color);">
-            Paused
-          </div>
+          <div data-i18n="pausedLabel" style="font-weight: 600; font-size: 16px; margin-bottom: 4px; color: var(--accent-color);">Paused</div>
           <div id="pauseCountdown"
             style="font-family: inherit; font-size: 16px; font-weight: bold; margin-bottom: 8px;">--:--:--</div>
-          <button id="cancelPauseBtn" class="btn" style="background-color: #f56565; width: 100%;">Cancel Pause</button>
+          <button data-i18n="cancelPause" id="cancelPauseBtn" class="btn" style="background-color: #f56565; width: 100%;">Cancel Pause</button>
         </div>
       </div>
 
       <div class="setting-item">
         <h4 data-i18n="keyboardShortcuts">Keyboard Shortcuts</h4>
-        <p data-i18n="configureKeyboardShortcuts" class="description">Keyboard shortcut support is available! Configure
-          it in addon settings by following the guide.</p>
+        <p data-i18n="configureKeyboardShortcuts" class="description">Keyboard shortcut support is available! Configure it in your browser's extension settings by following the guide.</p>
         <div class="button-group">
-          <button id="configureShortcutsBtn" class="btn">Read the guide</button>
+          <button data-i18n="readTheGuide" id="configureShortcutsBtn" class="btn">Read the guide</button>
         </div>
       </div>
 
@@ -644,6 +641,7 @@
 
   </div>
 
+  <script src="i18n-loader.js"></script>
   <script src="popup.js"></script>
 </body>
 

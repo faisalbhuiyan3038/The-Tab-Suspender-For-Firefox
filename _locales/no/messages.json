@@ -40,7 +40,7 @@
     "description": "paragraph in popup.html"
   },
   "configureKeyboardShortcuts": {
-    "message": "Konfigurer tastatursnarveier i Chrome-utvidelsesinnstillingene.",
+    "message": "Støtte for hurtigtaster er tilgjengelig! Konfigurer den i nettleserens utvidelsesinnstillinger ved å følge veiledningen.",
     "description": "paragraph in popup.html"
   },
   "importExportSettingsWhitelist": {
@@ -72,7 +72,7 @@
     "description": "button in popup.html"
   },
   "suspendInactiveTabsAfter": {
-    "message": "Suspender inaktive faner etter (minutter):",
+    "message": "Suspend etter (min):",
     "description": "label in popup.html"
   },
   "darkMode": {
@@ -144,7 +144,7 @@
     "description": "paragraph in data_management.html"
   },
   "importDesc": {
-    "message": "Last inn innstillinger fra en JSON-fil. Dette vil overskrive dine nåværende innstillinger.",
+    "message": "Last inn innstillinger fra en JSON-fil. Importerte verdier erstatter gjeldende innstillinger; hvitelister slås sammen med de eksisterende.",
     "description": "paragraph in data_management.html"
   },
   "selectJsonFile": {
@@ -190,5 +190,301 @@
   "toggleSiteOverride": {
     "message": "Slå av/på overstyring av egendefinerte innstillinger for dette nettstedet",
     "description": ""
+  },
+  "whitelistNoItems": {
+    "message": "Ingen hvitelistede elementer",
+    "description": "Shown when both whitelists are empty"
+  },
+  "whitelistedDomains": {
+    "message": "Hvitelistede domener",
+    "description": "Whitelist section heading"
+  },
+  "noDomainsWhitelisted": {
+    "message": "Ingen domener hvitelistet",
+    "description": "Empty state of the domain whitelist"
+  },
+  "whitelistedPages": {
+    "message": "Hvitelistede sider",
+    "description": "Whitelist section heading"
+  },
+  "noPagesWhitelisted": {
+    "message": "Ingen sider er hvitelistet",
+    "description": "Empty state of the page whitelist"
+  },
+  "statusOptionsSaved": {
+    "message": "Alternativer lagret!",
+    "description": "Toast after saving options"
+  },
+  "statusTimeRange": {
+    "message": "Klokken må være mellom 1 og 1440",
+    "description": "Validation error for the suspend time in minutes"
+  },
+  "statusSiteOptionsSaved": {
+    "message": "Sidealternativer lagret!",
+    "description": "Toast after saving per-site options"
+  },
+  "statusSiteOverridesCleared": {
+    "message": "Nettstedoverstyringer fjernet!",
+    "description": "Toast after removing the per-site override"
+  },
+  "statusSiteSaveError": {
+    "message": "Feil under lagring av nettstedsalternativer",
+    "description": "Toast when saving per-site options fails"
+  },
+  "statusWhitelistUpdated": {
+    "message": "Hviteliste oppdatert",
+    "description": "Toast after removing a whitelist entry"
+  },
+  "statusSaveError": {
+    "message": "Feil under lagring av alternativer",
+    "description": "Toast when saving options fails"
+  },
+  "statusCaptureQualityRange": {
+    "message": "Opptakskvaliteten må være 5-100",
+    "description": "Validation error"
+  },
+  "statusResizeWidthMin": {
+    "message": "Endre størrelse Bredde må være minst 100",
+    "description": "Validation error"
+  },
+  "statusResizeHeightMin": {
+    "message": "Endre størrelse Høyde må være minst 100",
+    "description": "Validation error"
+  },
+  "statusResizeQualityRange": {
+    "message": "Endre størrelse Kvalitet må være 0,1-1,0",
+    "description": "Validation error"
+  },
+  "statusScreenshotSaved": {
+    "message": "Skjermbildeinnstillinger lagret!",
+    "description": "Toast after saving screenshot settings"
+  },
+  "statusScreenshotSaveError": {
+    "message": "Feil under lagring av innstillinger",
+    "description": "Toast when saving screenshot settings fails"
+  },
+  "statusDomainWhitelisted": {
+    "message": "Domene $DOMAIN$ hvitelistet!",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusDomainAlreadyWhitelisted": {
+    "message": "Domene $DOMAIN$ er allerede godkjent",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusPageWhitelisted": {
+    "message": "Nåværende side hvitelistet!",
+    "description": "Toast after whitelisting the current page"
+  },
+  "statusPageAlreadyWhitelisted": {
+    "message": "Gjeldende side er allerede hvitelistet",
+    "description": "Toast"
+  },
+  "statusPaused": {
+    "message": "Suspensjon satt på pause i $MINUTES$ min",
+    "description": "Toast after pausing; MINUTES is a number",
+    "placeholders": {
+      "MINUTES": {
+        "content": "$1",
+        "example": "30"
+      }
+    }
+  },
+  "statusPauseCancelled": {
+    "message": "Pause avbrutt",
+    "description": "Toast after cancelling the pause"
+  },
+  "pauseButton30": {
+    "message": "30m",
+    "description": "Pause button: 30 minutes (keep it very short)"
+  },
+  "pauseButton60": {
+    "message": "1t",
+    "description": "Pause button: 1 hour (keep it very short)"
+  },
+  "pauseButton90": {
+    "message": "1,5 t",
+    "description": "Pause button: 1.5 hours (keep it very short)"
+  },
+  "pauseButton120": {
+    "message": "2t",
+    "description": "Pause button: 2 hours (keep it very short)"
+  },
+  "pausedLabel": {
+    "message": "Pause",
+    "description": "Heading shown while suspension is paused"
+  },
+  "cancelPause": {
+    "message": "Avbryt pause",
+    "description": "Button that ends the pause early"
+  },
+  "readTheGuide": {
+    "message": "Les veiledningen",
+    "description": "Button that opens the keyboard shortcut help page"
+  },
+  "emojiZzz": {
+    "message": "💤 Zzz",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSleeping": {
+    "message": "😴 Sover",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiInBed": {
+    "message": "🛌 I sengen",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiMoon": {
+    "message": "🌙 Måne",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiIceCube": {
+    "message": "🧊 Isbit",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSnowflake": {
+    "message": "❄️ Snøfnugg",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiPause": {
+    "message": "⏸️ Pause",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiNone": {
+    "message": "Ingen",
+    "description": "Tab title indicator choice: no indicator"
+  },
+  "siteLabel": {
+    "message": "Nettsted:",
+    "description": "Label before the current site hostname"
+  },
+  "suspendTimeLabel": {
+    "message": "Suspenderingstid:",
+    "description": "Per-site setting label"
+  },
+  "timeMinutesLabel": {
+    "message": "Tid (minutter):",
+    "description": "Per-site setting label"
+  },
+  "optInherit": {
+    "message": "Arve",
+    "description": "Per-site choice: use the global setting"
+  },
+  "optCustom": {
+    "message": "Egendefinert",
+    "description": "Per-site choice: use a custom value"
+  },
+  "optDisableDiscard": {
+    "message": "Deaktiver (Forkast)",
+    "description": "Per-site choice for Disable Suspended Page: discard the tab directly"
+  },
+  "optEnableShowPage": {
+    "message": "Aktiver (Vis side)",
+    "description": "Per-site choice for Disable Suspended Page: show the suspended page"
+  },
+  "optDontSuspend": {
+    "message": "Ikke suspender",
+    "description": "Per-site choice: protect the tab"
+  },
+  "optAllowSuspend": {
+    "message": "Tillat Suspend",
+    "description": "Per-site choice: allow suspending the tab"
+  },
+  "labelDisableSuspendedPage": {
+    "message": "Deaktiver suspendert side:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreAudio": {
+    "message": "Ignorer å spille av lyd:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreFormInput": {
+    "message": "Ignorer skjemainndata:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreNotifications": {
+    "message": "Ignorer varsler:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnorePinned": {
+    "message": "Ignorer festede faner:",
+    "description": "Per-site setting label"
+  },
+  "dataExported": {
+    "message": "Innstillinger eksportert!",
+    "description": "Toast after exporting"
+  },
+  "dataExportFailed": {
+    "message": "Eksporten mislyktes",
+    "description": "Toast"
+  },
+  "dataImportInvalidJson": {
+    "message": "Import mislyktes: Ugyldig JSON-fil",
+    "description": "Toast"
+  },
+  "dataImportReadError": {
+    "message": "Import mislyktes: Kunne ikke lese filen",
+    "description": "Toast"
+  },
+  "dataImported": {
+    "message": "Innstillinger ble importert!",
+    "description": "Toast"
+  },
+  "dataImportFailed": {
+    "message": "Import mislyktes: $ERROR$",
+    "description": "Toast; ERROR is a technical error message",
+    "placeholders": {
+      "ERROR": {
+        "content": "$1",
+        "example": "Invalid file"
+      }
+    }
+  },
+  "dataImportNoValid": {
+    "message": "Filen inneholder ingen gyldige eller gjenkjente innstillinger.",
+    "description": "Error message for an import file with nothing usable"
+  },
+  "ctxWhitelistDomain": {
+    "message": "Hvitelist dette domenet",
+    "description": "Right-click menu item"
+  },
+  "ctxWhitelistPage": {
+    "message": "Hviteliste denne siden",
+    "description": "Right-click menu item"
+  },
+  "ctxSuspendPage": {
+    "message": "Suspender denne siden",
+    "description": "Right-click menu item"
+  },
+  "siteOverrideEnabled": {
+    "message": "Egendefinerte innstillinger aktivert for $DOMAIN$",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "siteOverrideDisabled": {
+    "message": "Egendefinerte innstillinger er deaktivert for $DOMAIN$",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
   }
 }

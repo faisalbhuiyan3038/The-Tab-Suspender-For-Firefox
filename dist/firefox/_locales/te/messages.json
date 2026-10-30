@@ -40,7 +40,7 @@
     "description": "paragraph in popup.html"
   },
   "configureKeyboardShortcuts": {
-    "message": "Chrome పొడిగల సెట్టింగ్‌లలో కీబోర్డ్ సత్వరమార్గాలను కాన్ఫిగర్ చేయండి.",
+    "message": "కీబోర్డ్ సత్వరమార్గం మద్దతు అందుబాటులో ఉంది! గైడ్‌ని అనుసరించడం ద్వారా మీ బ్రౌజర్ పొడిగింపు సెట్టింగ్‌లలో దీన్ని కాన్ఫిగర్ చేయండి.",
     "description": "paragraph in popup.html"
   },
   "importExportSettingsWhitelist": {
@@ -72,7 +72,7 @@
     "description": "button in popup.html"
   },
   "suspendInactiveTabsAfter": {
-    "message": "ఇనాక్టివ్ ట్యాబ్‌లను ఇంత తర్వాత సస్పెండ్ చేయండి (నిమిషాలు):",
+    "message": "(నిమి): తర్వాత నిలిపివేయండి:",
     "description": "label in popup.html"
   },
   "darkMode": {
@@ -144,7 +144,7 @@
     "description": "paragraph in data_management.html"
   },
   "importDesc": {
-    "message": "JSON ఫైల్ నుండి సెట్టింగ్‌లను లోడ్ చేయండి. ఇది మీ ప్రస్తుత సెట్టింగ్‌లను భర్తీ చేస్తుంది.",
+    "message": "JSON ఫైల్ నుండి సెట్టింగ్‌లను లోడ్ చేయండి. దిగుమతి చేయబడిన విలువలు మీ ప్రస్తుత సెట్టింగ్‌లను భర్తీ చేస్తాయి; వైట్‌లిస్ట్‌లు ఇప్పటికే ఉన్న వాటితో విలీనం చేయబడ్డాయి.",
     "description": "paragraph in data_management.html"
   },
   "selectJsonFile": {
@@ -190,5 +190,301 @@
   "toggleSiteOverride": {
     "message": "ఈ సైట్ కోసం అనుకూల సెట్టింగ్‌లను భర్తీ చేయడాన్ని టోగుల్ చేయండి",
     "description": ""
+  },
+  "whitelistNoItems": {
+    "message": "వైట్‌లిస్ట్ చేయబడిన అంశాలు లేవు",
+    "description": "Shown when both whitelists are empty"
+  },
+  "whitelistedDomains": {
+    "message": "వైట్‌లిస్ట్ చేసిన డొమైన్‌లు",
+    "description": "Whitelist section heading"
+  },
+  "noDomainsWhitelisted": {
+    "message": "డొమైన్‌లు ఏవీ వైట్‌లిస్ట్ చేయబడలేదు",
+    "description": "Empty state of the domain whitelist"
+  },
+  "whitelistedPages": {
+    "message": "వైట్‌లిస్ట్ చేసిన పేజీలు",
+    "description": "Whitelist section heading"
+  },
+  "noPagesWhitelisted": {
+    "message": "పేజీలు ఏవీ వైట్‌లిస్ట్ చేయబడలేదు",
+    "description": "Empty state of the page whitelist"
+  },
+  "statusOptionsSaved": {
+    "message": "ఎంపికలు సేవ్ చేయబడ్డాయి!",
+    "description": "Toast after saving options"
+  },
+  "statusTimeRange": {
+    "message": "సమయం తప్పనిసరిగా 1 మరియు 1440 మధ్య ఉండాలి",
+    "description": "Validation error for the suspend time in minutes"
+  },
+  "statusSiteOptionsSaved": {
+    "message": "సైట్ ఎంపికలు సేవ్ చేయబడ్డాయి!",
+    "description": "Toast after saving per-site options"
+  },
+  "statusSiteOverridesCleared": {
+    "message": "సైట్ ఓవర్‌రైడ్‌లు క్లియర్ చేయబడ్డాయి!",
+    "description": "Toast after removing the per-site override"
+  },
+  "statusSiteSaveError": {
+    "message": "సైట్ ఎంపికలను సేవ్ చేయడంలో లోపం ఏర్పడింది",
+    "description": "Toast when saving per-site options fails"
+  },
+  "statusWhitelistUpdated": {
+    "message": "వైట్‌లిస్ట్ అప్‌డేట్ చేయబడింది",
+    "description": "Toast after removing a whitelist entry"
+  },
+  "statusSaveError": {
+    "message": "ఎంపికలను సేవ్ చేయడంలో లోపం ఏర్పడింది",
+    "description": "Toast when saving options fails"
+  },
+  "statusCaptureQualityRange": {
+    "message": "క్యాప్చర్ నాణ్యత తప్పనిసరిగా 5-100 ఉండాలి",
+    "description": "Validation error"
+  },
+  "statusResizeWidthMin": {
+    "message": "పునఃపరిమాణం వెడల్పు తప్పనిసరిగా కనీసం 100 ఉండాలి",
+    "description": "Validation error"
+  },
+  "statusResizeHeightMin": {
+    "message": "పునఃపరిమాణం ఎత్తు తప్పనిసరిగా కనీసం 100 ఉండాలి",
+    "description": "Validation error"
+  },
+  "statusResizeQualityRange": {
+    "message": "పునఃపరిమాణం నాణ్యత తప్పనిసరిగా 0.1-1.0 ఉండాలి",
+    "description": "Validation error"
+  },
+  "statusScreenshotSaved": {
+    "message": "స్క్రీన్‌షాట్ సెట్టింగ్‌లు సేవ్ చేయబడ్డాయి!",
+    "description": "Toast after saving screenshot settings"
+  },
+  "statusScreenshotSaveError": {
+    "message": "సెట్టింగ్‌లను సేవ్ చేయడంలో లోపం ఏర్పడింది",
+    "description": "Toast when saving screenshot settings fails"
+  },
+  "statusDomainWhitelisted": {
+    "message": "డొమైన్ $DOMAIN$ వైట్‌లిస్ట్ చేయబడింది!",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusDomainAlreadyWhitelisted": {
+    "message": "డొమైన్ $DOMAIN$ ఇప్పటికే వైట్‌లిస్ట్ చేయబడింది",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusPageWhitelisted": {
+    "message": "ప్రస్తుత పేజీ వైట్‌లిస్ట్ చేయబడింది!",
+    "description": "Toast after whitelisting the current page"
+  },
+  "statusPageAlreadyWhitelisted": {
+    "message": "ప్రస్తుత పేజీ ఇప్పటికే వైట్‌లిస్ట్ చేయబడింది",
+    "description": "Toast"
+  },
+  "statusPaused": {
+    "message": "సస్పెన్షన్ $MINUTES$ నిమి పాజ్ చేయబడింది",
+    "description": "Toast after pausing; MINUTES is a number",
+    "placeholders": {
+      "MINUTES": {
+        "content": "$1",
+        "example": "30"
+      }
+    }
+  },
+  "statusPauseCancelled": {
+    "message": "పాజ్ రద్దు చేయబడింది",
+    "description": "Toast after cancelling the pause"
+  },
+  "pauseButton30": {
+    "message": "30మీ",
+    "description": "Pause button: 30 minutes (keep it very short)"
+  },
+  "pauseButton60": {
+    "message": "1గం",
+    "description": "Pause button: 1 hour (keep it very short)"
+  },
+  "pauseButton90": {
+    "message": "1.5గం",
+    "description": "Pause button: 1.5 hours (keep it very short)"
+  },
+  "pauseButton120": {
+    "message": "2గం",
+    "description": "Pause button: 2 hours (keep it very short)"
+  },
+  "pausedLabel": {
+    "message": "పాజ్ చేయబడింది",
+    "description": "Heading shown while suspension is paused"
+  },
+  "cancelPause": {
+    "message": "పాజ్‌ని రద్దు చేయండి",
+    "description": "Button that ends the pause early"
+  },
+  "readTheGuide": {
+    "message": "గైడ్ చదవండి",
+    "description": "Button that opens the keyboard shortcut help page"
+  },
+  "emojiZzz": {
+    "message": "💤 Zzz",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSleeping": {
+    "message": "😴 నిద్రపోతున్నాను",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiInBed": {
+    "message": "🛌 బెడ్‌లో",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiMoon": {
+    "message": "🌙 చంద్రుడు",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiIceCube": {
+    "message": "🧊 ఐస్ క్యూబ్",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSnowflake": {
+    "message": "❄️ స్నోఫ్లేక్",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiPause": {
+    "message": "⏸️ పాజ్ చేయండి",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiNone": {
+    "message": "ఏదీ లేదు",
+    "description": "Tab title indicator choice: no indicator"
+  },
+  "siteLabel": {
+    "message": "సైట్:",
+    "description": "Label before the current site hostname"
+  },
+  "suspendTimeLabel": {
+    "message": "సస్పెండ్ సమయం:",
+    "description": "Per-site setting label"
+  },
+  "timeMinutesLabel": {
+    "message": "సమయం (నిమిషాలు):",
+    "description": "Per-site setting label"
+  },
+  "optInherit": {
+    "message": "వారసత్వంగా",
+    "description": "Per-site choice: use the global setting"
+  },
+  "optCustom": {
+    "message": "కస్టమ్",
+    "description": "Per-site choice: use a custom value"
+  },
+  "optDisableDiscard": {
+    "message": "ఆపివేయి (విస్మరించండి)",
+    "description": "Per-site choice for Disable Suspended Page: discard the tab directly"
+  },
+  "optEnableShowPage": {
+    "message": "ప్రారంభించు (పేజీని చూపు)",
+    "description": "Per-site choice for Disable Suspended Page: show the suspended page"
+  },
+  "optDontSuspend": {
+    "message": "సస్పెండ్ చేయవద్దు",
+    "description": "Per-site choice: protect the tab"
+  },
+  "optAllowSuspend": {
+    "message": "సస్పెండ్‌ని అనుమతించండి",
+    "description": "Per-site choice: allow suspending the tab"
+  },
+  "labelDisableSuspendedPage": {
+    "message": "సస్పెండ్ చేయబడిన పేజీని నిలిపివేయండి:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreAudio": {
+    "message": "ఆడియోను ప్లే చేయడాన్ని విస్మరించండి:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreFormInput": {
+    "message": "ఫారమ్ ఇన్‌పుట్‌ను విస్మరించండి:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreNotifications": {
+    "message": "నోటిఫికేషన్‌లను విస్మరించండి:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnorePinned": {
+    "message": "పిన్ చేసిన ట్యాబ్‌లను విస్మరించండి:",
+    "description": "Per-site setting label"
+  },
+  "dataExported": {
+    "message": "సెట్టింగ్‌లు ఎగుమతి చేయబడ్డాయి!",
+    "description": "Toast after exporting"
+  },
+  "dataExportFailed": {
+    "message": "ఎగుమతి విఫలమైంది",
+    "description": "Toast"
+  },
+  "dataImportInvalidJson": {
+    "message": "దిగుమతి విఫలమైంది: చెల్లని JSON ఫైల్",
+    "description": "Toast"
+  },
+  "dataImportReadError": {
+    "message": "దిగుమతి విఫలమైంది: ఫైల్‌ని చదవడం సాధ్యపడలేదు",
+    "description": "Toast"
+  },
+  "dataImported": {
+    "message": "సెట్టింగ్‌లు విజయవంతంగా దిగుమతి చేయబడ్డాయి!",
+    "description": "Toast"
+  },
+  "dataImportFailed": {
+    "message": "దిగుమతి విఫలమైంది: $ERROR$",
+    "description": "Toast; ERROR is a technical error message",
+    "placeholders": {
+      "ERROR": {
+        "content": "$1",
+        "example": "Invalid file"
+      }
+    }
+  },
+  "dataImportNoValid": {
+    "message": "ఫైల్ చెల్లుబాటు అయ్యే లేదా గుర్తించబడిన సెట్టింగ్‌లను కలిగి లేదు.",
+    "description": "Error message for an import file with nothing usable"
+  },
+  "ctxWhitelistDomain": {
+    "message": "ఈ డొమైన్‌ను వైట్‌లిస్ట్ చేయండి",
+    "description": "Right-click menu item"
+  },
+  "ctxWhitelistPage": {
+    "message": "ఈ పేజీని వైట్‌లిస్ట్ చేయండి",
+    "description": "Right-click menu item"
+  },
+  "ctxSuspendPage": {
+    "message": "ఈ పేజీని తాత్కాలికంగా నిలిపివేయండి",
+    "description": "Right-click menu item"
+  },
+  "siteOverrideEnabled": {
+    "message": "$DOMAIN$ కోసం అనుకూల సెట్టింగ్‌లు ప్రారంభించబడ్డాయి",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "siteOverrideDisabled": {
+    "message": "$DOMAIN$ కోసం అనుకూల సెట్టింగ్‌లు నిలిపివేయబడ్డాయి",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
   }
 }

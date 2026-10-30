@@ -40,7 +40,7 @@
     "description": "paragraph in popup.html"
   },
   "configureKeyboardShortcuts": {
-    "message": "Seadistage klaviatuuri otseteed Chrome'i laienduste sätetes.",
+    "message": "Klaviatuuri otseteede tugi on saadaval! Seadistage see oma brauseri laienduse seadetes, järgides juhendit.",
     "description": "paragraph in popup.html"
   },
   "importExportSettingsWhitelist": {
@@ -72,7 +72,7 @@
     "description": "button in popup.html"
   },
   "suspendInactiveTabsAfter": {
-    "message": "Peata mitteaktiivsed kaardid pärast (minutit):",
+    "message": "Peata pärast (min):",
     "description": "label in popup.html"
   },
   "darkMode": {
@@ -144,7 +144,7 @@
     "description": "paragraph in data_management.html"
   },
   "importDesc": {
-    "message": "Laadige seaded JSON-failist. See kirjutab ü teie praegused seaded.",
+    "message": "Laadige seaded JSON-failist. Imporditud väärtused asendavad teie praegused seaded; valged nimekirjad liidetakse olemasolevatega.",
     "description": "paragraph in data_management.html"
   },
   "selectJsonFile": {
@@ -190,5 +190,301 @@
   "toggleSiteOverride": {
     "message": "Selle saidi kohandatud seadete alistamise sisse- ja väljalülitamine",
     "description": ""
+  },
+  "whitelistNoItems": {
+    "message": "Lubatud loendisse lisatud üksusi pole",
+    "description": "Shown when both whitelists are empty"
+  },
+  "whitelistedDomains": {
+    "message": "Valgesse nimekirja kantud domeenid",
+    "description": "Whitelist section heading"
+  },
+  "noDomainsWhitelisted": {
+    "message": "Ühtegi domeeni pole lubatud loendisse lisatud",
+    "description": "Empty state of the domain whitelist"
+  },
+  "whitelistedPages": {
+    "message": "Valgesse nimekirja kantud lehed",
+    "description": "Whitelist section heading"
+  },
+  "noPagesWhitelisted": {
+    "message": "Ühtegi lehte pole lubatud loendis",
+    "description": "Empty state of the page whitelist"
+  },
+  "statusOptionsSaved": {
+    "message": "Valikud salvestatud!",
+    "description": "Toast after saving options"
+  },
+  "statusTimeRange": {
+    "message": "Aeg peab olema vahemikus 1 kuni 1440",
+    "description": "Validation error for the suspend time in minutes"
+  },
+  "statusSiteOptionsSaved": {
+    "message": "Saidi valikud on salvestatud!",
+    "description": "Toast after saving per-site options"
+  },
+  "statusSiteOverridesCleared": {
+    "message": "Saidi alistamised on kustutatud!",
+    "description": "Toast after removing the per-site override"
+  },
+  "statusSiteSaveError": {
+    "message": "Viga saidi valikute salvestamisel",
+    "description": "Toast when saving per-site options fails"
+  },
+  "statusWhitelistUpdated": {
+    "message": "Valge nimekiri on värskendatud",
+    "description": "Toast after removing a whitelist entry"
+  },
+  "statusSaveError": {
+    "message": "Viga valikute salvestamisel",
+    "description": "Toast when saving options fails"
+  },
+  "statusCaptureQualityRange": {
+    "message": "Võttekvaliteet peab olema 5–100",
+    "description": "Validation error"
+  },
+  "statusResizeWidthMin": {
+    "message": "Suuruse muutmise laius peab olema vähemalt 100",
+    "description": "Validation error"
+  },
+  "statusResizeHeightMin": {
+    "message": "Suuruse muutmine Kõrgus peab olema vähemalt 100",
+    "description": "Validation error"
+  },
+  "statusResizeQualityRange": {
+    "message": "Suuruse muutmise kvaliteet peab olema 0,1–1,0",
+    "description": "Validation error"
+  },
+  "statusScreenshotSaved": {
+    "message": "Ekraanipildi seaded on salvestatud!",
+    "description": "Toast after saving screenshot settings"
+  },
+  "statusScreenshotSaveError": {
+    "message": "Viga seadete salvestamisel",
+    "description": "Toast when saving screenshot settings fails"
+  },
+  "statusDomainWhitelisted": {
+    "message": "Domeen $DOMAIN$ lisati lubatud loendisse!",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusDomainAlreadyWhitelisted": {
+    "message": "Domeen $DOMAIN$ on juba lubatud loendisse lisatud",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusPageWhitelisted": {
+    "message": "Praegune leht on lisatud lubatud nimekirja!",
+    "description": "Toast after whitelisting the current page"
+  },
+  "statusPageAlreadyWhitelisted": {
+    "message": "Praegune leht on juba lubatud loendisse lisatud",
+    "description": "Toast"
+  },
+  "statusPaused": {
+    "message": "Peatamine peatatud $MINUTES$ min",
+    "description": "Toast after pausing; MINUTES is a number",
+    "placeholders": {
+      "MINUTES": {
+        "content": "$1",
+        "example": "30"
+      }
+    }
+  },
+  "statusPauseCancelled": {
+    "message": "Paus tühistati",
+    "description": "Toast after cancelling the pause"
+  },
+  "pauseButton30": {
+    "message": "30 m",
+    "description": "Pause button: 30 minutes (keep it very short)"
+  },
+  "pauseButton60": {
+    "message": "1 h",
+    "description": "Pause button: 1 hour (keep it very short)"
+  },
+  "pauseButton90": {
+    "message": "1,5h",
+    "description": "Pause button: 1.5 hours (keep it very short)"
+  },
+  "pauseButton120": {
+    "message": "2h",
+    "description": "Pause button: 2 hours (keep it very short)"
+  },
+  "pausedLabel": {
+    "message": "Peatatud",
+    "description": "Heading shown while suspension is paused"
+  },
+  "cancelPause": {
+    "message": "Tühista paus",
+    "description": "Button that ends the pause early"
+  },
+  "readTheGuide": {
+    "message": "Lugege juhendit",
+    "description": "Button that opens the keyboard shortcut help page"
+  },
+  "emojiZzz": {
+    "message": "💤 Zzz",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSleeping": {
+    "message": "😴 Magab",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiInBed": {
+    "message": "🛌 Voodis",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiMoon": {
+    "message": "🌙 Kuu",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiIceCube": {
+    "message": "🧊 jääkuubik",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSnowflake": {
+    "message": "❄️ lumehelves",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiPause": {
+    "message": "⏸️ Peata",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiNone": {
+    "message": "Mitte ühtegi",
+    "description": "Tab title indicator choice: no indicator"
+  },
+  "siteLabel": {
+    "message": "Sait:",
+    "description": "Label before the current site hostname"
+  },
+  "suspendTimeLabel": {
+    "message": "Peatusaeg:",
+    "description": "Per-site setting label"
+  },
+  "timeMinutesLabel": {
+    "message": "Aeg (minutites):",
+    "description": "Per-site setting label"
+  },
+  "optInherit": {
+    "message": "Pärida",
+    "description": "Per-site choice: use the global setting"
+  },
+  "optCustom": {
+    "message": "Kohandatud",
+    "description": "Per-site choice: use a custom value"
+  },
+  "optDisableDiscard": {
+    "message": "Keela (Loobu)",
+    "description": "Per-site choice for Disable Suspended Page: discard the tab directly"
+  },
+  "optEnableShowPage": {
+    "message": "Luba (kuva leht)",
+    "description": "Per-site choice for Disable Suspended Page: show the suspended page"
+  },
+  "optDontSuspend": {
+    "message": "Ärge peatage",
+    "description": "Per-site choice: protect the tab"
+  },
+  "optAllowSuspend": {
+    "message": "Luba peatada",
+    "description": "Per-site choice: allow suspending the tab"
+  },
+  "labelDisableSuspendedPage": {
+    "message": "Keela peatatud leht:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreAudio": {
+    "message": "Ignoreeri heli esitamist:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreFormInput": {
+    "message": "Ignoreeri vormi sisestust:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreNotifications": {
+    "message": "Ignoreeri märguandeid:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnorePinned": {
+    "message": "Kinnitatud vahekaartide ignoreerimine:",
+    "description": "Per-site setting label"
+  },
+  "dataExported": {
+    "message": "Seaded eksporditud!",
+    "description": "Toast after exporting"
+  },
+  "dataExportFailed": {
+    "message": "Eksport ebaõnnestus",
+    "description": "Toast"
+  },
+  "dataImportInvalidJson": {
+    "message": "Import ebaõnnestus: vigane JSON-fail",
+    "description": "Toast"
+  },
+  "dataImportReadError": {
+    "message": "Importimine ebaõnnestus: faili ei saanud lugeda",
+    "description": "Toast"
+  },
+  "dataImported": {
+    "message": "Seaded imporditi edukalt!",
+    "description": "Toast"
+  },
+  "dataImportFailed": {
+    "message": "Import ebaõnnestus: $ERROR$",
+    "description": "Toast; ERROR is a technical error message",
+    "placeholders": {
+      "ERROR": {
+        "content": "$1",
+        "example": "Invalid file"
+      }
+    }
+  },
+  "dataImportNoValid": {
+    "message": "Fail ei sisalda kehtivaid ega tunnustatud sätteid.",
+    "description": "Error message for an import file with nothing usable"
+  },
+  "ctxWhitelistDomain": {
+    "message": "Selle domeeni valgesse loendisse",
+    "description": "Right-click menu item"
+  },
+  "ctxWhitelistPage": {
+    "message": "Selle lehe valgesse nimekirja",
+    "description": "Right-click menu item"
+  },
+  "ctxSuspendPage": {
+    "message": "Peatage see leht",
+    "description": "Right-click menu item"
+  },
+  "siteOverrideEnabled": {
+    "message": "Kohandatud seaded on domeeni $DOMAIN$ jaoks lubatud",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "siteOverrideDisabled": {
+    "message": "Kohandatud seaded on domeeni $DOMAIN$ jaoks keelatud",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
   }
 }

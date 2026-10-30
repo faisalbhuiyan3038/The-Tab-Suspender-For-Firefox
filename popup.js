@@ -1,3 +1,9 @@
+const t = (key, subs, fallback) => chrome.i18n.getMessage(key, subs) || fallback || key;
+
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
 function applyTheme(isDark) {
   document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
 }
@@ -38,28 +44,32 @@ function displayWhitelist(whitelistedDomains, whitelistedUrls) {
   const urls = Array.isArray(whitelistedUrls) ? whitelistedUrls : [];
 
   if (domains.length === 0 && urls.length === 0) {
-    whitelistContainer.innerHTML = '<p class="no-items">No whitelisted items</p>';
+    const emptyAll = document.createElement('p');
+    emptyAll.className = 'no-items';
+    emptyAll.textContent = t('whitelistNoItems', null, 'No whitelisted items');
+    whitelistContainer.appendChild(emptyAll);
     return;
   }
 
   const domainSection = document.createElement('div');
   domainSection.className = 'whitelist-section';
-  domainSection.innerHTML = '<h4>Whitelisted Domains</h4>';
+  domainSection.innerHTML = '<h4></h4>';
+  domainSection.firstChild.textContent = t('whitelistedDomains', null, 'Whitelisted Domains');
 
   if (domains.length > 0) {
     domains.forEach(domain => {
       const item = document.createElement('div');
       item.className = 'whitelist-item';
       item.innerHTML = `
-        <span title="${domain}">${domain}</span>
-        <button class="remove-btn" data-type="domain" data-value="${domain}">×</button>
+        <span title="${escapeHtml(domain)}">${escapeHtml(domain)}</span>
+        <button class="remove-btn" data-type="domain" data-value="${escapeHtml(domain)}">×</button>
       `;
       domainSection.appendChild(item);
     });
   } else {
     const emptyMsg = document.createElement('p');
     emptyMsg.className = 'no-items';
-    emptyMsg.textContent = 'No domains whitelisted';
+    emptyMsg.textContent = t('noDomainsWhitelisted', null, 'No domains whitelisted');
     domainSection.appendChild(emptyMsg);
   }
 
@@ -67,7 +77,8 @@ function displayWhitelist(whitelistedDomains, whitelistedUrls) {
 
   const urlSection = document.createElement('div');
   urlSection.className = 'whitelist-section';
-  urlSection.innerHTML = '<h4>Whitelisted Pages</h4>';
+  urlSection.innerHTML = '<h4></h4>';
+  urlSection.firstChild.textContent = t('whitelistedPages', null, 'Whitelisted Pages');
 
   if (urls.length > 0) {
     urls.forEach(url => {
@@ -75,22 +86,22 @@ function displayWhitelist(whitelistedDomains, whitelistedUrls) {
       const item = document.createElement('div');
       item.className = 'whitelist-item';
       item.innerHTML = `
-        <span title="${formattedUrl.full}">${formattedUrl.display}</span>
-        <button class="remove-btn" data-type="url" data-value="${url}">×</button>
+        <span title="${escapeHtml(formattedUrl.full)}">${escapeHtml(formattedUrl.display)}</span>
+        <button class="remove-btn" data-type="url" data-value="${escapeHtml(url)}">×</button>
       `;
       urlSection.appendChild(item);
     });
   } else {
     const emptyMsg = document.createElement('p');
     emptyMsg.className = 'no-items';
-    emptyMsg.textContent = 'No pages whitelisted';
+    emptyMsg.textContent = t('noPagesWhitelisted', null, 'No pages whitelisted');
     urlSection.appendChild(emptyMsg);
   }
 
   whitelistContainer.appendChild(urlSection);
 }
 
-function showMainStatus(message = 'Settings saved!') {
+function showMainStatus(message = t('settingsSaved', null, 'Settings saved!')) {
   const status = document.getElementById('status');
   if (!status) return;
 
@@ -286,7 +297,7 @@ async function loadAndDisplaySettings() {
               if (document.getElementById('siteSuspendTimeOption').value === 'custom') {
                 const siteTime = parseInt(document.getElementById('siteSuspendTime').value, 10);
                 if (isNaN(siteTime) || siteTime < 1 || siteTime > 1440) {
-                  showMainStatus('Time must be between 1 and 1440');
+                  showMainStatus(t('statusTimeRange', null, 'Time must be between 1 and 1440'));
                   return;
                 }
                 config.suspendTime = siteTime;
@@ -311,17 +322,17 @@ async function loadAndDisplaySettings() {
 
               updatedSiteSettings[domain] = config;
               await chrome.storage.sync.set({ siteSettings: updatedSiteSettings });
-              showMainStatus('Site options saved!');
+              showMainStatus(t('statusSiteOptionsSaved', null, 'Site options saved!'));
             } else {
               if (updatedSiteSettings[domain]) {
                 delete updatedSiteSettings[domain];
                 await chrome.storage.sync.set({ siteSettings: updatedSiteSettings });
               }
-              showMainStatus('Site overrides cleared!');
+              showMainStatus(t('statusSiteOverridesCleared', null, 'Site overrides cleared!'));
             }
           } catch (err) {
             console.error('Error saving site options:', err);
-            showMainStatus('Error saving site options');
+            showMainStatus(t('statusSiteSaveError', null, 'Error saving site options'));
           }
         });
       }
@@ -362,7 +373,7 @@ document.getElementById('whitelist').addEventListener('click', async (e) => {
 
     displayWhitelist(whitelistedDomains, whitelistedUrls);
 
-    showMainStatus('Whitelist updated');
+    showMainStatus(t('statusWhitelistUpdated', null, 'Whitelist updated'));
   }
 });
 
@@ -389,7 +400,7 @@ document.getElementById('saveOptionsButton').addEventListener('click', () => {
     const suspendTime = parseInt(document.getElementById('suspendTime').value, 10);
 
     if (isNaN(suspendTime) || suspendTime < 1 || suspendTime > 1440) {
-      showMainStatus('Time must be between 1 and 1440');
+      showMainStatus(t('statusTimeRange', null, 'Time must be between 1 and 1440'));
       return;
     }
 
@@ -405,11 +416,11 @@ document.getElementById('saveOptionsButton').addEventListener('click', () => {
     };
 
     chrome.storage.sync.set(settingsToSave);
-    showMainStatus('Options saved!');
+    showMainStatus(t('statusOptionsSaved', null, 'Options saved!'));
 
   } catch (error) {
     console.error("Error saving options:", error);
-    showMainStatus('Error saving options');
+    showMainStatus(t('statusSaveError', null, 'Error saving options'));
   }
 });
 
@@ -424,19 +435,19 @@ document.getElementById('saveScreenshotSettings').addEventListener('click', () =
 
     // Basic validation
     if (isNaN(captureQuality) || captureQuality < 5 || captureQuality > 100) {
-      showMainStatus('Capture Quality must be 5-100');
+      showMainStatus(t('statusCaptureQualityRange', null, 'Capture Quality must be 5-100'));
       return;
     }
     if (isNaN(resizeWidth) || resizeWidth < 100) {
-      showMainStatus('Resize Width must be at least 100');
+      showMainStatus(t('statusResizeWidthMin', null, 'Resize Width must be at least 100'));
       return;
     }
     if (isNaN(resizeHeight) || resizeHeight < 100) {
-      showMainStatus('Resize Height must be at least 100');
+      showMainStatus(t('statusResizeHeightMin', null, 'Resize Height must be at least 100'));
       return;
     }
     if (isNaN(resizeQuality) || resizeQuality < 0.1 || resizeQuality > 1.0) {
-      showMainStatus('Resize Quality must be 0.1-1.0');
+      showMainStatus(t('statusResizeQualityRange', null, 'Resize Quality must be 0.1-1.0'));
       return;
     }
 
@@ -447,10 +458,10 @@ document.getElementById('saveScreenshotSettings').addEventListener('click', () =
       resizeQuality
     });
 
-    showMainStatus('Screenshot settings saved!');
+    showMainStatus(t('statusScreenshotSaved', null, 'Screenshot settings saved!'));
   } catch (error) {
     console.error("Error saving screenshot settings:", error);
-    showMainStatus('Error saving settings');
+    showMainStatus(t('statusScreenshotSaveError', null, 'Error saving settings'));
   }
 });
 
@@ -478,9 +489,9 @@ document.getElementById('whitelistDomainBtn').addEventListener('click', async ()
       const whitelistResult = await chrome.storage.sync.get(['whitelistedUrls']);
       displayWhitelist(whitelistedDomains, whitelistResult.whitelistedUrls || []);
 
-      showMainStatus(`Domain ${domain} whitelisted!`);
+      showMainStatus(t('statusDomainWhitelisted', domain, `Domain ${domain} whitelisted!`));
     } else {
-      showMainStatus(`Domain ${domain} already whitelisted`);
+      showMainStatus(t('statusDomainAlreadyWhitelisted', domain, `Domain ${domain} already whitelisted`));
     }
   } catch (error) {
     console.error('Error whitelisting domain:', error);
@@ -504,9 +515,9 @@ document.getElementById('whitelistPageBtn').addEventListener('click', async () =
       const whitelistResult = await chrome.storage.sync.get(['whitelistedDomains']);
       displayWhitelist(whitelistResult.whitelistedDomains || [], whitelistedUrls);
 
-      showMainStatus('Current page whitelisted!');
+      showMainStatus(t('statusPageWhitelisted', null, 'Current page whitelisted!'));
     } else {
-      showMainStatus('Current page already whitelisted');
+      showMainStatus(t('statusPageAlreadyWhitelisted', null, 'Current page already whitelisted'));
     }
   } catch (error) {
     console.error('Error whitelisting page:', error);
@@ -585,12 +596,12 @@ document.querySelectorAll('.btn-pause').forEach(btn => {
 
     await chrome.storage.sync.set({ pauseUntil });
     updatePauseUI(pauseUntil);
-    showMainStatus(`Suspension paused for ${minutes}m`);
+    showMainStatus(t('statusPaused', String(minutes), `Suspension paused for ${minutes} min`));
   });
 });
 
 document.getElementById('cancelPauseBtn').addEventListener('click', async () => {
   await chrome.storage.sync.set({ pauseUntil: 0 });
   updatePauseUI(0);
-  showMainStatus('Pause cancelled');
+  showMainStatus(t('statusPauseCancelled', null, 'Pause cancelled'));
 });

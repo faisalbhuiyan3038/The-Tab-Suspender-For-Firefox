@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Data Management - Tab Suspender</title>
+  <title data-i18n="dataManagementTabSuspender">Data Management - Tab Suspender</title>
   <!-- This is the same style block from popup.html for consistency -->
   <style>
     :root {
@@ -150,7 +150,7 @@
 
     <div class="setting-item">
       <h4 data-i18n="importSettings">Import Settings</h4>
-      <p class="description" data-i18n="importDesc">Load settings from a JSON file. This will overwrite your current settings.</p>
+      <p class="description" data-i18n="importDesc">Load settings from a JSON file. Imported values replace your current settings; whitelists are merged with the existing ones.</p>
       <div class="button-group">
         <label data-i18n="selectJsonFile" for="importSettingsInput" class="btn">
           Select JSON File
@@ -162,6 +162,7 @@
     <div id="data-status" class="status"></div>
   </div>
   
+  <script src="i18n-loader.js"></script>
   <script src="data_management.js"></script>
 </body>
 </html>

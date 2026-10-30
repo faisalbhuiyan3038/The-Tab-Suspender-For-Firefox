@@ -40,7 +40,7 @@
     "description": "paragraph in popup.html"
   },
   "configureKeyboardShortcuts": {
-    "message": "Konfigurirajte tipkovne bližnjice v nastavitvah razširitev za Chrome.",
+    "message": "Podpora za bližnjice na tipkovnici je na voljo! Konfigurirajte ga v nastavitvah razširitve brskalnika, tako da sledite navodilom.",
     "description": "paragraph in popup.html"
   },
   "importExportSettingsWhitelist": {
@@ -72,7 +72,7 @@
     "description": "button in popup.html"
   },
   "suspendInactiveTabsAfter": {
-    "message": "Ustavi neaktivne zavihke po (minutah):",
+    "message": "Prekinitev po (min):",
     "description": "label in popup.html"
   },
   "darkMode": {
@@ -144,7 +144,7 @@
     "description": "paragraph in data_management.html"
   },
   "importDesc": {
-    "message": "Naložite nastavitve iz datoteke JSON. To bo prepisalo vaše trenutne nastavitve.",
+    "message": "Naloži nastavitve iz datoteke JSON. Uvožene vrednosti nadomestijo vaše trenutne nastavitve; beli seznami se združijo z obstoječimi.",
     "description": "paragraph in data_management.html"
   },
   "selectJsonFile": {
@@ -190,5 +190,301 @@
   "toggleSiteOverride": {
     "message": "Preklopi preglasitev nastavitev po meri za to spletno mesto",
     "description": ""
+  },
+  "whitelistNoItems": {
+    "message": "Ni elementov na seznamu dovoljenih",
+    "description": "Shown when both whitelists are empty"
+  },
+  "whitelistedDomains": {
+    "message": "Domene na beli listi",
+    "description": "Whitelist section heading"
+  },
+  "noDomainsWhitelisted": {
+    "message": "Nobena domena ni na seznamu dovoljenih",
+    "description": "Empty state of the domain whitelist"
+  },
+  "whitelistedPages": {
+    "message": "Strani na belem seznamu",
+    "description": "Whitelist section heading"
+  },
+  "noPagesWhitelisted": {
+    "message": "Nobena stran ni na seznamu dovoljenih",
+    "description": "Empty state of the page whitelist"
+  },
+  "statusOptionsSaved": {
+    "message": "Možnosti shranjene!",
+    "description": "Toast after saving options"
+  },
+  "statusTimeRange": {
+    "message": "Čas mora biti med 1 in 1440",
+    "description": "Validation error for the suspend time in minutes"
+  },
+  "statusSiteOptionsSaved": {
+    "message": "Možnosti spletnega mesta shranjene!",
+    "description": "Toast after saving per-site options"
+  },
+  "statusSiteOverridesCleared": {
+    "message": "Preglasitve spletnega mesta izbrisane!",
+    "description": "Toast after removing the per-site override"
+  },
+  "statusSiteSaveError": {
+    "message": "Napaka pri shranjevanju možnosti mesta",
+    "description": "Toast when saving per-site options fails"
+  },
+  "statusWhitelistUpdated": {
+    "message": "Seznam dovoljenih je posodobljen",
+    "description": "Toast after removing a whitelist entry"
+  },
+  "statusSaveError": {
+    "message": "Napaka pri shranjevanju možnosti",
+    "description": "Toast when saving options fails"
+  },
+  "statusCaptureQualityRange": {
+    "message": "Kakovost zajema mora biti 5–100",
+    "description": "Validation error"
+  },
+  "statusResizeWidthMin": {
+    "message": "Spremeni velikost Širina mora biti vsaj 100",
+    "description": "Validation error"
+  },
+  "statusResizeHeightMin": {
+    "message": "Spremeni velikost Višina mora biti vsaj 100",
+    "description": "Validation error"
+  },
+  "statusResizeQualityRange": {
+    "message": "Kakovost spreminjanja velikosti mora biti 0,1–1,0",
+    "description": "Validation error"
+  },
+  "statusScreenshotSaved": {
+    "message": "Nastavitve posnetka zaslona so shranjene!",
+    "description": "Toast after saving screenshot settings"
+  },
+  "statusScreenshotSaveError": {
+    "message": "Napaka pri shranjevanju nastavitev",
+    "description": "Toast when saving screenshot settings fails"
+  },
+  "statusDomainWhitelisted": {
+    "message": "Domena $DOMAIN$ na seznamu dovoljenih!",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusDomainAlreadyWhitelisted": {
+    "message": "Domena $DOMAIN$ je že na seznamu dovoljenih",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusPageWhitelisted": {
+    "message": "Trenutna stran na seznamu dovoljenih!",
+    "description": "Toast after whitelisting the current page"
+  },
+  "statusPageAlreadyWhitelisted": {
+    "message": "Trenutna stran je že na seznamu dovoljenih",
+    "description": "Toast"
+  },
+  "statusPaused": {
+    "message": "Prekinitev zaustavljena za $MINUTES$ min",
+    "description": "Toast after pausing; MINUTES is a number",
+    "placeholders": {
+      "MINUTES": {
+        "content": "$1",
+        "example": "30"
+      }
+    }
+  },
+  "statusPauseCancelled": {
+    "message": "Premor je preklican",
+    "description": "Toast after cancelling the pause"
+  },
+  "pauseButton30": {
+    "message": "30m",
+    "description": "Pause button: 30 minutes (keep it very short)"
+  },
+  "pauseButton60": {
+    "message": "1h",
+    "description": "Pause button: 1 hour (keep it very short)"
+  },
+  "pauseButton90": {
+    "message": "1,5 ure",
+    "description": "Pause button: 1.5 hours (keep it very short)"
+  },
+  "pauseButton120": {
+    "message": "2 uri",
+    "description": "Pause button: 2 hours (keep it very short)"
+  },
+  "pausedLabel": {
+    "message": "Zaustavljeno",
+    "description": "Heading shown while suspension is paused"
+  },
+  "cancelPause": {
+    "message": "Prekliči Pavza",
+    "description": "Button that ends the pause early"
+  },
+  "readTheGuide": {
+    "message": "Preberite vodnik",
+    "description": "Button that opens the keyboard shortcut help page"
+  },
+  "emojiZzz": {
+    "message": "💤 Zzz",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSleeping": {
+    "message": "😴 Spanje",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiInBed": {
+    "message": "🛌 V postelji",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiMoon": {
+    "message": "🌙 Luna",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiIceCube": {
+    "message": "🧊 Ledena kocka",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSnowflake": {
+    "message": "❄️ Snežinka",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiPause": {
+    "message": "⏸️ Premor",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiNone": {
+    "message": "Noben",
+    "description": "Tab title indicator choice: no indicator"
+  },
+  "siteLabel": {
+    "message": "stran:",
+    "description": "Label before the current site hostname"
+  },
+  "suspendTimeLabel": {
+    "message": "Čas prekinitve:",
+    "description": "Per-site setting label"
+  },
+  "timeMinutesLabel": {
+    "message": "Čas (minute):",
+    "description": "Per-site setting label"
+  },
+  "optInherit": {
+    "message": "Podedovati",
+    "description": "Per-site choice: use the global setting"
+  },
+  "optCustom": {
+    "message": "Po meri",
+    "description": "Per-site choice: use a custom value"
+  },
+  "optDisableDiscard": {
+    "message": "Onemogoči (Zavrzi)",
+    "description": "Per-site choice for Disable Suspended Page: discard the tab directly"
+  },
+  "optEnableShowPage": {
+    "message": "Omogoči (prikaži stran)",
+    "description": "Per-site choice for Disable Suspended Page: show the suspended page"
+  },
+  "optDontSuspend": {
+    "message": "Ne prekini",
+    "description": "Per-site choice: protect the tab"
+  },
+  "optAllowSuspend": {
+    "message": "Dovoli prekinitev",
+    "description": "Per-site choice: allow suspending the tab"
+  },
+  "labelDisableSuspendedPage": {
+    "message": "Onemogoči začasno ustavljeno stran:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreAudio": {
+    "message": "Prezri predvajanje zvoka:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreFormInput": {
+    "message": "Ignoriraj vnos obrazca:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreNotifications": {
+    "message": "Prezri obvestila:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnorePinned": {
+    "message": "Prezri pripete zavihke:",
+    "description": "Per-site setting label"
+  },
+  "dataExported": {
+    "message": "Nastavitve izvožene!",
+    "description": "Toast after exporting"
+  },
+  "dataExportFailed": {
+    "message": "Izvoz ni uspel",
+    "description": "Toast"
+  },
+  "dataImportInvalidJson": {
+    "message": "Uvoz ni uspel: neveljavna datoteka JSON",
+    "description": "Toast"
+  },
+  "dataImportReadError": {
+    "message": "Uvoz ni uspel: datoteke ni bilo mogoče prebrati",
+    "description": "Toast"
+  },
+  "dataImported": {
+    "message": "Nastavitve uspešno uvožene!",
+    "description": "Toast"
+  },
+  "dataImportFailed": {
+    "message": "Uvoz ni uspel: $ERROR$",
+    "description": "Toast; ERROR is a technical error message",
+    "placeholders": {
+      "ERROR": {
+        "content": "$1",
+        "example": "Invalid file"
+      }
+    }
+  },
+  "dataImportNoValid": {
+    "message": "Datoteka ne vsebuje veljavnih ali prepoznanih nastavitev.",
+    "description": "Error message for an import file with nothing usable"
+  },
+  "ctxWhitelistDomain": {
+    "message": "To domeno na seznam dovoljenih",
+    "description": "Right-click menu item"
+  },
+  "ctxWhitelistPage": {
+    "message": "To stran dodajte na seznam dovoljenih",
+    "description": "Right-click menu item"
+  },
+  "ctxSuspendPage": {
+    "message": "Začasno onemogoči to stran",
+    "description": "Right-click menu item"
+  },
+  "siteOverrideEnabled": {
+    "message": "Nastavitve po meri omogočene za $DOMAIN$",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "siteOverrideDisabled": {
+    "message": "Nastavitve po meri onemogočene za $DOMAIN$",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
   }
 }

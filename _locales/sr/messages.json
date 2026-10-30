@@ -40,7 +40,7 @@
     "description": "paragraph in popup.html"
   },
   "configureKeyboardShortcuts": {
-    "message": "Podesite prečice na tastaturi u podešavanjima Chrome proširenja.",
+    "message": "Доступна је подршка за пречице на тастатури! Конфигуришите га у поставкама проширења прегледача пратећи водич.",
     "description": "paragraph in popup.html"
   },
   "importExportSettingsWhitelist": {
@@ -72,7 +72,7 @@
     "description": "button in popup.html"
   },
   "suspendInactiveTabsAfter": {
-    "message": "Obustavi neaktivne jezičke nakon (minuta):",
+    "message": "Обустави после (мин):",
     "description": "label in popup.html"
   },
   "darkMode": {
@@ -144,7 +144,7 @@
     "description": "paragraph in data_management.html"
   },
   "importDesc": {
-    "message": "Učitajte podešavanja iz JSON fajla. Ovo će prepisati vaša trenutna podešavanja.",
+    "message": "Учитајте подешавања из ЈСОН датотеке. Увезене вредности замењују ваша тренутна подешавања; беле листе се спајају са постојећим.",
     "description": "paragraph in data_management.html"
   },
   "selectJsonFile": {
@@ -190,5 +190,301 @@
   "toggleSiteOverride": {
     "message": "Укључите или искључите замену прилагођених подешавања за овај сајт",
     "description": ""
+  },
+  "whitelistNoItems": {
+    "message": "Нема ставки са беле листе",
+    "description": "Shown when both whitelists are empty"
+  },
+  "whitelistedDomains": {
+    "message": "Домени на белој листи",
+    "description": "Whitelist section heading"
+  },
+  "noDomainsWhitelisted": {
+    "message": "Нема домена на белој листи",
+    "description": "Empty state of the domain whitelist"
+  },
+  "whitelistedPages": {
+    "message": "Странице са беле листе",
+    "description": "Whitelist section heading"
+  },
+  "noPagesWhitelisted": {
+    "message": "Нема страница на белој листи",
+    "description": "Empty state of the page whitelist"
+  },
+  "statusOptionsSaved": {
+    "message": "Опције су сачуване!",
+    "description": "Toast after saving options"
+  },
+  "statusTimeRange": {
+    "message": "Време мора бити између 1 и 1440",
+    "description": "Validation error for the suspend time in minutes"
+  },
+  "statusSiteOptionsSaved": {
+    "message": "Опције сајта су сачуване!",
+    "description": "Toast after saving per-site options"
+  },
+  "statusSiteOverridesCleared": {
+    "message": "Замена сајта је обрисана!",
+    "description": "Toast after removing the per-site override"
+  },
+  "statusSiteSaveError": {
+    "message": "Грешка при чувању опција сајта",
+    "description": "Toast when saving per-site options fails"
+  },
+  "statusWhitelistUpdated": {
+    "message": "Бела листа је ажурирана",
+    "description": "Toast after removing a whitelist entry"
+  },
+  "statusSaveError": {
+    "message": "Грешка при чувању опција",
+    "description": "Toast when saving options fails"
+  },
+  "statusCaptureQualityRange": {
+    "message": "Квалитет снимања мора бити 5-100",
+    "description": "Validation error"
+  },
+  "statusResizeWidthMin": {
+    "message": "Ширина промене величине мора бити најмање 100",
+    "description": "Validation error"
+  },
+  "statusResizeHeightMin": {
+    "message": "Висина промене величине мора бити најмање 100",
+    "description": "Validation error"
+  },
+  "statusResizeQualityRange": {
+    "message": "Квалитет промене величине мора бити 0,1-1,0",
+    "description": "Validation error"
+  },
+  "statusScreenshotSaved": {
+    "message": "Подешавања снимка екрана су сачувана!",
+    "description": "Toast after saving screenshot settings"
+  },
+  "statusScreenshotSaveError": {
+    "message": "Грешка при чувању подешавања",
+    "description": "Toast when saving screenshot settings fails"
+  },
+  "statusDomainWhitelisted": {
+    "message": "Домен $DOMAIN$ на белој листи!",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusDomainAlreadyWhitelisted": {
+    "message": "Домен $DOMAIN$ је већ на белој листи",
+    "description": "Toast; DOMAIN is a hostname such as example.com",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "statusPageWhitelisted": {
+    "message": "Тренутна страница је на белој листи!",
+    "description": "Toast after whitelisting the current page"
+  },
+  "statusPageAlreadyWhitelisted": {
+    "message": "Тренутна страница је већ на белој листи",
+    "description": "Toast"
+  },
+  "statusPaused": {
+    "message": "Суспензија је паузирана на $MINUTES$ мин",
+    "description": "Toast after pausing; MINUTES is a number",
+    "placeholders": {
+      "MINUTES": {
+        "content": "$1",
+        "example": "30"
+      }
+    }
+  },
+  "statusPauseCancelled": {
+    "message": "Пауза је отказана",
+    "description": "Toast after cancelling the pause"
+  },
+  "pauseButton30": {
+    "message": "30м",
+    "description": "Pause button: 30 minutes (keep it very short)"
+  },
+  "pauseButton60": {
+    "message": "1х",
+    "description": "Pause button: 1 hour (keep it very short)"
+  },
+  "pauseButton90": {
+    "message": "1.5х",
+    "description": "Pause button: 1.5 hours (keep it very short)"
+  },
+  "pauseButton120": {
+    "message": "2х",
+    "description": "Pause button: 2 hours (keep it very short)"
+  },
+  "pausedLabel": {
+    "message": "Паузирано",
+    "description": "Heading shown while suspension is paused"
+  },
+  "cancelPause": {
+    "message": "Откажи паузу",
+    "description": "Button that ends the pause early"
+  },
+  "readTheGuide": {
+    "message": "Прочитајте водич",
+    "description": "Button that opens the keyboard shortcut help page"
+  },
+  "emojiZzz": {
+    "message": "💤 Ззз",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSleeping": {
+    "message": "😴 Спавање",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiInBed": {
+    "message": "🛌 У кревету",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiMoon": {
+    "message": "🌙 Месец",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiIceCube": {
+    "message": "🧊 Ице Цубе",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiSnowflake": {
+    "message": "❄️ Пахуљица",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiPause": {
+    "message": "⏸️ Паузирај",
+    "description": "Tab title indicator choice; keep the emoji"
+  },
+  "emojiNone": {
+    "message": "Ниједан",
+    "description": "Tab title indicator choice: no indicator"
+  },
+  "siteLabel": {
+    "message": "Сајт:",
+    "description": "Label before the current site hostname"
+  },
+  "suspendTimeLabel": {
+    "message": "Време суспензије:",
+    "description": "Per-site setting label"
+  },
+  "timeMinutesLabel": {
+    "message": "Време (минути):",
+    "description": "Per-site setting label"
+  },
+  "optInherit": {
+    "message": "Наследити",
+    "description": "Per-site choice: use the global setting"
+  },
+  "optCustom": {
+    "message": "Цустом",
+    "description": "Per-site choice: use a custom value"
+  },
+  "optDisableDiscard": {
+    "message": "Онемогући (одбаци)",
+    "description": "Per-site choice for Disable Suspended Page: discard the tab directly"
+  },
+  "optEnableShowPage": {
+    "message": "Омогући (Прикажи страницу)",
+    "description": "Per-site choice for Disable Suspended Page: show the suspended page"
+  },
+  "optDontSuspend": {
+    "message": "Дон'т Суспенд",
+    "description": "Per-site choice: protect the tab"
+  },
+  "optAllowSuspend": {
+    "message": "Дозволи суспендовање",
+    "description": "Per-site choice: allow suspending the tab"
+  },
+  "labelDisableSuspendedPage": {
+    "message": "Онемогући суспендовану страницу:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreAudio": {
+    "message": "Занемари репродукцију звука:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreFormInput": {
+    "message": "Занемари унос обрасца:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnoreNotifications": {
+    "message": "Занемари обавештења:",
+    "description": "Per-site setting label"
+  },
+  "labelIgnorePinned": {
+    "message": "Игноришите закачене картице:",
+    "description": "Per-site setting label"
+  },
+  "dataExported": {
+    "message": "Подешавања су извезена!",
+    "description": "Toast after exporting"
+  },
+  "dataExportFailed": {
+    "message": "Извоз није успео",
+    "description": "Toast"
+  },
+  "dataImportInvalidJson": {
+    "message": "Увоз није успео: неважећа ЈСОН датотека",
+    "description": "Toast"
+  },
+  "dataImportReadError": {
+    "message": "Увоз није успео: Није могуће прочитати датотеку",
+    "description": "Toast"
+  },
+  "dataImported": {
+    "message": "Подешавања су успешно увезена!",
+    "description": "Toast"
+  },
+  "dataImportFailed": {
+    "message": "Увоз није успео: $ERROR$",
+    "description": "Toast; ERROR is a technical error message",
+    "placeholders": {
+      "ERROR": {
+        "content": "$1",
+        "example": "Invalid file"
+      }
+    }
+  },
+  "dataImportNoValid": {
+    "message": "Датотека не садржи важећа или препозната подешавања.",
+    "description": "Error message for an import file with nothing usable"
+  },
+  "ctxWhitelistDomain": {
+    "message": "Овај домен на белој листи",
+    "description": "Right-click menu item"
+  },
+  "ctxWhitelistPage": {
+    "message": "Ову страницу на белој листи",
+    "description": "Right-click menu item"
+  },
+  "ctxSuspendPage": {
+    "message": "Обуставите ову страницу",
+    "description": "Right-click menu item"
+  },
+  "siteOverrideEnabled": {
+    "message": "Прилагођена подешавања су омогућена за $DOMAIN$",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "siteOverrideDisabled": {
+    "message": "Прилагођена подешавања су онемогућена за $DOMAIN$",
+    "description": "Notification; DOMAIN is a hostname",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
   }
 }
