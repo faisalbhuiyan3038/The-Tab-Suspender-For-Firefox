@@ -1,6 +1,6 @@
 # PROJECT.md — The Tab Suspender
 
-> Last audited: 2026-10-30 · Branch: `unified-version` (base `8f4cb0c`, plus uncommitted fixes described below)
+> Last audited: 2026-11-05 · Branch: `unified-version` (lifecycle fixes on top of `d5c83d5`, uncommitted; see last appendix)
 >
 > Legend: **VERIFIED** = executed/measured in a real browser or shell during an audit. **INFERRED** = concluded from reading code.
 > Browser testing was done with an ad-hoc Puppeteer/Selenium harness that is **not in the repo** (see §5). Browsers used: Firefox 158 (MV2 baseline and MV3 build) and Chrome for Testing 156 (MV3 build).
@@ -33,6 +33,7 @@ The Tab Suspender is a cross-browser (Firefox + Chromium) **WebExtension, Manife
 | `dist/chrome`, `dist/firefox` | **Committed** build output (tracked in git). Loadable unpacked extensions. |
 | `releases/` | Committed zipped store submissions and `firefox-desc.md` (AMO listing text). |
 | `screenshots/` | README images. |
+| `tests/e2e/` | Browser end-to-end scenarios (`harness.js`, `run.js`, `README.md`); `npm run test:e2e`. See §5. |
 | `diff.txt` | Stray committed `git diff` of `background.js`. DEAD. |
 | `package.json`, `package-lock.json` | Dev dependencies only. |
 | `CHANGELOG.md`, `README.md` | User docs (stale; see §6). |
@@ -43,17 +44,20 @@ Removed in this change: `autoUpdateLocales.py` and `new_strings.json` (replaced 
 - **Single codebase, two manifests.** Code uses the `chrome.*` namespace everywhere (promise-based in MV3 on both browsers); no polyfill. Browser sniffing happens in `popup.js` (shortcut-help link) and via feature detection `typeof chrome.tabs.captureTab === 'function'` in `background.js` (`HAS_CAPTURE_TAB`).
 - **Alarms for all timers** (`chrome.alarms`): `suspend_tab_<id>`, `discard_tab_<id>` and — new — `pause_expiry`, so pause expiry survives service-worker termination.
 - **Timer re-arming:** any change to a synced setting calls `rearmAllTimers()` (`background.js`), which recreates the suspend alarm for **every** non-active, non-suspended tab (or clears them all while paused). Needed because alarms are one-shot and are consumed even when the tab was protected.
-- **Suspension = URL replacement**; restore state is in `storage.local.suspendedTabs` and mirrored in the suspended page's query string (`origUrl,title,favIconUrl,tabId[,hasCapture]`), enabling recovery after restarts when tab IDs change (`cleanupOrphanedEntries`, `recoverSuspendedTabs`).
+- **Suspension = URL replacement**; restore state is in `storage.local.suspendedTabs` and mirrored in the suspended page's query string (`origUrl,title,favIconUrl,tabId[,hasCapture]`). The `tabId` parameter is the **page key**: fixed at suspension, it names the thumbnail (`thumbnail_<pageKey>`) and links the page to its record after tab ids change (browser restart). `reconcileSuspendedTabs()` runs at every background start and matches records to suspended pages by page key + URL **without navigating the tabs**; suspended pages without a record are adopted from their URL; records without a tab move to `orphanedTabs` for 10 min (session restore may still be running, or the tabs were closed by an update) instead of being deleted.
+- **Chrome closes all of the extension's tabs on an in-place update** (VERIFIED, Chrome for Testing 156, loaded and discarded suspended pages alike) and does **not** fire `tabs.onRemoved` for them. `restoreTabsClosedByUpdate()` (on `onInstalled` reason `update`) therefore reopens records orphaned by that start, in their window/position (a new window if theirs closed with them), still suspended, then discards them. It only runs when the update happened inside the current browser session: window ids from the previous run (`knownWindowIds`), or for pre-2.1 records without a window, Chrome's increasing tab ids. Firefox keeps extension tabs across updates (VERIFIED), so it is skipped there.
+- **Unsaved work:** with `ignoreFormInput`, `wouldPromptBeforeUnload()` dispatches a synthetic cancelable `beforeunload` in every frame's main world and checks `onbeforeunload`'s return value. If a "Leave page?" prompt still appears (handler only reacts to trusted events), `suspendTab` sees the navigation not committing within 4 s, drops the record and protects the tab until it navigates (`unloadBlockedTabs`, mirrored in `storage.session`).
+- **Discard only when the suspended page is ready:** `suspended.js` sets the title synchronously and sends `suspendedPageReady` after the thumbnail is shown; the background discards after that (6 s timeout), only if the tab still shows the suspended page. Discarding earlier froze tabs as "Tab Suspended".
 - **Optional native discard** after suspension (`autoDiscard`, default on) with a re-discard alarm (`rediscardDelay`, default 30 s). **"Disable Suspended Page" (`directDiscard`)** skips the page and only discards.
 - **Screenshots differ per browser** (new):
-  - Firefox: `tabs.captureTab(tabId)` at suspend time → `temp_img_<id>` → `suspended.js` resizes to `thumbnail_<id>` (`hasCapture=true` in URL).
-  - Chrome (only the *visible* tab can be captured): the active tab is captured ~1.5 s after load/activation (`scheduleThumbnailCapture`), downscaled in the service worker with `OffscreenCanvas` to WebP and stored as `thumbnail_<id>`; at suspend time the stored thumbnail is used (or refreshed first if the tab is still active). A navigation removes the stale thumbnail.
+  - Firefox: `tabs.captureTab(tabId)` at suspend time, downscaled in the background (`downscaleToThumbnail`, OffscreenCanvas → WebP) and stored as `thumbnail_<pageKey>` before navigating. (The old path — `temp_img_<id>` resized by `suspended.js`, `hasCapture=true` — is still read for legacy URLs; it lost thumbnails when the page was discarded mid-resize.)
+  - Chrome (only the *visible* tab can be captured): the visible tab is captured ~1.5 s after load, activation, window focus change, same-document URL change, background start, and when screenshots get switched on (`scheduleThumbnailCapture`, `captureFocusedTabIfMissing`), downscaled in the service worker and stored as `thumbnail_<tabId>`; at suspend time it is used (or refreshed first if the tab is still active). A navigation in an inactive tab removes the stale thumbnail.
 - **Localization:** `_locales/en/messages.json` is the single source of truth. HTML uses `data-i18n*` attributes; JS uses a local helper `t(key, substitutions, englishFallback)` (defined in `background.js`, `popup.js`, `data_management.js`). Messages with variables use `$NAME$` placeholders with a `placeholders` block (e.g. `statusDomainWhitelisted`). Non-English locales are machine-translated.
 - **Settings in `storage.sync`, theme in `storage.local`**; thumbnails and `suspendedTabs` in `storage.local`.
 - **No runtime server dependency** (no `fetch` of remote resources in code). `popup.html` still links a Google-hosted font stylesheet (cdnjs Inter) — see §6.
 
 ### 2.3 Data flow summary
-1. `background.js` loads → `initialize()` = `loadSettings()` → `loadSuspendedTabs()` → `cleanupOrphanedEntries()` → `initializeTimers()`.
+1. `background.js` loads → `const ready = initialize()` = `loadSettings()` → `loadSuspendedTabs()` → `loadUnloadBlocked()` → `rememberWindows()` → `reconcileSuspendedTabs()` → `initializeTimers()`. Every event handler that touches records awaits `ready` (there is no second `initialize()` from `onInstalled`/`onStartup` any more). `onInstalled` then runs migration, `recoverSuspendedTabs()` (only re-points pages of *another* install id), `restoreTabsClosedByUpdate()` (update only) and `collectStaleThumbnails()`.
 2. `tabs.onUpdated/onActivated`, `windows.onFocusChanged` clear/reset alarms; the active tab has no suspend alarm.
 3. Suspend alarm → `suspendTab(id)` → `shouldProtectTab()` (non-http(s), paused, pinned, whitelist, audible, injected check for dirty forms + granted notifications; script-injection failure ⇒ protected) → native discard or write record, capture (see above), `tabs.update(url: suspended.html?…)`, optional discard.
 4. `suspended.js` shows URL/title/thumbnail; body click → `{action:'resumeTab', origUrl}` → background removes records and navigates back. "Unsuspend all" (popup button → `{action:'unsuspendAll'}` message with a reply `{count}`, or the `unsuspend-all-tabs` command) runs `unsuspendAllTabs()`: finds every tab whose URL is the suspended page, removes all records/thumbnails first (so `onUpdated` cannot re-suspend them), then navigates each back to its `origUrl`.
@@ -61,7 +65,8 @@ Removed in this change: `autoUpdateLocales.py` and `new_strings.json` (replaced 
 
 ### 2.4 Storage schema
 `storage.sync`: `suspendTime`(min, 1–1440), `isEnabled`, `ignoreAudio`, `ignoreFormInput`, `ignoreNotifications`, `ignorePinned`, `whitelistedDomains[]`, `whitelistedUrls[]`, `enableScreenshots`, `captureQuality`, `resizeWidth`, `resizeHeight`, `resizeQuality`, `autoDiscard`, `rediscardDelay`(s), `pauseUntil`(epoch ms), `directDiscard`, `suspendEmoji`, `siteSettings{ "<hostname>": {suspendTime?,directDiscard?,ignoreAudio?,ignoreFormInput?,ignoreNotifications?,ignorePinned?} }`.
-`storage.local`: `darkMode`, `suspendedTabs`, `thumbnail_<tabId>`, `temp_img_<tabId>` (Firefox path only).
+`storage.local`: `darkMode`, `suspendedTabs` (`{ <tabId>: { url, title, favIconUrl, pageKey, windowId, index, pinned, groupId } }`; pre-2.1 records have only the first three), `orphanedTabs` (`[{ ...record, orphanedAt }]`), `knownWindowIds`, `thumbnail_<pageKey or tabId>`, `temp_img_<id>` (legacy Firefox path only).
+`storage.session`: `unloadBlocked` (tab ids whose user answered "Stay" to a beforeunload prompt).
 
 ### 2.5 Permissions (both manifests)
 `tabs, storage, webNavigation, notifications, contextMenus, scripting, alarms` + `host_permissions: <all_urls>`. Five commands (`suspend-current-tab`, `whitelist-current-page`, `unsuspend-current-tab`, `unsuspend-all-tabs`, `toggle-site-override`) have **no default key bindings** (assign them in the browser's shortcut settings). `webNavigation` is declared but unused (INFERRED: no call in source).
@@ -79,6 +84,8 @@ Status basis: **VERIFIED** = covered by the browser regression run (§3.1) unles
 | Native discard / re-discard timer | WORKING (VERIFIED) | `background.js` | Re-discard test flaky in long runs, passes alone (§3.1). No UI for `autoDiscard`/`rediscardDelay`. |
 | "Disable Suspended Page" (direct discard) | WORKING (VERIFIED) | `background.js` `suspendTab` | |
 | Protection: forms, pinned, disabled switch | WORKING (VERIFIED) | `shouldProtectTab` | Audio and notification-permission protection **not exercised**. |
+| Protection: unsaved work behind `beforeunload` (code editors etc.) + "Stay on page" respected | WORKING (VERIFIED by `tests/e2e`, Chrome+Firefox) | `wouldPromptBeforeUnload`, `suspendTab` navigation check, `unloadBlockedTabs` | Before: the tab was switched to with a "Leave page?" prompt on every attempt (Firefox: up to 5×). Probe runs the page's handlers once (side effects possible). |
+| Suspended tabs survive extension update (in-session and at browser start) and browser restart | WORKING (VERIFIED by `tests/e2e`; Chrome restart + startup update; Firefox in-session update; upgrade from `d5c83d5` on Chrome and from published v2.0 on Firefox) | `reconcileSuspendedTabs`, `restoreTabsClosedByUpdate`, `adoptSuspendedTab` | Before: Chrome lost every suspended tab on update; restart reloaded every suspended tab (titles "Tab Suspended" until loaded, tabs no longer discarded). Firefox restart not testable (temporary add-on). |
 | Whitelist domain / page (storage + popup list) | WORKING (VERIFIED) | `background.js`, `popup.js` | Context-menu and shortcut entry points not exercised. |
 | Per-site settings override (incl. saving from popup) | WORKING (VERIFIED) | `popup.js`, `background.js` `getTabSettings` | |
 | Pause suspension: block, cancel, auto-expiry | WORKING (VERIFIED, **fixed**) | `popup.js`, `background.js` `PAUSE_ALARM`, `rearmAllTimers` | Cancel previously never resumed suspension. |
@@ -94,16 +101,19 @@ Status basis: **VERIFIED** = covered by the browser regression run (§3.1) unles
 | **Unsuspend all tabs** (popup button + `unsuspend-all-tabs` shortcut) | WORKING (VERIFIED: popup button and message path on Chrome+Firefox; command registration verified; the keypress itself not exercised) | `popup.js` `#unsuspendAllBtn`, `background.js` `unsuspendAllTabs`, `manifest.*.json` `commands` | Restores every tab showing the suspended page in all windows, including already-discarded ones; natively discarded tabs without a suspended page are not touched. Shows a toast (popup) or notification (shortcut). |
 | Keyboard shortcuts | PARTIAL (not exercised) | `manifest.*.json` `commands`, `background.js` `onCommand` | 5 commands, no default bindings; keypresses cannot be triggered by automation. |
 | Context menus | PARTIAL (not exercised) | `background.js` `onInstalled` | Titles now localized; created only in `onInstalled`. |
-| Automated tests / CI | **ABSENT** | — | None in repo. |
+| Automated tests | PARTIAL | `tests/e2e/` (`npm run test:e2e`) | 14 browser scenarios (lifecycle, beforeunload, pre-install screenshot, upgrade). The older 22-scenario harness (§3.1) is still not in the repo. No CI. |
 | `diff.txt` | **DEAD** | `diff.txt` | Orphaned. |
 
 ### 3.1 Regression run (VERIFIED)
 22 scenarios were run on: published build `9727f56` (Firefox, MV2), the new MV3 build on Firefox, and on Chrome. Before the fixes the new build failed 3 scenarios the published build passed (screenshot of wrong tab; pinned-toggle not re-arming; pause-cancel not re-arming) plus 1 that failed in both (re-enable). After the fixes **all scenarios pass on Chrome and Firefox**, with one caveat: scenarios 19 (dark mode) and 21 (re-discard) fail intermittently *inside the long sequential run* on both browsers and pass every time when run alone — attributed to state leaking between scenarios in the harness (INFERRED, not proven; an app-side cause has not been excluded).
 
-**Not covered by any test:** context-menu clicks, keyboard shortcuts, real audio playback, granted-notification protection, browser restart persistence, upgrade from a profile containing old data / legacy migration, Chrome service-worker termination mid-timer, Edge, other Firefox/Chrome versions, Firefox non-English UI, RTL layout.
+### 3.1b Lifecycle suite in the repo (`tests/e2e`, VERIFIED 2026-11-05)
+14 scenarios, Chrome for Testing 156 + Firefox 158.0.1. All full runs after the last fix passed (two runs of the first 12, one of all 14). One earlier run had an intermittent "Tab Suspended" title on Chrome, addressed by the per-tab `suspendTab` guard and the title check before discarding (root cause INFERRED: overlapping suspensions of one tab; not reproduced in isolation). The same suite against the previous code (`d5c83d5`) fails all 12 applicable scenarios. See `tests/e2e/README.md` for how updates are simulated; an actual Chrome Web Store / AMO update was not reproduced.
+
+**Not covered by any test:** context-menu clicks, keyboard shortcuts, real audio playback, granted-notification protection, Firefox browser restart (temporary add-ons don't persist), a real store-delivered update, Chrome service-worker termination mid-timer, Edge, other Firefox/Chrome versions, Firefox non-English UI, RTL layout.
 
 ### 3.2 Known limits of the screenshot feature (Chrome)
-A thumbnail exists only if the tab was active ≥ ~1.5 s after its last load/activation (INFERRED from `scheduleThumbnailCapture`; the verified test dwells 3.5 s). Content that changes later (SPAs) is not re-captured until the tab is activated again. Firefox captures at suspend time and has no such limit.
+A thumbnail exists only if the tab was visible ≥ ~1.5 s after its last load/activation/focus (INFERRED from `scheduleThumbnailCapture`). A tab that was open before install or before screenshots were switched on is captured when it is next visible, or immediately if it is the visible tab when screenshots are switched on (VERIFIED). Content that changes later without a URL change is not re-captured until the tab is shown again. Firefox captures at suspend time and has no such limit.
 
 ---
 
@@ -149,7 +159,7 @@ None required. Optional: `CHROME_PATH` (browser binary for `npm run translate`).
 ## 5. Development Workflow
 
 - **Dev loop:** edit root files → `npm run build` → reload the extension (`chrome://extensions` / `about:debugging`). Logs: Chrome service-worker "Inspect"; Firefox *Inspect* in `about:debugging`.
-- **Tests:** none in the repo (`package.json` has no test script). The regression harness used in the audits (Puppeteer for Chrome for Testing, Selenium+geckodriver for Firefox, local HTTP test server, `storage.sync` timers shortened to ~9 s, scenarios 01–22) lived in a throwaway directory and was not committed. Recommended: commit it under `tests/e2e/`.
+- **Tests:** `npm run test:e2e` (or `node tests/e2e/run.js [chrome|firefox] [lifecycle|beforeunload|preexisting|upgrade]`) — puppeteer-core drives Chrome for Testing (CDP) and Firefox (WebDriver BiDi, started with `-remote-allow-system-access`) against unminified sources staged into temp profiles; ~6 min. Details and simulation caveats in `tests/e2e/README.md`. Run it after any change to `background.js`/`suspended.js`. The older 22-scenario harness (§3.1) is not in the repo.
 - **Adding/changing a UI string (the only manual step is English):**
   1. Add/edit the key in `_locales/en/messages.json` (include `description`; add a `placeholders` block for `$NAME$` variables).
   2. Use it: HTML → `data-i18n="key"` (keep the English text inside the element identical to the message — `i18n:check` enforces it); JS → `t('key', substitution, 'English fallback')`; manifest → `__MSG_key__`.
@@ -165,7 +175,11 @@ None required. Optional: `CHROME_PATH` (browser binary for `npm run translate`).
 
 | # | Priority | Issue | Evidence |
 |---|---|---|---|
-| 1 | **High** | **No automated tests / CI in the repo.** The browser harness that verified this work is not committed. | No test files, no `.github/`. |
+| 1 | **High** | **Manifest version 1.9 is below the published 2.0** (`releases/v2.0-release.zip`, AMO). Stores reject it and Firefox would treat it as a downgrade; bump both manifests + `package.json` (> 2.0) before releasing. | Manifests vs release zip. |
+| 1b | Med | **No CI; only the lifecycle suite is in the repo** (`tests/e2e`). | No `.github/`. |
+| 1c | Med | **Update simulation ≠ store update.** Chrome tab closing on update was observed with CDP in-place installs; behavior with a Web Store update (applied when the extension is idle) is INFERRED to be the same. The startup-update path on Chrome reported `onInstalled` reason `install` under `--load-extension`, so the "update at browser start → don't recreate" branch is covered only indirectly. | `tests/e2e/README.md`. |
+| 1d | Low | **Visible tab of an unfocused window gets suspended** (only the focused window's active tab counts as active in `suspendTab`/`resetTabTimer`). Pre-existing behavior, observed while writing the tests. | `activeTabId` handling. |
+| 1e | Low | **beforeunload probe runs the page's handlers once** per suspension attempt (synthetic, untrusted event); handlers with side effects (e.g. closing a socket) would run on a page that then stays open if it asks to stay. | `wouldPromptBeforeUnload`. |
 | 2 | Med | **Translations are machine-generated and unreviewed.** Very short/ambiguous strings can be wrong, e.g. Arabic `emojiNone` ("None") came back as "لا أحد" ("nobody"). | VERIFIED in rendered `ar` popup. Spot-check short keys (`None`, `Pause`, `Inherit`, `Custom`, `Paused`, button labels) in languages you can read. |
 | 3 | Med | **RTL not handled:** no `dir`/`lang` set on pages for `ar`, `fa`; layout untested. | INFERRED (no `dir` in HTML/JS). |
 | 4 | Med | **Firefox non-English UI unverified** (no language packs in the test profile). Same `chrome.i18n` code path as Chrome. | §3. |
@@ -212,3 +226,11 @@ Resolved in this change (do not re-open without evidence): localization not load
 - `scripts/translate-locales.js`, `scripts/check-i18n.js` added; `package.json` scripts rewritten (`translate`, `i18n:check`, `prebuild`, cross-platform `clean`), version 1.9, `puppeteer-core` devDependency; `autoUpdateLocales.py`, `new_strings.json` deleted.
 - **Unsuspend All Tabs feature:** `unsuspendAllTabs()` + reply-capable `onMessage` dispatcher (`handleMessage` holds the previous handlers) + `unsuspend-all-tabs` command (both manifests, description via `__MSG_unsuspendAllTabs__`) + popup Settings-tab button; 4 new i18n keys (`unsuspendAllTabs`, `unsuspendAllDesc`, `statusUnsuspendedTabs`, `statusNoSuspendedTabs`) translated to all locales.
 - `dist/` regenerated by `npm run build`.
+
+## Appendix — Lifecycle fixes (2026-11-05)
+- Chrome screenshots for tabs opened before install / before enabling screenshots (`captureFocusedTabIfMissing`, capture on window focus and same-document URL change).
+- Titles "Tab Suspended" after restart: `suspended.js` sets the title synchronously; no reload of suspended tabs at startup; discard only after `suspendedPageReady` and the title has updated; per-tab guard against overlapping `suspendTab` calls.
+- Tabs lost on update: records keep window/position; orphaned instead of deleted; reopened after an in-session Chrome update (incl. pre-2.1 records); Firefox thumbnails downscaled in the background.
+- beforeunload: probe + "Stay on page" fallback; discards never hit a live page.
+- Removed the `onUpdated` rule that re-suspended a tab whose URL equalled its record's (it re-suspended pages after Back and could hit reused tab ids); `resumeTab` takes the URL from the suspended page's own URL.
+- `tests/e2e/` + `npm run test:e2e`.

@@ -2,8 +2,16 @@
 let SUSPEND_TIME = 40 * 60 * 1000;
 let isEnabled = true; // Enabled by default
 let activeTabId = null;
+// Tabs currently showing the suspended page, keyed by (current) tab id:
+// { url, title, favIconUrl, pageKey, windowId, index, pinned, groupId }
+// pageKey is the `tabId` parameter in the suspended page URL. It never changes after suspension
+// (tab ids do, e.g. after a browser restart) and names the thumbnail: thumbnail_<pageKey>.
 let suspendedTabs = {};
-let discardTimers = {};  // Track short-lived re-discard timers for suspended tabs
+// Records whose tab is not (or not yet) present: e.g. the session is still being restored, or
+// Chrome closed the extension's tabs while updating it. [{ ...record, orphanedAt }]
+let orphanedTabs = [];
+// Tabs where the user answered "Stay on page" to a beforeunload prompt; protected until they navigate
+const unloadBlockedTabs = new Set();
 let settings = {
   suspendTime: 40,
   ignoreAudio: true,
@@ -28,6 +36,43 @@ let settings = {
 const SUSPEND_ALARM_PREFIX = 'suspend_tab_';
 const DISCARD_ALARM_PREFIX = 'discard_tab_';
 const PAUSE_ALARM = 'pause_expiry';
+
+const SUSPENDED_PAGE = chrome.runtime.getURL('suspended.html');
+const IS_FIREFOX = chrome.runtime.getURL('').startsWith('moz-extension://');
+const ORPHAN_TTL_MS = 10 * 60 * 1000;   // how long a record without a tab is kept
+const NAVIGATION_TIMEOUT_MS = 4000;     // longer than this means a beforeunload prompt holds it
+const PAGE_READY_TIMEOUT_MS = 6000;
+
+const isSuspendedUrl = url => typeof url === 'string' && url.startsWith(SUSPENDED_PAGE);
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+function buildSuspendedUrl(record) {
+  return SUSPENDED_PAGE +
+    "?origUrl=" + encodeURIComponent(record.url) +
+    "&title=" + encodeURIComponent(record.title || '') +
+    "&favIconUrl=" + encodeURIComponent(record.favIconUrl || '') +
+    "&tabId=" + encodeURIComponent(record.pageKey);
+}
+
+// Reads the restore data from a suspended page URL (of this or any older install of the extension)
+function parseSuspendedUrl(url) {
+  if (!/^(chrome-extension|moz-extension):\/\/[^/]+\/suspended\.html\?/.test(url || '')) return null;
+  try {
+    const params = new URL(url).searchParams;
+    const origUrl = params.get('origUrl');
+    if (!origUrl) return null;
+    return {
+      url: origUrl,
+      title: params.get('title') || '',
+      favIconUrl: params.get('favIconUrl') || '',
+      pageKey: params.get('tabId') || ''
+    };
+  } catch (e) {
+    return null;
+  }
+}
+
+const thumbnailKeys = pageKey => ["thumbnail_" + pageKey, "temp_img_" + pageKey];
 
 // Localized string with English fallback
 const t = (key, subs, fallback) => chrome.i18n.getMessage(key, subs) || fallback || key;
@@ -105,97 +150,169 @@ async function loadSettings() {
   }
 }
 
-// Load suspended tabs from storage
+// Load suspended tab records from storage
 async function loadSuspendedTabs() {
   try {
-    const result = await chrome.storage.local.get('suspendedTabs');
-    if (result.suspendedTabs) {
-      suspendedTabs = result.suspendedTabs;
-      console.log(`Loaded ${Object.keys(suspendedTabs).length} suspended tabs from storage.`);
-    }
+    const result = await chrome.storage.local.get(['suspendedTabs', 'orphanedTabs']);
+    suspendedTabs = result.suspendedTabs || {};
+    orphanedTabs = Array.isArray(result.orphanedTabs) ? result.orphanedTabs : [];
+    console.log(`Loaded ${Object.keys(suspendedTabs).length} suspended tab records (${orphanedTabs.length} without a tab).`);
   } catch (error) {
     console.error('Error loading suspended tabs:', error);
   }
 }
 
-// Clean up orphaned thumbnails/temp images from storage
-async function cleanupOrphanedEntries() {
+/**
+ * Brings the records in line with the tabs that actually show the suspended page. Tab ids change
+ * across browser restarts, so records are matched through the page key in the suspended page URL
+ * (never by reloading the tabs). Suspended pages without a record are adopted from their URL.
+ * Records without a tab are kept for a while instead of being dropped: the session may still be
+ * restoring, or the tabs were closed by an extension update and are about to be recreated.
+ */
+async function reconcileSuspendedTabs() {
   try {
     const tabs = await chrome.tabs.query({});
-    const activeTabIds = new Set(tabs.map(t => t.id));
+    const now = Date.now();
 
-    // Identify and remove orphaned local records
-    let orphansRemoved = 0;
-    const keysToRemove = [];
+    // Every known record is a candidate, tagged with the tab id it was stored under
+    const pool = [
+      ...Object.entries(suspendedTabs).map(([id, rec]) => ({ ...rec, pageKey: rec.pageKey || id })),
+      ...orphanedTabs
+    ];
+    const used = new Set();
+    const next = {};
 
-    for (const tabIdStr of Object.keys(suspendedTabs)) {
-      const tabId = parseInt(tabIdStr, 10);
-      if (!activeTabIds.has(tabId)) {
-        // Look if there's any active tab displaying this suspended URL with matching tabId parameter
-        const matchingTab = tabs.find(t => {
-          if (t.url && t.url.startsWith(chrome.runtime.getURL("suspended.html"))) {
-            try {
-              const urlParams = new URL(t.url).searchParams;
-              return urlParams.get('tabId') === tabIdStr;
-            } catch (e) {}
-          }
-          return false;
-        });
-
-        if (matchingTab) {
-          console.log(`Migration: Re-mapping tab record from old ID ${tabIdStr} to active ID ${matchingTab.id}`);
-          suspendedTabs[matchingTab.id] = suspendedTabs[tabIdStr];
-          delete suspendedTabs[tabIdStr];
-
-          const oldThumb = "thumbnail_" + tabIdStr;
-          const newThumb = "thumbnail_" + matchingTab.id;
-          const oldTemp = "temp_img_" + tabIdStr;
-          const newTemp = "temp_img_" + matchingTab.id;
-
-          chrome.storage.local.get([oldThumb, oldTemp]).then(data => {
-            const toSet = {};
-            if (data[oldThumb]) toSet[newThumb] = data[oldThumb];
-            if (data[oldTemp]) toSet[newTemp] = data[oldTemp];
-            if (Object.keys(toSet).length > 0) chrome.storage.local.set(toSet);
-          });
-
-          keysToRemove.push(oldThumb, oldTemp);
-          orphansRemoved++;
-
-          try {
-            const urlObj = new URL(matchingTab.url);
-            urlObj.searchParams.set('tabId', String(matchingTab.id));
-            chrome.tabs.update(matchingTab.id, { url: urlObj.toString() });
-          } catch (e) {}
-        } else {
-          console.log(`Cleanup: Removing orphaned tab record for tab ID ${tabIdStr}`);
-          delete suspendedTabs[tabIdStr];
-          keysToRemove.push("thumbnail_" + tabIdStr, "temp_img_" + tabIdStr);
-          orphansRemoved++;
-        }
-      }
+    for (const tab of tabs) {
+      if (!isSuspendedUrl(tab.url)) continue;
+      const fromUrl = parseSuspendedUrl(tab.url);
+      if (!fromUrl) continue;
+      const idx = pool.findIndex((rec, i) => !used.has(i) && rec.pageKey === fromUrl.pageKey && rec.url === fromUrl.url);
+      const rec = idx >= 0 ? pool[idx] : fromUrl;
+      if (idx >= 0) used.add(idx);
+      next[tab.id] = recordFor(rec, tab);
     }
 
-    if (orphansRemoved > 0) {
-      saveSuspendedTabsState();
-      if (keysToRemove.length > 0) {
-        await chrome.storage.local.remove(keysToRemove);
-      }
-      console.log(`Cleanup: Removed ${orphansRemoved} orphaned entries from storage.`);
+    const stillOrphaned = [];
+    pool.forEach((rec, i) => {
+      if (used.has(i)) return;
+      stillOrphaned.push({ ...rec, orphanedAt: rec.orphanedAt || now });
+    });
+
+    const expired = stillOrphaned.filter(rec => now - rec.orphanedAt > ORPHAN_TTL_MS);
+    orphanedTabs = stillOrphaned.filter(rec => now - rec.orphanedAt <= ORPHAN_TTL_MS);
+    suspendedTabs = next;
+    await saveSuspendedTabsState();
+
+    if (expired.length > 0) {
+      const inUse = new Set([...Object.values(suspendedTabs), ...orphanedTabs].map(r => r.pageKey));
+      const keys = expired.filter(r => !inUse.has(r.pageKey)).flatMap(r => thumbnailKeys(r.pageKey));
+      if (keys.length) await chrome.storage.local.remove(keys);
+      console.log(`Dropped ${expired.length} suspended tab records whose tab never came back.`);
     }
   } catch (error) {
-    console.error('Error during cleanup:', error);
+    console.error('Error reconciling suspended tabs:', error);
   }
 }
+
+function recordFor(rec, tab) {
+  return {
+    url: rec.url,
+    title: rec.title || '',
+    favIconUrl: rec.favIconUrl || '',
+    pageKey: String(rec.pageKey),
+    windowId: tab.windowId,
+    index: tab.index,
+    pinned: !!tab.pinned,
+    groupId: typeof tab.groupId === 'number' ? tab.groupId : -1
+  };
+}
+
+// A suspended page appeared that has no record yet (session restore, recreated tab, ...)
+async function adoptSuspendedTab(tab) {
+  const fromUrl = parseSuspendedUrl(tab.url);
+  if (!fromUrl || suspendedTabs[tab.id]) return;
+  const idx = orphanedTabs.findIndex(rec => rec.pageKey === fromUrl.pageKey && rec.url === fromUrl.url);
+  const rec = idx >= 0 ? orphanedTabs.splice(idx, 1)[0] : fromUrl;
+  suspendedTabs[tab.id] = recordFor(rec, tab);
+  await saveSuspendedTabsState();
+}
+
+// Removes a tab's record and its thumbnail (the tab was restored or closed by the user)
+async function forgetSuspendedTab(tabId, pageKeyFromUrl) {
+  const rec = suspendedTabs[tabId];
+  if (rec) {
+    delete suspendedTabs[tabId];
+    await saveSuspendedTabsState();
+  }
+  // thumbnail_<tabId> is Chrome's live capture of the tab; the page key names the suspended page's.
+  // Either may also be the page key of another suspended tab (tab ids are reused after a restart).
+  const keys = [String(tabId), (rec && rec.pageKey) || pageKeyFromUrl]
+    .filter(key => key && !pageKeyInUse(key))
+    .flatMap(thumbnailKeys);
+  if (keys.length) await chrome.storage.local.remove(keys);
+}
+
+function pageKeyInUse(key) {
+  return Object.values(suspendedTabs).some(rec => rec.pageKey === key) ||
+    orphanedTabs.some(rec => rec.pageKey === key);
+}
+
+// Page key for a tab about to be suspended: its id, unless an older suspended page already uses
+// that key (Firefox reuses tab ids after a restart)
+function choosePageKey(tabId) {
+  const key = String(tabId);
+  return pageKeyInUse(key) ? `${key}-${Date.now().toString(36)}` : key;
+}
+
+// Window ids seen in the previous run; used to tell "same browser session" from "after a restart"
+let previousWindowIds = [];
+
+async function rememberWindows() {
+  try {
+    const stored = await chrome.storage.local.get('knownWindowIds');
+    previousWindowIds = stored.knownWindowIds || [];
+    const windows = await chrome.windows.getAll();
+    await chrome.storage.local.set({ knownWindowIds: windows.map(w => w.id) });
+  } catch (e) {}
+}
+
+async function loadUnloadBlocked() {
+  try {
+    if (!chrome.storage.session) return;
+    const { unloadBlocked } = await chrome.storage.session.get('unloadBlocked');
+    (unloadBlocked || []).forEach(id => unloadBlockedTabs.add(id));
+  } catch (e) {}
+}
+
+function saveUnloadBlocked() {
+  try {
+    if (chrome.storage.session) chrome.storage.session.set({ unloadBlocked: [...unloadBlockedTabs] });
+  } catch (e) {}
+}
+
+function markUnloadBlocked(tabId) {
+  unloadBlockedTabs.add(tabId);
+  saveUnloadBlocked();
+}
+
+function clearUnloadBlocked(tabId) {
+  if (unloadBlockedTabs.delete(tabId)) saveUnloadBlocked();
+}
+
+const initStartedAt = Date.now();
 
 async function initialize() {
   await loadSettings();
-  if (Object.keys(suspendedTabs).length === 0) {
-    await loadSuspendedTabs();
-  }
-  await cleanupOrphanedEntries();
+  await loadSuspendedTabs();
+  await loadUnloadBlocked();
+  await rememberWindows();
+  await reconcileSuspendedTabs();
   await initializeTimers();
+  if (settings.enableScreenshots) captureFocusedTabIfMissing();
 }
+
+// Every event handler waits for this before touching the records
+const ready = initialize();
 
 // --- Screenshot capture ---
 
@@ -242,19 +359,60 @@ async function captureActiveTabThumbnail(tabId) {
     format: "jpeg",
     quality: settings.captureQuality
   });
+  // The user may have switched tabs while the capture was in flight
+  const after = await chrome.tabs.get(tabId);
+  if (!after.active || after.url !== tab.url) return;
   const thumbnail = await downscaleToThumbnail(fullResImage);
   await chrome.storage.local.set({ ["thumbnail_" + tabId]: thumbnail });
   console.log(`Stored thumbnail for tab ${tabId}`);
 }
 
 function scheduleThumbnailCapture(tabId) {
-  if (!settings.enableScreenshots || HAS_CAPTURE_TAB) return;
+  if (!settings.enableScreenshots || HAS_CAPTURE_TAB || tabId == null) return;
   clearTimeout(captureTimers[tabId]);
   // Give the page a moment to render before capturing
   captureTimers[tabId] = setTimeout(() => {
     delete captureTimers[tabId];
     captureActiveTabThumbnail(tabId).catch(e => console.log(`Thumbnail capture skipped for tab ${tabId}:`, e.message));
   }, 1500);
+}
+
+// Chrome: tabs that were already open (e.g. before the extension was installed or screenshots were
+// switched on) only get a thumbnail once they are captured while visible, so capture the visible
+// tab now instead of waiting for the next tab switch.
+async function captureFocusedTabIfMissing() {
+  if (!settings.enableScreenshots || HAS_CAPTURE_TAB) return;
+  try {
+    const [tab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true });
+    if (!tab || isSuspendedUrl(tab.url)) return;
+    const key = "thumbnail_" + tab.id;
+    const existing = await chrome.storage.local.get(key);
+    if (!existing[key]) scheduleThumbnailCapture(tab.id);
+  } catch (e) {}
+}
+
+// Stores the thumbnail that the suspended page will show, as thumbnail_<pageKey>
+async function storeSuspendThumbnail(tab, pageKey) {
+  if (HAS_CAPTURE_TAB) {
+    // Firefox: can capture any tab, visible or not. Downscale here rather than in the suspended
+    // page, which may be discarded before it finishes.
+    const fullResImage = await chrome.tabs.captureTab(tab.id, {
+      format: "jpeg",
+      quality: settings.captureQuality
+    });
+    const thumbnail = await downscaleToThumbnail(fullResImage);
+    await chrome.storage.local.set({ ["thumbnail_" + pageKey]: thumbnail });
+    console.log(`Captured screenshot for tab ${tab.id}`);
+    return;
+  }
+  // Chrome: only the visible tab can be captured, so refresh it now if it is visible; otherwise the
+  // thumbnail stored while the tab was last active is used
+  if (tab.active) await captureActiveTabThumbnail(tab.id);
+  if (pageKey !== String(tab.id)) {
+    const live = "thumbnail_" + tab.id;
+    const data = await chrome.storage.local.get(live);
+    if (data[live]) await chrome.storage.local.set({ ["thumbnail_" + pageKey]: data[live] });
+  }
 }
 
 // --- Tab Timer & Alarm Logic ---
@@ -312,6 +470,9 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
   } else if (alarm.name.startsWith(DISCARD_ALARM_PREFIX)) {
     const tabId = parseInt(alarm.name.replace(DISCARD_ALARM_PREFIX, ''), 10);
     try {
+      // Only ever discard the suspended page, never a live page the user went back to
+      const tab = await chrome.tabs.get(tabId);
+      if (!isSuspendedUrl(tab.url) || tab.active || tab.discarded) return;
       await chrome.tabs.discard(tabId);
       console.log(`Discarded suspended tab ${tabId} via alarm`);
     } catch (e) {
@@ -320,15 +481,78 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
   }
 });
 
+// Suspended pages report when their title and thumbnail are in place; discarding before that
+// would freeze the tab with the placeholder title ("Tab Suspended") and no screenshot.
+const pageReadyWaiters = {};
+
+function expectPageReady(tabId, timeout = PAGE_READY_TIMEOUT_MS) {
+  return new Promise(resolve => {
+    const timer = setTimeout(() => {
+      delete pageReadyWaiters[tabId];
+      resolve(false);
+    }, timeout);
+    pageReadyWaiters[tabId] = () => {
+      clearTimeout(timer);
+      delete pageReadyWaiters[tabId];
+      resolve(true);
+    };
+  });
+}
+
+async function discardWhenReady(tabId, readyPromise) {
+  await readyPromise;
+  try {
+    // The browser keeps the title it last saw for a discarded tab, so make sure it has caught up
+    // with the page's title (it is never the placeholder once the page script has run)
+    const placeholder = chrome.i18n.getMessage('tabSuspended') || 'Tab Suspended';
+    const tab = await waitForTab(tabId, t => t.status === 'complete' && t.title && t.title !== placeholder, 3000) ||
+      await chrome.tabs.get(tabId);
+    if (!isSuspendedUrl(tab.url) || tab.active || tab.discarded) return;
+    await chrome.tabs.discard(tabId);
+    console.log(`Discarded suspended tab ${tabId}`);
+  } catch (e) {
+    // Tab might be active or already closed
+  }
+}
+
+// Resolves with the tab once check(tab) holds, or null after the timeout
+async function waitForTab(tabId, check, timeout) {
+  const end = Date.now() + timeout;
+  while (Date.now() < end) {
+    try {
+      const tab = await chrome.tabs.get(tabId);
+      if (check(tab)) return tab;
+    } catch (e) {
+      return null;
+    }
+    await sleep(150);
+  }
+  return null;
+}
+
 /**
  * Suspends the tab by saving its original URL and updating it
  * to a local suspended page.
  * @param {number} tabId - The ID of the tab to suspend
  * @param {boolean} [force=false] - If true, will suspend even if the tab is active
  */
+// Tabs with a suspendTab() call in progress; a second, overlapping call would navigate the tab
+// again and could discard it in the middle of that second load
+const suspendingTabs = new Set();
+
 async function suspendTab(tabId, force = false) {
+  if (suspendingTabs.has(tabId)) return false;
+  suspendingTabs.add(tabId);
+  try {
+    return await suspendTabOnce(tabId, force);
+  } finally {
+    suspendingTabs.delete(tabId);
+  }
+}
+
+async function suspendTabOnce(tabId, force) {
+  await ready;
   await loadSettings();
-  await loadSuspendedTabs();
 
   // Update active tab ID check
   try {
@@ -345,7 +569,7 @@ async function suspendTab(tabId, force = false) {
   try {
     const tab = await chrome.tabs.get(tabId);
 
-    if (tab.url.startsWith(chrome.runtime.getURL("suspended.html"))) {
+    if (isSuspendedUrl(tab.url)) {
       return;
     }
 
@@ -383,54 +607,41 @@ async function suspendTab(tabId, force = false) {
       }
     }
 
-    suspendedTabs[tabId] = {
-      url: tab.url,
-      title: tab.title,
-      favIconUrl: tab.favIconUrl,
-    };
-
-    saveSuspendedTabsState();
-
-    let suspendedPageURL = chrome.runtime.getURL("suspended.html") +
-      "?origUrl=" + encodeURIComponent(tab.url) +
-      "&title=" + encodeURIComponent(tab.title) +
-      "&favIconUrl=" + encodeURIComponent(tab.favIconUrl || '') +
-      "&tabId=" + tabId;
+    const pageKey = choosePageKey(tabId);
+    const record = recordFor({ url: tab.url, title: tab.title, favIconUrl: tab.favIconUrl, pageKey }, tab);
 
     if (settings.enableScreenshots) {
       try {
-        if (HAS_CAPTURE_TAB) {
-          // Firefox: can capture any tab, visible or not
-          const fullResImage = await chrome.tabs.captureTab(tabId, {
-            format: "jpeg",
-            quality: settings.captureQuality
-          });
-
-          await chrome.storage.local.set({ ["temp_img_" + tabId]: fullResImage });
-          suspendedPageURL += "&hasCapture=true";
-          console.log(`Captured screenshot for tab ${tabId}`);
-        } else if (tab.active) {
-          // Chrome: only the visible tab can be captured, so refresh it now if it is visible
-          await captureActiveTabThumbnail(tabId);
-        }
-        // Chrome, inactive tab: the thumbnail stored while the tab was last active is used
+        await storeSuspendThumbnail(tab, pageKey);
       } catch (captureError) {
         console.error(`Failed to capture tab ${tabId}:`, captureError);
       }
     }
 
-    await chrome.tabs.update(tabId, { url: suspendedPageURL });
+    suspendedTabs[tabId] = record;
+    await saveSuspendedTabsState();
+
+    const pageReady = expectPageReady(tabId);
+    await chrome.tabs.update(tabId, { url: buildSuspendedUrl(record) });
+
+    // A page with unsaved work can hold the navigation with a "Leave page?" prompt (beforeunload).
+    // If the suspended page hasn't committed by now, the prompt is up or the user chose to stay:
+    // leave the tab alone until it navigates. If they choose to leave later, the suspended page
+    // loads and is adopted by the onUpdated listener.
+    const navigated = await waitForTab(tabId, t => isSuspendedUrl(t.url), NAVIGATION_TIMEOUT_MS);
+    if (!navigated) {
+      console.log(`Tab ${tabId} did not navigate to the suspended page (beforeunload prompt?); protecting it`);
+      markUnloadBlocked(tabId);
+      if (suspendedTabs[tabId] === record) {
+        delete suspendedTabs[tabId];
+        await saveSuspendedTabsState();
+      }
+      return false;
+    }
 
     // Auto-discard the tab after suspension to free memory
     if (settings.autoDiscard) {
-      setTimeout(async () => {
-        try {
-          await chrome.tabs.discard(tabId);
-          console.log(`Discarded suspended tab ${tabId}`);
-        } catch (e) {
-          // Tab might be active or already closed
-        }
-      }, 1500);
+      discardWhenReady(tabId, pageReady);
     }
 
     return true;
@@ -443,37 +654,74 @@ async function suspendTab(tabId, force = false) {
 // --- Event Listeners (Tabs, Windows) ---
 
 chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
-  const isSuspendedUrl = tab.url && tab.url.startsWith(chrome.runtime.getURL("suspended.html"));
+  await ready;
+  const onSuspendedPage = isSuspendedUrl(tab.url);
 
-  // A new page invalidates the thumbnail taken for the previous one
-  if (changeInfo.url && !isSuspendedUrl && !HAS_CAPTURE_TAB) {
-    chrome.storage.local.remove("thumbnail_" + tabId);
+  // Any navigation or reload ends the "user chose to stay on this page" protection
+  if (changeInfo.url !== undefined || changeInfo.status === 'loading') {
+    clearUnloadBlocked(tabId);
   }
-  if (changeInfo.status === 'complete' && tab.active && !isSuspendedUrl) {
-    scheduleThumbnailCapture(tabId);
+
+  if (onSuspendedPage) {
+    const rec = suspendedTabs[tabId];
+    if (!rec) {
+      if (changeInfo.url || changeInfo.status === 'complete') await adoptSuspendedTab(tab);
+    } else if (changeInfo.pinned !== undefined || changeInfo.groupId !== undefined) {
+      rec.pinned = !!tab.pinned;
+      rec.groupId = typeof tab.groupId === 'number' ? tab.groupId : -1;
+      await saveSuspendedTabsState();
+    }
+    return;
+  }
+
+  // The tab left the suspended page without going through resume (e.g. the Back button)
+  if (changeInfo.url && suspendedTabs[tabId]) {
+    await forgetSuspendedTab(tabId);
+  }
+
+  if (!HAS_CAPTURE_TAB && changeInfo.url) {
+    if (tab.active) {
+      // Same-document navigations (SPAs) may not reach 'complete' again; recapture now
+      scheduleThumbnailCapture(tabId);
+    } else {
+      // A new page invalidates the thumbnail taken for the previous one
+      chrome.storage.local.remove("thumbnail_" + tabId);
+    }
   }
 
   if (changeInfo.status === 'complete') {
-    if (!tab.url.startsWith(chrome.runtime.getURL("suspended.html"))) {
-      if (tabId !== activeTabId) {
-        await resetTabTimer(tabId);
-      }
+    if (tab.active) scheduleThumbnailCapture(tabId);
+    if (tabId !== activeTabId) {
+      await resetTabTimer(tabId);
     }
   }
+});
 
-  if (changeInfo.status === 'complete' && suspendedTabs[tabId]) {
-    const originalTab = suspendedTabs[tabId];
+chrome.tabs.onMoved.addListener(async (tabId, moveInfo) => {
+  await ready;
+  updateRecordPosition(tabId, moveInfo.windowId, moveInfo.toIndex);
+});
 
-    if (tab.url === originalTab.url) {
-      let suspendedPageURL = chrome.runtime.getURL("suspended.html") +
-        "?origUrl=" + encodeURIComponent(originalTab.url) +
-        "&title=" + encodeURIComponent(originalTab.title) +
-        "&favIconUrl=" + encodeURIComponent(originalTab.favIconUrl || '') +
-        "&tabId=" + tabId;
+chrome.tabs.onAttached.addListener(async (tabId, attachInfo) => {
+  await ready;
+  updateRecordPosition(tabId, attachInfo.newWindowId, attachInfo.newPosition);
+});
 
-      await chrome.tabs.update(tabId, { url: suspendedPageURL });
-    }
-  }
+function updateRecordPosition(tabId, windowId, index) {
+  const rec = suspendedTabs[tabId];
+  if (!rec) return;
+  rec.windowId = windowId;
+  rec.index = index;
+  saveSuspendedTabsState();
+}
+
+chrome.windows.onCreated.addListener(async (win) => {
+  try {
+    const stored = await chrome.storage.local.get('knownWindowIds');
+    const ids = new Set(stored.knownWindowIds || []);
+    ids.add(win.id);
+    await chrome.storage.local.set({ knownWindowIds: [...ids] });
+  } catch (e) {}
 });
 
 chrome.tabs.onActivated.addListener(async (activeInfo) => {
@@ -488,7 +736,7 @@ chrome.tabs.onActivated.addListener(async (activeInfo) => {
   if (previousActiveTab && previousActiveTab !== activeTabId) {
     try {
       const tab = await chrome.tabs.get(previousActiveTab);
-      const isSuspendedPage = tab.url.startsWith(chrome.runtime.getURL("suspended.html"));
+      const isSuspendedPage = isSuspendedUrl(tab.url);
 
       if (isSuspendedPage && settings.autoDiscard) {
         // Start a re-discard timer
@@ -512,11 +760,13 @@ chrome.windows.onFocusChanged.addListener(async (windowId) => {
       // Clear suspension timers for newly active tab
       await clearTabTimer(activeTabId);
       await clearDiscardTimer(activeTabId);
+      // Switching windows doesn't fire onActivated, but the newly visible tab can be captured now
+      if (!isSuspendedUrl(tabs[0].url)) scheduleThumbnailCapture(activeTabId);
 
       if (previousActiveTab && previousActiveTab !== activeTabId) {
         try {
           const tab = await chrome.tabs.get(previousActiveTab);
-          const isSuspendedPage = tab.url.startsWith(chrome.runtime.getURL("suspended.html"));
+          const isSuspendedPage = isSuspendedUrl(tab.url);
 
           if (isSuspendedPage && settings.autoDiscard) {
             // Start a re-discard timer
@@ -540,6 +790,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     unsuspendAllTabs().then(count => sendResponse({ count }), () => sendResponse({ count: 0 }));
     return true;
   }
+  if (message.action === 'suspendedPageReady') {
+    if (sender.tab && pageReadyWaiters[sender.tab.id]) pageReadyWaiters[sender.tab.id]();
+    return false;
+  }
   handleMessage(message, sender);
   return false;
 });
@@ -548,7 +802,7 @@ async function handleMessage(message, sender) {
   if (message.action === 'updateTheme') {
     chrome.tabs.query({}).then(tabs => {
       tabs.forEach(tab => {
-        if (suspendedTabs[tab.id]) {
+        if (isSuspendedUrl(tab.url) && !tab.discarded) {
           chrome.tabs.sendMessage(tab.id, {
             action: 'updateTheme',
             isDark: message.isDark
@@ -560,21 +814,23 @@ async function handleMessage(message, sender) {
   }
 
   if (message.action === "resumeTab" && sender.tab) {
-    const origUrl = message.origUrl;
-    const tabId = sender.tab.id;
-
-    await clearDiscardTimer(tabId);
-
-    if (suspendedTabs[tabId]) {
-      delete suspendedTabs[tabId];
-      saveSuspendedTabsState();
-    }
-    await chrome.storage.local.remove([
-      "thumbnail_" + tabId,
-      "temp_img_" + tabId
-    ]);
-    await chrome.tabs.update(tabId, { url: origUrl });
+    await ready;
+    await restoreSuspendedTab(sender.tab, sender.url, message.origUrl);
   }
+}
+
+// Navigates a suspended tab back to its page. The address comes from the suspended page's own URL.
+async function restoreSuspendedTab(tab, pageUrl, fallbackUrl) {
+  const fromUrl = parseSuspendedUrl(pageUrl || tab.url);
+  const rec = suspendedTabs[tab.id];
+  const origUrl = (fromUrl && fromUrl.url) || (rec && rec.url) || fallbackUrl;
+  if (!origUrl || !/^https?:\/\//i.test(origUrl)) return false;
+
+  await clearDiscardTimer(tab.id);
+  // Drop the record first so the onUpdated listener doesn't treat the navigation as anything else
+  await forgetSuspendedTab(tab.id, fromUrl && fromUrl.pageKey);
+  await chrome.tabs.update(tab.id, { url: origUrl });
+  return true;
 }
 
 /**
@@ -582,37 +838,11 @@ async function handleMessage(message, sender) {
  * ones the browser has already discarded. Returns how many tabs were restored.
  */
 async function unsuspendAllTabs() {
-  await loadSuspendedTabs();
-
-  const suspendedBase = chrome.runtime.getURL("suspended.html");
-  const tabs = await chrome.tabs.query({});
-  const targets = [];
-
-  for (const tab of tabs) {
-    if (!tab.url || !tab.url.startsWith(suspendedBase)) continue;
-    let origUrl = suspendedTabs[tab.id] && suspendedTabs[tab.id].url;
-    try {
-      origUrl = new URL(tab.url).searchParams.get('origUrl') || origUrl;
-    } catch (e) {}
-    if (origUrl) targets.push({ id: tab.id, origUrl });
-  }
-  if (targets.length === 0) return 0;
-
-  // Drop all records first so the onUpdated listener doesn't send a restored tab back
-  const keysToRemove = [];
-  for (const { id } of targets) {
-    delete suspendedTabs[id];
-    keysToRemove.push("thumbnail_" + id, "temp_img_" + id);
-  }
-  saveSuspendedTabsState();
-  await chrome.storage.local.remove(keysToRemove);
-
-  const results = await Promise.allSettled(targets.map(async ({ id, origUrl }) => {
-    await clearDiscardTimer(id);
-    await chrome.tabs.update(id, { url: origUrl });
-  }));
-  const restored = results.filter(r => r.status === 'fulfilled').length;
-  console.log(`Unsuspended ${restored} of ${targets.length} tabs`);
+  await ready;
+  const tabs = (await chrome.tabs.query({})).filter(tab => isSuspendedUrl(tab.url));
+  const results = await Promise.allSettled(tabs.map(tab => restoreSuspendedTab(tab)));
+  const restored = results.filter(r => r.status === 'fulfilled' && r.value).length;
+  console.log(`Unsuspended ${restored} of ${tabs.length} tabs`);
   return restored;
 }
 
@@ -625,6 +855,11 @@ chrome.storage.onChanged.addListener((changes, areaName) => {
       // Re-arm every tab, not just those with a pending alarm: alarms that already fired
       // while a tab was protected (or the extension disabled/paused) must be recreated.
       loadSettings().then(rearmAllTimers);
+      if (changes.enableScreenshots && changes.enableScreenshots.newValue && !changes.enableScreenshots.oldValue) {
+        // Screenshots just switched on: capture the tab in view now (it may be a tab that was
+        // open before the extension was installed and would otherwise never be captured)
+        loadSettings().then(captureFocusedTabIfMissing);
+      }
     }
   }
 });
@@ -685,6 +920,9 @@ async function initializeTimers() {
 // --- Context Menus ---
 
 chrome.runtime.onInstalled.addListener(async (details) => {
+  try {
+    await chrome.contextMenus.removeAll();
+  } catch (e) {}
   chrome.contextMenus.create({
     id: 'whitelistDomain',
     title: t('ctxWhitelistDomain', null, 'Whitelist this domain'),
@@ -707,6 +945,7 @@ chrome.runtime.onInstalled.addListener(async (details) => {
   });
 
   console.log(`Addon event: ${details.reason}`);
+  await ready;
 
   if (details.reason === "update" || details.reason === "install") {
     console.log("Running migration...");
@@ -714,20 +953,21 @@ chrome.runtime.onInstalled.addListener(async (details) => {
     console.log("Attempting to recover suspended tabs...");
     await recoverSuspendedTabs();
   }
-  await initialize();
+  if (details.reason === "update") {
+    await restoreTabsClosedByUpdate();
+  }
+  await collectStaleThumbnails();
 });
 
-chrome.runtime.onStartup.addListener(() => {
-  console.log('Service worker starting up...');
-  initialize();
+chrome.runtime.onStartup.addListener(async () => {
+  console.log('Browser started');
+  await ready;
+  await collectStaleThumbnails();
 });
-
-// Initialize on script load
-initialize();
 
 chrome.contextMenus.onClicked.addListener(async (info, tab) => {
+  await ready;
   await loadSettings();
-  await loadSuspendedTabs();
 
   try {
     if (info.menuItemId === 'whitelistDomain') {
@@ -849,6 +1089,11 @@ async function shouldProtectTab(tab, force = false) {
     return true;
   }
 
+  // The user already answered a "Leave page?" prompt for this tab with "Stay"
+  if (unloadBlockedTabs.has(tab.id)) {
+    return true;
+  }
+
   try {
     try {
       const url = new URL(tab.url);
@@ -919,35 +1164,90 @@ async function shouldProtectTab(tab, force = false) {
       return true;
     }
 
+    if (tabSettings.ignoreFormInput && await wouldPromptBeforeUnload(tab.id)) {
+      console.log(`Tab ${tab.id} has a beforeunload handler asking to keep the page (unsaved work)`);
+      return true;
+    }
+
     return false;
   } catch (e) {
     return true;
   }
 }
 
+/**
+ * Unsaved work that isn't in a form field (code editors, rich text editors, web apps) is usually
+ * guarded by a beforeunload handler, which would make the browser show a "Leave page?" prompt (and
+ * switch to the tab) when it gets suspended. Ask the page's own handlers: dispatch a synthetic,
+ * cancelable beforeunload event in every frame's main world and see whether any handler cancels it
+ * or sets returnValue, and check the return value of window.onbeforeunload.
+ * Nothing is unloaded; handlers just run once more than usual.
+ */
+async function wouldPromptBeforeUnload(tabId) {
+  try {
+    const results = await chrome.scripting.executeScript({
+      target: { tabId, allFrames: true },
+      world: 'MAIN',
+      func: () => {
+        // A cancelable event whose returnValue records what handlers assign to it
+        const makeEvent = () => {
+          const event = new Event('beforeunload', { cancelable: true });
+          const state = { set: false, value: undefined };
+          Object.defineProperty(event, 'returnValue', {
+            configurable: true,
+            get: () => (state.set ? state.value : true),
+            set: value => { state.set = true; state.value = value; }
+          });
+          // Like a real BeforeUnloadEvent: preventDefault() or any returnValue other than
+          // true/undefined/null (including '') asks for the prompt
+          const asked = () => event.defaultPrevented ||
+            (state.set && state.value !== true && state.value !== undefined && state.value !== null);
+          return { event, asked };
+        };
+
+        try {
+          const { event, asked } = makeEvent();
+          window.dispatchEvent(event); // runs addEventListener handlers and onbeforeunload
+          if (asked()) return true;
+        } catch (e) {}
+
+        // onbeforeunload can also ask by returning a value, which a synthetic event ignores
+        if (typeof window.onbeforeunload === 'function') {
+          try {
+            const { event, asked } = makeEvent();
+            const result = window.onbeforeunload.call(window, event);
+            if (asked() || (result !== undefined && result !== null && result !== true)) return true;
+          } catch (e) {}
+        }
+        return false;
+      }
+    });
+    return (results || []).some(r => r && r.result === true);
+  } catch (e) {
+    // Not scriptable (or MAIN world unsupported); the isolated-world check already covered access
+    return false;
+  }
+}
+
 // --- Utility Functions ---
 
 function saveSuspendedTabsState() {
-  chrome.storage.local.set({ suspendedTabs });
+  return chrome.storage.local.set({ suspendedTabs, orphanedTabs }).catch(e => console.error('Error saving suspended tabs:', e));
 }
 
+// Note: Chrome does not fire onRemoved for the extension's own tabs that it closes while updating the
+// extension, which is what lets restoreTabsClosedByUpdate() tell those apart from tabs the user closed.
 chrome.tabs.onRemoved.addListener(async (tabId) => {
+  await ready;
   await clearTabTimer(tabId);
   await clearDiscardTimer(tabId);
-
-  if (suspendedTabs[tabId]) {
-    delete suspendedTabs[tabId];
-    saveSuspendedTabsState();
-  }
-  await chrome.storage.local.remove([
-    "thumbnail_" + tabId,
-    "temp_img_" + tabId
-  ]);
+  clearUnloadBlocked(tabId);
+  await forgetSuspendedTab(tabId);
 });
 
 chrome.commands.onCommand.addListener(async (commandName) => {
+  await ready;
   await loadSettings();
-  await loadSuspendedTabs();
 
   if (commandName === "unsuspend-all-tabs") {
     const count = await unsuspendAllTabs();
@@ -991,17 +1291,8 @@ chrome.commands.onCommand.addListener(async (commandName) => {
     }
 
     case "unsuspend-current-tab": {
-      await clearDiscardTimer(tab.id);
-
-      if (suspendedTabs[tab.id]) {
-        const origUrl = suspendedTabs[tab.id].url;
-        delete suspendedTabs[tab.id];
-        saveSuspendedTabsState();
-        await chrome.storage.local.remove([
-          "thumbnail_" + tab.id,
-          "temp_img_" + tab.id
-        ]);
-        await chrome.tabs.update(tab.id, { url: origUrl });
+      if (isSuspendedUrl(tab.url) || suspendedTabs[tab.id]) {
+        await restoreSuspendedTab(tab);
       }
       break;
     }
@@ -1047,7 +1338,9 @@ async function runMigration() {
 
   try {
     const oldStorage = await chrome.storage.local.get("suspendedTabs");
-    if (oldStorage.suspendedTabs) {
+    const hasInlineThumbnails = oldStorage.suspendedTabs &&
+      Object.values(oldStorage.suspendedTabs).some(data => data && data.thumbnail);
+    if (hasInlineThumbnails) {
       console.log("Migration: Found old 'suspendedTabs' blob. Migrating to new format...");
       const oldTabs = oldStorage.suspendedTabs;
       let newSuspendedTabs = {};
@@ -1067,58 +1360,161 @@ async function runMigration() {
         await chrome.storage.local.set(newThumbnails);
       }
 
-      await chrome.storage.local.set({ suspendedTabs: newSuspendedTabs });
       suspendedTabs = newSuspendedTabs;
+      await saveSuspendedTabsState();
+      await reconcileSuspendedTabs();
     }
   } catch (error) {
     console.error("Local Tab Storage Migration failed:", error);
   }
 }
 
+/**
+ * Suspended pages that belong to another install of the extension (a different extension id or
+ * Firefox UUID, e.g. after a reinstall) can't load; point them at this install's page. Pages of
+ * this install are left alone: they already work, and reloading them would wake every suspended
+ * tab at once.
+ */
 async function recoverSuspendedTabs() {
   try {
-    const suspendedPagePattern = /^(chrome-extension|moz-extension):\/\/[^/]+\/suspended\.html\?/;
-    const currentBase = chrome.runtime.getURL("suspended.html");
-
     const tabs = await chrome.tabs.query({});
-    console.log(`Found ${tabs.length} tabs. Checking recovery...`);
     let recoveredCount = 0;
 
     for (const tab of tabs) {
-      if (tab.url && suspendedPagePattern.test(tab.url)) {
-        try {
-          const url = new URL(tab.url);
-          const origUrl = url.searchParams.get('origUrl');
-          const title = url.searchParams.get('title');
-          const favIconUrl = url.searchParams.get('favIconUrl');
-
-          if (origUrl) {
-            suspendedTabs[tab.id] = {
-              url: decodeURIComponent(origUrl),
-              title: decodeURIComponent(title || ''),
-              favIconUrl: decodeURIComponent(favIconUrl || '')
-            };
-            recoveredCount++;
-
-            const newSuspendedURL = currentBase +
-              "?origUrl=" + encodeURIComponent(suspendedTabs[tab.id].url) +
-              "&title=" + encodeURIComponent(suspendedTabs[tab.id].title) +
-              "&favIconUrl=" + encodeURIComponent(suspendedTabs[tab.id].favIconUrl) +
-              "&tabId=" + tab.id;
-
-            await chrome.tabs.update(tab.id, { url: newSuspendedURL });
-          }
-        } catch (parseError) {
-          console.error(`Failed to parse suspended URL:`, parseError);
-        }
+      if (isSuspendedUrl(tab.url)) continue;
+      const fromUrl = parseSuspendedUrl(tab.url);
+      if (!fromUrl) continue;
+      const record = recordFor({ ...fromUrl, pageKey: fromUrl.pageKey || String(tab.id) }, tab);
+      suspendedTabs[tab.id] = record;
+      try {
+        await chrome.tabs.update(tab.id, { url: buildSuspendedUrl(record) });
+        recoveredCount++;
+      } catch (e) {
+        console.error(`Failed to recover suspended tab ${tab.id}:`, e);
       }
     }
 
     if (recoveredCount > 0) {
-      saveSuspendedTabsState();
-      console.log(`Recovered ${recoveredCount} tabs.`);
+      await saveSuspendedTabsState();
+      console.log(`Recovered ${recoveredCount} tabs from another install.`);
     }
   } catch (error) {
     console.error('Error recovering tabs:', error);
+  }
+}
+
+/**
+ * Chrome closes every tab showing an extension page when it updates the extension in a running
+ * browser (verified for in-place updates; see PROJECT.md), and doesn't report those closures
+ * through tabs.onRemoved. Their records are therefore still there, now without a tab: reopen them
+ * where they were, still suspended.
+ *
+ * Only done when the update happened inside the current browser session. When the update is
+ * applied while the browser starts, the session restore brings the tabs back itself, and records
+ * without a tab may just be tabs that are not restored yet.
+ */
+async function restoreTabsClosedByUpdate() {
+  if (IS_FIREFOX) return; // Firefox keeps extension tabs open across updates (verified)
+  try {
+    const closed = orphanedTabs.filter(rec => rec.orphanedAt >= initStartedAt);
+    if (closed.length === 0) return;
+
+    const windows = await chrome.windows.getAll({ windowTypes: ['normal'] });
+    const windowIds = new Set(windows.map(w => w.id));
+    let sameSession = previousWindowIds.some(id => windowIds.has(id)) ||
+      closed.some(rec => windowIds.has(rec.windowId));
+
+    // Records written by versions before 2.1 have no window, and those versions didn't remember
+    // window ids. Chrome hands out tab ids in increasing order, also across restarts, so if some
+    // open tab is older than such a record, the record is from this session.
+    const legacy = closed.filter(rec => rec.windowId === undefined);
+    if (legacy.length > 0) {
+      const newestLegacyId = Math.max(...legacy.map(rec => parseInt(rec.pageKey, 10)).filter(Number.isFinite));
+      const tabs = await chrome.tabs.query({});
+      if (tabs.some(tab => tab.id < newestLegacyId)) sameSession = true;
+      const target = await chrome.windows.getLastFocused({ windowTypes: ['normal'] }).catch(() => windows[0]);
+      for (const rec of legacy) {
+        rec.windowId = target && target.id;
+        rec.index = undefined; // unknown: append
+      }
+    }
+
+    if (!sameSession) {
+      console.log(`Update applied at browser start; leaving ${closed.length} records to the session restore`);
+      return;
+    }
+
+    console.log(`Reopening ${closed.length} suspended tabs closed by the extension update`);
+    orphanedTabs = orphanedTabs.filter(rec => !closed.includes(rec));
+
+    const byWindow = new Map();
+    for (const rec of closed) {
+      if (!byWindow.has(rec.windowId)) byWindow.set(rec.windowId, []);
+      byWindow.get(rec.windowId).push(rec);
+    }
+
+    const created = [];
+    for (const [windowId, recs] of byWindow) {
+      recs.sort((a, b) => (a.index ?? 0) - (b.index ?? 0));
+      if (windowIds.has(windowId)) {
+        for (const rec of recs) {
+          const tab = await chrome.tabs.create({
+            windowId,
+            index: rec.index,
+            url: buildSuspendedUrl(rec),
+            active: false,
+            pinned: !!rec.pinned
+          }).catch(() => chrome.tabs.create({ windowId, url: buildSuspendedUrl(rec), active: false }));
+          created.push({ tab, rec });
+        }
+      } else {
+        // The window held only suspended tabs, so it closed along with them
+        const win = await chrome.windows.create({ url: recs.map(buildSuspendedUrl), focused: false });
+        win.tabs.forEach((tab, i) => created.push({ tab, rec: recs[i] }));
+        for (const { tab, rec } of created.filter(c => c.tab.windowId === win.id && c.rec.pinned)) {
+          await chrome.tabs.update(tab.id, { pinned: true }).catch(() => {});
+        }
+      }
+    }
+
+    for (const { tab, rec } of created) {
+      suspendedTabs[tab.id] = recordFor(rec, tab);
+      if (typeof rec.groupId === 'number' && rec.groupId >= 0 && chrome.tabs.group) {
+        await chrome.tabs.group({ groupId: rec.groupId, tabIds: [tab.id] }).catch(() => {});
+      }
+    }
+    await saveSuspendedTabsState();
+
+    if (settings.autoDiscard) {
+      for (const { tab } of created) {
+        discardWhenReady(tab.id, waitForTab(tab.id, t => t.status === 'complete', PAGE_READY_TIMEOUT_MS).then(() => sleep(500)));
+      }
+    }
+  } catch (error) {
+    console.error('Error reopening tabs closed by the update:', error);
+  }
+}
+
+// Removes thumbnails that no tab or record refers to any more
+async function collectStaleThumbnails() {
+  if (typeof chrome.storage.local.getKeys !== 'function') return;
+  try {
+    const keys = await chrome.storage.local.getKeys();
+    const tabs = await chrome.tabs.query({});
+    const keep = new Set([
+      ...Object.values(suspendedTabs).map(rec => rec.pageKey),
+      ...orphanedTabs.map(rec => rec.pageKey),
+      ...tabs.map(tab => String(tab.id))
+    ]);
+    const stale = keys.filter(key => {
+      const m = /^(?:thumbnail|temp_img)_(.+)$/.exec(key);
+      return m && !keep.has(m[1]);
+    });
+    if (stale.length) {
+      await chrome.storage.local.remove(stale);
+      console.log(`Removed ${stale.length} stale thumbnails`);
+    }
+  } catch (e) {
+    console.error('Error collecting stale thumbnails:', e);
   }
 }

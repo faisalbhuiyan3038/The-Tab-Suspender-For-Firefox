@@ -69,8 +69,14 @@ function resizeImage(dataUrl, maxWidth, maxHeight, quality) {
 }
 
 
+const pageParams = getQueryParams();
+
+// Set the real title before anything asynchronous runs: if the tab is discarded or the browser
+// restores it while storage is still being read, it must not be left as "Tab Suspended"
+document.title = pageParams.title || pageParams.origUrl || document.title;
+
 async function init() {
-  const params = getQueryParams();
+  const params = pageParams;
   const origUrl = params.origUrl;
   const title = params.title;
   const favIconUrl = params.favIconUrl;
@@ -122,7 +128,7 @@ async function init() {
         console.log("Displaying existing thumbnail");
         displayThumbnail(existingThumbnail);
 
-        // Case 2: First-time suspension, need to process temp image
+        // Case 2: legacy URL (older versions stored the full screenshot for the page to resize)
       } else if (hasCapture) {
         console.log("Processing new screenshot...");
         const tempData = await chrome.storage.local.get("temp_img_" + tabId);
@@ -155,7 +161,12 @@ async function init() {
   }
 }
 
-init();
+// Tell the background the page is complete, so it can be discarded without losing its state
+init()
+  .catch(error => console.error("Error initializing suspended page:", error))
+  .finally(() => {
+    chrome.runtime.sendMessage({ action: 'suspendedPageReady' }).catch(() => {});
+  });
 
 chrome.runtime.onMessage.addListener((message) => {
   if (message.action === 'updateTheme') {
