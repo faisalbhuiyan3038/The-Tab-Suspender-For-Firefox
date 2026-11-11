@@ -192,9 +192,14 @@ async function reconcileSuspendedTabs() {
       next[tab.id] = recordFor(rec, tab);
     }
 
+    // One record per suspended page: copies of a record whose page is open (or already kept as an
+    // orphan) would be reopened as duplicate tabs after an update. Older builds left such copies
+    // behind in browsers that give a tab a new id when it is discarded (Vivaldi).
+    const seen = new Set([...used].map(i => pageIdentity(pool[i])));
     const stillOrphaned = [];
     pool.forEach((rec, i) => {
-      if (used.has(i)) return;
+      if (used.has(i) || seen.has(pageIdentity(rec))) return;
+      seen.add(pageIdentity(rec));
       stillOrphaned.push({ ...rec, orphanedAt: rec.orphanedAt || now });
     });
 
@@ -227,15 +232,77 @@ function recordFor(rec, tab) {
   };
 }
 
+function pageIdentity(rec) {
+  return `${rec.pageKey}\n${rec.url}`;
+}
+
 // A suspended page appeared that has no record yet (session restore, recreated tab, ...)
 async function adoptSuspendedTab(tab) {
   const fromUrl = parseSuspendedUrl(tab.url);
   if (!fromUrl || suspendedTabs[tab.id]) return;
-  const idx = orphanedTabs.findIndex(rec => rec.pageKey === fromUrl.pageKey && rec.url === fromUrl.url);
-  const rec = idx >= 0 ? orphanedTabs.splice(idx, 1)[0] : fromUrl;
+  const identity = pageIdentity(fromUrl);
+
+  // The page's record may still sit under a tab id that no longer exists (the tab was replaced
+  // without tabs.onReplaced reaching us): move it instead of adding a second record for the page.
+  let rec = null;
+  for (const [id, other] of Object.entries(suspendedTabs)) {
+    if (pageIdentity(other) !== identity) continue;
+    const exists = await chrome.tabs.get(Number(id)).then(() => true, () => false);
+    if (exists) continue;
+    if (suspendedTabs[id] === other) delete suspendedTabs[id];
+    rec = other;
+    break;
+  }
+  if (!rec) {
+    const idx = orphanedTabs.findIndex(other => pageIdentity(other) === identity);
+    rec = idx >= 0 ? orphanedTabs.splice(idx, 1)[0] : fromUrl;
+  }
+  if (suspendedTabs[tab.id]) return; // recorded meanwhile (onReplaced)
   suspendedTabs[tab.id] = recordFor(rec, tab);
   await saveSuspendedTabsState();
 }
+
+/**
+ * Some browsers (Vivaldi) replace a tab with a new one, under a new id, when it is discarded;
+ * Chrome and Firefox keep the id. Everything kept per tab id has to follow, or the record of the
+ * suspended page stays behind under the dead id and the page gets adopted a second time, which
+ * reopens it twice after the next extension update.
+ */
+chrome.tabs.onReplaced.addListener(async (addedTabId, removedTabId) => {
+  await ready;
+  console.log(`Tab ${removedTabId} was replaced by tab ${addedTabId}`);
+  if (activeTabId === removedTabId) activeTabId = addedTabId;
+  if (unloadBlockedTabs.delete(removedTabId)) {
+    unloadBlockedTabs.add(addedTabId);
+    saveUnloadBlocked();
+  }
+
+  const rec = suspendedTabs[removedTabId];
+  if (rec) {
+    delete suspendedTabs[removedTabId];
+    const tab = await chrome.tabs.get(addedTabId).catch(() => null);
+    // Overrides a record the onUpdated listener may have just adopted from the URL
+    suspendedTabs[addedTabId] = tab ? recordFor(rec, tab) : rec;
+    await saveSuspendedTabsState();
+  }
+
+  for (const prefix of [SUSPEND_ALARM_PREFIX, DISCARD_ALARM_PREFIX]) {
+    const alarm = await chrome.alarms.get(prefix + removedTabId);
+    if (!alarm) continue;
+    await chrome.alarms.clear(alarm.name);
+    await chrome.alarms.create(prefix + addedTabId, { when: Math.max(alarm.scheduledTime, Date.now() + 1000) });
+  }
+
+  // Chrome-style live capture of the tab (a natively discarded tab may be suspended later)
+  if (!HAS_CAPTURE_TAB) {
+    const oldKey = 'thumbnail_' + removedTabId;
+    const stored = await chrome.storage.local.get(oldKey);
+    if (stored[oldKey]) {
+      await chrome.storage.local.set({ ['thumbnail_' + addedTabId]: stored[oldKey] });
+      if (!pageKeyInUse(String(removedTabId))) await chrome.storage.local.remove(oldKey);
+    }
+  }
+});
 
 // Removes a tab's record and its thumbnail (the tab was restored or closed by the user)
 async function forgetSuspendedTab(tabId, pageKeyFromUrl) {
@@ -837,6 +904,24 @@ async function restoreSuspendedTab(tab, pageUrl, fallbackUrl) {
  * Restores every tab (in all windows) that currently shows the suspended page, including
  * ones the browser has already discarded. Returns how many tabs were restored.
  */
+// Keyboard shortcut and context menu: the restored tabs may be in other windows, so confirm
+async function unsuspendAllTabsWithNotice() {
+  const count = await unsuspendAllTabs();
+  try {
+    chrome.notifications.create({
+      type: 'basic',
+      iconUrl: chrome.runtime.getURL('icons/icon48.png'),
+      title: t('extName', null, 'Tab Suspender'),
+      message: count > 0
+        ? t('statusUnsuspendedTabs', String(count), `Tabs unsuspended: ${count}`)
+        : t('statusNoSuspendedTabs', null, 'No suspended tabs')
+    });
+  } catch (notifErr) {
+    console.error('Failed to show notification:', notifErr);
+  }
+  return count;
+}
+
 async function unsuspendAllTabs() {
   await ready;
   const tabs = (await chrome.tabs.query({})).filter(tab => isSuspendedUrl(tab.url));
@@ -943,6 +1028,12 @@ chrome.runtime.onInstalled.addListener(async (details) => {
     title: t('ctxSuspendPage', null, 'Suspend This Page'),
     contexts: ['page']
   });
+  // On web pages, suspended pages and the toolbar icon's menu
+  chrome.contextMenus.create({
+    id: 'unsuspendAllTabs',
+    title: t('unsuspendAllTabs', null, 'Unsuspend All Tabs'),
+    contexts: ['page', 'action']
+  });
 
   console.log(`Addon event: ${details.reason}`);
   await ready;
@@ -987,6 +1078,8 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
       await toggleSiteOverrideForTab(tab);
     } else if (info.menuItemId === 'suspendPage') {
       await suspendTab(tab.id, true);
+    } else if (info.menuItemId === 'unsuspendAllTabs') {
+      await unsuspendAllTabsWithNotice();
     }
   } catch (error) {
     console.error('Error in context menu action:', error);
@@ -1250,19 +1343,7 @@ chrome.commands.onCommand.addListener(async (commandName) => {
   await loadSettings();
 
   if (commandName === "unsuspend-all-tabs") {
-    const count = await unsuspendAllTabs();
-    try {
-      chrome.notifications.create({
-        type: 'basic',
-        iconUrl: chrome.runtime.getURL('icons/icon48.png'),
-        title: t('extName', null, 'Tab Suspender'),
-        message: count > 0
-          ? t('statusUnsuspendedTabs', String(count), `Tabs unsuspended: ${count}`)
-          : t('statusNoSuspendedTabs', null, 'No suspended tabs')
-      });
-    } catch (notifErr) {
-      console.error('Failed to show notification:', notifErr);
-    }
+    await unsuspendAllTabsWithNotice();
     return;
   }
 
@@ -1433,10 +1514,13 @@ async function restoreTabsClosedByUpdate() {
       const tabs = await chrome.tabs.query({});
       if (tabs.some(tab => tab.id < newestLegacyId)) sameSession = true;
       const target = await chrome.windows.getLastFocused({ windowTypes: ['normal'] }).catch(() => windows[0]);
-      for (const rec of legacy) {
+      // Position unknown: append, in record order. The index has to be explicit; without one some
+      // browsers (Vivaldi) insert each new tab next to the active tab, reversing the order.
+      const inTarget = target ? (await chrome.tabs.query({ windowId: target.id })).length : 0;
+      legacy.forEach((rec, i) => {
         rec.windowId = target && target.id;
-        rec.index = undefined; // unknown: append
-      }
+        rec.index = inTarget + i;
+      });
     }
 
     if (!sameSession) {
@@ -1458,13 +1542,19 @@ async function restoreTabsClosedByUpdate() {
       recs.sort((a, b) => (a.index ?? 0) - (b.index ?? 0));
       if (windowIds.has(windowId)) {
         for (const rec of recs) {
-          const tab = await chrome.tabs.create({
+          let tab = await chrome.tabs.create({
             windowId,
             index: rec.index,
             url: buildSuspendedUrl(rec),
             active: false,
             pinned: !!rec.pinned
           }).catch(() => chrome.tabs.create({ windowId, url: buildSuspendedUrl(rec), active: false }));
+          // Vivaldi ignores the index and opens the tab next to the active one (its "new tab
+          // position" setting); move it into place
+          if (typeof rec.index === 'number' && tab.index !== rec.index) {
+            const moved = await chrome.tabs.move(tab.id, { index: rec.index }).catch(() => null);
+            if (moved && !Array.isArray(moved)) tab = moved;
+          }
           created.push({ tab, rec });
         }
       } else {

@@ -44,7 +44,12 @@ async function checkRecords(ctl, names) {
   const s = await suspendedOf(ctl);
   const local = await h.storageLocal(ctl);
   const recs = local.suspendedTabs || {};
+  // No duplicates: extra records turn into extra tabs at the next update
+  h.assert(Object.keys(recs).length === s.length,
+    `${Object.keys(recs).length} records for ${s.length} suspended tabs: ${JSON.stringify(Object.keys(recs))} vs ${s.map(t => t.id)}`);
   for (const n of names) {
+    const copies = s.filter(t => nameOf(t) === n).length;
+    h.assert(copies <= 1, `${n} is open ${copies} times`);
     const tab = s.find(t => nameOf(t) === n);
     h.assert(tab, `${n} is not suspended`);
     const rec = recs[tab.id];
@@ -269,7 +274,9 @@ async function chromePreexistingScreenshot(srv) {
 // Upgrade from an older build that has suspended tabs (records in the old format, no window ids)
 async function upgradeFromOldBuild(srv, kind) {
   const old = kind === 'chrome'
-    ? { ref: process.env.E2E_OLD_REF || 'd5c83d5', label: `commit ${process.env.E2E_OLD_REF || 'd5c83d5'}` }
+    ? (process.env.E2E_OLD_DIR
+      ? { dir: process.env.E2E_OLD_DIR, label: require('path').basename(process.env.E2E_OLD_DIR) }
+      : { ref: process.env.E2E_OLD_REF || 'd5c83d5', label: `commit ${process.env.E2E_OLD_REF || 'd5c83d5'}` })
     : { zip: require('path').join(h.ROOT, 'releases', 'v2.0-release.zip'), label: 'published v2.0' };
   const extDir = h.stageOldBuild(kind, h.tempDir('old'), old);
   const userDataDir = h.tempDir('profile');

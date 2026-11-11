@@ -1,6 +1,6 @@
 {
   "name": "the-tab-suspender",
-  "version": "1.9",
+  "version": "2.1",
   "scripts": {
     "build": "node build.js",
     "prebuild": "npm run i18n:check",

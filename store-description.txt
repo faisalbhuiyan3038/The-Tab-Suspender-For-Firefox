@@ -1,0 +1,134 @@
+The Tab Suspender: Save Memory & Improve Performance
+
+A lightweight extension that automatically suspends inactive tabs, freeing up system memory (RAM) and CPU. Putting unused tabs to sleep keeps your browser fast and responsive, extends battery life on laptops and improves overall system performance.
+
+Available for Firefox and Chrome (and other Chromium-based browsers) from the same codebase.
+
+If you find it useful, please rate and share it. Feedback and suggestions are welcome as a review or by email.
+
+
+WHAT'S NEW IN 2.1
+
+- Available in 47 languages.
+- New "Unsuspend All Tabs" action: in the popup, in the right-click menu of any page and of the toolbar icon, and as a keyboard shortcut.
+- Suspended tabs now survive extension updates and browser restarts without being reloaded or losing their titles.
+- Tabs with unsaved work (for example online code editors that ask "Leave page?") are no longer suspended, and you are no longer interrupted by that prompt.
+- Screenshots on the suspended page are more reliable and always show the right tab.
+- Fixed: cancelling a pause and re-enabling the extension now resume suspension correctly.
+- Fixed: duplicate tabs after an update in browsers that replace tabs when discarding them (e.g. Vivaldi).
+
+
+KEY DIFFERENCE FROM OTHER EXTENSIONS
+
+Suspended tabs never reload on their own; you click to load them. The extension also uses the browser's built-in native tab discarding, so a suspended tab uses almost no memory, as if it weren't open at all.
+
+
+CORE FEATURES
+
+Automatic suspension
+- Suspends tabs that have been inactive for a time you choose (default: 40 minutes).
+- The tab you are looking at is never suspended.
+
+Significant memory savings
+- Releases the memory used by inactive tabs so your active tabs and other applications run smoother.
+
+Native tab discarding
+- Uses the browser's native discard API for maximum efficiency and stability, while keeping the "click to restore" page.
+- If you look at a suspended tab and move away without restoring it, it is discarded again after 30 seconds.
+
+No accidental reloads
+- Suspended tabs don't reload when you switch to them. You decide when to load the content.
+
+Instant reload option
+- Turn off the suspended page to have tabs discarded directly; they then reload as soon as you open them.
+
+Pause suspension
+- Pause suspension for a while; it resumes automatically when the time is up.
+
+Per-site settings
+- Give individual sites their own suspend time and protection rules.
+
+Smart whitelisting and protection
+- Whitelist domains or individual pages so they are never suspended.
+- Optionally protect tabs that are playing audio or video.
+- Optionally protect tabs with unsaved form input or other unsaved work.
+- Optionally protect pinned tabs.
+- Optionally protect sites you have allowed to send notifications.
+
+Screenshots (optional)
+- Show a screenshot of the page as the background of the suspended tab, with adjustable quality.
+
+Visual feedback
+- Optionally mark suspended tabs with an emoji in the tab title (Zzz, Sleeping, Moon and more).
+- The suspended page shows the original title, address and site icon.
+
+Dark mode
+- Light and dark themes for the popup and the suspended page.
+
+Unsuspend all tabs
+- Restore every suspended tab in all windows from the popup, the right-click menu (on a page or on the toolbar icon) or a keyboard shortcut.
+
+Settings sync, export and import
+- Settings and whitelists sync across your devices through your browser account (if sync is enabled).
+- Export your settings to a file and import them again.
+
+Keyboard shortcuts
+- Suspend, unsuspend or whitelist the current tab, unsuspend all tabs, or toggle the site's custom settings. Assign your own keys in the browser's shortcut settings.
+
+Context menu
+- Right-click any page to suspend it, whitelist it or its domain, toggle custom settings for the site, or unsuspend all tabs.
+- Right-click the toolbar icon to unsuspend all tabs.
+
+Languages
+- The interface is available in 47 languages.
+
+
+HOW IT WORKS
+
+1. You choose a timeout (for example 30 minutes).
+2. When you haven't used a tab for that long, the extension unloads the website and replaces it with a small placeholder page, then lets the browser discard the tab.
+3. When you come back to the tab, you see the placeholder. Click anywhere on it to reload the original website.
+
+
+PRIVACY
+
+The Tab Suspender runs entirely on your device. It has no tracking or analytics and collects no personal data. Nothing about your tabs or browsing is sent anywhere. Page addresses and optional screenshots of suspended tabs are kept in the extension's local storage only to restore those tabs.
+
+
+SOME BACKGROUND
+
+I originally built this extension for my own use on Firefox. As more people started using it, I added the features they asked for. Someone then asked for a Chrome version, and both browsers now share the same modern Manifest V3 codebase.
+
+Perfect for anyone who keeps dozens of tabs open for research, work or reading lists but wants their computer to stay fast.
+
+
+CHANGELOG
+
+v2.1
+- 47 interface languages.
+- Unsuspend all tabs (popup button, page and toolbar-icon context menu, keyboard shortcut).
+- Suspended tabs survive extension updates and browser restarts.
+- Protection for tabs with unsaved work behind a "Leave page?" prompt.
+- More reliable screenshots.
+- Fixes for cancelling a pause and re-enabling the extension.
+- Fix for duplicate tabs after updates in Vivaldi.
+
+v2.0
+- Fixed incorrect detection of forms on some sites.
+- Suspending the current tab from the context menu now works even when "Disable Suspended Page" is enabled.
+- Added per-site settings.
+
+v1.9
+- Removed the notifications shown when a tab is suspended or whitelisted from the context menu.
+
+v1.8
+- Configurable suspended-tab emoji.
+- Pause suspension for a period of time, re-enabled automatically.
+- "Disable Suspended Page" option for instant reloads of suspended tabs.
+- Bug fixes.
+
+v1.7
+- Migration to Manifest V3.
+- Native discard API for better memory handling.
+- Suspended tabs survive browser updates and restarts more reliably.
+- Less background activity.

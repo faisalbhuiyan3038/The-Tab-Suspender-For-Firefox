@@ -97,11 +97,16 @@ function stageExtension(target, dir, { version } = {}) {
   return dir;
 }
 
-// Stages a previously released build: a release zip, or a git ref of this repo (+ its manifest)
-function stageOldBuild(target, dir, { zip, ref }) {
+// Stages a previously released build: an unpacked build directory, a release zip, or a git ref of
+// this repo (+ its manifest)
+function stageOldBuild(target, dir, { dir: from, zip, ref }) {
   const { execFileSync } = require('child_process');
   fs.rmSync(dir, { recursive: true, force: true });
   fs.mkdirSync(dir, { recursive: true });
+  if (from) {
+    fs.cpSync(from, dir, { recursive: true });
+    return dir;
+  }
   const unzip = (file, into) =>
     execFileSync('powershell', ['-NoProfile', '-Command', `Expand-Archive -Force '${file}' '${into}'`]);
   if (zip) {
@@ -266,8 +271,9 @@ async function launchFirefox({ userDataDir, webBase, restore = false, headless =
     headless,
     userDataDir,
     extraPrefsFirefox: prefs,
-    // Needed to evaluate script inside moz-extension: pages
+    // Needed to evaluate script inside moz-extension: pages (Firefox 160 wants the env variable too)
     args: ['-remote-allow-system-access'],
+    env: { ...process.env, MOZ_REMOTE_ALLOW_SYSTEM_ACCESS: '1' },
     defaultViewport: null
   });
   const ctl = new FirefoxCtl(browser);

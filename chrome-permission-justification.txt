@@ -1,0 +1,54 @@
+Chrome Web Store - Privacy practices tab (The Tab Suspender v2.1)
+
+NOTE BEFORE SUBMITTING: manifest.chrome.json still declares "webNavigation", but the code never uses it. Chrome Web Store review rejects unused permissions, so remove it from both manifests before uploading. It is therefore not listed below.
+
+
+SINGLE PURPOSE
+
+The Tab Suspender reduces the memory and CPU used by the browser by suspending tabs that have been inactive for a user-chosen time. Each suspended tab is replaced with a lightweight placeholder page and discarded with Chrome's native tab discarding. The user restores it with a click. All settings (timeout, whitelists, protection rules, per-site settings, pause, screenshots, appearance) only control when and how tabs are suspended and restored.
+
+
+PERMISSION JUSTIFICATIONS
+
+tabs
+Needed to read each tab's URL, title, favicon, and its active, pinned, audible and discarded state. That information decides whether a tab may be suspended (whitelists, per-site settings, pinned and audio protection) and is shown on the suspended page. The permission is also used to replace an inactive tab with the suspended page, discard it, restore it to its original URL, and reopen suspended tabs that Chrome closes when the extension updates.
+
+storage
+Stores the user's settings and whitelists (storage.sync, so they follow the user's Chrome profile), and the information needed to restore suspended tabs, i.e. original URL, title and optional screenshot (storage.local). All of it stays in the user's browser.
+
+alarms
+Each tab's inactivity timer and the pause timer are chrome.alarms, so they keep working after the service worker is stopped. The extension also uses alarms to discard a suspended tab again after the user looked at it without restoring it.
+
+scripting
+Before suspending a tab, the extension runs a short script in the page. The script checks for unsaved form input or unsaved work behind a "Leave page?" prompt, and whether the site has notification permission, so that those tabs are not suspended and work is not lost. If the user turned the option on, it also adds the chosen emoji to the tab title. The scripts only read page state; nothing is sent anywhere.
+
+contextMenus
+Adds right-click menu items to suspend the current page, whitelist the page or its domain, toggle custom settings for the site, and restore all suspended tabs. The "Unsuspend All Tabs" item is also shown in the toolbar icon's right-click menu.
+
+notifications
+Shows a short confirmation after a keyboard shortcut or context-menu action whose result is otherwise not visible, e.g. "Tabs unsuspended: 5" after "Unsuspend All Tabs" (the restored tabs may be in other windows), or that custom settings were enabled or disabled for a site.
+
+
+HOST PERMISSION JUSTIFICATION (<all_urls>)
+
+Any website the user visits can become an inactive tab that needs to be suspended, so the extension needs access to all sites. Host access is required to:
+- run the unsaved-work, form and notification checks with chrome.scripting before suspending a tab, on whatever site it shows;
+- take the optional screenshot of the visible tab (chrome.tabs.captureVisibleTab) that is shown as the suspended page's background.
+Narrowing the access to specific sites would leave tabs on all other sites unprotected against data loss.
+
+
+REMOTE CODE
+
+No, I am not using remote code. All JavaScript is included in the extension package. No external scripts are loaded, and the extension never evaluates code that comes from outside the package.
+
+
+DATA USAGE
+
+The extension does not collect or transmit any user data. It has no analytics, tracking or server. The URLs, titles and optional screenshots of suspended tabs are stored locally in the browser only so that those tabs can be restored, and they are deleted when the tab is restored or closed. Settings sync through the user's own Chrome sync if it is enabled.
+
+Data type checkboxes: leave all unchecked (nothing is collected or transmitted).
+
+Certifications (check all three):
+- I do not sell or transfer user data to third parties, outside of the approved use cases.
+- I do not use or transfer user data for purposes that are unrelated to my item's single purpose.
+- I do not use or transfer user data to determine creditworthiness or for lending purposes.
