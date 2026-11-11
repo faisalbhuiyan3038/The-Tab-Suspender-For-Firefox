@@ -2,8 +2,6 @@ The Tab Suspender: Save Memory & Improve Performance
 
 A lightweight extension that automatically suspends inactive tabs, freeing up system memory (RAM) and CPU. Putting unused tabs to sleep keeps your browser fast and responsive, extends battery life on laptops and improves overall system performance.
 
-Available for Firefox and Chrome (and other Chromium-based browsers) from the same codebase.
-
 If you find it useful, please rate and share it. Feedback and suggestions are welcome as a review or by email.
 
 
@@ -15,7 +13,7 @@ WHAT'S NEW IN 2.1
 - Tabs with unsaved work (for example online code editors that ask "Leave page?") are no longer suspended, and you are no longer interrupted by that prompt.
 - Screenshots on the suspended page are more reliable and always show the right tab.
 - Fixed: cancelling a pause and re-enabling the extension now resume suspension correctly.
-- Fixed: duplicate tabs after an update in browsers that replace tabs when discarding them (e.g. Vivaldi).
+- Fixed: suspended tabs could be reopened twice after an update in some browsers.
 
 
 KEY DIFFERENCE FROM OTHER EXTENSIONS
@@ -95,10 +93,6 @@ PRIVACY
 The Tab Suspender runs entirely on your device. It has no tracking or analytics and collects no personal data. Nothing about your tabs or browsing is sent anywhere. Page addresses and optional screenshots of suspended tabs are kept in the extension's local storage only to restore those tabs.
 
 
-SOME BACKGROUND
-
-I originally built this extension for my own use on Firefox. As more people started using it, I added the features they asked for. Someone then asked for a Chrome version, and both browsers now share the same modern Manifest V3 codebase.
-
 Perfect for anyone who keeps dozens of tabs open for research, work or reading lists but wants their computer to stay fast.
 
 
@@ -111,7 +105,7 @@ v2.1
 - Protection for tabs with unsaved work behind a "Leave page?" prompt.
 - More reliable screenshots.
 - Fixes for cancelling a pause and re-enabling the extension.
-- Fix for duplicate tabs after updates in Vivaldi.
+- Fix for suspended tabs reopened twice after updates in some browsers.
 
 v2.0
 - Fixed incorrect detection of forms on some sites.
